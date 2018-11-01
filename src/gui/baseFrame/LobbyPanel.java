@@ -1,6 +1,6 @@
 package gui.baseFrame;
 
-import gui.baseFrame.buttons.LobbyButtons.ReadyButton;
+import gui.baseFrame.buttons.lobbyButtons.ReadyButton;
 
 import javax.swing.*;
 

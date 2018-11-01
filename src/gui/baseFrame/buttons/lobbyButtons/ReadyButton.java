@@ -1,4 +1,4 @@
-package gui.baseFrame.buttons.LobbyButtons;
+package gui.baseFrame.buttons.lobbyButtons;
 
 import javax.swing.*;
 
