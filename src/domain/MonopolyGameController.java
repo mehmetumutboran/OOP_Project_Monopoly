@@ -1,25 +1,22 @@
 package domain;
 
-import domain.die.Die;
+import domain.die.DiceCup;
 import domain.player.Player;
 
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
 
-public class Monopoly {
+public class MonopolyGameController {
     private ArrayList<Player> playerList;
     private Deque<Player> playerQueue;
-    private Die[] die; //TODO Array or single var?
+    private DiceCup cup;
 
-    private Monopoly() {
+    private MonopolyGameController() {
         playerList = new ArrayList<>();
         playerQueue = new LinkedList<>();
-        die = new Die[3];
+        cup = new DiceCup();
     }
 
 
-    public Die[] getDie() {
-        return die;
-    }
 }
