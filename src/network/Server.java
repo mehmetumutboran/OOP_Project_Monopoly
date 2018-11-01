@@ -1,9 +1,8 @@
-package Network;
+package network;
 
 import java.net.ServerSocket;
 
 public class Server {
     ServerSocket ss;
-    ServerSocket s2;
-    ServerSocket s3;
+
 }
