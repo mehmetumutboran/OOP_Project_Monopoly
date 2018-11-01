@@ -16,6 +16,6 @@ public class JoinButton extends JButton implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         System.out.println("Join Button Pressed");
-        BaseFrame.setStatus("lobby");
+        BaseFrame.setStatus("Lobby");
     }
 }

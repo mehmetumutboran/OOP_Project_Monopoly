@@ -57,7 +57,7 @@ public class JoinPanel extends JPanel {
         joinButton.setBounds((this.width - BUTTON_WIDTH) / 2,
                 (this.height - (-5) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
         backButton.setBounds((this.width - BUTTON_WIDTH) / 2,
-                (this.height - (-2) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
+                (this.height - (-8) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
 
         joinButton.setBackground(Color.gray);
         backButton.setBackground(Color.gray);

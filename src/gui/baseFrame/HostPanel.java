@@ -60,14 +60,18 @@ public class HostPanel extends JPanel {
         title.setBounds(500, 150, 200, 40);
 
         usernameLabel = new JLabel("Username");
-        usernameLabel.setBounds(300, 200, 175, 40);
+        usernameLabel.setBounds((this.width - 2 * BUTTON_WIDTH) / 2,
+                (this.height - 4 * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
         usernameField = new JTextField(50);
-        usernameField.setBounds(500, 200, 200, 40);
+        usernameField.setBounds((this.width - BUTTON_WIDTH) / 2,
+                (this.height - 4 * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
 
         portLabel = new JLabel("Port");
-        portLabel.setBounds(300, 300, 175, 40);
+        portLabel.setBounds((this.width - 2 * BUTTON_WIDTH) / 2,
+                (this.height - BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
         portField = new JTextField(50);
-        portLabel.setBounds(500, 300, 200, 40);
+        portField.setBounds((this.width - BUTTON_WIDTH) / 2,
+                (this.height - BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
 
         this.add(title);
         this.add(portField);
