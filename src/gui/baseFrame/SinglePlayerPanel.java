@@ -3,14 +3,17 @@ package gui.baseFrame;
 import gui.baseFrame.buttons.initialScreenButons.ExitButton;
 import gui.baseFrame.buttons.initialScreenButons.MultiplayerButton;
 import gui.baseFrame.buttons.initialScreenButons.SinglePlayerButton;
+import gui.baseFrame.buttons.multiplayerButtons.BackButton;
+import gui.baseFrame.buttons.singlePlayerButtons.EnterButton;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class SinglePlayerPanel extends JPanel {
-    private SinglePlayerButton singlePlayerButton;
-    private MultiplayerButton multiPlayerButton;
-    private ExitButton exitButton;
+    private EnterButton enterButton;
+    private BackButton backButton;
+    private JTextField userNameField;
+    private JLabel userNameLabel;
     private JLabel title;
 
     private int width;
@@ -33,28 +36,31 @@ public class SinglePlayerPanel extends JPanel {
     }
 
     private void initButtons(){
-        singlePlayerButton = new SinglePlayerButton("Single Player");
-        multiPlayerButton = new MultiplayerButton("Multiplayer");
-        exitButton = new ExitButton(" Exit");
+        enterButton = new EnterButton("Enter");
+        backButton = new BackButton("Back");
+        userNameField = new JTextField();
+        userNameLabel = new JLabel();
 
-        singlePlayerButton.setBounds((this.width-BUTTON_WIDTH)/2,
-                (this.height-4*BUTTON_HEIGHT)/2, BUTTON_WIDTH, BUTTON_HEIGHT);
-        multiPlayerButton.setBounds((this.width-BUTTON_WIDTH)/2,
+        userNameField.setBounds((this.width - BUTTON_WIDTH) / 2,
+                (this.height - 4 * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
+        userNameLabel.setBounds((this.width - 2 * BUTTON_WIDTH) / 2,
+                (this.height - 4 * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
+
+        enterButton.setBounds((this.width-BUTTON_WIDTH)/2,
                 (this.height-BUTTON_HEIGHT)/2, BUTTON_WIDTH, BUTTON_HEIGHT);
-        exitButton.setBounds((this.width-BUTTON_WIDTH)/2,
-                (this.height-(-2)*BUTTON_HEIGHT)/2, BUTTON_WIDTH, BUTTON_HEIGHT);
+        backButton.setBounds((this.width-BUTTON_WIDTH)/2,
+                (this.height+2*BUTTON_HEIGHT)/2, BUTTON_WIDTH, BUTTON_HEIGHT);
 
-        singlePlayerButton.setBackground(Color.gray);
-        multiPlayerButton.setBackground(Color.gray);
-        exitButton.setBackground(Color.gray);
+        enterButton.setBackground(Color.gray);
+        backButton.setBackground(Color.gray);
 
-        singlePlayerButton.setBorderPainted(false);
-        multiPlayerButton.setBorderPainted(false);
-        exitButton.setBorderPainted(false);
+        enterButton.setBorderPainted(false);
+        backButton.setBorderPainted(false);
 
-        this.add(singlePlayerButton);
-        this.add(multiPlayerButton);
-        this.add(exitButton);
+        this.add(enterButton);
+        this.add(backButton);
+        this.add(userNameField);
+        this.add(userNameLabel);
     }
 
     public void initGUI(){
