@@ -30,7 +30,7 @@ public class DiceCup {
     }
 
     private void roll() {
-        DiceRollFactory.getInstance().getDiceRollStrategy().roll();
+        DiceRollFactory.getInstance().getDiceRollStrategy().roll(this);
     }
 
     /**

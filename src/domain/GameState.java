@@ -8,7 +8,7 @@ public class GameState {
 
     public static GameState getGs() {
         if(gs == null){
-            gs = new GameState(); //TODO this or new Gamestate
+            gs = new GameState();
         }
 
         return gs;
