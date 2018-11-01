@@ -1,4 +1,6 @@
 package gui.baseFrame;
 
-public class HostPanel {
+import javax.swing.*;
+
+public class HostPanel extends JPanel {
 }

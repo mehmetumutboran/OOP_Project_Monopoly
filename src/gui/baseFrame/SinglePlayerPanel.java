@@ -11,6 +11,7 @@ public class SinglePlayerPanel extends JPanel {
     private SinglePlayerButton singlePlayerButton;
     private MultiplayerButton multiPlayerButton;
     private ExitButton exitButton;
+    private JLabel title;
 
     private int width;
     private int height;
@@ -25,11 +26,8 @@ public class SinglePlayerPanel extends JPanel {
         this.width = width;
         this.height = height;
 
-        this.setLayout(null);
-        this.setBackground(Color.GREEN);
 
-        initButtons();
-
+        initGUI();
 
         this.setVisible(true);
     }
@@ -59,5 +57,15 @@ public class SinglePlayerPanel extends JPanel {
         this.add(exitButton);
     }
 
+    public void initGUI(){
+        this.setLayout(null);
+        this.setBackground(Color.GRAY);
+
+        title = new JLabel("Single Player");
+        title.setBounds(500, 200, 200, 40);
+        this.add(title);
+
+        initButtons();
+    }
 
 }
