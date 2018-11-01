@@ -13,5 +13,9 @@ public class InitialScreenPanel extends JPanel {
 
     public InitialScreenPanel() {
         singlePlayerButton = new SinglePlayerButton("Single Player");
+        multiPlayerButton = new MultiplayerButton("Multiplayer");
+        exitButton = new ExitButton("Exit");
+
+
     }
 }
