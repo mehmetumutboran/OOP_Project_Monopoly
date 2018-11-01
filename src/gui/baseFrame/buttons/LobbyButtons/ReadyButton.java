@@ -7,4 +7,8 @@ import javax.swing.*;
  *
  */
 public class ReadyButton extends JButton {
+    public ReadyButton(String text){
+        super(text);
+    }
+
 }
