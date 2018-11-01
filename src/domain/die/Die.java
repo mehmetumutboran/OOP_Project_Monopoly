@@ -1,30 +1,29 @@
 package domain.die;
 
-import java.util.ArrayList;
-
 public abstract class Die {
-    private String faceValue;
-    private ArrayList<String> valueList;
-    private String[] faces;
+    private int faceValue;
+    private int[] faces;
 
     public Die() {
-        this.valueList = new ArrayList<>(); //TODO Lazy init
-        this.faces = new String[6];
+        this.faces = new int[6];
     }
 
-    public String getFaceValue() {
+    public int getFaceValue() {
         return faceValue;
     }
 
-    public ArrayList<String> getValueList() {
-        return valueList;
-    }
-
-    protected void setFaceValue(String faceValue) { //TODO protected?
+    protected void setFaceValue(int faceValue) { //TODO protected?
         this.faceValue = faceValue;
     }
 
-    protected void setFaces(String[] faces) {
+    protected void setFaces(int[] faces) {
         this.faces = faces;
     }
+
+    protected int[] getFaces() {
+        return faces;
+    }
+
+    public abstract void roll();
+
 }
