@@ -1,7 +1,5 @@
 package gui.baseFrame;
 
-import gui.baseFrame.buttons.initialScreenButons.SinglePlayerButton;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;

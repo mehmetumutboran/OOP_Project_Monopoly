@@ -8,7 +8,7 @@ public class LobbyPanel extends JPanel {
     private ReadyButton readyButton;
 
 
-    public LobbyPanel (){
+    public LobbyPanel() {
         readyButton = new ReadyButton("Ready");
     }
 

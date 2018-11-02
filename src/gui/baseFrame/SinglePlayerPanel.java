@@ -1,8 +1,5 @@
 package gui.baseFrame;
 
-import gui.baseFrame.buttons.initialScreenButons.ExitButton;
-import gui.baseFrame.buttons.initialScreenButons.MultiplayerButton;
-import gui.baseFrame.buttons.initialScreenButons.SinglePlayerButton;
 import gui.baseFrame.buttons.multiplayerButtons.BackButton;
 import gui.baseFrame.buttons.singlePlayerButtons.EnterButton;
 
@@ -24,7 +21,6 @@ public class SinglePlayerPanel extends JPanel {
     private final int BUTTON_HEIGHT = 50;
 
 
-
     public SinglePlayerPanel(int width, int height) {
         this.width = width;
         this.height = height;
@@ -35,7 +31,7 @@ public class SinglePlayerPanel extends JPanel {
         this.setVisible(true);
     }
 
-    private void initButtons(){
+    private void initButtons() {
         enterButton = new EnterButton("Enter");
         backButton = new BackButton("Back");
         userNameField = new JTextField();
@@ -46,10 +42,10 @@ public class SinglePlayerPanel extends JPanel {
         userNameLabel.setBounds((this.width - 2 * BUTTON_WIDTH) / 2,
                 (this.height - 4 * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
 
-        enterButton.setBounds((this.width-BUTTON_WIDTH)/2,
-                (this.height-BUTTON_HEIGHT)/2, BUTTON_WIDTH, BUTTON_HEIGHT);
-        backButton.setBounds((this.width-BUTTON_WIDTH)/2,
-                (this.height+2*BUTTON_HEIGHT)/2, BUTTON_WIDTH, BUTTON_HEIGHT);
+        enterButton.setBounds((this.width - BUTTON_WIDTH) / 2,
+                (this.height - BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
+        backButton.setBounds((this.width - BUTTON_WIDTH) / 2,
+                (this.height + 2 * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
 
         enterButton.setBackground(Color.gray);
         backButton.setBackground(Color.gray);
@@ -63,7 +59,7 @@ public class SinglePlayerPanel extends JPanel {
         this.add(userNameLabel);
     }
 
-    public void initGUI(){
+    public void initGUI() {
         this.setLayout(null);
         this.setBackground(Color.GRAY);
 
