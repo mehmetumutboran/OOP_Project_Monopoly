@@ -34,7 +34,7 @@ public class HostPanel extends JPanel {
     }
 
     private void initButtons() {
-        hostButton = new HostButton("Host");
+        hostButton = new HostButton("Host", usernameField, portField);
         backButton = new BackButton("Back");
 
         hostButton.setBounds((this.width - BUTTON_WIDTH) / 2,
@@ -81,5 +81,4 @@ public class HostPanel extends JPanel {
 
         initButtons();
     }
-
 }

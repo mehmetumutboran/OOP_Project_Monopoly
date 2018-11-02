@@ -29,27 +29,10 @@ public class DiceCup {
         return totalFaceValue;
     }
 
-    private void roll() {
+    private void rollDice() {
         DiceRollFactory.getInstance().getDiceRollStrategy().roll(this);
     }
 
-    /**
-     * Method for RollThree Squares
-     */
-    public void rollThree() {
-        roll();
 
-        for (int i = 0; i < speedDieIndex; i++) {
-            totalFaceValue += dice[i].getFaceValue();
-        }
-    }
-
-    /**
-     * Normal roll at the beginning of the turn
-     */
-    public void turnRoll() {
-        roll();
-
-    }
 
 }

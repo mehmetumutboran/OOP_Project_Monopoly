@@ -18,4 +18,9 @@ public class Player {
 
     //TODO how to take color of token ?
 
+
+    public Player(String name) {
+        this.name = name;
+        //TODO init fields
+    }
 }

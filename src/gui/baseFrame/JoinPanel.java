@@ -33,7 +33,7 @@ public class JoinPanel extends JPanel {
     }
 
     private void initButtons() {
-        joinButton = new JoinButton("Join");
+        joinButton = new JoinButton("Join", userNameField, ipField, portField);
         backButton = new BackButton("Back");
         userNameField = new JTextField();
         ipField = new JTextField();

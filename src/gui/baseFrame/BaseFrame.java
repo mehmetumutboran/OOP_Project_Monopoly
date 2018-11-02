@@ -23,6 +23,7 @@ public class BaseFrame extends JFrame implements Runnable {
 
     public BaseFrame() throws HeadlessException {
         this.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+//        this.setBackground(Color.GRAY);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.panelMap = new HashMap<>();
 
@@ -36,10 +37,9 @@ public class BaseFrame extends JFrame implements Runnable {
         initialScreenPanel = new InitialScreenPanel(FRAME_WIDTH, FRAME_HEIGHT);
         multiPlayerPanel = new MultiPlayerPanel(FRAME_WIDTH, FRAME_HEIGHT);
         singlePlayerPanel = new SinglePlayerPanel(FRAME_WIDTH, FRAME_HEIGHT);
-        lobbyPanel = new LobbyPanel();
+        lobbyPanel = new LobbyPanel(FRAME_WIDTH, FRAME_HEIGHT);
         hostPanel = new HostPanel(FRAME_WIDTH, FRAME_HEIGHT);
         joinPanel = new JoinPanel(FRAME_WIDTH, FRAME_HEIGHT);
-        //TODO add others
 
         panelMap.put("Init", initialScreenPanel);
         panelMap.put("Multi", multiPlayerPanel);
@@ -69,22 +69,16 @@ public class BaseFrame extends JFrame implements Runnable {
 
     }
 
-    public static void main(String[] args) {
-        new BaseFrame();
-
-    }
 
     @Override
     public void run() {
         while (true) {
             if (isIsChanged()) {
-                synchronized (this) {
-                    this.getContentPane().removeAll();
-                    this.getContentPane().add(panelMap.get(getStatus()));
-                    this.revalidate();
-                    this.repaint();
-                    setIsChanged(false);
-                }
+                this.getContentPane().removeAll();
+                this.getContentPane().add(panelMap.get(getStatus()));
+                this.revalidate();
+                this.repaint();
+                setIsChanged(false);
             }
         }
     }
