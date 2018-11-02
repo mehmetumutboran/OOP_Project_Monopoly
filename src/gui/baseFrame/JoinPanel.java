@@ -35,25 +35,7 @@ public class JoinPanel extends JPanel {
     private void initButtons() {
         joinButton = new JoinButton("Join", userNameField, ipField, portField);
         backButton = new BackButton("Back");
-        userNameField = new JTextField();
-        ipField = new JTextField();
-        portField = new JTextField();
-        userNameLabel = new JLabel("Username: ");
-        ipLabel = new JLabel("IP: ");
-        portLabel = new JLabel("Port: ");
 
-        userNameField.setBounds((this.width - BUTTON_WIDTH) / 2,
-                (this.height - 4 * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
-        userNameLabel.setBounds((this.width - 2 * BUTTON_WIDTH) / 2,
-                (this.height - 4 * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
-        ipField.setBounds((this.width - BUTTON_WIDTH) / 2,
-                (this.height - BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
-        ipLabel.setBounds((this.width - 2 * BUTTON_WIDTH) / 2,
-                (this.height - BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
-        portField.setBounds((this.width - BUTTON_WIDTH) / 2,
-                (this.height - (-2) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
-        portLabel.setBounds((this.width - 2 * BUTTON_WIDTH) / 2,
-                (this.height - (-2) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
         joinButton.setBounds((this.width - BUTTON_WIDTH) / 2,
                 (this.height - (-5) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
         backButton.setBounds((this.width - BUTTON_WIDTH) / 2,
@@ -83,6 +65,26 @@ public class JoinPanel extends JPanel {
         title = new JLabel("Join a Game");
         title.setBounds(500, 200, 200, 40);
         this.add(title);
+
+        userNameField = new JTextField();
+        ipField = new JTextField();
+        portField = new JTextField();
+        userNameLabel = new JLabel("Username: ");
+        ipLabel = new JLabel("IP: ");
+        portLabel = new JLabel("Port: ");
+
+        userNameField.setBounds((this.width - BUTTON_WIDTH) / 2,
+                (this.height - 4 * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
+        userNameLabel.setBounds((this.width - 2 * BUTTON_WIDTH) / 2,
+                (this.height - 4 * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
+        ipField.setBounds((this.width - BUTTON_WIDTH) / 2,
+                (this.height - BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
+        ipLabel.setBounds((this.width - 2 * BUTTON_WIDTH) / 2,
+                (this.height - BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
+        portField.setBounds((this.width - BUTTON_WIDTH) / 2,
+                (this.height - (-2) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
+        portLabel.setBounds((this.width - 2 * BUTTON_WIDTH) / 2,
+                (this.height - (-2) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
 
         initButtons();
     }
