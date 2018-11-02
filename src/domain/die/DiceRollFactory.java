@@ -9,7 +9,7 @@ public class DiceRollFactory {
     }
 
     public static DiceRollFactory getInstance() {
-        if(df == null){
+        if (df == null) {
             df = new DiceRollFactory();
         }
         return df;

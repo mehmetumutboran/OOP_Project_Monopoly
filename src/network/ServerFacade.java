@@ -8,6 +8,7 @@ public class ServerFacade {
 
     /**
      * Creates Server object and stores it
+     *
      * @param port Server socket port
      * @return Whether server successfully created
      */

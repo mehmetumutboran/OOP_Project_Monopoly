@@ -1,6 +1,6 @@
 package domain.board;
 
-public class Railroad extends DeedSquare{
+public class Railroad extends DeedSquare {
     private boolean hasDepot;
 
     public Railroad(String name, int buyValue, int rent) {

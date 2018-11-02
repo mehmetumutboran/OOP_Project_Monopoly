@@ -1,6 +1,9 @@
 package network;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class ClientSender extends Thread {
     DataOutputStream dos;
@@ -10,14 +13,15 @@ public class ClientSender extends Thread {
     }
 
     @Override
-    public void run(){
-        BufferedReader inputLine = new BufferedReader(new InputStreamReader(System.in));
-        while (true){
+    public void run() {
+
+        while (true) {
             try {
-                dos.writeUTF(inputLine.readLine().trim());
+                dos.writeUTF(""); //TODO
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
+
 }

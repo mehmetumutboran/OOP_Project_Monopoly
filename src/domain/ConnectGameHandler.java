@@ -1,12 +1,17 @@
 package domain;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import domain.player.Player;
 import network.ClientFacade;
 import network.ServerFacade;
+import network.listeners.ReceivedChangedListener;
+
+import java.io.IOException;
 
 /**
  * Singleton Class to handle communication between UI and Network during initialization
  */
-public class ConnectGameHandler {
+public class ConnectGameHandler implements ReceivedChangedListener {
     private ClientFacade clientFacade;
     private ServerFacade serverFacade;
 
@@ -15,6 +20,7 @@ public class ConnectGameHandler {
     private ConnectGameHandler() {
         serverFacade = new ServerFacade();
         clientFacade = new ClientFacade();
+        clientFacade.addReceivedChangedListener(this);
     }
 
     public static ConnectGameHandler getInstance() {
@@ -25,9 +31,8 @@ public class ConnectGameHandler {
     }
 
     /**
-     *
      * @param username Username from the {@link gui.baseFrame.buttons.hostJoinButtons.HostButton} usernameField
-     * @param port Port number for the server connection from {@link gui.baseFrame.buttons.hostJoinButtons.HostButton}
+     * @param port     Port number for the server connection from {@link gui.baseFrame.buttons.hostJoinButtons.HostButton}
      */
     public void connectHost(String username, int port) {
         if (serverFacade.createServer(port)) {
@@ -38,15 +43,33 @@ public class ConnectGameHandler {
     }
 
     /**
-     *
      * @param username Username for the player
-     * @param ip IP for server connection
-     * @param port for server Connection
+     * @param ip       IP for server connection
+     * @param port     for server Connection
      */
     public void connectClient(String username, String ip, int port) {
+        Player player = new Player(username);
+
         if (clientFacade.createClient(ip, port)) {
-            MonopolyGameController.getInstance().addPlayer(username);
+            MonopolyGameController.getInstance().addPlayer(player);
+            clientFacade.send(player.toJSON());
+//            System.out.println(MonopolyGameController.getInstance().getPlayerList());
         }
     }
 
+    /**
+     * Normally it would transfer received message to the {@link MessageInterpreter}
+     * Right now it assumes Received message is new Player and adds it to the {@link MonopolyGameController}.playerList
+     */
+    @Override
+    public void onReceivedChangedEvent() {
+        //TODO
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            Player player = mapper.readValue(clientFacade.getMessage(), Player.class);
+            MonopolyGameController.getInstance().addPlayer(player);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

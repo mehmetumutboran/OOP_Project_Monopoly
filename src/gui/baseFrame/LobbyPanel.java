@@ -1,6 +1,5 @@
 package gui.baseFrame;
 
-import domain.ConnectGameHandler;
 import gui.baseFrame.buttons.lobbyButtons.ReadyButton;
 import gui.baseFrame.buttons.multiplayerButtons.BackButton;
 
@@ -74,13 +73,13 @@ public class LobbyPanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         for (int i = 0; i < playerLabels.size(); i++) {
-            playerLabels.get(i).setBounds(INITIAL_X + i*SQUARE_EDGE, INITIAL_Y, SQUARE_EDGE, SQUARE_EDGE);
+            playerLabels.get(i).setBounds(INITIAL_X + i * SQUARE_EDGE, INITIAL_Y, SQUARE_EDGE, SQUARE_EDGE);
             this.add(playerLabels.get(i));
         }
         initGUI();
     }
 
-    public void setPlayerLabelList(ArrayList<String> playerList){
+    public void setPlayerLabelList(ArrayList<String> playerList) {
         JLabel temp;
         Random rn = new Random();
         for (String name : playerList) {

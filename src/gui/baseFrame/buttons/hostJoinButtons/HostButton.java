@@ -13,8 +13,9 @@ public class HostButton extends JButton implements ActionListener {
 
     /**
      * Constructor
-     * @param text Label of the button
-     * @param IDField {@link JTextField} for Username
+     *
+     * @param text      Label of the button
+     * @param IDField   {@link JTextField} for Username
      * @param portField {@link JTextField} for port number
      */
     public HostButton(String text, JTextField IDField, JTextField portField) {
@@ -26,6 +27,7 @@ public class HostButton extends JButton implements ActionListener {
 
     /**
      * When player Presses this button it sends a request to network layer to create new Server.
+     *
      * @param actionEvent {@link ActionEvent}
      */
     @Override

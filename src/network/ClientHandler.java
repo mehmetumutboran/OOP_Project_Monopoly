@@ -7,7 +7,7 @@ import java.net.Socket;
 
 public class ClientHandler implements Runnable {
     private Socket socket;
-    private ClientHandler[] clientThreads;
+    private final ClientHandler[] clientThreads;
     private DataInputStream dis;
     private DataOutputStream dos;
 
@@ -28,18 +28,15 @@ public class ClientHandler implements Runnable {
                         clientThreads[i].dos.writeUTF("A new user entered: " + socket.toString());
                     }
                 }
+
             }
 
-            while (true){
+            while (true) {
                 String line = dis.readUTF();
                 if (line.startsWith("/quit")) {
                     break;
                 }
-                for (int i = 0; i < clientThreads.length; i++) {
-                    if (clientThreads[i] != null) {
-                        clientThreads[i].dos.writeUTF("<" + socket.getInetAddress() + "> " + line);
-                    }
-                }
+                Server.sendAllExceptOne(line, this);
             }
 
 
@@ -47,5 +44,14 @@ public class ClientHandler implements Runnable {
             e.printStackTrace();
         }
 
+    }
+
+    public synchronized void send(String m) {
+        try {
+            dos.writeUTF(m);
+            dos.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

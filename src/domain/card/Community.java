@@ -1,6 +1,6 @@
 package domain.card;
 
-public class Community extends Card{
+public class Community extends Card {
 
     public Community(String name) {
         super(name);

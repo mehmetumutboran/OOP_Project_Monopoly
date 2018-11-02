@@ -2,11 +2,11 @@ package domain.board;
 
 import domain.player.Player;
 
-public abstract class DeedSquare extends Square{
+public abstract class DeedSquare extends Square {
     private int buyValue;
     private int rent;
     private Player owner;
-   // private boolean isOwned; //TODO delete (owner == null)
+    // private boolean isOwned; //TODO delete (owner == null)
     private boolean isMortgaged;
 
     public DeedSquare(String name, int buyValue, int rent) {

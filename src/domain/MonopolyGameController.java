@@ -1,13 +1,14 @@
 package domain;
 
 import domain.die.DiceCup;
+import network.listeners.NewClientListener;
 import domain.player.Player;
 
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
 
-public class MonopolyGameController {
+public class MonopolyGameController implements NewClientListener {
     private ArrayList<Player> playerList;
     private Deque<Player> playerQueue;
     private DiceCup cup;
@@ -20,16 +21,27 @@ public class MonopolyGameController {
         cup = new DiceCup();
     }
 
-    public boolean addPlayer(String username){
-        return playerList.add(new Player(username));
+    public boolean addPlayer(Player player) {
+//        return playerList.add(player);
+        playerList.add(player);
+        System.out.println(playerList);
+        return true;
     }
 
-    public static MonopolyGameController getInstance(){
-        if(monopolyGameController == null){
+    public static MonopolyGameController getInstance() {
+        if (monopolyGameController == null) {
             monopolyGameController = new MonopolyGameController();
         }
 
         return monopolyGameController;
     }
 
+    public ArrayList<Player> getPlayerList() {
+        return playerList;
+    }
+
+    @Override
+    public void onNewClientEvent() {
+        playerList.add(new Player());
+    }
 }

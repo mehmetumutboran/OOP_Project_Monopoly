@@ -1,7 +1,6 @@
 package network;
 
 import java.io.DataInputStream;
-import java.io.EOFException;
 import java.io.IOException;
 
 public class ClientReceiver extends Thread {
@@ -12,9 +11,9 @@ public class ClientReceiver extends Thread {
     }
 
     @Override
-    public void run(){
+    public void run() {
         String received;
-        while (true){
+        while (true) {
             try {
                 received = dis.readUTF().trim();
                 System.out.println(received);
