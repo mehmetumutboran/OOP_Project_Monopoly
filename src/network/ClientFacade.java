@@ -47,6 +47,7 @@ public class ClientFacade {
      */
     public void sendReceivedMessage(String m) {
         this.message = m;
+        System.out.println("ClientFacade message received:\n" + m);
         publishReceivedChangedAction();
     }
 

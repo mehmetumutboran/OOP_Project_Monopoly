@@ -34,13 +34,17 @@ public class Player {
     }
 
     public Player(String name) {
+        this(name, new Token(), 3200, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new HashMap<>());
+    }
+
+    public Player(String name, Token token, int balance, ArrayList<Property> ownedProperties, ArrayList<Utility> ownedUtilities, ArrayList<Railroad> ownedRailroads, HashMap<String, Integer> colorMap) {
         this.name = name;
-        //TODO init fields
-        this.balance = 3200;
-        this.token = new Token("");
-        this.ownedProperties = new ArrayList<>();
-        this.ownedUtilities = new ArrayList<>();
-        this.ownedRailroads = new ArrayList<>();
+        this.token = token;
+        this.balance = balance;
+        this.ownedProperties = ownedProperties;
+        this.ownedUtilities = ownedUtilities;
+        this.ownedRailroads = ownedRailroads;
+        this.colorMap = colorMap;
     }
 
     /**

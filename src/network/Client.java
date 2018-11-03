@@ -5,7 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-public class Client implements Runnable{
+public class Client{
     private Socket socket;
     private ClientSender clientSender;
     private ClientReceiver clientReceiver;
@@ -20,31 +20,22 @@ public class Client implements Runnable{
             socket = new Socket(ip, port);
             dis = new DataInputStream(socket.getInputStream());
             dos = new DataOutputStream(socket.getOutputStream());
-//            clientReceiver = new ClientReceiver(dis);
+            clientReceiver = new ClientReceiver(dis, clientFacade);
 //            clientSender = new ClientSender(dos);
-//            clientReceiver.start();
+            clientReceiver.start();
 //            clientSender.start();
+//            (new Thread(this)).start();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    @Override
-    public void run() {
-        String received;
-        while (true){
-            received = receive();
-
-            clientFacade.sendReceivedMessage(received);
-
-        }
-    }
 
 
     public synchronized void send(String message) {
         try {
-            System.out.println(message);
+            System.out.println("In the Client class sending message:\n" + message);
             dos.writeUTF(message);
             dos.flush();
         } catch (IOException e) {
@@ -52,11 +43,11 @@ public class Client implements Runnable{
         }
     }
 
-    public synchronized String receive(){
+    public static synchronized String receive(){
         String received = "";
         try {
             received = dis.readUTF();
-            System.out.println(received);
+            System.out.println("Client class received Message:\n" + received);
         } catch (IOException e) {
             e.printStackTrace();
         }

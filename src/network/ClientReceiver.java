@@ -1,26 +1,25 @@
 package network;
 
 import java.io.DataInputStream;
-import java.io.IOException;
 
 public class ClientReceiver extends Thread {
     private DataInputStream dis;
+    private ClientFacade clientFacade;
 
-    public ClientReceiver(DataInputStream dis) {
+    public ClientReceiver(DataInputStream dis, ClientFacade clientFacade) {
         this.dis = dis;
+        this.clientFacade = clientFacade;
     }
 
     @Override
     public void run() {
         String received;
         while (true) {
-            try {
-                received = dis.readUTF().trim();
-                System.out.println(received);
-            } catch (IOException e) {
-                e.printStackTrace();
-                break;
-            }
+            received = Client.receive();
+
+//            System.out.println("Client receiver :" + received);
+            clientFacade.sendReceivedMessage(received);
+
         }
     }
 }

@@ -1,5 +1,7 @@
 package domain;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.player.Player;
 import network.ClientFacade;
@@ -59,14 +61,19 @@ public class ConnectGameHandler implements ReceivedChangedListener {
 
     /**
      * Normally it would transfer received message to the {@link MessageInterpreter}
-     * Right now it assumes Received message is new Player and adds it to the {@link MonopolyGameController#getPlayerList()}
+     * Right now it assumes Received message is new {@link Player} and adds it to the {@link MonopolyGameController#getPlayerList()}
      */
     @Override
     public void onReceivedChangedEvent() {
-        //TODO
+        //TODO change to MessageInterpreter
         ObjectMapper mapper = new ObjectMapper();
+        mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+        String message = clientFacade.getMessage();
+
+        if(message.charAt(0) == 'A') return;
+
         try {
-            Player player = mapper.readValue(clientFacade.getMessage(), Player.class);
+            Player player = mapper.readValue(message, Player.class);
             MonopolyGameController.getInstance().addPlayer(player);
         } catch (IOException e) {
             e.printStackTrace();
