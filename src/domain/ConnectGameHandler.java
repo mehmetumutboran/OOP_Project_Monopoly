@@ -59,7 +59,7 @@ public class ConnectGameHandler implements ReceivedChangedListener {
 
     /**
      * Normally it would transfer received message to the {@link MessageInterpreter}
-     * Right now it assumes Received message is new Player and adds it to the {@link MonopolyGameController}.playerList
+     * Right now it assumes Received message is new Player and adds it to the {@link MonopolyGameController#getPlayerList()}
      */
     @Override
     public void onReceivedChangedEvent() {

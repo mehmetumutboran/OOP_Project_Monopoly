@@ -1,14 +1,13 @@
 package domain;
 
 import domain.die.DiceCup;
-import network.listeners.NewClientListener;
 import domain.player.Player;
 
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
 
-public class MonopolyGameController implements NewClientListener {
+public class MonopolyGameController {
     private ArrayList<Player> playerList;
     private Deque<Player> playerQueue;
     private DiceCup cup;
@@ -40,8 +39,4 @@ public class MonopolyGameController implements NewClientListener {
         return playerList;
     }
 
-    @Override
-    public void onNewClientEvent() {
-        playerList.add(new Player());
-    }
 }

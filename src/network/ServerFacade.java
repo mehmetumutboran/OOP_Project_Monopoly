@@ -17,4 +17,8 @@ public class ServerFacade {
         //noinspection ConstantConditions
         return server != null;
     }
+
+    public Server getServer() {
+        return server;
+    }
 }
