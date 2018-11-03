@@ -7,6 +7,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
+/**
+ * {@link Server} class that opens a server
+ * It will use Observer Pattern to publish new Connected {@link Client} to {@link domain.ConnectGameHandler}
+ */
 public class Server implements Runnable {
     private ServerSocket ss;
 
@@ -44,6 +48,9 @@ public class Server implements Runnable {
         return newClientListeners.add(nl);
     }
 
+    /**
+     * Server thread that accepts new {@link Client} and assigns a {@link ClientHandler} to it.
+     */
     @Override
     public void run() {
 
