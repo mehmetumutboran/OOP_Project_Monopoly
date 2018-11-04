@@ -47,7 +47,7 @@ public class ClientFacade {
      */
     public void sendReceivedMessage(String m) {
         this.message = m;
-        System.out.println("ClientFacade message received:\n" + m);
+//        System.out.println("ClientFacade message received:\n" + m);
         publishReceivedChangedAction();
     }
 
@@ -60,6 +60,10 @@ public class ClientFacade {
 
     public void addReceivedChangedListener(ReceivedChangedListener listener){
         receivedChangedListeners.add(listener);
+    }
+
+    public void removeReceivedChangedListener(ReceivedChangedListener listener){
+        receivedChangedListeners.remove(listener);
     }
 
     public String getMessage() {

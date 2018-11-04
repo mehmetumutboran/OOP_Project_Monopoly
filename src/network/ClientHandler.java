@@ -22,20 +22,9 @@ public class ClientHandler implements Runnable {
             this.dis = new DataInputStream(socket.getInputStream());
             this.dos = new DataOutputStream(socket.getOutputStream());
 
-            synchronized (this) {
-                for (int i = 0; i < clientThreads.length; i++) {
-                    if (clientThreads[i] != null && clientThreads[i] != this) {
-                        clientThreads[i].dos.writeUTF("A new user entered: " + socket.toString());
-                    }
-                }
-
-            }
 
             while (true) {
                 String line = dis.readUTF();
-                if (line.startsWith("/quit")) {
-                    break;
-                }
                 Server.sendAllExceptOne(line, this);
             }
 

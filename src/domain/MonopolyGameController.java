@@ -1,11 +1,16 @@
 package domain;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.die.DiceCup;
 import domain.player.Player;
 
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.stream.Collectors;
 
 public class MonopolyGameController {
     private ArrayList<Player> playerList;
@@ -14,17 +19,32 @@ public class MonopolyGameController {
 
     private static MonopolyGameController monopolyGameController;
 
+    private ArrayList<PlayerListChangedListener> playerListChangedListeners;
+
     private MonopolyGameController() {
         playerList = new ArrayList<>();
         playerQueue = new LinkedList<>();
         cup = new DiceCup();
+        playerListChangedListeners = new ArrayList<>();
     }
 
     public boolean addPlayer(Player player) {
 //        return playerList.add(player);
         playerList.add(player);
         System.out.println(playerList);
+        publishPlayerListEvent();
         return true;
+    }
+
+    private void publishPlayerListEvent() {
+        for(PlayerListChangedListener plc : playerListChangedListeners) {
+            if (plc == null) continue;
+            plc.onPlayerListChangedEvent();
+        }
+    }
+
+    public boolean addPlayerListChangedListener(PlayerListChangedListener plc){
+        return playerListChangedListeners.add(plc);
     }
 
     public static MonopolyGameController getInstance() {
@@ -38,5 +58,37 @@ public class MonopolyGameController {
     public ArrayList<Player> getPlayerList() {
         return playerList;
     }
+
+//    public ArrayList<String> getPlayerListAsJSON() {
+//        ObjectMapper mapper = new ObjectMapper();
+//        mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+//        String playerJson = null;
+//        ArrayList<String> playerJSONs = new ArrayList<>();
+//        try {
+//            for (int i = 0; i < playerList.size(); i++) {
+//                playerJson = mapper.writeValueAsString(playerList.get(i));
+//                playerJSONs.add(playerJson);
+//            }
+//        } catch (JsonProcessingException e) {
+//            e.printStackTrace();
+//        }
+//        return playerJSONs;
+//    }
+
+    /**
+     * Uses stream to take each player's username and returns them as a list
+     * @return {@link ArrayList} of {@link Player}'s username
+     */
+    public ArrayList<String> getPlayerListName(){
+        return (ArrayList<String>) playerList.stream().map(Player::getName).collect(Collectors.toList());
+    }
+
+    public static void main(String[] args) {
+        MonopolyGameController.getInstance().addPlayer(new Player("asd"));
+        MonopolyGameController.getInstance().addPlayer(new Player("asdas"));
+        MonopolyGameController.getInstance().addPlayer(new Player("asddsa"));
+        System.out.println(MonopolyGameController.getInstance().getPlayerListName());
+    }
+
 
 }

@@ -74,7 +74,10 @@ public class ConnectGameHandler implements ReceivedChangedListener {
 
         try {
             Player player = mapper.readValue(message, Player.class);
-            MonopolyGameController.getInstance().addPlayer(player);
+            if(!MonopolyGameController.getInstance().getPlayerList().contains(player)) {
+                clientFacade.send(MonopolyGameController.getInstance().getPlayerList().get(0).toJSON());
+                MonopolyGameController.getInstance().addPlayer(player);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

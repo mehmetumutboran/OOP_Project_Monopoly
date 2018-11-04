@@ -1,5 +1,7 @@
 package gui.baseFrame;
 
+import domain.MonopolyGameController;
+import domain.PlayerListChangedListener;
 import gui.baseFrame.buttons.lobbyButtons.ReadyButton;
 import gui.baseFrame.buttons.multiplayerButtons.BackButton;
 
@@ -8,7 +10,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class LobbyPanel extends JPanel {
+public class LobbyPanel extends JPanel implements PlayerListChangedListener {
     private ReadyButton readyButton;
     private BackButton backButton;
 
@@ -30,6 +32,7 @@ public class LobbyPanel extends JPanel {
         this.width = width;
         this.height = height;
         playerLabels = new ArrayList<>();
+        MonopolyGameController.getInstance().addPlayerListChangedListener(this);
 //        ArrayList<String> playerNames = new ArrayList<>();
 //        playerNames.add("    Taha");
 //        playerNames.add("    Umut");
@@ -86,9 +89,22 @@ public class LobbyPanel extends JPanel {
             temp = new JLabel(name);
             temp.setBackground(new Color(rn.nextInt(256), rn.nextInt(256), rn.nextInt(256)));
             temp.setOpaque(true);
-            playerLabels.add(temp);
+            if (!playerLabelscontains(name))
+                playerLabels.add(temp);
         }
     }
 
+    private boolean playerLabelscontains(String name){
+        for(JLabel pl : playerLabels) {
+          if(pl == null) continue;
+          else if(pl.getText().equals(name)) return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void onPlayerListChangedEvent() {
+        setPlayerLabelList(MonopolyGameController.getInstance().getPlayerListName());
+    }
 }
 
