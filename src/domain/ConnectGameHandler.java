@@ -70,11 +70,11 @@ public class ConnectGameHandler implements ReceivedChangedListener {
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
         String message = clientFacade.getMessage();
 
-        if(message.charAt(0) == 'A') return;
+        if (message.charAt(0) == 'A') return;
 
         try {
             Player player = mapper.readValue(message, Player.class);
-            if(!MonopolyGameController.getInstance().getPlayerList().contains(player)) {
+            if (!MonopolyGameController.getInstance().getPlayerList().contains(player)) {
                 clientFacade.send(MonopolyGameController.getInstance().getPlayerList().get(0).toJSON());
                 MonopolyGameController.getInstance().addPlayer(player);
             }

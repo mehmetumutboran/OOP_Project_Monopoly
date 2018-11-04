@@ -2,19 +2,12 @@ package domain.player;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonSerializable;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
 import domain.board.Property;
 import domain.board.Railroad;
 import domain.board.Utility;
-import org.json.simple.JSONObject;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
@@ -30,7 +23,7 @@ public class Player {
 
     //TODO how to take color of token ?
 
-    public Player(){
+    public Player() {
         this("");
     }
 
@@ -51,9 +44,10 @@ public class Player {
     /**
      * Maps {@link Player} object to a JSON formatted String
      * Uses {@link com.fasterxml.jackson.annotation.JacksonAnnotation}
+     *
      * @return JSON representation of {@link Player}
      */
-    public String toJSON(){
+    public String toJSON() {
         String result = "";
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
@@ -67,6 +61,7 @@ public class Player {
 
     /**
      * Main method to test {@link #toJSON()}
+     *
      * @param args cmdline args
      */
     public static void main(String[] args) {

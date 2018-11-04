@@ -94,10 +94,10 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener {
         }
     }
 
-    private boolean playerLabelscontains(String name){
-        for(JLabel pl : playerLabels) {
-          if(pl == null) continue;
-          else if(pl.getText().equals(name)) return true;
+    private boolean playerLabelscontains(String name) {
+        for (JLabel pl : playerLabels) {
+            if (pl == null) continue;
+            else if (pl.getText().equals(name)) return true;
         }
         return false;
     }

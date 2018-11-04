@@ -30,6 +30,7 @@ public class Server implements Runnable {
      * Sets and initialized {@link ClientHandler}
      * It was needed before since this class used to use Observer Pattern to publish new Connected {@link Client}
      * But now probably it is not needed.
+     *
      * @param i
      * @param clientSocket
      */

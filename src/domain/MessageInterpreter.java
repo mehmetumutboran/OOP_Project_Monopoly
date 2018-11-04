@@ -8,7 +8,7 @@ public class MessageInterpreter {
 
     private String message;
 
-    private MessageInterpreter(){
+    private MessageInterpreter() {
 
     }
 

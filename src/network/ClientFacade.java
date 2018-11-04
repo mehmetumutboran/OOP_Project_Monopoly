@@ -34,6 +34,7 @@ public class ClientFacade {
 
     /**
      * Sends Message to the server
+     *
      * @param message Formatted as JSON String
      */
     public void send(String message) {
@@ -43,6 +44,7 @@ public class ClientFacade {
     /**
      * Called by Client when a message received
      * Also calls publish method to notify listeners
+     *
      * @param m Received Message Formatted as JSON
      */
     public void sendReceivedMessage(String m) {
@@ -58,11 +60,11 @@ public class ClientFacade {
         }
     }
 
-    public void addReceivedChangedListener(ReceivedChangedListener listener){
+    public void addReceivedChangedListener(ReceivedChangedListener listener) {
         receivedChangedListeners.add(listener);
     }
 
-    public void removeReceivedChangedListener(ReceivedChangedListener listener){
+    public void removeReceivedChangedListener(ReceivedChangedListener listener) {
         receivedChangedListeners.remove(listener);
     }
 

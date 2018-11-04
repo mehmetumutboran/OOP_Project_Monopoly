@@ -1,9 +1,5 @@
 package domain;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.die.DiceCup;
 import domain.player.Player;
 
@@ -37,13 +33,13 @@ public class MonopolyGameController {
     }
 
     private void publishPlayerListEvent() {
-        for(PlayerListChangedListener plc : playerListChangedListeners) {
+        for (PlayerListChangedListener plc : playerListChangedListeners) {
             if (plc == null) continue;
             plc.onPlayerListChangedEvent();
         }
     }
 
-    public boolean addPlayerListChangedListener(PlayerListChangedListener plc){
+    public boolean addPlayerListChangedListener(PlayerListChangedListener plc) {
         return playerListChangedListeners.add(plc);
     }
 
@@ -77,9 +73,10 @@ public class MonopolyGameController {
 
     /**
      * Uses stream to take each player's username and returns them as a list
+     *
      * @return {@link ArrayList} of {@link Player}'s username
      */
-    public ArrayList<String> getPlayerListName(){
+    public ArrayList<String> getPlayerListName() {
         return (ArrayList<String>) playerList.stream().map(Player::getName).collect(Collectors.toList());
     }
 

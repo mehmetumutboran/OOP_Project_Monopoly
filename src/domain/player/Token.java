@@ -6,7 +6,7 @@ public class Token {
     private int location;
     private String color;
 
-    public Token(){
+    public Token() {
         this(0, "");
     }
 

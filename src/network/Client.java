@@ -5,7 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-public class Client{
+public class Client {
     private Socket socket;
     private ClientSender clientSender;
     private ClientReceiver clientReceiver;
@@ -32,7 +32,6 @@ public class Client{
     }
 
 
-
     public synchronized void send(String message) {
         try {
             System.out.println("In the Client class sending message:\n" + message);
@@ -43,7 +42,7 @@ public class Client{
         }
     }
 
-    public static synchronized String receive(){
+    public static synchronized String receive() {
         String received = "";
         try {
             received = dis.readUTF();
