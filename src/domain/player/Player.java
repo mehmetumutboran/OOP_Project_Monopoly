@@ -29,7 +29,7 @@ public class Player {
     }
 
     public Player(String name) {
-        this(name, new Token(), 3200, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new HashMap<>(),"Not ready");
+        this(name, new Token(), 3200, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new HashMap<>(),"Not Ready");
     }
 
     public Player(String name, Token token, int balance, ArrayList<Property> ownedProperties, ArrayList<Utility> ownedUtilities,
