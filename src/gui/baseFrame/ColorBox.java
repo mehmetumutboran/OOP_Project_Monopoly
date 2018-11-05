@@ -34,6 +34,7 @@ public class ColorBox extends JComboBox implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         //playerLabel.setBackground((Color) this.getSelectedItem());
         String colorChange = null;
+        //this.set
         for (String colorName:colorMap.keySet()) {
             if(colorMap.get(colorName).equals(this.getSelectedItem())){
                 colorChange = colorName;

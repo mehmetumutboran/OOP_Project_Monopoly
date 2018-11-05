@@ -124,6 +124,7 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener {
             temp.setOpaque(true);
             playerLabels.add(temp);
         }
+        repaint();
         for (JLabel mylabel:playerLabels) {
             System.out.println("Mylabel "+mylabel.getBackground());
         }
