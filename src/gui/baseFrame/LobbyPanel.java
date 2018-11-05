@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -19,10 +20,12 @@ import java.util.stream.Stream;
 public class LobbyPanel extends JPanel implements PlayerListChangedListener {
     private ReadyButton readyButton;
     private BackButton backButton;
+    private ColorBox colorBox;
 
+    private ArrayList<Color> colorList = (ArrayList<Color>) (Stream.of(Color.white,Color.lightGray,Color.gray,Color.blue,Color.cyan,Color.pink,Color.green,
+            Color.orange,Color.magenta,Color.yellow,Color.red).collect(Collectors.toList()));
 
     private ArrayList<JLabel> playerLabels;
-    private ArrayList<Color> colors = (ArrayList<Color>) Stream.of(Color.white,Color.lightGray,Color.gray,Color.blue,Color.cyan,Color.pink,Color.green,new Color(38,209, 188),Color.orange,Color.magenta,Color.yellow,Color.red).collect(Collectors.toList());
 
     private int width;
     private int height;
@@ -43,7 +46,6 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener {
         this.height = height;
         playerLabels = new ArrayList<>();
         MonopolyGameController.getInstance().addPlayerListChangedListener(this);
-
         initGUI();
 
         try {
@@ -60,14 +62,19 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener {
         this.setVisible(true);
     }
 
+
+
     private void initButtons() {
         readyButton = new ReadyButton("Ready");
         backButton = new BackButton("Back");
+        colorBox = new ColorBox(colorList);
 
         readyButton.setBounds((this.width - (-1) * BUTTON_WIDTH) / 2,
                 (this.height - (-5) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
         backButton.setBounds((this.width - (-1) * BUTTON_WIDTH) / 2,
                 (this.height - (-8) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
+        colorBox.setBounds((this.width - (-1) * BUTTON_WIDTH) / 2,
+                (this.height - 2 * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
 
         readyButton.setBackground(Color.gray);
         backButton.setBackground(Color.gray);
@@ -77,6 +84,7 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener {
 
         this.add(readyButton);
         this.add(backButton);
+        this.add(colorBox);
     }
 
     public void initGUI() {
@@ -109,6 +117,7 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener {
             if (!playerLabelscontains(name))
                 playerLabels.add(temp);
         }
+
     }
 
     private boolean playerLabelscontains(String name) {
@@ -122,6 +131,7 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener {
     @Override
     public void onPlayerListChangedEvent() {
         setPlayerLabelList(MonopolyGameController.getInstance().getPlayerListName());
+        colorBox.setPlayerLabel(playerLabels.get(0));
     }
 }
 
