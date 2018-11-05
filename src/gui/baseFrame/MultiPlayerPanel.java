@@ -77,8 +77,10 @@ public class MultiPlayerPanel extends JPanel {
         this.setLayout(null);
         this.setBackground(Color.GRAY);
 
-        title = new JLabel("Multiplayer");
-        title.setBounds(500, 200, 200, 40);
+        title = new JLabel("Multiplayer", SwingConstants.CENTER);
+        title.setBounds(440, 200, 200, 40);
+        title.setFont(new Font("Serif", Font.BOLD, 30));
+        title.setForeground(Color.black);
         this.add(title);
 
         initButtons();

@@ -35,7 +35,7 @@ public class SinglePlayerPanel extends JPanel {
         initGUI();
 
         try {
-            image = ImageIO.read(new File("src\\gui\\baseFrame\\Monopoly Background.jpg"));
+            image = ImageIO.read(new File("src\\gui\\baseFrame\\Monopoly Background 4.jpg"));
         } catch (IOException ex) {
             System.out.println(ex);
         }
@@ -53,6 +53,8 @@ public class SinglePlayerPanel extends JPanel {
         backButton = new BackButton("Back");
         userNameField = new JTextField();
         userNameLabel = new JLabel("Username");
+        userNameLabel.setFont(new Font("Serif", Font.BOLD, 30));
+        userNameLabel.setForeground(Color.red);
 
         userNameField.setBounds((this.width - BUTTON_WIDTH) / 2,
                 (this.height - 4 * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -80,8 +82,10 @@ public class SinglePlayerPanel extends JPanel {
         this.setLayout(null);
         this.setBackground(Color.GRAY);
 
-        title = new JLabel("Single Player");
-        title.setBounds(500, 200, 200, 40);
+        title = new JLabel("Single Player", SwingConstants.CENTER);
+        title.setBounds(440, 200, 200, 40);
+        title.setFont(new Font("Serif", Font.BOLD, 30));
+        title.setForeground(Color.red);
         this.add(title);
 
         initButtons();

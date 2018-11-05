@@ -38,7 +38,7 @@ public class HostPanel extends JPanel {
         initGUI();
 
         try {
-            image = ImageIO.read(new File("src\\gui\\baseFrame\\Monopoly Background.jpg"));
+            image = ImageIO.read(new File("src\\gui\\baseFrame\\Monopoly Background 5.jpg"));
         } catch (IOException ex) {
             System.out.println(ex);
         }
@@ -74,10 +74,16 @@ public class HostPanel extends JPanel {
         this.setLayout(null);
         this.setBackground(Color.GRAY);
 
-        title = new JLabel("Host Game");
-        title.setBounds(500, 150, 200, 40);
+        title = new JLabel("Host Game" , SwingConstants.CENTER);
+        title.setBounds(440, 150, 200, 40);
+        title.setFont(new Font("Serif", Font.BOLD, 30));
+        title.setForeground(Color.black);
 
         usernameLabel = new JLabel("Username");
+
+        usernameLabel.setFont(new Font("Serif", Font.BOLD, 30));
+        usernameLabel.setForeground(Color.black);
+
         usernameLabel.setBounds((this.width - 2 * BUTTON_WIDTH) / 2,
                 (this.height - 4 * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
         usernameField = new JTextField(50);
@@ -85,6 +91,10 @@ public class HostPanel extends JPanel {
                 (this.height - 4 * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
 
         portLabel = new JLabel("Port");
+
+        portLabel.setFont(new Font("Serif", Font.BOLD, 30));
+        portLabel.setForeground(Color.black);
+
         portLabel.setBounds((this.width - 2 * BUTTON_WIDTH) / 2,
                 (this.height - BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
         portField = new JTextField(50);
