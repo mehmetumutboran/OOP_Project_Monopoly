@@ -103,6 +103,11 @@ public class MonopolyGameController {
         publishPlayerListEvent();
     }
 
+    public void changePlayerReadiness(int index){
+        playerList.get(index).setReadiness();
+        publishPlayerListEvent();
+    }
+
     public static void main(String[] args) {
         MonopolyGameController.getInstance().addPlayer(new Player("Mostafazadeh"));
         MonopolyGameController.getInstance().addPlayer(new Player("Benjamin"));

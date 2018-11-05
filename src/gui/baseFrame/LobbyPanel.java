@@ -117,7 +117,7 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener {
         JLabel temp;
         playerLabels = new ArrayList<>();
         for (ArrayList<String> player : playerAttributes) {
-            temp = new JLabel(player.get(0));
+            temp = new JLabel("<HTML>"+player.get(0)+"<BR>"+player.get(2)+"</HTML>");
             temp.setBackground(colorBox.getColorMap().get(player.get(1)));
             System.out.println("player attribute: "+temp.getBackground());
             // TODO use readiness

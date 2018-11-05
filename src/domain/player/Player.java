@@ -93,8 +93,10 @@ public class Player {
         return this.readiness;
     }
 
-    public void setReadiness(String readiness){
-        this.readiness = readiness;
+    public void setReadiness()
+    {
+        if(this.readiness.equals("Ready")) readiness = "Not Ready";
+        else readiness = "Ready";
     }
 
     public Token getToken() {
