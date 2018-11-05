@@ -22,7 +22,7 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener {
 
 
     private ArrayList<JLabel> playerLabels;
-    private ArrayList<Color> colors = (ArrayList<Color>) Stream.of(Color.white,Color.lightGray,Color.gray,Color.blue,Color.cyan,Color.pink,Color.green,new Color(72,209,204),Color.orange,Color.magenta,Color.yellow,Color.red).collect(Collectors.toList());
+    private ArrayList<Color> colors = (ArrayList<Color>) Stream.of(Color.white,Color.lightGray,Color.gray,Color.blue,Color.cyan,Color.pink,Color.green,new Color(38,209, 188),Color.orange,Color.magenta,Color.yellow,Color.red).collect(Collectors.toList());
 
     private int width;
     private int height;
