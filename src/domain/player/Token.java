@@ -1,6 +1,5 @@
 package domain.player;
 
-import org.json.simple.JSONObject;
 
 public class Token {
     private int location;
@@ -35,10 +34,4 @@ public class Token {
         this.color = color;
     }
 
-    public JSONObject toJSON() {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("location", this.location);
-        jsonObject.put("color", this.color);
-        return jsonObject;
-    }
 }
