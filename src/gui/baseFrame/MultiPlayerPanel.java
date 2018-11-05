@@ -35,7 +35,12 @@ public class MultiPlayerPanel extends JPanel {
         initGUI();
 
         try {
-            image = ImageIO.read(new File("src\\gui\\baseFrame\\Monopoly Background 3.jpg"));
+            if(System.getProperty("os.name").startsWith("Windows")) {
+                image = ImageIO.read(new File("src\\gui\\baseFrame\\Monopoly Background 3.jpg"));
+            }else{
+                image = ImageIO.read(new File("src/gui/baseFrame//Monopoly Background 3.jpg"));
+
+            }
         } catch (IOException ex) {
             System.out.println(ex);
         }

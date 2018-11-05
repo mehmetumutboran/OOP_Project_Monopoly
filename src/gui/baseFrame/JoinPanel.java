@@ -37,7 +37,12 @@ public class JoinPanel extends JPanel {
         initGUI();
 
         try {
-            image = ImageIO.read(new File("src\\gui\\baseFrame\\Monopoly Background 6.jpg"));
+            if(System.getProperty("os.name").startsWith("Windows")) {
+                image = ImageIO.read(new File("src\\gui\\baseFrame\\Monopoly Background 6.jpg"));
+            }else{
+                image = ImageIO.read(new File("src/gui/baseFrame/Monopoly Background 6.jpg"));
+
+            }
         } catch (IOException ex) {
             System.out.println(ex);
         }
