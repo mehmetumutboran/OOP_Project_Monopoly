@@ -4,8 +4,12 @@ import gui.baseFrame.buttons.initialScreenButons.ExitButton;
 import gui.baseFrame.buttons.initialScreenButons.MultiplayerButton;
 import gui.baseFrame.buttons.initialScreenButons.SinglePlayerButton;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class InitialScreenPanel extends JPanel {
     private SinglePlayerButton singlePlayerButton;
@@ -15,6 +19,8 @@ public class InitialScreenPanel extends JPanel {
     private int width;
     private int height;
 
+    private BufferedImage image;
+    private JLabel logoLabel;
 
     private final int BUTTON_WIDTH = 300;
     private final int BUTTON_HEIGHT = 50;
@@ -25,10 +31,20 @@ public class InitialScreenPanel extends JPanel {
         this.height = height;
 
         this.setLayout(null);
-        this.setBackground(Color.GRAY);
+        this.setBackground(Color.white);
+
+        try {
+            image = ImageIO.read(new File("C:\\Users\\TULPAR\\Desktop\\Universite\\COMP 302\\Group Project Monopoly\\Workspace\\302_2018_project_ByteMe\\src\\gui\\baseFrame\\Monopoly Logo.png"));
+        } catch (IOException ex) {
+            System.out.println(ex);
+        }
+
+        logoLabel = new JLabel(new ImageIcon(image));
+        this.add(logoLabel);
+        logoLabel.setBounds(0,0,width,200);
+        logoLabel.setOpaque(true);
 
         initButtons();
-
 
         this.setVisible(true);
     }
@@ -45,9 +61,9 @@ public class InitialScreenPanel extends JPanel {
         exitButton.setBounds((this.width - BUTTON_WIDTH) / 2,
                 (this.height - (-2) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
 
-        singlePlayerButton.setBackground(Color.gray);
-        multiPlayerButton.setBackground(Color.gray);
-        exitButton.setBackground(Color.gray);
+        singlePlayerButton.setBackground(Color.lightGray);
+        multiPlayerButton.setBackground(Color.lightGray);
+        exitButton.setBackground(Color.lightGray);
 
         singlePlayerButton.setBorderPainted(false);
         multiPlayerButton.setBorderPainted(false);

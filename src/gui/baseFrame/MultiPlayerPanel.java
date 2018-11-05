@@ -4,8 +4,12 @@ import gui.baseFrame.buttons.multiplayerButtons.BackButton;
 import gui.baseFrame.buttons.multiplayerButtons.HostGameButton;
 import gui.baseFrame.buttons.multiplayerButtons.JoinGameButton;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class MultiPlayerPanel extends JPanel {
     private HostGameButton hostGameButton;
@@ -15,6 +19,9 @@ public class MultiPlayerPanel extends JPanel {
 
     private int width;
     private int height;
+
+    private BufferedImage image;
+    private JLabel backgroundLabel;
 
 
     private final int BUTTON_WIDTH = 300;
@@ -26,6 +33,17 @@ public class MultiPlayerPanel extends JPanel {
         this.height = height;
 
         initGUI();
+
+        try {
+            image = ImageIO.read(new File("C:\\Users\\TULPAR\\Desktop\\Universite\\COMP 302\\Group Project Monopoly\\Workspace\\302_2018_project_ByteMe\\src\\gui\\baseFrame\\Monopoly Background 2.jpg"));
+        } catch (IOException ex) {
+            System.out.println(ex);
+        }
+
+        backgroundLabel = new JLabel(new ImageIcon(image));
+        this.add(backgroundLabel);
+        backgroundLabel.setBounds(0,0,width,height);
+        backgroundLabel.setOpaque(true);
 
         this.setVisible(true);
     }
@@ -42,9 +60,9 @@ public class MultiPlayerPanel extends JPanel {
         backButton.setBounds((this.width - BUTTON_WIDTH) / 2,
                 (this.height - (-2) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
 
-        hostGameButton.setBackground(Color.gray);
-        joinGameButton.setBackground(Color.gray);
-        backButton.setBackground(Color.gray);
+        hostGameButton.setBackground(Color.lightGray);
+        joinGameButton.setBackground(Color.lightGray);
+        backButton.setBackground(Color.lightGray);
 
         hostGameButton.setBorderPainted(false);
         joinGameButton.setBorderPainted(false);

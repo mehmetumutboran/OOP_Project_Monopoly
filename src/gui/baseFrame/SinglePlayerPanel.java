@@ -3,8 +3,12 @@ package gui.baseFrame;
 import gui.baseFrame.buttons.multiplayerButtons.BackButton;
 import gui.baseFrame.buttons.singlePlayerButtons.EnterButton;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class SinglePlayerPanel extends JPanel {
     private EnterButton enterButton;
@@ -16,6 +20,8 @@ public class SinglePlayerPanel extends JPanel {
     private int width;
     private int height;
 
+    private BufferedImage image;
+    private JLabel backgroundLabel;
 
     private final int BUTTON_WIDTH = 300;
     private final int BUTTON_HEIGHT = 50;
@@ -27,6 +33,17 @@ public class SinglePlayerPanel extends JPanel {
 
 
         initGUI();
+
+        try {
+            image = ImageIO.read(new File("C:\\Users\\TULPAR\\Desktop\\Universite\\COMP 302\\Group Project Monopoly\\Workspace\\302_2018_project_ByteMe\\src\\gui\\baseFrame\\Monopoly Background.jpg"));
+        } catch (IOException ex) {
+            System.out.println(ex);
+        }
+
+        backgroundLabel = new JLabel(new ImageIcon(image));
+        this.add(backgroundLabel);
+        backgroundLabel.setBounds(0,0,width,height);
+        backgroundLabel.setOpaque(true);
 
         this.setVisible(true);
     }
