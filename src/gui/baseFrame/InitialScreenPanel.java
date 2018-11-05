@@ -37,11 +37,11 @@ public class InitialScreenPanel extends JPanel {
 
         try {
             if(System.getProperty("os.name").startsWith("Windows")) {
-                image1 = ImageIO.read(new File("src\\gui\\baseFrame\\Monopoly Logo.png"));
-                image2 = ImageIO.read(new File("src\\gui\\baseFrame\\Monopoly Background.jpg"));
+                image1 = ImageIO.read(new File("res\\Monopoly Logo.png"));
+                image2 = ImageIO.read(new File("res\\Monopoly Background.jpg"));
             }else {
-                image1 = ImageIO.read(new File("src/gui/baseFrame/Monopoly Logo.png"));
-                image2 = ImageIO.read(new File("src/gui/baseFrame/Monopoly Background.jpg"));
+                image1 = ImageIO.read(new File("res/Monopoly Logo.png"));
+                image2 = ImageIO.read(new File("res/Monopoly Background.jpg"));
             }
         } catch (IOException ex) {
             System.out.println(ex);

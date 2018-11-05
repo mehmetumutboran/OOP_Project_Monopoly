@@ -50,9 +50,9 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener {
 
         try {
             if(System.getProperty("os.name").startsWith("Windows")) {
-                image = ImageIO.read(new File("src\\gui\\baseFrame\\Monopoly Background.jpg"));
+                image = ImageIO.read(new File("res\\Monopoly Background.jpg"));
             }else{
-                image = ImageIO.read(new File("src/gui/baseFrame/Monopoly Background.jpg"));
+                image = ImageIO.read(new File("res/Monopoly Background.jpg"));
             }
         } catch (IOException ex) {
             System.out.println(ex);

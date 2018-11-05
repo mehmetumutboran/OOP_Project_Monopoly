@@ -36,9 +36,9 @@ public class SinglePlayerPanel extends JPanel {
 
         try {
             if(System.getProperty("os.name").startsWith("Windows")) {
-                image = ImageIO.read(new File("src\\gui\\baseFrame\\Monopoly Background 4.jpg"));
+                image = ImageIO.read(new File("res\\Monopoly Background 4.jpg"));
             }else{
-                image = ImageIO.read(new File("src/gui/baseFrame/Monopoly Background 4.jpg"));
+                image = ImageIO.read(new File("res/Monopoly Background 4.jpg"));
             }
         } catch (IOException ex) {
             System.out.println(ex);

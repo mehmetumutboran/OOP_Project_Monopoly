@@ -39,9 +39,9 @@ public class HostPanel extends JPanel {
 
         try {
             if(System.getProperty("os.name").startsWith("Windows")) {
-                image = ImageIO.read(new File("src\\gui\\baseFrame\\Monopoly Background 5.jpg"));
+                image = ImageIO.read(new File("res\\Monopoly Background 5.jpg"));
             }else{
-                image = ImageIO.read(new File("src/gui/baseFrame/Monopoly Background 5.jpg"));
+                image = ImageIO.read(new File("res/Monopoly Background 5.jpg"));
             }
         } catch (IOException ex) {
             System.out.println(ex);
