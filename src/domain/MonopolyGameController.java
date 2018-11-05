@@ -97,14 +97,16 @@ public class MonopolyGameController {
         playerList.get(index).getToken().setColor(color);
         System.out.println("Player's color "+playerList.get(0).getToken().getColor());
         if(playerList.size()>1){
-            ConnectGameHandler.getInstance().changeColor(playerList.get(index));
-            System.out.println("change color called");
+            ConnectGameHandler.getInstance().sendChange(playerList.get(index));
         }
         publishPlayerListEvent();
     }
 
     public void changePlayerReadiness(int index){
         playerList.get(index).setReadiness();
+        if(playerList.size()>1){
+            ConnectGameHandler.getInstance().sendChange(playerList.get(index));
+        }
         publishPlayerListEvent();
     }
 
