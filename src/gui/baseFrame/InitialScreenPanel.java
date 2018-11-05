@@ -34,7 +34,7 @@ public class InitialScreenPanel extends JPanel {
         this.setBackground(Color.white);
 
         try {
-            image = ImageIO.read(new File("C:\\Users\\TULPAR\\Desktop\\Universite\\COMP 302\\Group Project Monopoly\\Workspace\\302_2018_project_ByteMe\\src\\gui\\baseFrame\\Monopoly Logo.png"));
+            image = ImageIO.read(new File("src\\gui\\baseFrame\\Monopoly Logo.png"));
         } catch (IOException ex) {
             System.out.println(ex);
         }

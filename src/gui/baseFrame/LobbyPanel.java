@@ -5,10 +5,16 @@ import domain.PlayerListChangedListener;
 import gui.baseFrame.buttons.lobbyButtons.ReadyButton;
 import gui.baseFrame.buttons.multiplayerButtons.BackButton;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class LobbyPanel extends JPanel implements PlayerListChangedListener {
     private ReadyButton readyButton;
@@ -16,9 +22,13 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener {
 
 
     private ArrayList<JLabel> playerLabels;
+    private ArrayList<Color> colors = (ArrayList<Color>) Stream.of(Color.white,Color.lightGray,Color.gray,Color.blue,Color.cyan,Color.pink,Color.green,Color.orange,Color.magenta,Color.yellow,Color.red).collect(Collectors.toList());
 
     private int width;
     private int height;
+
+    private BufferedImage image;
+    private JLabel backgroundLabel;
 
     private final int BUTTON_WIDTH = 300;
     private final int BUTTON_HEIGHT = 50;
@@ -33,15 +43,19 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener {
         this.height = height;
         playerLabels = new ArrayList<>();
         MonopolyGameController.getInstance().addPlayerListChangedListener(this);
-//        ArrayList<String> playerNames = new ArrayList<>();
-//        playerNames.add("    Taha");
-//        playerNames.add("    Umut");
-//        playerNames.add("    Agabey");
-//        playerNames.add("    Furkan");
-//        playerNames.add("    Enes");
-//        setPlayerLabelList(playerNames);
 
         initGUI();
+
+        try {
+            image = ImageIO.read(new File("src\\gui\\baseFrame\\Monopoly Background.jpg"));
+        } catch (IOException ex) {
+            System.out.println(ex);
+        }
+
+        backgroundLabel = new JLabel(new ImageIcon(image));
+        this.add(backgroundLabel);
+        backgroundLabel.setBounds(0,0,width,height);
+        //backgroundLabel.setOpaque(true);
 
         this.setVisible(true);
     }
@@ -50,9 +64,9 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener {
         readyButton = new ReadyButton("Ready");
         backButton = new BackButton("Back");
 
-        readyButton.setBounds((this.width - (-2) * BUTTON_WIDTH) / 2,
+        readyButton.setBounds((this.width - (-1) * BUTTON_WIDTH) / 2,
                 (this.height - (-6) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
-        backButton.setBounds((this.width - (-2) * BUTTON_WIDTH) / 2,
+        backButton.setBounds((this.width - (-1) * BUTTON_WIDTH) / 2,
                 (this.height - (-8) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
 
         readyButton.setBackground(Color.gray);
@@ -80,14 +94,19 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener {
             this.add(playerLabels.get(i));
         }
         initGUI();
+
+        backgroundLabel = new JLabel(new ImageIcon(image));
+        this.add(backgroundLabel);
+        backgroundLabel.setBounds(0,0,width,height);
     }
 
     public void setPlayerLabelList(ArrayList<String> playerList) {
         JLabel temp;
-        Random rn = new Random();
+       // Random rn = new Random();
         for (String name : playerList) {
             temp = new JLabel(name);
-            temp.setBackground(new Color(rn.nextInt(256), rn.nextInt(256), rn.nextInt(256)));
+           // temp.setBackground(new Color(rn.nextInt(256), rn.nextInt(256), rn.nextInt(256)));
+            temp.setBackground(colors.remove(colors.size()-1));
             temp.setOpaque(true);
             if (!playerLabelscontains(name))
                 playerLabels.add(temp);
