@@ -1,6 +1,7 @@
 package gui.baseFrame;
 
 import domain.ConnectGameHandler;
+import domain.MonopolyGameController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,8 +32,15 @@ public class ColorBox extends JComboBox implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        playerLabel.setBackground((Color) this.getSelectedItem());
-
+        //playerLabel.setBackground((Color) this.getSelectedItem());
+        String colorChange = null;
+        for (String colorName:colorMap.keySet()) {
+            if(colorMap.get(colorName).equals(this.getSelectedItem())){
+                colorChange = colorName;
+                break;
+            }
+        }
+        MonopolyGameController.getInstance().changePlayerColor(0,colorChange);
 
         // TODO ConnectGameHandler
     }
@@ -51,5 +59,9 @@ public class ColorBox extends JComboBox implements ActionListener {
         colorMap.put("Yellow",Color.yellow);
         colorMap.put("Red",Color.red);
         colorMap.put("Turquoise",new Color(38,209, 188));
+    }
+
+    public HashMap<String,Color> getColorMap(){
+        return this.colorMap;
     }
 }

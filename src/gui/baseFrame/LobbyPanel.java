@@ -100,24 +100,35 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener {
         for (int i = 0; i < playerLabels.size(); i++) {
             playerLabels.get(i).setBounds(INITIAL_X + i * SQUARE_EDGE, INITIAL_Y, SQUARE_EDGE, SQUARE_EDGE);
             this.add(playerLabels.get(i));
+            System.out.println("Paint component: "+ playerLabels.get(i).getBackground());
         }
         initGUI();
 
         this.add(backgroundLabel);
         backgroundLabel.setBounds(0,0,width,height);
         backgroundLabel.setOpaque(false);
+
+        for (JLabel mylabel:playerLabels) {
+            System.out.println("After init gui "+mylabel.getBackground());
+        }
     }
 
-    public void setPlayerLabelList(ArrayList<String> playerList) {
+    public void setPlayerLabelList(ArrayList<ArrayList<String>> playerAttributes) {
         JLabel temp;
-        for (String name : playerList) {
-            temp = new JLabel(name);
-            temp.setBackground(Color.white);
+        playerLabels = new ArrayList<>();
+        for (ArrayList<String> player : playerAttributes) {
+            temp = new JLabel(player.get(0));
+            temp.setBackground(colorBox.getColorMap().get(player.get(1)));
+            System.out.println("player attribute: "+temp.getBackground());
+            // TODO use readiness
             temp.setOpaque(true);
-            if (!playerLabelscontains(name))
-                playerLabels.add(temp);
+            playerLabels.add(temp);
+        }
+        for (JLabel mylabel:playerLabels) {
+            System.out.println("Mylabel "+mylabel.getBackground());
         }
 
+        //System.out.println(playerAttributes.isEmpty());
     }
 
     private boolean playerLabelscontains(String name) {
@@ -130,8 +141,10 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener {
 
     @Override
     public void onPlayerListChangedEvent() {
-        setPlayerLabelList(MonopolyGameController.getInstance().getPlayerListName());
-        colorBox.setPlayerLabel(playerLabels.get(0));
+        //setPlayerLabelList(MonopolyGameController.getInstance().getPlayerListName());
+        setPlayerLabelList(MonopolyGameController.getInstance().getPlayerConnectAttributes());
+        System.out.println(MonopolyGameController.getInstance().getPlayerConnectAttributes());
+        //colorBox.setPlayerLabel(playerLabels.get(0));
     }
 }
 

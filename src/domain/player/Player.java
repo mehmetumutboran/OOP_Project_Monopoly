@@ -20,6 +20,7 @@ public class Player {
     private ArrayList<Utility> ownedUtilities;
     private ArrayList<Railroad> ownedRailroads;
     private HashMap<String, Integer> colorMap; // TODO ?
+    private String readiness;
 
     //TODO how to take color of token ?
 
@@ -28,10 +29,11 @@ public class Player {
     }
 
     public Player(String name) {
-        this(name, new Token(), 3200, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new HashMap<>());
+        this(name, new Token(), 3200, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new HashMap<>(),"Not ready");
     }
 
-    public Player(String name, Token token, int balance, ArrayList<Property> ownedProperties, ArrayList<Utility> ownedUtilities, ArrayList<Railroad> ownedRailroads, HashMap<String, Integer> colorMap) {
+    public Player(String name, Token token, int balance, ArrayList<Property> ownedProperties, ArrayList<Utility> ownedUtilities,
+                  ArrayList<Railroad> ownedRailroads, HashMap<String, Integer> colorMap,String readiness) {
         this.name = name;
         this.token = token;
         this.balance = balance;
@@ -39,6 +41,7 @@ public class Player {
         this.ownedUtilities = ownedUtilities;
         this.ownedRailroads = ownedRailroads;
         this.colorMap = colorMap;
+        this.readiness = readiness;
     }
 
     /**
@@ -84,5 +87,21 @@ public class Player {
 
     public String getName() {
         return name;
+    }
+
+    public String getReadiness(){
+        return this.readiness;
+    }
+
+    public void setReadiness(String readiness){
+        this.readiness = readiness;
+    }
+
+    public Token getToken() {
+        return token;
+    }
+
+    public void setToken(Token token) {
+        this.token = token;
     }
 }

@@ -7,7 +7,7 @@ public class Token {
     private String color;
 
     public Token() {
-        this(0, "");
+        this(0, "White");
     }
 
     public Token(String color) {

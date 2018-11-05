@@ -59,6 +59,10 @@ public class ConnectGameHandler implements ReceivedChangedListener {
         }
     }
 
+    public void changeColor(Player p){
+        clientFacade.send(p.toJSON());
+    }
+
     /**
      * Normally it would transfer received message to the {@link MessageInterpreter}
      * Right now it assumes Received message is new {@link Player} and adds it to the {@link MonopolyGameController#getPlayerList()}
@@ -77,6 +81,12 @@ public class ConnectGameHandler implements ReceivedChangedListener {
             if (!MonopolyGameController.getInstance().getPlayerList().contains(player)) {
                 clientFacade.send(MonopolyGameController.getInstance().getPlayerList().get(0).toJSON());
                 MonopolyGameController.getInstance().addPlayer(player);
+            }
+            else if(MonopolyGameController.getInstance().getPlayerList().contains(player) &&
+            !MonopolyGameController.getInstance().getPlayerList().get(MonopolyGameController.getInstance().
+                    getPlayerList().indexOf(player)).getToken().getColor().equals(player.getToken().getColor()))
+            {
+                MonopolyGameController.getInstance().changePlayerColor(MonopolyGameController.getInstance().getPlayerList().indexOf(player),player.getToken().getColor());
             }
         } catch (IOException e) {
             e.printStackTrace();
