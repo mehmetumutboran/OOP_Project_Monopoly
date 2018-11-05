@@ -3,6 +3,7 @@ package gui.baseFrame;
 import domain.MonopolyGameController;
 import domain.PlayerListChangedListener;
 import gui.baseFrame.buttons.lobbyButtons.ReadyButton;
+import gui.baseFrame.buttons.lobbyButtons.StartButton;
 import gui.baseFrame.buttons.multiplayerButtons.BackButton;
 
 import javax.imageio.ImageIO;
@@ -20,7 +21,10 @@ import java.util.stream.Stream;
 public class LobbyPanel extends JPanel implements PlayerListChangedListener {
     private ReadyButton readyButton;
     private BackButton backButton;
+    private StartButton startButton;
     private ColorBox colorBox;
+    private boolean isHost;
+
 
     private ArrayList<Color> colorList = (ArrayList<Color>) (Stream.of(Color.white,Color.lightGray,Color.gray,Color.blue,Color.cyan,Color.pink,Color.green,
             Color.orange,Color.magenta,Color.yellow,Color.red).collect(Collectors.toList()));
@@ -42,17 +46,17 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener {
     private final int SQUARE_EDGE = 80;
 
     public LobbyPanel(int width, int height) {
+        isHost = false;
         this.width = width;
         this.height = height;
         playerLabels = new ArrayList<>();
         MonopolyGameController.getInstance().addPlayerListChangedListener(this);
         initGUI();
-
         try {
             if(System.getProperty("os.name").startsWith("Windows")) {
-                image = ImageIO.read(new File("res\\Monopoly Background.jpg"));
+                image = ImageIO.read(new File("res\\Monopoly Background 7.jpg"));
             }else{
-                image = ImageIO.read(new File("res/Monopoly Background.jpg"));
+                image = ImageIO.read(new File("res/Monopoly Background 7.jpg"));
             }
         } catch (IOException ex) {
             System.out.println(ex);
@@ -71,6 +75,7 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener {
     private void initButtons() {
         readyButton = new ReadyButton("Ready");
         backButton = new BackButton("Back");
+        startButton = new StartButton("Start");
         colorBox = new ColorBox(colorList);
 
         readyButton.setBounds((this.width - (-1) * BUTTON_WIDTH) / 2,
@@ -82,11 +87,11 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener {
 
         readyButton.setBackground(Color.gray);
         backButton.setBackground(Color.gray);
+        startButton.setBackground(Color.gray);
 
         readyButton.setBorderPainted(false);
         backButton.setBorderPainted(false);
-
-        this.add(readyButton);
+        startButton.setBorderPainted(false);
         this.add(backButton);
         this.add(colorBox);
     }
@@ -98,6 +103,29 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener {
         initButtons();
     }
 
+    public synchronized void setHost(boolean b){
+        isHost = b;
+        if(getHost()){
+            readyButton.setVisible(false);
+            readyButton.setEnabled(false);
+            startButton.setBounds((this.width - (-1) * BUTTON_WIDTH) / 2,
+                    (this.height - (-5) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
+            this.add(startButton);
+            this.remove(readyButton);
+            System.out.println("Joined the lobby through Host panel");
+        }else{
+            startButton.setEnabled(false);
+            startButton.setVisible(false);
+            this.add(readyButton);
+            this.remove(startButton);
+            System.out.println("Joined the lobby through join panel");
+        }
+    }
+
+    public synchronized boolean getHost(){
+        return isHost;
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -106,7 +134,7 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener {
             this.add(playerLabels.get(i));
             System.out.println("Paint component: "+ playerLabels.get(i).getBackground());
         }
-        initGUI();
+        //initGUI();
 
         this.add(backgroundLabel);
         backgroundLabel.setBounds(0,0,width,height);

@@ -110,6 +110,14 @@ public class MonopolyGameController {
         publishPlayerListEvent();
     }
 
+    public boolean checkReadiness(){
+        if(playerList.size()==1) return false;
+        for (int i = 1; i<playerList.size(); i++) {
+            if(playerList.get(i).getReadiness().equals("Not Ready")) return false;
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         MonopolyGameController.getInstance().addPlayer(new Player("Mostafazadeh"));
         MonopolyGameController.getInstance().addPlayer(new Player("Benjamin"));

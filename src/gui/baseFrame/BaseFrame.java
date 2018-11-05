@@ -19,6 +19,7 @@ public class BaseFrame extends JFrame implements Runnable {
     private LobbyPanel lobbyPanel;
     private HostPanel hostPanel;
     private JoinPanel joinPanel;
+    private GamePanel gamePanel;
 
 
     public BaseFrame() throws HeadlessException {
@@ -40,6 +41,7 @@ public class BaseFrame extends JFrame implements Runnable {
         lobbyPanel = new LobbyPanel(FRAME_WIDTH, FRAME_HEIGHT);
         hostPanel = new HostPanel(FRAME_WIDTH, FRAME_HEIGHT);
         joinPanel = new JoinPanel(FRAME_WIDTH, FRAME_HEIGHT);
+        gamePanel = new GamePanel(FRAME_WIDTH, FRAME_HEIGHT);
 
         panelMap.put("Init", initialScreenPanel);
         panelMap.put("Multi", multiPlayerPanel);
@@ -47,6 +49,7 @@ public class BaseFrame extends JFrame implements Runnable {
         panelMap.put("Lobby", lobbyPanel);
         panelMap.put("Host", hostPanel);
         panelMap.put("Join", joinPanel);
+        panelMap.put("Game", gamePanel);
     }
 
 
@@ -69,13 +72,14 @@ public class BaseFrame extends JFrame implements Runnable {
 
     }
 
-
     @Override
     public void run() {
         while (true) {
             if (isIsChanged()) {
                 this.getContentPane().removeAll();
                 this.getContentPane().add(panelMap.get(getStatus()));
+                if(getStatus().equals("Join")) lobbyPanel.setHost(false);
+                else if (getStatus().equals("Host")) lobbyPanel.setHost(true);
                 this.revalidate();
                 this.repaint();
                 setIsChanged(false);
