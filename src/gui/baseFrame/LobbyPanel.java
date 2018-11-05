@@ -22,7 +22,7 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener {
 
 
     private ArrayList<JLabel> playerLabels;
-    private ArrayList<Color> colors = (ArrayList<Color>) Stream.of(Color.white,Color.lightGray,Color.gray,Color.blue,Color.cyan,Color.pink,Color.green,Color.orange,Color.magenta,Color.yellow,Color.red).collect(Collectors.toList());
+    private ArrayList<Color> colors = (ArrayList<Color>) Stream.of(Color.white,Color.lightGray,Color.gray,Color.blue,Color.cyan,Color.pink,Color.green,new Color(72,209,204),Color.orange,Color.magenta,Color.yellow,Color.red).collect(Collectors.toList());
 
     private int width;
     private int height;
@@ -65,7 +65,7 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener {
         backButton = new BackButton("Back");
 
         readyButton.setBounds((this.width - (-1) * BUTTON_WIDTH) / 2,
-                (this.height - (-6) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
+                (this.height - (-5) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
         backButton.setBounds((this.width - (-1) * BUTTON_WIDTH) / 2,
                 (this.height - (-8) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
 
@@ -95,18 +95,16 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener {
         }
         initGUI();
 
-        backgroundLabel = new JLabel(new ImageIcon(image));
         this.add(backgroundLabel);
         backgroundLabel.setBounds(0,0,width,height);
+        backgroundLabel.setOpaque(false);
     }
 
     public void setPlayerLabelList(ArrayList<String> playerList) {
         JLabel temp;
-       // Random rn = new Random();
         for (String name : playerList) {
             temp = new JLabel(name);
-           // temp.setBackground(new Color(rn.nextInt(256), rn.nextInt(256), rn.nextInt(256)));
-            temp.setBackground(colors.remove(colors.size()-1));
+            temp.setBackground(Color.white);
             temp.setOpaque(true);
             if (!playerLabelscontains(name))
                 playerLabels.add(temp);
