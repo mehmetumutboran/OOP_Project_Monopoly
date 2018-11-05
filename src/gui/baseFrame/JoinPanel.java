@@ -37,7 +37,7 @@ public class JoinPanel extends JPanel {
         initGUI();
 
         try {
-            image = ImageIO.read(new File("src\\gui\\baseFrame\\Monopoly Background.jpg"));
+            image = ImageIO.read(new File("src\\gui\\baseFrame\\Monopoly Background 6.jpg"));
         } catch (IOException ex) {
             System.out.println(ex);
         }
@@ -80,8 +80,10 @@ public class JoinPanel extends JPanel {
         this.setLayout(null);
         this.setBackground(Color.GRAY);
 
-        title = new JLabel("Join a Game");
-        title.setBounds(500, 200, 200, 40);
+        title = new JLabel("Join a Game", SwingConstants.CENTER);
+        title.setBounds(440, 200, 200, 40);
+        title.setFont(new Font("Serif", Font.BOLD, 30));
+        title.setForeground(Color.black);
         this.add(title);
 
         userNameField = new JTextField();
@@ -90,6 +92,15 @@ public class JoinPanel extends JPanel {
         userNameLabel = new JLabel("Username: ");
         ipLabel = new JLabel("IP: ");
         portLabel = new JLabel("Port: ");
+
+        userNameLabel.setFont(new Font("Serif", Font.BOLD, 30));
+        userNameLabel.setForeground(Color.black);
+
+        portLabel.setFont(new Font("Serif", Font.BOLD, 30));
+        portLabel.setForeground(Color.black);
+
+        ipLabel.setFont(new Font("Serif", Font.BOLD, 30));
+        ipLabel.setForeground(Color.black);
 
         userNameField.setBounds((this.width - BUTTON_WIDTH) / 2,
                 (this.height - 4 * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);

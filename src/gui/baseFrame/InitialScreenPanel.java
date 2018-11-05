@@ -19,8 +19,10 @@ public class InitialScreenPanel extends JPanel {
     private int width;
     private int height;
 
-    private BufferedImage image;
+    private BufferedImage image1;
+    private BufferedImage image2;
     private JLabel logoLabel;
+    private JLabel backgroundLabel;
 
     private final int BUTTON_WIDTH = 300;
     private final int BUTTON_HEIGHT = 50;
@@ -34,17 +36,23 @@ public class InitialScreenPanel extends JPanel {
         this.setBackground(Color.white);
 
         try {
-            image = ImageIO.read(new File("src\\gui\\baseFrame\\Monopoly Logo.png"));
+            image1 = ImageIO.read(new File("src\\gui\\baseFrame\\Monopoly Logo.png"));
+            image2 = ImageIO.read(new File("src\\gui\\baseFrame\\Monopoly Background.jpg"));
         } catch (IOException ex) {
             System.out.println(ex);
         }
 
-        logoLabel = new JLabel(new ImageIcon(image));
+        logoLabel = new JLabel(new ImageIcon(image1));
         this.add(logoLabel);
         logoLabel.setBounds(0,0,width,200);
         logoLabel.setOpaque(true);
 
         initButtons();
+
+        backgroundLabel = new JLabel(new ImageIcon(image2));
+        this.add(backgroundLabel);
+        backgroundLabel.setBounds(0,200,width,520);
+        backgroundLabel.setOpaque(true);
 
         this.setVisible(true);
     }
