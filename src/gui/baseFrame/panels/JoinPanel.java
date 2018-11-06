@@ -1,10 +1,14 @@
-package gui.baseFrame;
+package gui.baseFrame.panels;
 
 import gui.baseFrame.buttons.hostJoinButtons.JoinButton;
 import gui.baseFrame.buttons.multiplayerButtons.BackButton;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class JoinPanel extends JPanel {
     private JoinButton joinButton;
@@ -20,6 +24,9 @@ public class JoinPanel extends JPanel {
     private int width;
     private int height;
 
+    private BufferedImage image;
+    private JLabel backgroundLabel;
+
     private final int BUTTON_WIDTH = 300;
     private final int BUTTON_HEIGHT = 50;
 
@@ -28,6 +35,22 @@ public class JoinPanel extends JPanel {
         this.height = height;
 
         initGUI();
+
+        try {
+            if (System.getProperty("os.name").startsWith("Windows")) {
+                image = ImageIO.read(new File("res\\Monopoly Background 6.jpg"));
+            } else {
+                image = ImageIO.read(new File("res/Monopoly Background 6.jpg"));
+
+            }
+        } catch (IOException ex) {
+            System.out.println(ex);
+        }
+
+        backgroundLabel = new JLabel(new ImageIcon(image));
+        this.add(backgroundLabel);
+        backgroundLabel.setBounds(0, 0, width, height);
+        backgroundLabel.setOpaque(true);
 
         this.setVisible(true);
     }
@@ -41,8 +64,8 @@ public class JoinPanel extends JPanel {
         backButton.setBounds((this.width - BUTTON_WIDTH) / 2,
                 (this.height - (-8) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
 
-        joinButton.setBackground(Color.gray);
-        backButton.setBackground(Color.gray);
+        joinButton.setBackground(Color.lightGray);
+        backButton.setBackground(Color.lightGray);
 
         joinButton.setBorderPainted(false);
         backButton.setBorderPainted(false);
@@ -62,8 +85,10 @@ public class JoinPanel extends JPanel {
         this.setLayout(null);
         this.setBackground(Color.GRAY);
 
-        title = new JLabel("Join a Game");
-        title.setBounds(500, 200, 200, 40);
+        title = new JLabel("Join a Game", SwingConstants.CENTER);
+        title.setBounds(440, 200, 200, 40);
+        title.setFont(new Font("Serif", Font.BOLD, 30));
+        title.setForeground(Color.black);
         this.add(title);
 
         userNameField = new JTextField();
@@ -72,6 +97,15 @@ public class JoinPanel extends JPanel {
         userNameLabel = new JLabel("Username: ");
         ipLabel = new JLabel("IP: ");
         portLabel = new JLabel("Port: ");
+
+        userNameLabel.setFont(new Font("Serif", Font.BOLD, 30));
+        userNameLabel.setForeground(Color.black);
+
+        portLabel.setFont(new Font("Serif", Font.BOLD, 30));
+        portLabel.setForeground(Color.black);
+
+        ipLabel.setFont(new Font("Serif", Font.BOLD, 30));
+        ipLabel.setForeground(Color.black);
 
         userNameField.setBounds((this.width - BUTTON_WIDTH) / 2,
                 (this.height - 4 * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);

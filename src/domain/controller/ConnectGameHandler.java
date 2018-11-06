@@ -1,8 +1,9 @@
-package domain;
+package domain.controller;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import domain.MessageInterpreter;
 import domain.player.Player;
 import network.ClientFacade;
 import network.ServerFacade;
@@ -54,9 +55,12 @@ public class ConnectGameHandler implements ReceivedChangedListener {
 
         if (clientFacade.createClient(ip, port)) {
             MonopolyGameController.getInstance().addPlayer(player);
-            clientFacade.send(player.toJSON());
-//            System.out.println(MonopolyGameController.getInstance().getPlayerList());
+            sendChange(player);
         }
+    }
+
+    public void sendChange(Player p) {
+        clientFacade.send(p.toJSON());
     }
 
     /**
@@ -70,13 +74,19 @@ public class ConnectGameHandler implements ReceivedChangedListener {
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
         String message = clientFacade.getMessage();
 
-        if (message.charAt(0) == 'A') return;
+        if (message == null) return;
 
         try {
             Player player = mapper.readValue(message, Player.class);
             if (!MonopolyGameController.getInstance().getPlayerList().contains(player)) {
                 clientFacade.send(MonopolyGameController.getInstance().getPlayerList().get(0).toJSON());
                 MonopolyGameController.getInstance().addPlayer(player);
+            } else if (!MonopolyGameController.getInstance().getPlayerList().get(MonopolyGameController.getInstance().
+                    getPlayerList().indexOf(player)).getToken().getColor().equals(player.getToken().getColor())) {
+                MonopolyGameController.getInstance().changePlayerColor(MonopolyGameController.getInstance().getPlayerList().indexOf(player), player.getToken().getColor());
+            } else if (!MonopolyGameController.getInstance().getPlayerList().get(MonopolyGameController.getInstance().
+                    getPlayerList().indexOf(player)).getReadiness().equals(player.getReadiness())) {
+                MonopolyGameController.getInstance().changePlayerReadiness(MonopolyGameController.getInstance().getPlayerList().indexOf(player));
             }
         } catch (IOException e) {
             e.printStackTrace();

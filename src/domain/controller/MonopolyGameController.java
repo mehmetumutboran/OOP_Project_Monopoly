@@ -1,6 +1,7 @@
-package domain;
+package domain.controller;
 
 import domain.die.DiceCup;
+import domain.listeners.PlayerListChangedListener;
 import domain.player.Player;
 
 import java.util.ArrayList;
@@ -80,9 +81,47 @@ public class MonopolyGameController {
         return (ArrayList<String>) playerList.stream().map(Player::getName).collect(Collectors.toList());
     }
 
+    public ArrayList<ArrayList<String>> getPlayerConnectAttributes() {
+        ArrayList<ArrayList<String>> playerConnectAttributes = new ArrayList<>();
+        for (Player player : playerList) {
+            ArrayList<String> temp = new ArrayList<>();
+            temp.add(player.getName());
+            temp.add(player.getToken().getColor());
+            temp.add(player.getReadiness());
+            playerConnectAttributes.add(temp);
+        }
+        //System.out.println("Player list is" + playerList.isEmpty());
+        return playerConnectAttributes;
+    }
+
+    public void changePlayerColor(int index, String color) {
+        playerList.get(index).getToken().setColor(color);
+        System.out.println("Player's color " + playerList.get(0).getToken().getColor());
+        if (playerList.size() > 1) {
+            ConnectGameHandler.getInstance().sendChange(playerList.get(index));
+        }
+        publishPlayerListEvent();
+    }
+
+    public void changePlayerReadiness(int index) {
+        playerList.get(index).setReadiness();
+        if (playerList.size() > 1) {
+            ConnectGameHandler.getInstance().sendChange(playerList.get(index));
+        }
+        publishPlayerListEvent();
+    }
+
+    public boolean checkReadiness() {
+        if (playerList.size() == 1) return false;
+        for (int i = 1; i < playerList.size(); i++) {
+            if (playerList.get(i).getReadiness().equals("Not Ready")) return false;
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
-        MonopolyGameController.getInstance().addPlayer(new Player("asd"));
-        MonopolyGameController.getInstance().addPlayer(new Player("asdas"));
+        MonopolyGameController.getInstance().addPlayer(new Player("Mostafazadeh"));
+        MonopolyGameController.getInstance().addPlayer(new Player("Benjamin"));
         MonopolyGameController.getInstance().addPlayer(new Player("asddsa"));
         System.out.println(MonopolyGameController.getInstance().getPlayerListName());
     }
