@@ -24,6 +24,6 @@ public class JoinButton extends JButton implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         System.out.println("Join Button Pressed");
         BaseFrame.setStatus("Lobby");
-        ConnectGameHandler.getInstance().connectClient(IDField.getText(), IPField.getText(), Integer.parseInt(portField.getText()));
+        ConnectGameHandler.getInstance().connectClient(IDField.getText(), IPField.getText(), Integer.parseInt(portField.getText()),false);
     }
 }

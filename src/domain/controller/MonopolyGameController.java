@@ -1,6 +1,7 @@
 package domain.controller;
 
 import domain.die.DiceCup;
+import domain.listeners.GameStartedListener;
 import domain.listeners.PlayerListChangedListener;
 import domain.player.Player;
 
@@ -17,12 +18,14 @@ public class MonopolyGameController {
     private static MonopolyGameController monopolyGameController;
 
     private ArrayList<PlayerListChangedListener> playerListChangedListeners;
+    private ArrayList<GameStartedListener> gameStartedListeners;
 
     private MonopolyGameController() {
         playerList = new ArrayList<>();
         playerQueue = new LinkedList<>();
         cup = new DiceCup();
         playerListChangedListeners = new ArrayList<>();
+        gameStartedListeners = new ArrayList<>();
     }
 
     public boolean addPlayer(Player player) {
@@ -40,8 +43,19 @@ public class MonopolyGameController {
         }
     }
 
+    private void publishGameStartedEvent(){
+        for (GameStartedListener gls : gameStartedListeners) {
+            if (gls == null) continue;
+            gls.onGameStartedEvent();
+        }
+    }
+
     public boolean addPlayerListChangedListener(PlayerListChangedListener plc) {
         return playerListChangedListeners.add(plc);
+    }
+
+    public boolean addGameStartedListener(GameStartedListener gsl){
+        return gameStartedListeners.add(gsl);
     }
 
     public static MonopolyGameController getInstance() {
@@ -113,10 +127,23 @@ public class MonopolyGameController {
 
     public boolean checkReadiness() {
 //        if (playerList.size() == 1) return false; TODO
+        System.out.println("Hello");
+        if(playerList.get(0).getReadiness().equals("Ready") &&
+                !playerList.get(0).getReadiness().equals("Host")){
+            startGame();
+            return true;
+        }
         for (int i = 1; i < playerList.size(); i++) {
             if (playerList.get(i).getReadiness().equals("Not Ready")) return false;
         }
+        startGame();
         return true;
+    }
+
+    private void startGame(){
+        playerList.get(0).setStarted(true);
+        ConnectGameHandler.getInstance().sendChange(playerList.get(0));
+        publishGameStartedEvent();
     }
 
     public static void main(String[] args) {

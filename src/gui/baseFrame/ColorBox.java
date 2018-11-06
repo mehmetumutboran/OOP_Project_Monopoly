@@ -1,68 +1,39 @@
 package gui.baseFrame;
 
 import domain.controller.MonopolyGameController;
+import gui.ColorBoxRenderer;
 import gui.ColorConverter;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.font.TextAttribute;
+import java.text.AttributedString;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ColorBox extends JComboBox implements ActionListener {
 
-//    private HashMap<String, Color> colorMap;
-    private ArrayList<Color> colorList;
-    private JLabel playerLabel;
-
-    //private Color playerColor;
+    private ArrayList<String> colorList = (ArrayList<String>) (Stream.of("White", "LightGray", "Gray", "Blue", "Cyan", "Pink", "Green",
+            "Orange", "Magenta", "Yellow", "Red","Turquoise").collect(Collectors.toList()));
 
 
-    public ColorBox(ArrayList<Color> colorList) {
-        super(colorList.toArray());
-        this.colorList = colorList;
-//        initColorMap();
+    public ColorBox() {
+        super();
+        for (int i=0; i<colorList.size();i++) {
+            this.insertItemAt(colorList.get(i), i);
+        }
+        this.setRenderer(new ColorBoxRenderer());
         this.addActionListener(this);
-    }
 
-    public void setPlayerLabel(JLabel playerLabel) {
-        this.playerLabel = playerLabel;
     }
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        //playerLabel.setBackground((Color) this.getSelectedItem());
-        String colorChange = null;
-        //this.set
-        for (String colorName : ColorConverter.getInstance().getColorMap().keySet()) {
-            if (ColorConverter.getInstance().getColor(colorName).equals(this.getSelectedItem())) {
-                colorChange = colorName;
-                break;
-            }
-        }
-        MonopolyGameController.getInstance().changePlayerColor(0, colorChange);
-
-        // TODO ConnectGameHandler
+        MonopolyGameController.getInstance().changePlayerColor(0,(String) this.getSelectedItem());
     }
 
-//    private void initColorMap() {
-//        colorMap = new HashMap<>();
-//        colorMap.put("White", Color.white);
-//        colorMap.put("LightGray", Color.lightGray);
-//        colorMap.put("Gray", Color.gray);
-//        colorMap.put("Blue", Color.blue);
-//        colorMap.put("Cyan", Color.cyan);
-//        colorMap.put("Pink", Color.pink);
-//        colorMap.put("Green", Color.green);
-//        colorMap.put("Orange", Color.orange);
-//        colorMap.put("Magenta", Color.magenta);
-//        colorMap.put("Yellow", Color.yellow);
-//        colorMap.put("Red", Color.red);
-//        colorMap.put("Turquoise", new Color(38, 209, 188));
-//    }
-
-//    public HashMap<String, Color> getColorMap() {
-////        return this.colorMap;
-//    }
 }
