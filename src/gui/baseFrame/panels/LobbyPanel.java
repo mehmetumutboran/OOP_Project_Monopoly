@@ -2,6 +2,7 @@ package gui.baseFrame.panels;
 
 import domain.controller.MonopolyGameController;
 import domain.listeners.PlayerListChangedListener;
+import gui.ColorConverter;
 import gui.baseFrame.ColorBox;
 import gui.baseFrame.buttons.lobbyButtons.ReadyButton;
 import gui.baseFrame.buttons.lobbyButtons.StartButton;
@@ -140,7 +141,7 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener {
     public void setPlayerLabelList(ArrayList<ArrayList<String>> playerAttributes) {
         for (ArrayList<String> player : playerAttributes) {
             getPlayer(player).setText("<HTML>" + player.get(0) + "<BR>" + player.get(2) + "</HTML>");
-            getPlayer(player).setBackground(colorBox.getColorMap().get(player.get(1)));
+            getPlayer(player).setBackground(ColorConverter.getInstance().getColorMap().get(player.get(1)));
         }
         repaint();
     }
@@ -153,7 +154,7 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener {
             }
         }
         JLabel temp = new JLabel(list.get(0));
-        temp.setBackground(colorBox.getColorMap().get(list.get(1)));
+        temp.setBackground(ColorConverter.getInstance().getColorMap().get(list.get(1)));
         // TODO use readiness
         temp.setOpaque(true);
         this.playerLabels.add(temp);

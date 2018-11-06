@@ -112,7 +112,7 @@ public class MonopolyGameController {
     }
 
     public boolean checkReadiness() {
-        if (playerList.size() == 1) return false;
+//        if (playerList.size() == 1) return false; TODO
         for (int i = 1; i < playerList.size(); i++) {
             if (playerList.get(i).getReadiness().equals("Not Ready")) return false;
         }
