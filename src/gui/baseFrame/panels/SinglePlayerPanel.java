@@ -1,10 +1,14 @@
-package gui.baseFrame;
+package gui.baseFrame.panels;
 
 import gui.baseFrame.buttons.multiplayerButtons.BackButton;
 import gui.baseFrame.buttons.singlePlayerButtons.EnterButton;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class SinglePlayerPanel extends JPanel {
     private EnterButton enterButton;
@@ -16,6 +20,8 @@ public class SinglePlayerPanel extends JPanel {
     private int width;
     private int height;
 
+    private BufferedImage image;
+    private JLabel backgroundLabel;
 
     private final int BUTTON_WIDTH = 300;
     private final int BUTTON_HEIGHT = 50;
@@ -28,6 +34,21 @@ public class SinglePlayerPanel extends JPanel {
 
         initGUI();
 
+        try {
+            if (System.getProperty("os.name").startsWith("Windows")) {
+                image = ImageIO.read(new File("res\\Monopoly Background 4.jpg"));
+            } else {
+                image = ImageIO.read(new File("res/Monopoly Background 4.jpg"));
+            }
+        } catch (IOException ex) {
+            System.out.println(ex);
+        }
+
+        backgroundLabel = new JLabel(new ImageIcon(image));
+        this.add(backgroundLabel);
+        backgroundLabel.setBounds(0, 0, width, height);
+        backgroundLabel.setOpaque(true);
+
         this.setVisible(true);
     }
 
@@ -36,6 +57,8 @@ public class SinglePlayerPanel extends JPanel {
         backButton = new BackButton("Back");
         userNameField = new JTextField();
         userNameLabel = new JLabel("Username");
+        userNameLabel.setFont(new Font("Serif", Font.BOLD, 30));
+        userNameLabel.setForeground(Color.red);
 
         userNameField.setBounds((this.width - BUTTON_WIDTH) / 2,
                 (this.height - 4 * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -63,8 +86,10 @@ public class SinglePlayerPanel extends JPanel {
         this.setLayout(null);
         this.setBackground(Color.GRAY);
 
-        title = new JLabel("Single Player");
-        title.setBounds(500, 200, 200, 40);
+        title = new JLabel("Single Player", SwingConstants.CENTER);
+        title.setBounds(440, 200, 200, 40);
+        title.setFont(new Font("Serif", Font.BOLD, 30));
+        title.setForeground(Color.red);
         this.add(title);
 
         initButtons();

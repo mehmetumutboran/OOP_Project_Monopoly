@@ -1,16 +1,15 @@
 package gui.baseFrame.buttons.lobbyButtons;
 
 import domain.controller.MonopolyGameController;
+import gui.baseFrame.BaseFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * When player presses REadyButton it changes and becomes unready Button.
- */
-public class ReadyButton extends JButton implements ActionListener {
-    public ReadyButton(String text) {
+public class StartButton extends JButton implements ActionListener {
+
+    public StartButton(String text) {
         super(text);
         addActionListener(this);
     }
@@ -18,6 +17,8 @@ public class ReadyButton extends JButton implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        MonopolyGameController.getInstance().changePlayerReadiness(0);
+        if (MonopolyGameController.getInstance().checkReadiness()) {
+            BaseFrame.setStatus("Game");
+        }
     }
 }

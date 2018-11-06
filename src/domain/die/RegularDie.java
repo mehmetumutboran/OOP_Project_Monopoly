@@ -1,6 +1,6 @@
 package domain.die;
 
-public class RegularDie extends Die{
+public class RegularDie extends Die {
 
     public RegularDie() {
         super();

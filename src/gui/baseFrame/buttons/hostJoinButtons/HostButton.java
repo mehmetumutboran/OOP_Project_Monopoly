@@ -1,60 +1,39 @@
 package gui.baseFrame.buttons.hostJoinButtons;
 
-import domain.ConnectGameHandler;
-import gui.Main;
-import gui.ServerSetListener;
+import domain.controller.ConnectGameHandler;
 import gui.baseFrame.BaseFrame;
-import network.Server;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class HostButton extends JButton implements ActionListener {
     private JTextField IDField;
     private JTextField portField;
-    private Server server;
-//    private static boolean serverSet;
 
-//    private static ArrayList<ServerSetListener> serverSetListeners;
-
+    /**
+     * Constructor
+     *
+     * @param text      Label of the button
+     * @param IDField   {@link JTextField} for Username
+     * @param portField {@link JTextField} for port number
+     */
     public HostButton(String text, JTextField IDField, JTextField portField) {
         super(text);
         this.addActionListener(this);
         this.IDField = IDField;
         this.portField = portField;
-//        serverSetListeners = new ArrayList<>();
     }
 
+    /**
+     * When player Presses this button it sends a request to network layer to create new Server.
+     *
+     * @param actionEvent {@link ActionEvent}
+     */
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         System.out.println("HostGame Button Pressed");
         BaseFrame.setStatus("Lobby");
-        server = ConnectGameHandler.getInstance().connectHost(IDField.getText(), Integer.parseInt(portField.getText()));
-        if(server != null){
-            System.out.println("Host button");
-            Main.setServer(server);
-        }
+        ConnectGameHandler.getInstance().connectHost(IDField.getText(), Integer.parseInt(portField.getText()));
     }
-
-//    private void setServer(boolean b) {
-//        serverSet = b;
-//        publishServerSetEvent();
-//    }
-
-//    private static void publishServerSetEvent() {
-//        System.out.println("Publish event\n" + serverSetListeners.size());
-//        for(ServerSetListener ssl : serverSetListeners) {
-//            ssl.onServerSetEvent();
-//        }
-//    }
-//
-//    public static boolean addServerSetListener(ServerSetListener ssl){
-//        return serverSetListeners.add(ssl);
-//    }
-
-//    public static Server getServer() {
-//        return server;
-//    }
 }

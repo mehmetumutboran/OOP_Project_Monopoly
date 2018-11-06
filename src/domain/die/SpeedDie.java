@@ -2,7 +2,7 @@ package domain.die;
 
 import java.util.Random;
 
-public class SpeedDie extends Die{
+public class SpeedDie extends Die {
     private int mrMonopolyFace = 7;
     private int busFace = 8;
 
