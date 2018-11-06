@@ -1,6 +1,5 @@
 package domain.player;
 
-
 public class Token {
     private int location;
     private String color;
