@@ -6,7 +6,7 @@ public class GameState {
     private GameState() {
     }
 
-    public static GameState getGs() {
+    public static GameState getInstance() {
         if (gs == null) {
             gs = new GameState();
         }
