@@ -30,6 +30,7 @@ public class ClientHandler implements Runnable {
 
 
         } catch (IOException e) {
+            //TODO Handle Player exit
             e.printStackTrace();
         }
 

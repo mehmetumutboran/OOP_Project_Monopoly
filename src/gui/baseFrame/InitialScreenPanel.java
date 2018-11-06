@@ -36,10 +36,10 @@ public class InitialScreenPanel extends JPanel {
         this.setBackground(Color.white);
 
         try {
-            if(System.getProperty("os.name").startsWith("Windows")) {
+            if (System.getProperty("os.name").startsWith("Windows")) {
                 image1 = ImageIO.read(new File("res\\Monopoly Logo.png"));
                 image2 = ImageIO.read(new File("res\\Monopoly Background.jpg"));
-            }else {
+            } else {
                 image1 = ImageIO.read(new File("res/Monopoly Logo.png"));
                 image2 = ImageIO.read(new File("res/Monopoly Background.jpg"));
             }
@@ -49,14 +49,14 @@ public class InitialScreenPanel extends JPanel {
 
         logoLabel = new JLabel(new ImageIcon(image1));
         this.add(logoLabel);
-        logoLabel.setBounds(0,0,width,200);
+        logoLabel.setBounds(0, 0, width, 200);
         logoLabel.setOpaque(true);
 
         initButtons();
 
         backgroundLabel = new JLabel(new ImageIcon(image2));
         this.add(backgroundLabel);
-        backgroundLabel.setBounds(0,200,width,520);
+        backgroundLabel.setBounds(0, 200, width, 520);
         backgroundLabel.setOpaque(true);
 
         this.setVisible(true);

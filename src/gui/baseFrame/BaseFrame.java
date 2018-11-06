@@ -78,7 +78,7 @@ public class BaseFrame extends JFrame implements Runnable {
             if (isIsChanged()) {
                 this.getContentPane().removeAll();
                 this.getContentPane().add(panelMap.get(getStatus()));
-                if(getStatus().equals("Join")) lobbyPanel.setHost(false);
+                if (getStatus().equals("Join")) lobbyPanel.setHost(false);
                 else if (getStatus().equals("Host")) lobbyPanel.setHost(true);
                 this.revalidate();
                 this.repaint();

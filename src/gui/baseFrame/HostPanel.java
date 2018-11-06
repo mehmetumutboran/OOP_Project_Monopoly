@@ -38,9 +38,9 @@ public class HostPanel extends JPanel {
         initGUI();
 
         try {
-            if(System.getProperty("os.name").startsWith("Windows")) {
+            if (System.getProperty("os.name").startsWith("Windows")) {
                 image = ImageIO.read(new File("res\\Monopoly Background 5.jpg"));
-            }else{
+            } else {
                 image = ImageIO.read(new File("res/Monopoly Background 5.jpg"));
             }
         } catch (IOException ex) {
@@ -49,7 +49,7 @@ public class HostPanel extends JPanel {
 
         backgroundLabel = new JLabel(new ImageIcon(image));
         this.add(backgroundLabel);
-        backgroundLabel.setBounds(0,0,width,height);
+        backgroundLabel.setBounds(0, 0, width, height);
         backgroundLabel.setOpaque(true);
 
         this.setVisible(true);
@@ -78,7 +78,7 @@ public class HostPanel extends JPanel {
         this.setLayout(null);
         this.setBackground(Color.GRAY);
 
-        title = new JLabel("Host Game" , SwingConstants.CENTER);
+        title = new JLabel("Host Game", SwingConstants.CENTER);
         title.setBounds(440, 150, 200, 40);
         title.setFont(new Font("Serif", Font.BOLD, 30));
         title.setForeground(Color.black);

@@ -17,7 +17,7 @@ public class StartButton extends JButton implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(MonopolyGameController.getInstance().checkReadiness()){
+        if (MonopolyGameController.getInstance().checkReadiness()) {
             BaseFrame.setStatus("Game");
         }
     }

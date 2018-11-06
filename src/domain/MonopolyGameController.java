@@ -80,7 +80,7 @@ public class MonopolyGameController {
         return (ArrayList<String>) playerList.stream().map(Player::getName).collect(Collectors.toList());
     }
 
-    public ArrayList<ArrayList<String>> getPlayerConnectAttributes(){
+    public ArrayList<ArrayList<String>> getPlayerConnectAttributes() {
         ArrayList<ArrayList<String>> playerConnectAttributes = new ArrayList<>();
         for (Player player : playerList) {
             ArrayList<String> temp = new ArrayList<>();
@@ -93,27 +93,27 @@ public class MonopolyGameController {
         return playerConnectAttributes;
     }
 
-    public void changePlayerColor(int index,String color){
+    public void changePlayerColor(int index, String color) {
         playerList.get(index).getToken().setColor(color);
-        System.out.println("Player's color "+playerList.get(0).getToken().getColor());
-        if(playerList.size()>1){
+        System.out.println("Player's color " + playerList.get(0).getToken().getColor());
+        if (playerList.size() > 1) {
             ConnectGameHandler.getInstance().sendChange(playerList.get(index));
         }
         publishPlayerListEvent();
     }
 
-    public void changePlayerReadiness(int index){
+    public void changePlayerReadiness(int index) {
         playerList.get(index).setReadiness();
-        if(playerList.size()>1){
+        if (playerList.size() > 1) {
             ConnectGameHandler.getInstance().sendChange(playerList.get(index));
         }
         publishPlayerListEvent();
     }
 
-    public boolean checkReadiness(){
-        if(playerList.size()==1) return false;
-        for (int i = 1; i<playerList.size(); i++) {
-            if(playerList.get(i).getReadiness().equals("Not Ready")) return false;
+    public boolean checkReadiness() {
+        if (playerList.size() == 1) return false;
+        for (int i = 1; i < playerList.size(); i++) {
+            if (playerList.get(i).getReadiness().equals("Not Ready")) return false;
         }
         return true;
     }

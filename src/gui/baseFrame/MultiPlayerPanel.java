@@ -35,9 +35,9 @@ public class MultiPlayerPanel extends JPanel {
         initGUI();
 
         try {
-            if(System.getProperty("os.name").startsWith("Windows")) {
+            if (System.getProperty("os.name").startsWith("Windows")) {
                 image = ImageIO.read(new File("res\\Monopoly Background 3.jpg"));
-            }else{
+            } else {
                 image = ImageIO.read(new File("res//Monopoly Background 3.jpg"));
 
             }
@@ -47,7 +47,7 @@ public class MultiPlayerPanel extends JPanel {
 
         backgroundLabel = new JLabel(new ImageIcon(image));
         this.add(backgroundLabel);
-        backgroundLabel.setBounds(0,0,width,height);
+        backgroundLabel.setBounds(0, 0, width, height);
         backgroundLabel.setOpaque(true);
 
         this.setVisible(true);

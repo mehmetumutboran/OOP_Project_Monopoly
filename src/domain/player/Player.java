@@ -29,11 +29,11 @@ public class Player {
     }
 
     public Player(String name) {
-        this(name, new Token(), 3200, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new HashMap<>(),"Not Ready");
+        this(name, new Token(), 3200, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new HashMap<>(), "Not Ready");
     }
 
     public Player(String name, Token token, int balance, ArrayList<Property> ownedProperties, ArrayList<Utility> ownedUtilities,
-                  ArrayList<Railroad> ownedRailroads, HashMap<String, Integer> colorMap,String readiness) {
+                  ArrayList<Railroad> ownedRailroads, HashMap<String, Integer> colorMap, String readiness) {
         this.name = name;
         this.token = token;
         this.balance = balance;
@@ -89,13 +89,12 @@ public class Player {
         return name;
     }
 
-    public String getReadiness(){
+    public String getReadiness() {
         return this.readiness;
     }
 
-    public void setReadiness()
-    {
-        if(this.readiness.equals("Ready")) readiness = "Not Ready";
+    public void setReadiness() {
+        if (this.readiness.equals("Ready")) readiness = "Not Ready";
         else readiness = "Ready";
     }
 
