@@ -71,7 +71,7 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener, Gam
 
 
     private void initButtons() {
-        readyButton = new ReadyButton("Ready");
+        readyButton = new ReadyButton();
         backButton = new BackButton("Back");
         startButton = new StartButton("Start");
         colorBox = new ColorBox();
@@ -83,7 +83,6 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener, Gam
         colorBox.setBounds((this.width - (-1) * BUTTON_WIDTH) / 2,
                 (this.height - 3 * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
 
-        readyButton.setBackground(Color.gray);
         backButton.setBackground(Color.gray);
         startButton.setBackground(Color.gray);
 
