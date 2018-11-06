@@ -1,4 +1,4 @@
-package gui.baseFrame;
+package gui.baseFrame.panels;
 
 import gui.baseFrame.buttons.initialScreenButons.ExitButton;
 import gui.baseFrame.buttons.initialScreenButons.MultiplayerButton;

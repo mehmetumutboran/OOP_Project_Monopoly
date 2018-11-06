@@ -1,5 +1,8 @@
 package gui.baseFrame;
 
+import gui.baseFrame.panels.*;
+import gui.controlDisplay.ControlFrame;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
@@ -9,7 +12,7 @@ public class BaseFrame extends JFrame implements Runnable {
     private final int FRAME_HEIGHT = 720;
 
     private HashMap<String, JPanel> panelMap;
-    private static boolean isChanged = false;
+    private static boolean changed = false;
 
     public static String status = "Init";
 
@@ -20,11 +23,11 @@ public class BaseFrame extends JFrame implements Runnable {
     private HostPanel hostPanel;
     private JoinPanel joinPanel;
     private GamePanel gamePanel;
+    private ControlFrame controlDisplay;
 
 
     public BaseFrame() throws HeadlessException {
         this.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-//        this.setBackground(Color.GRAY);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.panelMap = new HashMap<>();
 
@@ -57,32 +60,33 @@ public class BaseFrame extends JFrame implements Runnable {
         return status;
     }
 
-    public synchronized static boolean isIsChanged() {
-        return isChanged;
+    public synchronized static boolean isChanged() {
+        return changed;
     }
 
-    public synchronized static void setIsChanged(boolean isChanged) {
-        BaseFrame.isChanged = isChanged;
+    public synchronized static void setChanged(boolean changed) {
+        BaseFrame.changed = changed;
     }
 
     public static void setStatus(String status) {
         BaseFrame.status = status;
         System.out.println(status);
-        isChanged = true;
+        changed = true;
 
     }
 
     @Override
     public void run() {
         while (true) {
-            if (isIsChanged()) {
+            if (isChanged()) {
                 this.getContentPane().removeAll();
                 this.getContentPane().add(panelMap.get(getStatus()));
                 if (getStatus().equals("Join")) lobbyPanel.setHost(false);
                 else if (getStatus().equals("Host")) lobbyPanel.setHost(true);
+                else if (getStatus().equals("Game")) controlDisplay = new ControlFrame(this);
                 this.revalidate();
                 this.repaint();
-                setIsChanged(false);
+                setChanged(false);
             }
         }
     }

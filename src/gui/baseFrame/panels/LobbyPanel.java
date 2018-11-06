@@ -1,7 +1,8 @@
-package gui.baseFrame;
+package gui.baseFrame.panels;
 
-import domain.MonopolyGameController;
-import domain.PlayerListChangedListener;
+import domain.controller.MonopolyGameController;
+import domain.listeners.PlayerListChangedListener;
+import gui.baseFrame.ColorBox;
 import gui.baseFrame.buttons.lobbyButtons.ReadyButton;
 import gui.baseFrame.buttons.lobbyButtons.StartButton;
 import gui.baseFrame.buttons.multiplayerButtons.BackButton;

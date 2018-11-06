@@ -1,8 +1,9 @@
-package domain;
+package domain.controller;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import domain.MessageInterpreter;
 import domain.player.Player;
 import network.ClientFacade;
 import network.ServerFacade;
@@ -55,7 +56,6 @@ public class ConnectGameHandler implements ReceivedChangedListener {
         if (clientFacade.createClient(ip, port)) {
             MonopolyGameController.getInstance().addPlayer(player);
             sendChange(player);
-//            System.out.println(MonopolyGameController.getInstance().getPlayerList());
         }
     }
 

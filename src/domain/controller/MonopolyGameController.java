@@ -1,6 +1,7 @@
-package domain;
+package domain.controller;
 
 import domain.die.DiceCup;
+import domain.listeners.PlayerListChangedListener;
 import domain.player.Player;
 
 import java.util.ArrayList;

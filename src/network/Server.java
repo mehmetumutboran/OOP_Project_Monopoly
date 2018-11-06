@@ -1,12 +1,14 @@
 package network;
 
+import domain.controller.ConnectGameHandler;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
  * {@link Server} class that opens a server
- * It will use Observer Pattern to publish new Connected {@link Client} to {@link domain.ConnectGameHandler}  ???? Not possible??
+ * It will use Observer Pattern to publish new Connected {@link Client} to {@link ConnectGameHandler}  ???? Not possible??
  */
 public class Server implements Runnable {
     private ServerSocket ss;

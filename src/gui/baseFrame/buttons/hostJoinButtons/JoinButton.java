@@ -1,6 +1,6 @@
 package gui.baseFrame.buttons.hostJoinButtons;
 
-import domain.ConnectGameHandler;
+import domain.controller.ConnectGameHandler;
 import gui.baseFrame.BaseFrame;
 
 import javax.swing.*;

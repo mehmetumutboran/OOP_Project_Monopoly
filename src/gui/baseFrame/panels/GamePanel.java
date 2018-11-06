@@ -1,4 +1,4 @@
-package gui.baseFrame;
+package gui.baseFrame.panels;
 
 import javax.swing.*;
 

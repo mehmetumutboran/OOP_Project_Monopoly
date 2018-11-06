@@ -1,4 +1,4 @@
-package gui.baseFrame;
+package gui.baseFrame.panels;
 
 import gui.baseFrame.buttons.multiplayerButtons.BackButton;
 import gui.baseFrame.buttons.singlePlayerButtons.EnterButton;
