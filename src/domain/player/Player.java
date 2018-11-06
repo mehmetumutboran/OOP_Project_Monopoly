@@ -19,28 +19,25 @@ public class Player {
     private ArrayList<Property> ownedProperties;
     private ArrayList<Utility> ownedUtilities;
     private ArrayList<Railroad> ownedRailroads;
-    private HashMap<String, Integer> colorMap; // TODO ?
     private String readiness;
-
-    //TODO how to take color of token ?
+    private boolean started;
 
     public Player() {
         this("");
     }
 
     public Player(String name) {
-        this(name, new Token(), 3200, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new HashMap<>(), "Not Ready");
+        this(name, new Token(), 3200, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), "Not Ready");
     }
 
     public Player(String name, Token token, int balance, ArrayList<Property> ownedProperties, ArrayList<Utility> ownedUtilities,
-                  ArrayList<Railroad> ownedRailroads, HashMap<String, Integer> colorMap, String readiness) {
+                  ArrayList<Railroad> ownedRailroads, String readiness) {
         this.name = name;
         this.token = token;
         this.balance = balance;
         this.ownedProperties = ownedProperties;
         this.ownedUtilities = ownedUtilities;
         this.ownedRailroads = ownedRailroads;
-        this.colorMap = colorMap;
         this.readiness = readiness;
     }
 
@@ -98,6 +95,16 @@ public class Player {
         else readiness = "Ready";
     }
 
+    public void setReadiness(String readiness){ this.readiness = readiness; }
+
+    public boolean isStarted() {
+        return started;
+    }
+
+    public void setStarted(boolean started) {
+        this.started = started;
+    }
+
     public Token getToken() {
         return token;
     }
@@ -105,4 +112,38 @@ public class Player {
     public void setToken(Token token) {
         this.token = token;
     }
+
+    public int getBalance() {
+        return balance;
+    }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
+    }
+
+    public ArrayList<Property> getOwnedProperties() {
+        return ownedProperties;
+    }
+
+    public void setOwnedProperties(ArrayList<Property> ownedProperties) {
+        this.ownedProperties = ownedProperties;
+    }
+
+    public ArrayList<Utility> getOwnedUtilities() {
+        return ownedUtilities;
+    }
+
+    public void setOwnedUtilities(ArrayList<Utility> ownedUtilities) {
+        this.ownedUtilities = ownedUtilities;
+    }
+
+    public ArrayList<Railroad> getOwnedRailroads() {
+        return ownedRailroads;
+    }
+
+    public void setOwnedRailroads(ArrayList<Railroad> ownedRailroads) {
+        this.ownedRailroads = ownedRailroads;
+    }
+
+
 }

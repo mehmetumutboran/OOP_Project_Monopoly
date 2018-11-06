@@ -1,8 +1,10 @@
 package gui.baseFrame.panels;
 
 import domain.controller.MonopolyGameController;
+import domain.listeners.GameStartedListener;
 import domain.listeners.PlayerListChangedListener;
 import gui.ColorConverter;
+import gui.baseFrame.BaseFrame;
 import gui.baseFrame.ColorBox;
 import gui.baseFrame.buttons.lobbyButtons.ReadyButton;
 import gui.baseFrame.buttons.lobbyButtons.StartButton;
@@ -18,16 +20,12 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class LobbyPanel extends JPanel implements PlayerListChangedListener {
+public class LobbyPanel extends JPanel implements PlayerListChangedListener, GameStartedListener {
     private ReadyButton readyButton;
     private BackButton backButton;
     private StartButton startButton;
     private ColorBox colorBox;
     private boolean isHost;
-
-
-    private ArrayList<Color> colorList = (ArrayList<Color>) (Stream.of(Color.white, Color.lightGray, Color.gray, Color.blue, Color.cyan, Color.pink, Color.green,
-            Color.orange, Color.magenta, Color.yellow, Color.red).collect(Collectors.toList()));
 
     private ArrayList<JLabel> playerLabels;
 
@@ -51,6 +49,7 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener {
         this.height = height;
         playerLabels = new ArrayList<>();
         MonopolyGameController.getInstance().addPlayerListChangedListener(this);
+        MonopolyGameController.getInstance().addGameStartedListener(this);
         initGUI();
         try {
             if (System.getProperty("os.name").startsWith("Windows")) {
@@ -75,14 +74,14 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener {
         readyButton = new ReadyButton("Ready");
         backButton = new BackButton("Back");
         startButton = new StartButton("Start");
-        colorBox = new ColorBox(colorList);
+        colorBox = new ColorBox();
 
         readyButton.setBounds((this.width - (-1) * BUTTON_WIDTH) / 2,
                 (this.height - (-5) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
         backButton.setBounds((this.width - (-1) * BUTTON_WIDTH) / 2,
                 (this.height - (-8) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
         colorBox.setBounds((this.width - (-1) * BUTTON_WIDTH) / 2,
-                (this.height - 2 * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
+                (this.height - 3 * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
 
         readyButton.setBackground(Color.gray);
         backButton.setBackground(Color.gray);
@@ -111,13 +110,11 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener {
                     (this.height - (-5) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
             this.add(startButton);
             this.remove(readyButton);
-            System.out.println("Joined the lobby through Host panel");
         } else {
             startButton.setEnabled(false);
             startButton.setVisible(false);
             this.add(readyButton);
             this.remove(startButton);
-            System.out.println("Joined the lobby through join panel");
         }
     }
 
@@ -155,7 +152,6 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener {
         }
         JLabel temp = new JLabel(list.get(0));
         temp.setBackground(ColorConverter.getInstance().getColorMap().get(list.get(1)));
-        // TODO use readiness
         temp.setOpaque(true);
         this.playerLabels.add(temp);
         return getPlayer(list);
@@ -164,6 +160,11 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener {
     @Override
     public void onPlayerListChangedEvent() {
         setPlayerLabelList(MonopolyGameController.getInstance().getPlayerConnectAttributes());
+    }
+
+    @Override
+    public void onGameStartedEvent(){
+        BaseFrame.setStatus("Game");
     }
 }
 

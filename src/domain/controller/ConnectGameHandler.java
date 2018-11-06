@@ -41,7 +41,7 @@ public class ConnectGameHandler implements ReceivedChangedListener {
         if (serverFacade.createServer(port)) {
 //            MonopolyGameController.getInstance().addPlayer(username);
 //            System.out.println("In the Connection game handler Class\n");
-            connectClient(username, "localhost", port); // Connects the host as a client after it creates server
+            connectClient(username, "localhost", port,true); // Connects the host as a client after it creates server
         }
     }
 
@@ -50,8 +50,9 @@ public class ConnectGameHandler implements ReceivedChangedListener {
      * @param ip       IP for server connection
      * @param port     for server Connection
      */
-    public void connectClient(String username, String ip, int port) {
+    public void connectClient(String username, String ip, int port,boolean isHost) {
         Player player = new Player(username);
+        if(isHost) player.setReadiness("Host");
 
         if (clientFacade.createClient(ip, port)) {
             MonopolyGameController.getInstance().addPlayer(player);
@@ -87,6 +88,13 @@ public class ConnectGameHandler implements ReceivedChangedListener {
             } else if (!MonopolyGameController.getInstance().getPlayerList().get(MonopolyGameController.getInstance().
                     getPlayerList().indexOf(player)).getReadiness().equals(player.getReadiness())) {
                 MonopolyGameController.getInstance().changePlayerReadiness(MonopolyGameController.getInstance().getPlayerList().indexOf(player));
+            } else if (player.isStarted()){
+                MonopolyGameController.getInstance().getPlayerList().get(MonopolyGameController.getInstance().
+                        getPlayerList().indexOf(player)).setStarted(true);
+                if(!MonopolyGameController.getInstance().getPlayerList().get(0).isStarted()) {
+                    MonopolyGameController.getInstance().checkReadiness();
+                    clientFacade.removeReceivedChangedListener(this);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();

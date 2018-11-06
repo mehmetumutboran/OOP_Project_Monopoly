@@ -1,7 +1,6 @@
 package gui.baseFrame.buttons.lobbyButtons;
 
 import domain.controller.MonopolyGameController;
-import gui.baseFrame.BaseFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -17,8 +16,6 @@ public class StartButton extends JButton implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (MonopolyGameController.getInstance().checkReadiness()) {
-            BaseFrame.setStatus("Game");
-        }
+        MonopolyGameController.getInstance().checkReadiness();
     }
 }
