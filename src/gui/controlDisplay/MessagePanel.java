@@ -1,7 +1,6 @@
 package gui.controlDisplay;
 
-import domain.controller.GamePlayHandler;
-import domain.listeners.MessageChangedListener;
+import domain.controller.GameCommunicationHandler;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,7 +34,7 @@ public class MessagePanel extends JPanel implements MessageChangedListener {
         message = new StringBuilder("<html><body><div></div></body></html>");
         messageLabel = new JLabel();
         this.add(messageLabel);
-        GamePlayHandler.getInstance().addMessageChangedListener(this);
+        GameCommunicationHandler.getInstance().addMessageChangedListener(this);
         setBackground(Color.WHITE);
 
         String s = "Hello";
@@ -47,7 +46,7 @@ public class MessagePanel extends JPanel implements MessageChangedListener {
 
     @Override
     public void onMessageChangedEvent() {
-//        String s = GamePlayHandler.getInstance().getMessage();
+//        String s = GameCommunicationHandler.getInstance().getMessage();
         String s = "Hello";
         message.insert(OFFSET, LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")) + " - " + s + "<br>");
         System.out.println(message.toString());

@@ -7,7 +7,6 @@ import java.net.Socket;
 
 public class Client {
     private Socket socket;
-    private ClientSender clientSender;
     private ClientReceiver clientReceiver;
     private ClientFacade clientFacade;
 
@@ -21,10 +20,7 @@ public class Client {
             dis = new DataInputStream(socket.getInputStream());
             dos = new DataOutputStream(socket.getOutputStream());
             clientReceiver = new ClientReceiver(dis, clientFacade);
-//            clientSender = new ClientSender(dos);
             clientReceiver.start();
-//            clientSender.start();
-//            (new Thread(this)).start();
 
         } catch (IOException e) {
             e.printStackTrace();

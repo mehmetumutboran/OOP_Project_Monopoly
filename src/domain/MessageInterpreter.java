@@ -17,4 +17,7 @@ public class MessageInterpreter {
     }
 
 
+    public void interpret(String m) {
+        this.message = m;
+    }
 }

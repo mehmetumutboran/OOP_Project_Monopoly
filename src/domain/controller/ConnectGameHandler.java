@@ -15,15 +15,13 @@ import java.io.IOException;
  * Singleton Class to handle communication between UI and Network during initialization
  */
 public class ConnectGameHandler implements ReceivedChangedListener {
-    private ClientFacade clientFacade;
     private ServerFacade serverFacade;
 
     private static ConnectGameHandler connectGameHandler;
 
     private ConnectGameHandler() {
         serverFacade = new ServerFacade();
-        clientFacade = new ClientFacade();
-        clientFacade.addReceivedChangedListener(this);
+        ClientFacade.getInstance().addReceivedChangedListener(this);
     }
 
     public static ConnectGameHandler getInstance() {
@@ -54,14 +52,14 @@ public class ConnectGameHandler implements ReceivedChangedListener {
         Player player = new Player(username);
         if(isHost) player.setReadiness("Host");
 
-        if (clientFacade.createClient(ip, port)) {
+        if (ClientFacade.getInstance().createClient(ip, port)) {
             MonopolyGameController.getInstance().addPlayer(player);
             sendChange(player);
         }
     }
 
     public void sendChange(Player p) {
-        clientFacade.send(p.toJSON());
+        ClientFacade.getInstance().send(p.toJSON());
     }
 
     /**
@@ -69,7 +67,7 @@ public class ConnectGameHandler implements ReceivedChangedListener {
      * Right now it assumes Received message is new {@link Player} and adds it to the {@link MonopolyGameController#getPlayerList()}
      */
     @Override
-    public void onReceivedChangedEvent() {
+    public void onReceivedChangedEvent(ClientFacade clientFacade) {
         //TODO change to MessageInterpreter
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);

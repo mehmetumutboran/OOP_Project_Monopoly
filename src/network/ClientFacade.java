@@ -10,13 +10,26 @@ import java.util.ArrayList;
  * Uses observer pattern to publish Received message (~Game state)
  */
 public class ClientFacade {
+    private static ClientFacade clientFacade;
+
     private Client client;
     private String message;
 
     /**
      * Subscribers
      */
-    private static ArrayList<ReceivedChangedListener> receivedChangedListeners = new ArrayList<>();
+    private ArrayList<ReceivedChangedListener> receivedChangedListeners;
+
+    private ClientFacade(){
+        receivedChangedListeners = new ArrayList<>();
+    }
+
+    public static ClientFacade getInstance(){
+        if(clientFacade == null)
+            clientFacade = new ClientFacade();
+
+        return clientFacade;
+    }
 
 
     /**
@@ -55,7 +68,7 @@ public class ClientFacade {
     private void publishReceivedChangedAction() {
         for (ReceivedChangedListener aReceivedChangedListener : receivedChangedListeners) {
             if (aReceivedChangedListener == null) continue;
-            aReceivedChangedListener.onReceivedChangedEvent();
+            aReceivedChangedListener.onReceivedChangedEvent(ClientFacade.getInstance());
         }
     }
 

@@ -1,5 +1,7 @@
 package domain;
 
+import domain.controller.MonopolyGameController;
+
 public class GameState {
     private static GameState gs;
 
@@ -13,4 +15,10 @@ public class GameState {
 
         return gs;
     }
+
+    public String generateGameState(){
+        //TODO
+        return MonopolyGameController.getInstance().getPlayerList().get(0).toJSON();
+    }
+
 }
