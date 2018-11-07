@@ -16,17 +16,32 @@ public class MessagePanel extends JPanel implements MessageChangedListener {
 
     private static StringBuilder message;
     private JLabel messageLabel;
+    private JScrollBar scrollBar;
+    private JScrollPane scrollPane;
 
     public MessagePanel(int width, int height) {
         this.width = width;
         this.height = height;
 
         this.setPreferredSize(new Dimension(width, height / 5));
+
+        this.setLayout(new BorderLayout());
+        scrollPane = new JScrollPane();
+        scrollBar = new JScrollBar();
+//        scrollBar.setMaximum(100);
+        scrollPane.add(scrollBar);
+        this.add(scrollPane, BorderLayout.CENTER);
+
         message = new StringBuilder("<html><body><div></div></body></html>");
         messageLabel = new JLabel();
         this.add(messageLabel);
         GamePlayHandler.getInstance().addMessageChangedListener(this);
         setBackground(Color.WHITE);
+
+        String s = "Hello";
+        message.insert(OFFSET, LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")) + " - " + s + "<br>");
+        System.out.println(message.toString());
+        messageLabel.setText(message.toString());
 
     }
 
