@@ -3,9 +3,10 @@ package domain.die.strategies;
 import domain.die.DiceCup;
 import domain.die.DiceRollStrategy;
 
-public class RollNormalStrategy implements DiceRollStrategy {
+// This strategy is for getting dice values for ordering players
+public class RollInitialStrategy implements DiceRollStrategy {
 
-    public RollNormalStrategy(){
+    public RollInitialStrategy(){
 
     }
 
@@ -13,8 +14,6 @@ public class RollNormalStrategy implements DiceRollStrategy {
     public void roll(DiceCup diceCup) {
         diceCup.getDice()[0].roll(diceCup,0);
         diceCup.getDice()[1].roll(diceCup,1);
-        diceCup.getDice()[2].roll(diceCup,2);
         diceCup.setTotalFaceValue();
     }
-
 }

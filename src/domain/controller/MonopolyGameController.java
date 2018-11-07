@@ -6,12 +6,14 @@ import domain.listeners.PlayerListChangedListener;
 import domain.player.Player;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.stream.Collectors;
 
 public class MonopolyGameController {
     private ArrayList<Player> playerList;
+    private ArrayList<Player> playerSortList;
     private Deque<Player> playerQueue;
     private DiceCup cup;
 
@@ -22,6 +24,7 @@ public class MonopolyGameController {
 
     private MonopolyGameController() {
         playerList = new ArrayList<>();
+        playerSortList = new ArrayList<>();
         playerQueue = new LinkedList<>();
         cup = new DiceCup();
         playerListChangedListeners = new ArrayList<>();
@@ -144,7 +147,26 @@ public class MonopolyGameController {
         playerList.get(0).setStarted(true);
         ConnectGameHandler.getInstance().sendChange(playerList.get(0));
         publishGameStartedEvent();
+        initGame();
     }
+
+    private void initGame(){ // For now in this method players roll dice with initial roll strategy and they put to the queue corresponding to their total face values.
+        for (Player p:playerList) {
+            p.rollDice();
+            p.setInitRoll(cup.getTotalFaceValue());
+        }
+        playerSortList.addAll(playerList);
+        Collections.sort(playerSortList);
+        playerQueue.addAll(playerSortList);
+        System.out.println("/////Player Queue//////");
+        for (Player p:playerQueue) {
+            System.out.println(p);
+        }
+    }
+
+    public DiceCup getCup() {
+        return cup;
+    } // This is for getting the dice cup of the game.
 
     public static void main(String[] args) {
         MonopolyGameController.getInstance().addPlayer(new Player("Mostafazadeh"));

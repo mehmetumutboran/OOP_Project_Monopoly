@@ -54,8 +54,8 @@ public class ClientFacade {
 
     private void publishReceivedChangedAction() {
         for (ReceivedChangedListener aReceivedChangedListener : receivedChangedListeners) {
-            if (aReceivedChangedListener == null) continue;
-            aReceivedChangedListener.onReceivedChangedEvent();
+                if (aReceivedChangedListener == null) continue;
+                aReceivedChangedListener.onReceivedChangedEvent();
         }
     }
 

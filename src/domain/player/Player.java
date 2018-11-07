@@ -7,12 +7,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.board.Property;
 import domain.board.Railroad;
 import domain.board.Utility;
+import domain.controller.MonopolyGameController;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class Player {
+public class Player implements Comparable {
     private String name;
     private Token token;
     private int balance;
@@ -21,6 +22,7 @@ public class Player {
     private ArrayList<Railroad> ownedRailroads;
     private String readiness;
     private boolean started;
+    private int initRoll; // This field stores the players initial roll total face value.
 
     public Player() {
         this("");
@@ -68,6 +70,8 @@ public class Player {
         Player player = new Player("Player32");
         System.out.println(player.toJSON());
     }
+
+
 
     @Override
     public boolean equals(Object o) {
@@ -145,5 +149,34 @@ public class Player {
         this.ownedRailroads = ownedRailroads;
     }
 
+    public void rollDice(){
+        MonopolyGameController.getInstance().getCup().rollDice();
+    } // Player gives command to roll dice to the controller.
 
+    public int getInitRoll() { // compareTo method uses this to get players initial roll
+        return initRoll;
+    }
+
+    public void setInitRoll(int initRoll) { // if the strategy is initialroll then the field initial roll changes according to the total face value. This method sets initial roll.
+        this.initRoll = initRoll;
+    }
+
+    @Override
+    public int compareTo(Object o) { // To order players i use comparable interface and its compareTo method
+        if(this.getInitRoll() >= ((Player) o).getInitRoll()){
+            return -1;
+        }else return 1;
+    }
+
+    @Override
+    public String toString() { //TODO This toString() is for debugging. It may change.
+        final StringBuilder sb = new StringBuilder("Player{");
+        sb.append("name='").append(name).append('\'');
+        sb.append(", token=").append(token);
+        sb.append(", balance=").append(balance);
+        sb.append(", started=").append(started);
+        sb.append(", initRoll=").append(initRoll);
+        sb.append('}');
+        return sb.toString();
+    }
 }

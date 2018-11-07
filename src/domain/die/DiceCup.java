@@ -1,5 +1,6 @@
 package domain.die;
 
+
 /**
  * Holds the game dice
  * Has roll methods
@@ -21,16 +22,42 @@ public class DiceCup {
             dice[i] = new RegularDie();
         }
 
-        faceValues = new int[6];
+        faceValues = new int[3];
 
+    }
+
+    public Die[] getDice() {
+        return dice;
+    }
+
+    public int[] getFaceValues() {
+        return faceValues;
+    }
+
+    public void setTotalFaceValue() {
+        this.totalFaceValue = this.getFaceValues()[0] + this.getFaceValues()[1] + this.getFaceValues()[2];
     }
 
     public int getTotalFaceValue() {
         return totalFaceValue;
     }
 
-    private void rollDice() {
+    public void setFaceValues(int[] faceValues) {
+        this.faceValues = faceValues;
+    }
+
+    public void rollDice() {
         DiceRollFactory.getInstance().getDiceRollStrategy().roll(this);
+    }
+
+    public static void main(String args[]){
+        DiceCup d1 = new DiceCup();
+        System.out.println(d1.getTotalFaceValue());
+        d1.rollDice();
+        System.out.println(d1.getFaceValues()[0]);
+        System.out.println(d1.getFaceValues()[1]);
+        System.out.println(d1.getFaceValues()[2]);
+        System.out.println(d1.getTotalFaceValue());
     }
 
 
