@@ -1,15 +1,19 @@
 package gui.controlDisplay.butons;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class BuyButton extends JButton {
+public class BuyButton extends JButton implements ActionListener {
 
     public BuyButton(String text) {
         super(text);
-        this.setSize(200, 100);
-//        this.setBounds(200, 100, 10, 10);
-
+        this.addActionListener(this);
         this.setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
 
     }
 }
