@@ -11,6 +11,7 @@ import domain.board.Utility;
 import domain.controller.MonopolyGameController;
 import domain.die.DiceCup;
 
+import java.security.PrivilegedExceptionAction;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
@@ -24,6 +25,8 @@ public class Player implements Comparable {
     private ArrayList<Railroad> ownedRailroads;
     private String readiness;
     private boolean started;
+    private int doubleCounter; // Constructor
+    private boolean inJail;
     private int initRoll; // This field stores the players initial roll total face value.
 
     public Player() {

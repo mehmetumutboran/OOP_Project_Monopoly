@@ -23,7 +23,7 @@ public class PlayerStatusPanel extends JPanel {
         this.width = width;
         this.height = height;
 
-        this.setPreferredSize(new Dimension(width, height / 5));
+        this.setPreferredSize(new Dimension(width, 180));
         cardLayout = new CardLayout();
         this.setLayout(cardLayout);
 
