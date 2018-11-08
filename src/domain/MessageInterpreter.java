@@ -20,4 +20,8 @@ public class MessageInterpreter {
     public void interpret(String m) {
         this.message = m;
     }
+
+    public String getMessage() {
+        return message;
+    }
 }

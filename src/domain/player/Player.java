@@ -8,6 +8,7 @@ import domain.board.Property;
 import domain.board.Railroad;
 import domain.board.Utility;
 
+import java.security.PrivilegedExceptionAction;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
@@ -21,6 +22,8 @@ public class Player {
     private ArrayList<Railroad> ownedRailroads;
     private String readiness;
     private boolean started;
+    private int doubleCounter; // Constructor
+    private boolean inJail;
 
     public Player() {
         this("");

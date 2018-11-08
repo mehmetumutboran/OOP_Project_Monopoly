@@ -65,7 +65,7 @@ public class ClientFacade {
         publishReceivedChangedAction();
     }
 
-    private void publishReceivedChangedAction() {
+    private synchronized void publishReceivedChangedAction() {
         for (ReceivedChangedListener aReceivedChangedListener : receivedChangedListeners) {
             if (aReceivedChangedListener == null) continue;
             aReceivedChangedListener.onReceivedChangedEvent(ClientFacade.getInstance());
@@ -76,7 +76,7 @@ public class ClientFacade {
         receivedChangedListeners.add(listener);
     }
 
-    public void removeReceivedChangedListener(ReceivedChangedListener listener) {
+    public synchronized void removeReceivedChangedListener(ReceivedChangedListener listener) {
         receivedChangedListeners.remove(listener);
     }
 

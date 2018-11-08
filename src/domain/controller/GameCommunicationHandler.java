@@ -2,6 +2,8 @@ package domain.controller;
 
 import domain.GameState;
 import domain.MessageInterpreter;
+import domain.listeners.MessageChangedListener;
+import gui.controlDisplay.MessagePanel;
 import network.ClientFacade;
 import network.listeners.ReceivedChangedListener;
 
@@ -27,13 +29,17 @@ public class GameCommunicationHandler implements ReceivedChangedListener {
         this.message = message;
     }
 
-    public void turnFinished() {
-        ClientFacade.getInstance().send(GameState.getInstance().generateGameState());
+    public void sendAction(char flag) {
+        ClientFacade.getInstance().send(GameState.getInstance().generateGameState(flag));
     }
 
 
     @Override
     public void onReceivedChangedEvent(ClientFacade clientFacade) {
         MessageInterpreter.getInstance().interpret(clientFacade.getMessage());
+    }
+
+    public void addMessageChangedListener(MessageChangedListener mcl) {
+
     }
 }

@@ -67,7 +67,7 @@ public class ConnectGameHandler implements ReceivedChangedListener {
      * Right now it assumes Received message is new {@link Player} and adds it to the {@link MonopolyGameController#getPlayerList()}
      */
     @Override
-    public void onReceivedChangedEvent(ClientFacade clientFacade) {
+    public synchronized void onReceivedChangedEvent(ClientFacade clientFacade) {
         //TODO change to MessageInterpreter
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);

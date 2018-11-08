@@ -144,6 +144,7 @@ public class MonopolyGameController {
         playerList.get(0).setStarted(true);
         ConnectGameHandler.getInstance().sendChange(playerList.get(0));
         publishGameStartedEvent();
+        PlayerActionController.getInstance().setPlayers(playerQueue);
     }
 
     public static void main(String[] args) {
