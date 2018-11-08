@@ -15,8 +15,8 @@ public class RegularDie extends Die {
     @Override
     public void roll(DiceCup diceCup, int index) { //TODO Implementation of this method may change
         int roll = rn.nextInt(6);
-        this.setFaceValue(roll);
-        diceCup.getFaceValues()[index] = this.getFaces()[roll];
+        this.setFaceValue(this.getFaces()[roll]);
+        diceCup.getInstance().getFaceValues()[index] = this.getFaces()[roll];
     }
 
 

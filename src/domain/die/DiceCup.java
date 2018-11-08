@@ -12,7 +12,9 @@ public class DiceCup {
     private int[] faceValues;
     private int totalFaceValue;
 
-    public DiceCup() {
+    private static DiceCup dc;
+
+    private DiceCup() {
         dice = new Die[4];
         for (int i = 0; i < dice.length; i++) {
             if (i == speedDieIndex) {
@@ -26,6 +28,13 @@ public class DiceCup {
 
     }
 
+    public static DiceCup getInstance(){
+        if(dc == null){
+            dc = new DiceCup();
+        }
+        return dc;
+    }
+
     public Die[] getDice() {
         return dice;
     }
@@ -35,7 +44,8 @@ public class DiceCup {
     }
 
     public void setTotalFaceValue() {
-        this.totalFaceValue = this.getFaceValues()[0] + this.getFaceValues()[1] + this.getFaceValues()[2];
+        if(7 > this.getFaceValues()[2]) this.totalFaceValue = this.getFaceValues()[0] + this.getFaceValues()[1] + this.getFaceValues()[2];
+        else this.totalFaceValue = this.getFaceValues()[0] + this.getFaceValues()[1];
     }
 
     public int getTotalFaceValue() {
@@ -46,19 +56,19 @@ public class DiceCup {
         this.faceValues = faceValues;
     }
 
-    public void rollDice() {
-        DiceRollFactory.getInstance().getDiceRollStrategy().roll(this);
+    public void rollDice(String locName) {
+        DiceRollFactory.getInstance().chooseDiceRollStrategy(locName).roll(this);
     }
 
-    public static void main(String args[]){
-        DiceCup d1 = new DiceCup();
-        System.out.println(d1.getTotalFaceValue());
-        d1.rollDice();
-        System.out.println(d1.getFaceValues()[0]);
-        System.out.println(d1.getFaceValues()[1]);
-        System.out.println(d1.getFaceValues()[2]);
-        System.out.println(d1.getTotalFaceValue());
-    }
+//    public static void main(String args[]){
+//        DiceCup d1 = new DiceCup();
+//        System.out.println(d1.getTotalFaceValue());
+//        d1.rollDice();
+//        System.out.println(d1.getFaceValues()[0]);
+//        System.out.println(d1.getFaceValues()[1]);
+//        System.out.println(d1.getFaceValues()[2]);
+//        System.out.println(d1.getTotalFaceValue());
+//    }
 
 
 }

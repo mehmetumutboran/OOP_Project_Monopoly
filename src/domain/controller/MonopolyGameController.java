@@ -5,17 +5,13 @@ import domain.listeners.GameStartedListener;
 import domain.listeners.PlayerListChangedListener;
 import domain.player.Player;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Deque;
-import java.util.LinkedList;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class MonopolyGameController {
     private ArrayList<Player> playerList;
     private ArrayList<Player> playerSortList;
     private Deque<Player> playerQueue;
-    private DiceCup cup;
 
     private static MonopolyGameController monopolyGameController;
 
@@ -26,7 +22,6 @@ public class MonopolyGameController {
         playerList = new ArrayList<>();
         playerSortList = new ArrayList<>();
         playerQueue = new LinkedList<>();
-        cup = new DiceCup();
         playerListChangedListeners = new ArrayList<>();
         gameStartedListeners = new ArrayList<>();
     }
@@ -152,8 +147,8 @@ public class MonopolyGameController {
 
     private void initGame(){ // For now in this method players roll dice with initial roll strategy and they put to the queue corresponding to their total face values.
         for (Player p:playerList) {
-            p.rollDice();
-            p.setInitRoll(cup.getTotalFaceValue());
+            DiceCup.getInstance().rollDice("Init");
+            p.setInitRoll(DiceCup.getInstance().getTotalFaceValue());
         }
         playerSortList.addAll(playerList);
         Collections.sort(playerSortList);
@@ -164,15 +159,20 @@ public class MonopolyGameController {
         }
     }
 
-    public DiceCup getCup() {
-        return cup;
-    } // This is for getting the dice cup of the game.
-
     public static void main(String[] args) {
         MonopolyGameController.getInstance().addPlayer(new Player("Mostafazadeh"));
         MonopolyGameController.getInstance().addPlayer(new Player("Benjamin"));
         MonopolyGameController.getInstance().addPlayer(new Player("asddsa"));
         System.out.println(MonopolyGameController.getInstance().getPlayerListName());
+        DiceCup.getInstance().rollDice("RollThree");
+        System.out.println("Roll Three: " + Arrays.toString(DiceCup.getInstance().getFaceValues()));
+        System.out.println("Total Face Value: " + DiceCup.getInstance().getTotalFaceValue());
+        DiceCup.getInstance().rollDice("RollNormal");
+        System.out.println("Roll Normal: " + Arrays.toString(DiceCup.getInstance().getFaceValues()));
+        System.out.println("Total Face Value: " + DiceCup.getInstance().getTotalFaceValue());
+        DiceCup.getInstance().rollDice("Jail");
+        System.out.println("Jail: " + Arrays.toString(DiceCup.getInstance().getFaceValues()));
+        System.out.println("Total Face Value: " + DiceCup.getInstance().getTotalFaceValue());
     }
 
 

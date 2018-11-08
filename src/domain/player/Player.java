@@ -4,10 +4,12 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import domain.board.Board;
 import domain.board.Property;
 import domain.board.Railroad;
 import domain.board.Utility;
 import domain.controller.MonopolyGameController;
+import domain.die.DiceCup;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -150,7 +152,9 @@ public class Player implements Comparable {
     }
 
     public void rollDice(){
-        MonopolyGameController.getInstance().getCup().rollDice();
+        //String locName = Board.getInstance().getSq(this.token.getLocation()).getName();
+        String locName = "Go";
+        DiceCup.getInstance().rollDice(locName);
     } // Player gives command to roll dice to the controller.
 
     public int getInitRoll() { // compareTo method uses this to get players initial roll
