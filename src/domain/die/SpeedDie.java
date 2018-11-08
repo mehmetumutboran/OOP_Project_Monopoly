@@ -16,7 +16,9 @@ public class SpeedDie extends Die {
     }
 
     @Override
-    public void roll() {
-        this.setFaceValue(this.getFaces()[rn.nextInt(6)]);
+    public void roll(DiceCup diceCup,int index) {
+        int roll = rn.nextInt(6);
+        this.setFaceValue(this.getFaces()[roll]);
+        diceCup.getInstance().getFaceValues()[index] = this.getFaces()[roll];
     }
 }
