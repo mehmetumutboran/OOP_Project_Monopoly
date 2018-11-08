@@ -1,8 +1,9 @@
-package domain.board.squares;
+package domain.board.specialSquares;
 
 import domain.board.SpecialSquareStrategy;
+;
 
-public class FreeParkingSquare implements SpecialSquareStrategy {
+public class BusTicket implements SpecialSquareStrategy{
     @Override
     public boolean doAction() {
         return false;
