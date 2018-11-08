@@ -8,11 +8,13 @@ public class Property extends DeedSquare {
     private String color;
     private ArrayList<Building> buildingList;
 
-    public Property(String name, int buyValue, int rent, String color) {
-        super(name, buyValue, rent);
+    public Property(String name, int layer, int index, int buyValue, int rent, String color) {
+        super(name, layer, index, buyValue, rent);
         this.color = color;
-        this.buildingList = new ArrayList<>(); //TODO Lazy init?
+        this.buildingList = new ArrayList<>();
+
     }
+
 
     public String getColor() {
         return color;
