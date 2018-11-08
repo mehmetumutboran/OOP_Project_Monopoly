@@ -3,6 +3,7 @@ package domain;
 import domain.controller.GameCommunicationHandler;
 import domain.player.Player;
 
+import javax.sound.midi.Soundbank;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.stream.Collectors;
@@ -38,26 +39,48 @@ public class GameLogic {
     }
 
     public void roll() {
+        players.peekFirst().rollDice();
+        if(checkThirdDouble()){
+
+        }else if(checkJail()){
+
+        }else if (checkBus()){
+
+        }else{
+            move();
+        }
+
+
+        checkMrMonopoly();
+        System.out.println("In the Game Logic Roll Method");
         GameCommunicationHandler.getInstance().sendAction(rollFlag);
     }
 
-    private void checkJail() {
+    private void move() {
     }
 
-    private void checkBus() {
+    private boolean checkJail() {
+        return false;
     }
 
-    private void checkMrMonopoly() {
+    private boolean checkBus() {
+        return false;
     }
 
-    private void checkTriple() {
+    private boolean checkMrMonopoly() {
+        return false;
     }
 
-    private void checkThirdDouble() {
+    private boolean checkTriple() {
+        return false;
+    }
+
+    private boolean checkThirdDouble() {
+        return false;
     }
 
     public void setPlayers(Deque<Player> playerQueue) {
-
+        this.players = playerQueue;
     }
 
     public Deque<Player> getPlayers() {

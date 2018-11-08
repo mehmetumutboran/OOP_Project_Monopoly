@@ -18,6 +18,7 @@ public class UIUpdater {
     }
 
     private UIUpdater() {
+        messageChangedListeners = new ArrayList<>();
     }
 
     public void addMessageChangedListener(MessageChangedListener mcl) {

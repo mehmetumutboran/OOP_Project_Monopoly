@@ -10,10 +10,12 @@ public class RollDiceButton extends JButton implements ActionListener {
 
     public RollDiceButton(String text) {
         super(text);
+        this.addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         PlayerActionController.getInstance().roll();
+        System.out.println("Roll dice clicked");
     }
 }

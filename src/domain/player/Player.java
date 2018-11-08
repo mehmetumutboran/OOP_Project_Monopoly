@@ -28,6 +28,7 @@ public class Player implements Comparable {
     private int doubleCounter; // Constructor
     private boolean inJail;
     private int initRoll; // This field stores the players initial roll total face value.
+    private int[] faceValues;
 
     public Player() {
         this("");
@@ -154,10 +155,35 @@ public class Player implements Comparable {
         this.ownedRailroads = ownedRailroads;
     }
 
+    public int[] getFaceValues() {
+        return faceValues;
+    }
+
+    public void setFaceValues(int[] faceValues) {
+        this.faceValues = faceValues;
+    }
+
+    public int resetDoubleCounter() {
+        return this.doubleCounter = 0;
+    }
+
+    public void incrementDoubleCounter() {
+        this.doubleCounter+=1;
+    }
+
+    public boolean isInJail() {
+        return inJail;
+    }
+
+    public void setInJail(boolean inJail) {
+        this.inJail = inJail;
+    }
+
     public void rollDice(){
         //String locName = Board.getInstance().getSq(this.token.getLocation()).getName();
         String locName = "Go";
         DiceCup.getInstance().rollDice(locName);
+        this.faceValues = DiceCup.getInstance().getFaceValues();
     } // Player gives command to roll dice to the controller.
 
     public int getInitRoll() { // compareTo method uses this to get players initial roll

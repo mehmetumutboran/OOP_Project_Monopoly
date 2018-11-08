@@ -73,7 +73,7 @@ public class ConnectGameHandler implements ReceivedChangedListener {
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
         String message = clientFacade.getMessage();
 
-        if (message == null) return;
+        if (message == null || message.charAt(0) != '{') return;
 
         try {
             Player player = mapper.readValue(message, Player.class);

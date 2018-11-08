@@ -3,6 +3,9 @@ package domain;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import domain.player.Player;
+
+import java.io.IOException;
 
 /**
  * Planned as a Class that interprets received Message then updates game state
@@ -16,6 +19,8 @@ public class MessageInterpreter {
     }
 
     public static MessageInterpreter getInstance() {
+        if(instance == null)
+            instance = new MessageInterpreter();
         return instance;
     }
 
@@ -42,18 +47,20 @@ public class MessageInterpreter {
     private void interpretRoll(String message) {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
-        int[] location;
+        int[] location = new int[2];
         String name = null;
-//        try {
-//            location = objectMapper.readValue(message, Player.class).getToken().getLocation();
-//            name = objectMapper.readValue(message, Player.class).getName();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        int[] faceValues = new int[3];
+        try {
+            location = objectMapper.readValue(message, Player.class).getToken().getLocation();
+            name = objectMapper.readValue(message, Player.class).getName();
+            faceValues = objectMapper.readValue(message, Player.class).getFaceValues();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-//        GameLogic.getInstance().getPlayer(name).getToken().setLocation(location);
+        GameLogic.getInstance().getPlayer(name).getToken().setLocation(location);
 
-        UIUpdater.getInstance().setMessage(name + " rolled "); //TODO
+        UIUpdater.getInstance().setMessage(name + " rolled " + faceValues[0] + " " + faceValues[1] + " " + faceValues[2]); //TODO Mrmonopoly
     }
 
 
