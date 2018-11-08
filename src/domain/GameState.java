@@ -17,9 +17,9 @@ public class GameState {
         return gs;
     }
 
-    public String generateGameState(char flag){
+    public String generateCurrentAction(char flag){
         //TODO
-        return flag + PlayerActionController.getInstance().getPlayers().peekFirst().toJSON();
+        return flag + GameLogic.getInstance().getPlayers().peekFirst().toJSON();
     }
 
 }

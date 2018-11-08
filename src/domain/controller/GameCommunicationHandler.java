@@ -7,6 +7,8 @@ import gui.controlDisplay.MessagePanel;
 import network.ClientFacade;
 import network.listeners.ReceivedChangedListener;
 
+import java.util.ArrayList;
+
 public class GameCommunicationHandler implements ReceivedChangedListener {
     private static GameCommunicationHandler ourInstance = new GameCommunicationHandler();
 
@@ -30,16 +32,14 @@ public class GameCommunicationHandler implements ReceivedChangedListener {
     }
 
     public void sendAction(char flag) {
-        ClientFacade.getInstance().send(GameState.getInstance().generateGameState(flag));
+        ClientFacade.getInstance().send(GameState.getInstance().generateCurrentAction(flag));
     }
 
 
     @Override
     public void onReceivedChangedEvent(ClientFacade clientFacade) {
-        MessageInterpreter.getInstance().interpret(clientFacade.getMessage());
+       MessageInterpreter.getInstance().interpret(clientFacade.getMessage());
     }
 
-    public void addMessageChangedListener(MessageChangedListener mcl) {
 
-    }
 }

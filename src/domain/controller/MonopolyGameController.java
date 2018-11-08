@@ -1,5 +1,6 @@
 package domain.controller;
 
+import domain.GameLogic;
 import domain.die.DiceCup;
 import domain.listeners.GameStartedListener;
 import domain.listeners.PlayerListChangedListener;
@@ -144,7 +145,8 @@ public class MonopolyGameController {
         playerList.get(0).setStarted(true);
         ConnectGameHandler.getInstance().sendChange(playerList.get(0));
         publishGameStartedEvent();
-        PlayerActionController.getInstance().setPlayers(playerQueue);
+        GameLogic.getInstance().setPlayers(playerQueue);
+        GameLogic.getInstance().setPlayerList(playerList);
     }
 
     public static void main(String[] args) {
