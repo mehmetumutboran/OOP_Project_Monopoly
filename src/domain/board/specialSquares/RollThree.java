@@ -4,8 +4,8 @@ import domain.board.SpecialSquareStrategy;
 import domain.board.Square;
 
 
-public class IncomeTax extends Square implements SpecialSquareStrategy{
-    public IncomeTax(String name, int layer, int index) {
+public class RollThree extends Square implements SpecialSquareStrategy{
+    public RollThree(String name, int layer, int index) {
         super(name, layer, index);
     }
 

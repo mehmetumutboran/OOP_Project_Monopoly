@@ -9,8 +9,8 @@ public abstract class DeedSquare extends Square {
     // private boolean isOwned; //TODO delete (owner == null)
     private boolean isMortgaged;
 
-    public DeedSquare(String name, int buyValue, int rent) {
-        super(name);
+    public DeedSquare(String name, int layer, int index, int buyValue, int rent) {
+        super(name, layer, index);
         this.buyValue = buyValue;
         this.rent = rent;
     }
