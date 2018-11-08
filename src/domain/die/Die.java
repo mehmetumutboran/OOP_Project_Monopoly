@@ -24,6 +24,6 @@ public abstract class Die {
         return faces;
     }
 
-    public abstract void roll();
+    public abstract void roll(DiceCup diceCup, int index);
 
 }
