@@ -2,6 +2,7 @@ package domain.controller;
 
 import domain.GameLogic;
 import domain.die.DiceCup;
+import domain.listeners.CloseButtonListener;
 import domain.listeners.GameStartedListener;
 import domain.listeners.PlayerListChangedListener;
 import domain.player.Player;
@@ -18,6 +19,7 @@ public class MonopolyGameController {
 
     private ArrayList<PlayerListChangedListener> playerListChangedListeners;
     private ArrayList<GameStartedListener> gameStartedListeners;
+    private ArrayList<CloseButtonListener> closeButtonListeners;
 
     private MonopolyGameController() {
         playerList = new ArrayList<>();
@@ -25,6 +27,7 @@ public class MonopolyGameController {
         playerQueue = new LinkedList<>();
         playerListChangedListeners = new ArrayList<>();
         gameStartedListeners = new ArrayList<>();
+        closeButtonListeners = new ArrayList<>();
     }
 
     public boolean addPlayer(Player player) {
@@ -33,6 +36,13 @@ public class MonopolyGameController {
         System.out.println(playerList);
         publishPlayerListEvent();
         return true;
+    }
+
+    private void publishCloseClickedEvent() {
+        for (CloseButtonListener cbl : closeButtonListeners) {
+            if (cbl == null) continue;
+            cbl.onCloseClickedEvent();
+        }
     }
 
     private void publishPlayerListEvent() {
@@ -51,6 +61,10 @@ public class MonopolyGameController {
 
     public boolean addPlayerListChangedListener(PlayerListChangedListener plc) {
         return playerListChangedListeners.add(plc);
+    }
+
+    public boolean addCloseButtonListener(CloseButtonListener cbl) {
+        return closeButtonListeners.add(cbl);
     }
 
     public boolean addGameStartedListener(GameStartedListener gsl){
@@ -178,5 +192,10 @@ public class MonopolyGameController {
         System.out.println("Total Face Value: " + DiceCup.getInstance().getTotalFaceValue());
     }
 
+
+    public void informClosed() {
+        ConnectGameHandler.getInstance().sendChange(playerList.get(0),'E');
+        publishCloseClickedEvent();
+    }
 
 }

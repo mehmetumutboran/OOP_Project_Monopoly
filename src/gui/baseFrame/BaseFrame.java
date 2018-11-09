@@ -1,13 +1,17 @@
 package gui.baseFrame;
 
+import domain.controller.MonopolyGameController;
+import domain.listeners.CloseButtonListener;
 import gui.baseFrame.panels.*;
 import gui.controlDisplay.ControlFrame;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.HashMap;
 
-public class BaseFrame extends JFrame implements Runnable {
+public class BaseFrame extends JFrame implements Runnable, CloseButtonListener {
     private final int FRAME_WIDTH = 1080;
     private final int FRAME_HEIGHT = 720;
 
@@ -28,12 +32,18 @@ public class BaseFrame extends JFrame implements Runnable {
 
     public BaseFrame() throws HeadlessException {
         this.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        //this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.panelMap = new HashMap<>();
-
+        MonopolyGameController.getInstance().addCloseButtonListener(this);
         initializeFrame();
         (new Thread(this)).start();
         this.add(initialScreenPanel);
+        this.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent we) {
+                MonopolyGameController.getInstance().informClosed();
+            }
+        });
+
         this.setVisible(true);
     }
 
@@ -92,5 +102,10 @@ public class BaseFrame extends JFrame implements Runnable {
                 setChanged(false);
             }
         }
+    }
+
+    @Override
+    public void onCloseClickedEvent() {
+        System.exit(0);
     }
 }

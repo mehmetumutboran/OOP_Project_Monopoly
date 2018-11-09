@@ -1,27 +1,27 @@
 package domain.player;
 
 public class Token {
-    private int location;
+    private int[] location;
     private String color;
 
     public Token() {
-        this(0, "White");
+        this(new int[]{1,0}, "White");
     }
 
     public Token(String color) {
-        this(0, color);
+        this(new int[]{1,0}, color);
     }
 
-    public Token(int location, String color) {
+    public Token(int[] location, String color) {
         this.location = location;
         this.color = color;
     }
 
-    public int getLocation() {
+    public int[] getLocation() {
         return location;
     }
 
-    public void setLocation(int location) {
+    public void setLocation(int[] location) {
         this.location = location;
     }
 
