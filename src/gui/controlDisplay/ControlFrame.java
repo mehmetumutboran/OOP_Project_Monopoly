@@ -18,7 +18,7 @@ public class ControlFrame extends JDialog {
 
         initGUI();
 
-        this.setVisible(true);
+        this.setVisible(false);
 
     }
 

@@ -35,9 +35,9 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener {
         this.setSize(FRAME_WIDTH, FRAME_HEIGHT);
         //this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.panelMap = new HashMap<>();
+        initializeFrame();
         MonopolyGameController.getInstance().addCloseButtonListener(this);
         UIUpdater.getInstance().addCloseButtonListener(this);
-        initializeFrame();
         (new Thread(this)).start();
         this.add(initialScreenPanel);
         this.addWindowListener(new WindowAdapter() {
@@ -57,6 +57,7 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener {
         hostPanel = new HostPanel(FRAME_WIDTH, FRAME_HEIGHT);
         joinPanel = new JoinPanel(FRAME_WIDTH, FRAME_HEIGHT);
         gamePanel = new GamePanel(1400, 1000);
+        controlDisplay = new ControlFrame(this);
 
         panelMap.put("Init", initialScreenPanel);
         panelMap.put("Multi", multiPlayerPanel);
@@ -96,8 +97,8 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener {
                 if (getStatus().equals("Join")) lobbyPanel.setHost(false);
                 else if (getStatus().equals("Host")) lobbyPanel.setHost(true);
                 else if (getStatus().equals("Game")) {
-                    controlDisplay = new ControlFrame(this);
                     this.setSize(1415,1040);
+                    this.controlDisplay.setVisible(true);
                 }
                 this.revalidate();
                 this.repaint();
