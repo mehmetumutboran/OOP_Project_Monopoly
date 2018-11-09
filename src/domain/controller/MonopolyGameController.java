@@ -203,7 +203,7 @@ public class MonopolyGameController {
 
 
     public void informClosed() {
-        ConnectGameHandler.getInstance().sendChange(playerList.get(0),'E');
+        if(MonopolyGameController.getInstance().getPlayerList().size() > 1)ConnectGameHandler.getInstance().sendChange(playerList.get(0),'E');
         publishCloseClickedEvent();
     }
 
