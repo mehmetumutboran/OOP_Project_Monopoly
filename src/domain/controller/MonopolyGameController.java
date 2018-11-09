@@ -1,6 +1,8 @@
 package domain.controller;
 
 import domain.GameLogic;
+import domain.MessageInterpreter;
+import domain.UIUpdater;
 import domain.die.DiceCup;
 import domain.listeners.GameStartedListener;
 import domain.listeners.PlayerListChangedListener;
@@ -143,9 +145,11 @@ public class MonopolyGameController {
         playerList.get(0).setStarted(true);
         ConnectGameHandler.getInstance().sendChange(playerList.get(0));
         publishGameStartedEvent();
+        initGame();
         GameLogic.getInstance().setPlayers(playerQueue);
         GameLogic.getInstance().setPlayerList(playerList);
-        initGame();
+        GameCommunicationHandler.getInstance();
+
     }
 
     private void initGame(){ // For now in this method players roll dice with initial roll strategy and they put to the queue corresponding to their total face values.

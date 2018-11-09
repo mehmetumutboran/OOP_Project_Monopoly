@@ -72,7 +72,7 @@ public class ClientFacade {
         }
     }
 
-    public void addReceivedChangedListener(ReceivedChangedListener listener) {
+    public synchronized void addReceivedChangedListener(ReceivedChangedListener listener) {
         receivedChangedListeners.add(listener);
     }
 

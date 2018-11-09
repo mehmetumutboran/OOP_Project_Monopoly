@@ -91,7 +91,7 @@ public class ConnectGameHandler implements ReceivedChangedListener {
                         getPlayerList().indexOf(player)).setStarted(true);
                 if(!MonopolyGameController.getInstance().getPlayerList().get(0).isStarted()) {
                     MonopolyGameController.getInstance().checkReadiness();
-                    //clientFacade.removeReceivedChangedListener(this); //TODO Buggy Remove(something must be added to the listener list)
+                    clientFacade.removeReceivedChangedListener(this);
                 }
             }
         } catch (IOException e) {

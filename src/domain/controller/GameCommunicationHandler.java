@@ -10,7 +10,7 @@ import network.listeners.ReceivedChangedListener;
 import java.util.ArrayList;
 
 public class GameCommunicationHandler implements ReceivedChangedListener {
-    private static GameCommunicationHandler ourInstance = new GameCommunicationHandler();
+    private static GameCommunicationHandler ourInstance;
 
     private String message;
 
@@ -20,6 +20,8 @@ public class GameCommunicationHandler implements ReceivedChangedListener {
     }
 
     public static GameCommunicationHandler getInstance() {
+        if(ourInstance == null)
+             ourInstance = new GameCommunicationHandler();
         return ourInstance;
     }
 
@@ -38,7 +40,7 @@ public class GameCommunicationHandler implements ReceivedChangedListener {
 
     @Override
     public void onReceivedChangedEvent(ClientFacade clientFacade) {
-       MessageInterpreter.getInstance().interpret(clientFacade.getMessage());
+        MessageInterpreter.getInstance().interpret(clientFacade.getMessage());
     }
 
 
