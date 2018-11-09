@@ -1,5 +1,6 @@
 package gui.baseFrame;
 
+import domain.UIUpdater;
 import domain.controller.MonopolyGameController;
 import domain.listeners.CloseButtonListener;
 import gui.baseFrame.panels.*;
@@ -35,6 +36,7 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener {
         //this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.panelMap = new HashMap<>();
         MonopolyGameController.getInstance().addCloseButtonListener(this);
+        UIUpdater.getInstance().addCloseButtonListener(this);
         initializeFrame();
         (new Thread(this)).start();
         this.add(initialScreenPanel);

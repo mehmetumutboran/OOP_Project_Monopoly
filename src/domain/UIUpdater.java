@@ -1,6 +1,7 @@
 package domain;
 
 import domain.controller.PlayerActionController;
+import domain.listeners.CloseButtonListener;
 import domain.listeners.MessageChangedListener;
 import domain.listeners.TurnChangedListener;
 
@@ -11,6 +12,7 @@ public class UIUpdater {
 
     private ArrayList<MessageChangedListener> messageChangedListeners;
     private ArrayList<TurnChangedListener> turnChangedListeners;
+    private ArrayList<CloseButtonListener> closeButtonListeners;
 
     String message;
 
@@ -23,6 +25,7 @@ public class UIUpdater {
     private UIUpdater() {
         messageChangedListeners = new ArrayList<>();
         turnChangedListeners = new ArrayList<>();
+        closeButtonListeners = new ArrayList<>();
     }
 
     public void addMessageChangedListener(MessageChangedListener mcl) {
@@ -36,10 +39,18 @@ public class UIUpdater {
     public void addTurnChangedLListener(TurnChangedListener tcl){
         turnChangedListeners.add(tcl);
     }
+    public void addCloseButtonListener(CloseButtonListener cbl){
+        closeButtonListeners.add(cbl);
+    }
 
     private void publishTurnChangedEvent(boolean isEnabled){
         for(TurnChangedListener tcl : turnChangedListeners) {
             tcl.onTurnChangedEvent(isEnabled);
+        }
+    }
+    private void publishCloseButtonEvent(){
+        for(CloseButtonListener cbl : closeButtonListeners) {
+            cbl.onCloseClickedEvent();
         }
     }
 
@@ -56,5 +67,9 @@ public class UIUpdater {
         publishTurnChangedEvent(GameLogic.getInstance().getPlayers().peekFirst()
                 .equals(GameLogic.getInstance().getPlayerList().get(0)));
 
+    }
+
+    public void close() {
+        publishCloseButtonEvent();
     }
 }

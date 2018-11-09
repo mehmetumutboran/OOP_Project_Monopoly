@@ -23,6 +23,7 @@ public class GameLogic {
     public static final char jailFlag = 'J';
     public static final char finishTurnFlag = 'F';
     public static final char queueFlag = 'Q';
+    public static final char closeFlag = 'E';
     //TODO Add more
 
     private Deque<Player> players;

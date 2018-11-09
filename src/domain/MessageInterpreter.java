@@ -3,6 +3,7 @@ package domain;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import domain.controller.GameCommunicationHandler;
 import domain.player.Player;
 import gui.controlDisplay.PlayerLabel;
 
@@ -47,9 +48,17 @@ public class MessageInterpreter {
                 break;
             case GameLogic.queueFlag:
                 interpretQueue(m.substring(1));
+                break;
+            case GameLogic.closeFlag:
+                interpretClose();
+                break;
             default:
                 break;
         }
+    }
+
+    private void interpretClose() {
+        UIUpdater.getInstance().close();
     }
 
     private void interpretQueue(String q) {
