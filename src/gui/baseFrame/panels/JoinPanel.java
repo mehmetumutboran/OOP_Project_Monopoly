@@ -120,6 +120,9 @@ public class JoinPanel extends JPanel {
         portLabel.setBounds((this.width - 2 * BUTTON_WIDTH) / 2,
                 (this.height - (-2) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
 
+        ipField.setText("localhost");
+        portField.setText("2222");
+
         initButtons();
     }
 }

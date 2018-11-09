@@ -145,17 +145,19 @@ public class MonopolyGameController {
         playerList.get(0).setStarted(true);
         ConnectGameHandler.getInstance().sendChange(playerList.get(0));
         publishGameStartedEvent();
-        initGame();
-        GameLogic.getInstance().setPlayers(playerQueue);
-        GameLogic.getInstance().setPlayerList(playerList);
         GameCommunicationHandler.getInstance();
+        GameLogic.getInstance().setPlayerList(playerList);
+        if(playerList.get(0).getReadiness().equals("Host")) {
+            initGame();
+        }
 
     }
 
     private void initGame(){ // For now in this method players roll dice with initial roll strategy and they put to the queue corresponding to their total face values.
-        for (Player p:playerList) {
+        for (Player p : playerList) {
             DiceCup.getInstance().rollDice("Init");
-            p.setInitRoll(DiceCup.getInstance().getTotalFaceValue());
+            p.setFaceValues(DiceCup.getInstance().getFaceValues());
+            System.out.println(Arrays.toString(DiceCup.getInstance().getFaceValues()));
         }
         playerSortList.addAll(playerList);
         Collections.sort(playerSortList);
@@ -164,6 +166,8 @@ public class MonopolyGameController {
         for (Player p:playerQueue) {
             System.out.println(p);
         }
+        GameLogic.getInstance().setPlayers(playerQueue);
+        GameCommunicationHandler.getInstance().sendQueue();
     }
 
     public static void main(String[] args) {

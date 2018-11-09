@@ -1,5 +1,8 @@
 package domain.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import domain.GameLogic;
 import domain.GameState;
 import domain.MessageInterpreter;
 import domain.listeners.MessageChangedListener;
@@ -44,4 +47,16 @@ public class GameCommunicationHandler implements ReceivedChangedListener {
     }
 
 
+    public void sendQueue() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String s = null;
+        try {
+            s = objectMapper.writeValueAsString(GameLogic.getInstance().getPlayers());
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        ClientFacade.getInstance().send(GameLogic.queueFlag + s);
+        System.out.println("SendQueue: " + s);
+    }
 }
