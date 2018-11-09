@@ -57,6 +57,5 @@ public class GameCommunicationHandler implements ReceivedChangedListener {
         }
 
         ClientFacade.getInstance().send(GameLogic.queueFlag + s);
-        System.out.println("SendQueue: " + s);
     }
 }

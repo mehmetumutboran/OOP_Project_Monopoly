@@ -160,6 +160,7 @@ public class MonopolyGameController {
         ConnectGameHandler.getInstance().sendChange(playerList.get(0));
         publishGameStartedEvent();
         GameCommunicationHandler.getInstance();
+        UIUpdater.getInstance();
         GameLogic.getInstance().setPlayerList(playerList);
         if(playerList.get(0).getReadiness().equals("Host")) {
             initGame();
