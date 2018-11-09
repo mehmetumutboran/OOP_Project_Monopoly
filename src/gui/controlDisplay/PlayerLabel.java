@@ -14,6 +14,7 @@ public class PlayerLabel extends JLabel implements MouseListener {
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         this.setOpaque(true);
         this.addMouseListener(this);
+        System.out.println("asdfadsfsafasfadsf");
     }
 
     @Override

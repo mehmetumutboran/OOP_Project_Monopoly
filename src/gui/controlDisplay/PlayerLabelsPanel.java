@@ -1,13 +1,14 @@
 package gui.controlDisplay;
 
 import domain.controller.MonopolyGameController;
+import domain.listeners.GameStartedListener;
 import gui.ColorConverter;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class PlayerLabelsPanel extends JLabel {
+public class PlayerLabelsPanel extends JLabel implements GameStartedListener {
     private int INITIAL_X = 0;
     private int INITIAL_Y = 0;
     private final int LAST_X = 490;
@@ -22,7 +23,7 @@ public class PlayerLabelsPanel extends JLabel {
         this.playerStatusPanel = playerStatusPanel;
 
         this.setPreferredSize(playerStatusPanel.getSize());
-
+        MonopolyGameController.getInstance().addGameStartedListener(this);
         initGUI();
 
         this.setVisible(true);
@@ -32,12 +33,7 @@ public class PlayerLabelsPanel extends JLabel {
     private void initGUI() {
         playerLabels = new ArrayList<>();
 
-        for (int i = 0; i < MonopolyGameController.getInstance().getPlayerListName().size(); i++) {
-            PlayerLabel temp = new PlayerLabel(MonopolyGameController.getInstance().getPlayerListName().get(i), this);
-            temp.setBackground(ColorConverter.getInstance().getColor(
-                    MonopolyGameController.getInstance().getPlayerList().get(i).getToken().getColor()));
-            playerLabels.add(temp);
-        }
+
     }
 
     @Override
@@ -55,5 +51,15 @@ public class PlayerLabelsPanel extends JLabel {
 
     public PlayerStatusPanel getPlayerStatusPanel() {
         return playerStatusPanel;
+    }
+
+    @Override
+    public void onGameStartedEvent() {
+        for (int i = 0; i < MonopolyGameController.getInstance().getPlayerListName().size(); i++) {
+            PlayerLabel temp = new PlayerLabel(MonopolyGameController.getInstance().getPlayerListName().get(i), this);
+            temp.setBackground(ColorConverter.getInstance().getColor(
+                    MonopolyGameController.getInstance().getPlayerList().get(i).getToken().getColor()));
+            playerLabels.add(temp);
+        }
     }
 }
