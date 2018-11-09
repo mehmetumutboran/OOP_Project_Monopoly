@@ -72,8 +72,12 @@ public class ConnectGameHandler implements ReceivedChangedListener {
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
         String message = clientFacade.getMessage();
-
-        if (message == null || message.charAt(0) != '{') return;
+        if (message == null || message.charAt(0) != '{') {
+         if (message.charAt(0) == 'E') {
+            System.out.println("OnReceived: " + message);
+            MonopolyGameController.getInstance().informClosed();
+        }else return;
+        }
 
         try {
             Player player = mapper.readValue(message, Player.class);
@@ -97,5 +101,9 @@ public class ConnectGameHandler implements ReceivedChangedListener {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void sendChange(Player player, char e) {
+        ClientFacade.getInstance().send(e + player.toJSON());
     }
 }
