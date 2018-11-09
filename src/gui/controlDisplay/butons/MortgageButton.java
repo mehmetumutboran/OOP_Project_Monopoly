@@ -12,7 +12,7 @@ public class MortgageButton extends JButton implements ActionListener, TurnChang
         super(text);
         this.addActionListener(this);
         this.setEnabled(false);
-        UIUpdater.getInstance().addTurnChangedLListener(this);
+        UIUpdater.getInstance().addTurnChangedListener(this);
     }
 
     @Override

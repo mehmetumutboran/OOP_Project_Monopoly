@@ -13,7 +13,7 @@ public class BuyButton extends JButton implements ActionListener, TurnChangedLis
         super(text);
         this.addActionListener(this);
         this.setEnabled(false);
-        UIUpdater.getInstance().addTurnChangedLListener(this);
+        UIUpdater.getInstance().addTurnChangedListener(this);
     }
 
     @Override

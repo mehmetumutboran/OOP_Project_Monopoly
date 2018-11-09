@@ -36,7 +36,7 @@ public class UIUpdater {
         messageChangedListeners.forEach(MessageChangedListener::onMessageChangedEvent);
     }
 
-    public void addTurnChangedLListener(TurnChangedListener tcl){
+    public void addTurnChangedListener(TurnChangedListener tcl){
         turnChangedListeners.add(tcl);
     }
     public void addCloseButtonListener(CloseButtonListener cbl){
@@ -69,6 +69,7 @@ public class UIUpdater {
                 .equals(GameLogic.getInstance().getPlayerList().get(0)));
         System.out.println("Valuse: " + GameLogic.getInstance().getPlayers().peekFirst()
                 .equals(GameLogic.getInstance().getPlayerList().get(0)) + "\n\n");
+        System.out.println("Listeners: " + turnChangedListeners + "\n\n");
 
     }
 

@@ -13,7 +13,7 @@ public class UnmortgageButton extends JButton implements ActionListener, TurnCha
         super(text);
         this.addActionListener(this);
         this.setEnabled(false);
-        UIUpdater.getInstance().addTurnChangedLListener(this);
+        UIUpdater.getInstance().addTurnChangedListener(this);
     }
 
     @Override

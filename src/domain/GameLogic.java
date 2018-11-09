@@ -6,6 +6,7 @@ import domain.player.Player;
 import javax.sound.midi.Soundbank;
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.LinkedList;
 import java.util.stream.Collectors;
 
 public class GameLogic {
@@ -37,6 +38,8 @@ public class GameLogic {
     }
 
     private GameLogic() {
+        players = new LinkedList<>();
+        playerList = new ArrayList<>();
 
     }
 

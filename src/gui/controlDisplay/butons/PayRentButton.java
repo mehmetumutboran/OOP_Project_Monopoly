@@ -13,7 +13,7 @@ public class PayRentButton extends JButton implements ActionListener, TurnChange
         super(text);
         this.addActionListener(this);
         this.setEnabled(false);
-        UIUpdater.getInstance().addTurnChangedLListener(this);
+        UIUpdater.getInstance().addTurnChangedListener(this);
     }
 
     @Override
