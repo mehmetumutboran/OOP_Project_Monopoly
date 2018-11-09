@@ -65,8 +65,11 @@ public class UIUpdater {
 
     public void turnUpdate() {
         System.out.println("\n\n\nTurnUpdate: \n" + GameLogic.getInstance().getPlayers() + "\nList:\n" + GameLogic.getInstance().getPlayerList() + "\n\n");
+
         publishTurnChangedEvent(GameLogic.getInstance().getPlayers().peekFirst()
                 .equals(GameLogic.getInstance().getPlayerList().get(0)));
+
+
         System.out.println("Valuse: " + GameLogic.getInstance().getPlayers().peekFirst()
                 .equals(GameLogic.getInstance().getPlayerList().get(0)) + "\n\n");
         System.out.println("Listeners: " + turnChangedListeners + "\n\n");

@@ -73,24 +73,24 @@ public class ConnectGameHandler implements ReceivedChangedListener {
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
         String message = clientFacade.getMessage();
         if (message == null || message.charAt(0) != '{') {
-         if (message.charAt(0) == 'E') {
-            System.out.println("OnReceived: " + message);
-            MonopolyGameController.getInstance().informClosed();
-        }else return;
+             if (message.charAt(0) == 'E') {
+                System.out.println("OnReceived: " + message);
+                MonopolyGameController.getInstance().informClosed();
+            }else return;
         }
 
         try {
             Player player = mapper.readValue(message, Player.class);
-            if (!MonopolyGameController.getInstance().getPlayerList().contains(player)) {
+            if (!MonopolyGameController.getInstance().getPlayerList().contains(player)) { //New PLayer
                 clientFacade.send(MonopolyGameController.getInstance().getPlayerList().get(0).toJSON());
                 MonopolyGameController.getInstance().addPlayer(player);
-            } else if (!MonopolyGameController.getInstance().getPlayerList().get(MonopolyGameController.getInstance().
+            } else if (!MonopolyGameController.getInstance().getPlayerList().get(MonopolyGameController.getInstance(). //Color changed
                     getPlayerList().indexOf(player)).getToken().getColor().equals(player.getToken().getColor())) {
                 MonopolyGameController.getInstance().changePlayerColor(MonopolyGameController.getInstance().getPlayerList().indexOf(player), player.getToken().getColor());
-            } else if (!MonopolyGameController.getInstance().getPlayerList().get(MonopolyGameController.getInstance().
+            } else if (!MonopolyGameController.getInstance().getPlayerList().get(MonopolyGameController.getInstance().  // Readiness changed
                     getPlayerList().indexOf(player)).getReadiness().equals(player.getReadiness())) {
                 MonopolyGameController.getInstance().changePlayerReadiness(MonopolyGameController.getInstance().getPlayerList().indexOf(player));
-            } else if (player.isStarted()){
+            } else if (player.isStarted()){  // Game started
                 MonopolyGameController.getInstance().getPlayerList().get(MonopolyGameController.getInstance().
                         getPlayerList().indexOf(player)).setStarted(true);
                 if(!MonopolyGameController.getInstance().getPlayerList().get(0).isStarted()) {

@@ -114,7 +114,7 @@ public class GameLogic {
     public void switchTurn() {
         players.addLast(players.removeFirst());
 
-        UIUpdater.getInstance().turnUpdate();
+
     }
 
     public void finishTurn() {

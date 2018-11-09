@@ -81,6 +81,8 @@ public class MessageInterpreter {
 
     private void interpretFinishTurn() {
         GameLogic.getInstance().switchTurn();
+
+        UIUpdater.getInstance().turnUpdate();
     }
 
     private void interpretRoll(String message) {
