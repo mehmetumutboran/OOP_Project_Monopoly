@@ -104,6 +104,7 @@ public class HostPanel extends JPanel {
         portField = new JTextField(50);
         portField.setBounds((this.width - BUTTON_WIDTH) / 2,
                 (this.height - BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
+        portField.setText("2222"); //TODO
 
         this.add(title);
         this.add(portField);

@@ -21,5 +21,7 @@ public class PlayerActionController {
     }
 
 
-
+    public void finishTurn() {
+        GameLogic.getInstance().finishTurn();
+    }
 }

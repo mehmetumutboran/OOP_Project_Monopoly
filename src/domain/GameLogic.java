@@ -22,6 +22,7 @@ public class GameLogic {
     public static final char bonusFlag = 'O';
     public static final char jailFlag = 'J';
     public static final char finishTurnFlag = 'F';
+    public static final char queueFlag = 'Q';
     //TODO Add more
 
     private Deque<Player> players;
@@ -57,7 +58,14 @@ public class GameLogic {
     }
 
     private void move() {
+        checkDouble();
     }
+
+    private boolean checkDouble() {
+        return (GameLogic.getInstance().getPlayers().peekFirst().getFaceValues()[0] ==
+                GameLogic.getInstance().getPlayers().peekFirst().getFaceValues()[1]);
+    }
+
 
     private boolean checkJail() {
         return false;
@@ -79,6 +87,10 @@ public class GameLogic {
         return false;
     }
 
+    public ArrayList<Player> getPlayerList() {
+        return playerList;
+    }
+
     public void setPlayers(Deque<Player> playerQueue) {
         this.players = playerQueue;
     }
@@ -93,5 +105,15 @@ public class GameLogic {
 
     public void setPlayerList(ArrayList<Player> playerList) {
         this.playerList = playerList;
+    }
+
+    public void switchTurn() {
+        players.addLast(players.removeFirst());
+
+        UIUpdater.getInstance().turnUpdate();
+    }
+
+    public void finishTurn() {
+        GameCommunicationHandler.getInstance().sendAction(finishTurnFlag);
     }
 }

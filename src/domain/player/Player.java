@@ -13,6 +13,7 @@ import domain.die.DiceCup;
 
 import java.security.PrivilegedExceptionAction;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -27,7 +28,6 @@ public class Player implements Comparable {
     private boolean started;
     private int doubleCounter; // Constructor
     private boolean inJail;
-    private int initRoll; // This field stores the players initial roll total face value.
     private int[] faceValues;
 
     public Player() {
@@ -47,6 +47,7 @@ public class Player implements Comparable {
         this.ownedUtilities = ownedUtilities;
         this.ownedRailroads = ownedRailroads;
         this.readiness = readiness;
+        this.faceValues = new int[3];
     }
 
     /**
@@ -160,7 +161,9 @@ public class Player implements Comparable {
     }
 
     public void setFaceValues(int[] faceValues) {
-        this.faceValues = faceValues;
+        for (int i = 0; i < faceValues.length; i++) {
+            this.faceValues[i] = faceValues[i];
+        }
     }
 
     public int resetDoubleCounter() {
@@ -180,23 +183,17 @@ public class Player implements Comparable {
     }
 
     public void rollDice(){
-        //String locName = Board.getInstance().getSq(this.token.getLocation()).getName();
+//        String locName = Board.getInstance().getSq(this.token.getLocation()).getName();
         String locName = "Go";
         DiceCup.getInstance().rollDice(locName);
         this.faceValues = DiceCup.getInstance().getFaceValues();
     } // Player gives command to roll dice to the controller.
 
-    public int getInitRoll() { // compareTo method uses this to get players initial roll
-        return initRoll;
-    }
-
-    public void setInitRoll(int initRoll) { // if the strategy is initialroll then the field initial roll changes according to the total face value. This method sets initial roll.
-        this.initRoll = initRoll;
-    }
 
     @Override
     public int compareTo(Object o) { // To order players i use comparable interface and its compareTo method
-        if(this.getInitRoll() >= ((Player) o).getInitRoll()){
+        if(this.getFaceValues()[0] + this.getFaceValues()[1] + this.getFaceValues()[2] >=
+                ((Player) o).getFaceValues()[0] + ((Player) o).getFaceValues()[1] + ((Player) o).getFaceValues()[2]){
             return -1;
         }else return 1;
     }
@@ -208,7 +205,6 @@ public class Player implements Comparable {
         sb.append(", token=").append(token);
         sb.append(", balance=").append(balance);
         sb.append(", started=").append(started);
-        sb.append(", initRoll=").append(initRoll);
         sb.append('}');
         return sb.toString();
     }

@@ -1,5 +1,8 @@
 package domain.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import domain.GameLogic;
 import domain.GameState;
 import domain.MessageInterpreter;
 import domain.listeners.MessageChangedListener;
@@ -10,7 +13,7 @@ import network.listeners.ReceivedChangedListener;
 import java.util.ArrayList;
 
 public class GameCommunicationHandler implements ReceivedChangedListener {
-    private static GameCommunicationHandler ourInstance = new GameCommunicationHandler();
+    private static GameCommunicationHandler ourInstance;
 
     private String message;
 
@@ -20,6 +23,8 @@ public class GameCommunicationHandler implements ReceivedChangedListener {
     }
 
     public static GameCommunicationHandler getInstance() {
+        if(ourInstance == null)
+             ourInstance = new GameCommunicationHandler();
         return ourInstance;
     }
 
@@ -38,8 +43,20 @@ public class GameCommunicationHandler implements ReceivedChangedListener {
 
     @Override
     public void onReceivedChangedEvent(ClientFacade clientFacade) {
-       MessageInterpreter.getInstance().interpret(clientFacade.getMessage());
+        MessageInterpreter.getInstance().interpret(clientFacade.getMessage());
     }
 
 
+    public void sendQueue() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String s = null;
+        try {
+            s = objectMapper.writeValueAsString(GameLogic.getInstance().getPlayers());
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        ClientFacade.getInstance().send(GameLogic.queueFlag + s);
+        System.out.println("SendQueue: " + s);
+    }
 }
