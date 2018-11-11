@@ -26,7 +26,7 @@ public class HostButton extends JButton implements ActionListener {
     }
 
     /**
-     * When player Presses this button it sends a request to network layer to create new Server.
+     * When player Presses this button it sends a request to network layer to create new server.
      *
      * @param actionEvent {@link ActionEvent}
      */

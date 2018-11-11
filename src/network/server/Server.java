@@ -1,6 +1,7 @@
-package network;
+package network.server;
 
 import domain.controller.ConnectGameHandler;
+import network.client.Client;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -21,7 +22,7 @@ public class Server implements Runnable {
     public Server(int port) {
         try {
             ss = new ServerSocket(port);
-            System.out.println("Server crated with the port: " + port);
+            System.out.println("server crated with the port: " + port);
             (new Thread(this)).start();
         } catch (IOException e) {
             e.printStackTrace();
@@ -42,7 +43,7 @@ public class Server implements Runnable {
 
 
     /**
-     * Server thread that accepts new {@link Client} and assigns a {@link ClientHandler} to it.
+     * server thread that accepts new {@link Client} and assigns a {@link ClientHandler} to it.
      */
     @Override
     public void run() {

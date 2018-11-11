@@ -1,4 +1,4 @@
-package gui.controlDisplay;
+package gui.controlDisplay.panels;
 
 import gui.controlDisplay.butons.*;
 

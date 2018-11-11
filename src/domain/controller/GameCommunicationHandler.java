@@ -5,12 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.GameLogic;
 import domain.GameState;
 import domain.MessageInterpreter;
-import domain.listeners.MessageChangedListener;
-import gui.controlDisplay.MessagePanel;
-import network.ClientFacade;
+import network.client.clientFacade.ClientFacade;
 import network.listeners.ReceivedChangedListener;
-
-import java.util.ArrayList;
 
 public class GameCommunicationHandler implements ReceivedChangedListener {
     private static GameCommunicationHandler ourInstance;

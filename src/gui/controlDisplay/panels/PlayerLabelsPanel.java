@@ -1,8 +1,9 @@
-package gui.controlDisplay;
+package gui.controlDisplay.panels;
 
 import domain.controller.MonopolyGameController;
 import domain.listeners.GameStartedListener;
 import gui.ColorConverter;
+import gui.controlDisplay.PlayerLabel;
 
 import javax.swing.*;
 import java.awt.*;

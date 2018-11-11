@@ -1,4 +1,6 @@
-package network;
+package network.client;
+
+import network.client.clientFacade.ClientFacade;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -30,7 +32,7 @@ public class Client {
 
     public synchronized void send(String message) {
         try {
-            System.out.println("In the Client class sending message:\n" + message);
+            System.out.println("In the client class sending message:\n" + message);
             dos.writeUTF(message);
             dos.flush();
         } catch (IOException e) {
@@ -42,7 +44,7 @@ public class Client {
         String received = "";
         try {
             received = dis.readUTF();
-            System.out.println("Client class received Message:\n" + received);
+            System.out.println("client class received Message:\n" + received);
         } catch (IOException e) {
             e.printStackTrace();
         }

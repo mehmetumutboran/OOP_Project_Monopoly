@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.MessageInterpreter;
 import domain.player.Player;
-import network.ClientFacade;
-import network.ServerFacade;
+import network.client.clientFacade.ClientFacade;
+import network.server.serverFacade.ServerFacade;
 import network.listeners.ReceivedChangedListener;
 
 import java.io.IOException;

@@ -1,5 +1,7 @@
 package gui.controlDisplay;
 
+import gui.controlDisplay.panels.PlayerLabelsPanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;

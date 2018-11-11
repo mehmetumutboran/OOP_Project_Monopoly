@@ -1,4 +1,7 @@
-package network;
+package network.client;
+
+import network.client.Client;
+import network.client.clientFacade.ClientFacade;
 
 import java.io.DataInputStream;
 
@@ -17,7 +20,7 @@ public class ClientReceiver extends Thread {
         while (true) {
             received = Client.receive();
 
-//            System.out.println("Client receiver :" + received);
+//            System.out.println("client receiver :" + received);
             clientFacade.sendReceivedMessage(received);
 
         }

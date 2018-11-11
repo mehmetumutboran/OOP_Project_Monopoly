@@ -1,5 +1,9 @@
 package gui.controlDisplay;
 
+import gui.controlDisplay.panels.ButtonPanel;
+import gui.controlDisplay.panels.MessagePanel;
+import gui.controlDisplay.panels.PlayerStatusPanel;
+
 import javax.swing.*;
 import java.awt.*;
 

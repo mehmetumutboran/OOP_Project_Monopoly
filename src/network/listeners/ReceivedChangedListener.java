@@ -1,6 +1,6 @@
 package network.listeners;
 
-import network.ClientFacade;
+import network.client.clientFacade.ClientFacade;
 
 public interface ReceivedChangedListener {
     void onReceivedChangedEvent(ClientFacade clientFacade);

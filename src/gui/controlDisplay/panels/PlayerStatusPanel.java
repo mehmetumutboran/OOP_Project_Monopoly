@@ -1,6 +1,8 @@
-package gui.controlDisplay;
+package gui.controlDisplay.panels;
 
 import domain.controller.MonopolyGameController;
+import gui.controlDisplay.panels.PlayerInfoPanel;
+import gui.controlDisplay.panels.PlayerLabelsPanel;
 
 import javax.swing.*;
 import java.awt.*;

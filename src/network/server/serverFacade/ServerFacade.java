@@ -1,15 +1,17 @@
-package network;
+package network.server.serverFacade;
+
+import network.server.Server;
 
 /**
- * Class that provides network logic to Server Host
+ * Class that provides network logic to server Host
  */
 public class ServerFacade {
     private Server server;
 
     /**
-     * Creates Server object and stores it
+     * Creates server object and stores it
      *
-     * @param port Server socket port
+     * @param port server socket port
      * @return Whether server successfully created
      */
     public boolean createServer(int port) {

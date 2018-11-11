@@ -1,12 +1,13 @@
-package network;
+package network.client.clientFacade;
 
 
+import network.client.Client;
 import network.listeners.ReceivedChangedListener;
 
 import java.util.ArrayList;
 
 /**
- * Class that provides network logic to Client Player
+ * Class that provides network logic to client Player
  * Uses observer pattern to publish Received message (~Game state)
  */
 public class ClientFacade {
@@ -33,10 +34,10 @@ public class ClientFacade {
 
 
     /**
-     * Creates new Client object and stores it
+     * Creates new client object and stores it
      *
-     * @param ip   Server ip
-     * @param port Server socket port
+     * @param ip   server ip
+     * @param port server socket port
      * @return Whether client successfully created
      */
     public boolean createClient(String ip, int port) {
@@ -55,7 +56,7 @@ public class ClientFacade {
     }
 
     /**
-     * Called by Client when a message received
+     * Called by client when a message received
      * Also calls publish method to notify listeners
      *
      * @param m Received Message Formatted as JSON
