@@ -2,11 +2,13 @@ package domain.board;
 
 import domain.player.Player;
 
+/**
+ * Class for Buyable Squares.
+ */
 public abstract class DeedSquare extends Square {
     private int buyValue;
     private int rent;
     private Player owner;
-    // private boolean isOwned; //TODO delete (owner == null)
     private boolean isMortgaged;
 
     public DeedSquare(String name, int layer, int index, int buyValue, int rent) {
