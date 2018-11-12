@@ -6,6 +6,7 @@ import domain.listeners.PlayerListChangedListener;
 import gui.ColorConverter;
 import gui.baseFrame.BaseFrame;
 import gui.baseFrame.ColorBox;
+import gui.baseFrame.buttons.lobbyButtons.AddBotButton;
 import gui.baseFrame.buttons.lobbyButtons.ReadyButton;
 import gui.baseFrame.buttons.lobbyButtons.StartButton;
 import gui.baseFrame.buttons.multiplayerButtons.BackButton;
@@ -25,6 +26,7 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener, Gam
     private BackButton backButton;
     private StartButton startButton;
     private ColorBox colorBox;
+    private AddBotButton addBotButton;
     private boolean isHost;
 
     private ArrayList<JLabel> playerLabels;
@@ -74,6 +76,7 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener, Gam
         readyButton = new ReadyButton();
         backButton = new BackButton("Back");
         startButton = new StartButton("Start");
+        addBotButton = new AddBotButton("Add Bot");
         colorBox = new ColorBox();
 
         readyButton.setBounds((this.width - (-1) * BUTTON_WIDTH) / 2,
@@ -82,15 +85,20 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener, Gam
                 (this.height - (-8) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
         colorBox.setBounds((this.width - (-1) * BUTTON_WIDTH) / 2,
                 (this.height - 3 * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
+        addBotButton.setBounds((this.width - (-1) * BUTTON_WIDTH) / 2,
+                (this.height - (-2) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
 
         backButton.setBackground(Color.gray);
         startButton.setBackground(Color.gray);
+        addBotButton.setBackground(Color.gray);
 
         readyButton.setBorderPainted(false);
         backButton.setBorderPainted(false);
         startButton.setBorderPainted(false);
+        addBotButton.setBorderPainted(false);
         this.add(backButton);
         this.add(colorBox);
+        this.add(addBotButton);
     }
 
     public void initGUI() {

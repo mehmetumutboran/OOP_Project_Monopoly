@@ -68,17 +68,6 @@ public class Player implements Comparable {
         return result;
     }
 
-    /**
-     * Main method to test {@link #toJSON()}
-     *
-     * @param args cmdline args
-     */
-    public static void main(String[] args) {
-        Player player = new Player("Player32");
-        System.out.println(player.toJSON());
-    }
-
-
 
     @Override
     public boolean equals(Object o) {

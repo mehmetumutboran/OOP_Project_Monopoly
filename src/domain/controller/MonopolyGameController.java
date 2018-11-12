@@ -35,7 +35,8 @@ public class MonopolyGameController {
     public boolean addPlayer(Player player) {
 //        return playerList.add(player);
         playerList.add(player);
-        System.out.println(playerList);
+        System.out.println("\n\nAdded Player" +  player + "\n\n");
+        System.out.println(playerList + "\n\n");
         publishPlayerListEvent();
         return true;
     }
@@ -113,6 +114,7 @@ public class MonopolyGameController {
     public ArrayList<ArrayList<String>> getPlayerConnectAttributes() {
         ArrayList<ArrayList<String>> playerConnectAttributes = new ArrayList<>();
         for (Player player : playerList) {
+            System.out.println("\n\n Get Player Connect Attr. " + player + "\n\n\n");
             ArrayList<String> temp = new ArrayList<>();
             temp.add(player.getName());
             temp.add(player.getToken().getColor());
@@ -143,8 +145,8 @@ public class MonopolyGameController {
     public boolean checkReadiness() {
 //        if (playerList.size() == 1) return false; TODO
         System.out.println("Hello");
-        if(playerList.get(0).getReadiness().equals("Ready") &&
-                !playerList.get(0).getReadiness().equals("Host")){
+        if((playerList.get(0).getReadiness().equals("Bot")) || (playerList.get(0).getReadiness().equals("Ready") &&
+                !playerList.get(0).getReadiness().equals("Host"))){
             startGame();
             return true;
         }

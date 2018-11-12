@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.MessageInterpreter;
+import domain.RandomPlayer;
 import domain.player.Player;
 import network.ClientFacade;
 import network.ServerFacade;
@@ -15,12 +16,10 @@ import java.io.IOException;
  * Singleton Class to handle communication between UI and Network during initialization
  */
 public class ConnectGameHandler implements ReceivedChangedListener {
-    private ServerFacade serverFacade;
 
     private static ConnectGameHandler connectGameHandler;
 
     private ConnectGameHandler() {
-        serverFacade = new ServerFacade();
         ClientFacade.getInstance().addReceivedChangedListener(this);
     }
 
@@ -36,7 +35,7 @@ public class ConnectGameHandler implements ReceivedChangedListener {
      * @param port     Port number for the server connection from {@link gui.baseFrame.buttons.hostJoinButtons.HostButton}
      */
     public void connectHost(String username, int port) {
-        if (serverFacade.createServer(port)) {
+        if (ServerFacade.getInstance().createServer(port)) {
 //            MonopolyGameController.getInstance().addPlayer(username);
 //            System.out.println("In the Connection game handler Class\n");
             connectClient(username, "localhost", port,true); // Connects the host as a client after it creates server
@@ -68,7 +67,6 @@ public class ConnectGameHandler implements ReceivedChangedListener {
      */
     @Override
     public synchronized void onReceivedChangedEvent(ClientFacade clientFacade) {
-        //TODO change to MessageInterpreter
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
         String message = clientFacade.getMessage();
@@ -105,5 +103,16 @@ public class ConnectGameHandler implements ReceivedChangedListener {
 
     public void sendChange(Player player, char e) {
         ClientFacade.getInstance().send(e + player.toJSON());
+    }
+
+    public void connectBot(String s) {
+        RandomPlayer randomPlayer = new RandomPlayer(s);
+        randomPlayer.setReadiness("Bot");
+        randomPlayer.getToken().setColor("Blue"); //TODO Can be changed
+
+        if (ClientFacade.getInstance().createClient("localhost", ServerFacade.getInstance().getServer().getSs().getLocalPort())) {
+            MonopolyGameController.getInstance().addPlayer(randomPlayer);
+            sendChange(randomPlayer);
+        }
     }
 }

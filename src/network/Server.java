@@ -68,6 +68,10 @@ public class Server implements Runnable {
 
     }
 
+    public ServerSocket getSs() {
+        return ss;
+    }
+
     public synchronized static void sendAll(String m) {
         for (ClientHandler clientThread : clientThreads) {
             if (clientThread == null) continue;
