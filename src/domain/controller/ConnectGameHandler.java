@@ -36,8 +36,6 @@ public class ConnectGameHandler implements ReceivedChangedListener {
      */
     public void connectHost(String username, int port) {
         if (ServerFacade.getInstance().createServer(port)) {
-//            MonopolyGameController.getInstance().addPlayer(username);
-//            System.out.println("In the Connection game handler Class\n");
             connectClient(username, "localhost", port,true); // Connects the host as a client after it creates server
         }
     }
@@ -72,7 +70,7 @@ public class ConnectGameHandler implements ReceivedChangedListener {
         String message = clientFacade.getMessage();
         if (message == null || message.charAt(0) != '{') {
              if (message.charAt(0) == 'E') {
-                System.out.println("OnReceived: " + message);
+//                System.out.println("OnReceived: " + message);
                 MonopolyGameController.getInstance().informClosed();
             }else return;
         }

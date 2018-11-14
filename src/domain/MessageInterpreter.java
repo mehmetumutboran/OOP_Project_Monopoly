@@ -67,7 +67,7 @@ public class MessageInterpreter {
 
         try {
             Player[] players = objectMapper.readValue(q, Player[].class);
-            System.out.println(Arrays.toString(objectMapper.readValue(q, Player[].class)));
+//            System.out.println(Arrays.toString(objectMapper.readValue(q, Player[].class)));
             Deque<Player> temp = new LinkedList<>();
             for (int i = 0; i < players.length; i++) {
                 temp.addLast(players[i]);

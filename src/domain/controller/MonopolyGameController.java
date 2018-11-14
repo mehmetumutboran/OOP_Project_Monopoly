@@ -144,7 +144,6 @@ public class MonopolyGameController {
 
     public boolean checkReadiness() {
 //        if (playerList.size() == 1) return false; TODO
-        System.out.println("Hello");
         if((playerList.get(0).getReadiness().equals("Bot")) || (playerList.get(0).getReadiness().equals("Ready") &&
                 !playerList.get(0).getReadiness().equals("Host"))){
             startGame();
