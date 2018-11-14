@@ -186,22 +186,6 @@ public class MonopolyGameController {
         GameCommunicationHandler.getInstance().sendQueue();
     }
 
-    public static void main(String[] args) {
-        MonopolyGameController.getInstance().addPlayer(new Player("Mostafazadeh"));
-        MonopolyGameController.getInstance().addPlayer(new Player("Benjamin"));
-        MonopolyGameController.getInstance().addPlayer(new Player("asddsa"));
-        System.out.println(MonopolyGameController.getInstance().getPlayerListName());
-        DiceCup.getInstance().rollDice("RollThree");
-        System.out.println("Roll Three: " + Arrays.toString(DiceCup.getInstance().getFaceValues()));
-        System.out.println("Total Face Value: " + DiceCup.getInstance().getTotalFaceValue());
-        DiceCup.getInstance().rollDice("RollNormal");
-        System.out.println("Roll Normal: " + Arrays.toString(DiceCup.getInstance().getFaceValues()));
-        System.out.println("Total Face Value: " + DiceCup.getInstance().getTotalFaceValue());
-        DiceCup.getInstance().rollDice("Jail");
-        System.out.println("Jail: " + Arrays.toString(DiceCup.getInstance().getFaceValues()));
-        System.out.println("Total Face Value: " + DiceCup.getInstance().getTotalFaceValue());
-    }
-
 
     public void informClosed() {
         if(MonopolyGameController.getInstance().getPlayerList().size() > 1)ConnectGameHandler.getInstance().sendChange(playerList.get(0),'E');
