@@ -15,18 +15,13 @@ public class Client {
     private static DataOutputStream dos;
     private static DataInputStream dis;
 
-    public Client(String ip, int port, ClientFacade clientFacade) {
-        try {
+    public Client(String ip, int port, ClientFacade clientFacade) throws IOException {
             this.clientFacade = clientFacade;
             socket = new Socket(ip, port);
             dis = new DataInputStream(socket.getInputStream());
             dos = new DataOutputStream(socket.getOutputStream());
             clientReceiver = new ClientReceiver(dis, clientFacade);
             clientReceiver.start();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
 

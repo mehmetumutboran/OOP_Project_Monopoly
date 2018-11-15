@@ -1,6 +1,7 @@
 package gui.baseFrame.panels;
 
 import gui.baseFrame.buttons.hostJoinButtons.HostButton;
+import gui.baseFrame.buttons.hostJoinButtons.MultiplayerConnectionButton;
 import gui.baseFrame.buttons.multiplayerButtons.BackButton;
 
 import javax.imageio.ImageIO;
@@ -9,9 +10,11 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class HostPanel extends JPanel {
-    private HostButton hostButton;
+    private MultiplayerConnectionButton hostButton;
     private BackButton backButton;
 
     private JLabel title;
@@ -28,6 +31,8 @@ public class HostPanel extends JPanel {
     private BufferedImage image;
     private JLabel backgroundLabel;
 
+    private ArrayList<String> randomUserNames;
+
     private final int BUTTON_WIDTH = 300;
     private final int BUTTON_HEIGHT = 50;
 
@@ -35,6 +40,7 @@ public class HostPanel extends JPanel {
         this.width = width;
         this.height = height;
 
+        initRandomNameList();
         initGUI();
 
         try {
@@ -53,6 +59,19 @@ public class HostPanel extends JPanel {
         backgroundLabel.setOpaque(true);
 
         this.setVisible(true);
+    }
+
+    private void initRandomNameList(){
+        randomUserNames = new ArrayList<>();
+        randomUserNames.add("John");
+        randomUserNames.add("Kirby");
+        randomUserNames.add("Bart");
+        randomUserNames.add("Homer");
+        randomUserNames.add("Peter");
+        randomUserNames.add("Stewie");
+        randomUserNames.add("Louis");
+        randomUserNames.add("Brian");
+        randomUserNames.add("Quagmire");
     }
 
     private void initButtons() {
@@ -105,6 +124,8 @@ public class HostPanel extends JPanel {
         portField.setBounds((this.width - BUTTON_WIDTH) / 2,
                 (this.height - BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
         portField.setText("2222"); //TODO
+        usernameField.setText(randomUserNames.get((new Random()).nextInt(randomUserNames.size())));
+
 
         this.add(title);
         this.add(portField);

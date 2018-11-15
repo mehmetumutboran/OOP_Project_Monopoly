@@ -2,8 +2,10 @@ package network.client.clientFacade;
 
 
 import network.client.Client;
+import network.listeners.ConnectionFailedListener;
 import network.listeners.ReceivedChangedListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -20,9 +22,11 @@ public class ClientFacade {
      * Subscribers
      */
     private ArrayList<ReceivedChangedListener> receivedChangedListeners;
+    private ArrayList<ConnectionFailedListener> connectionFailedListeners;
 
-    private ClientFacade(){
+    private ClientFacade() {
         receivedChangedListeners = new ArrayList<>();
+        connectionFailedListeners = new ArrayList<>();
     }
 
     public static ClientFacade getInstance(){
@@ -41,9 +45,17 @@ public class ClientFacade {
      * @return Whether client successfully created
      */
     public boolean createClient(String ip, int port) {
-        client = new Client(ip, port, this);
-        //noinspection ConstantConditions
-        return client != null;
+        try {
+            client = new Client(ip, port, this);
+        } catch (IOException e) {
+            createClientError();
+            return false;
+        }
+        return true;
+    }
+
+    private void createClientError(){
+        publishConnectionFailedAction();
     }
 
     /**
@@ -75,12 +87,29 @@ public class ClientFacade {
     }
 
     public synchronized void addReceivedChangedListener(ReceivedChangedListener listener) {
-        receivedChangedListeners.add(listener);
+        if(!receivedChangedListeners.contains(listener)) receivedChangedListeners.add(listener);
     }
 
     public synchronized void removeReceivedChangedListener(ReceivedChangedListener listener) {
-        receivedChangedListeners.remove(listener);
+        if(receivedChangedListeners.contains(listener)) receivedChangedListeners.remove(listener);
     }
+
+    private synchronized void publishConnectionFailedAction() {
+        for (ConnectionFailedListener aConnectionFailedListener : connectionFailedListeners) {
+            if (aConnectionFailedListener == null) continue;
+            aConnectionFailedListener.onConnectionFailedEvent();
+        }
+    }
+
+    public synchronized void addConnectionFailedListener(ConnectionFailedListener listener) {
+        if(!connectionFailedListeners.contains(listener)) connectionFailedListeners.add(listener);
+    }
+
+    public synchronized void removeAllConnectionFailedListeners() {
+        connectionFailedListeners = new ArrayList<>();
+    }
+
+
 
     public String getMessage() {
         return message;

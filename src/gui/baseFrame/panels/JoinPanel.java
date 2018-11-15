@@ -1,6 +1,7 @@
 package gui.baseFrame.panels;
 
 import gui.baseFrame.buttons.hostJoinButtons.JoinButton;
+import gui.baseFrame.buttons.hostJoinButtons.MultiplayerConnectionButton;
 import gui.baseFrame.buttons.multiplayerButtons.BackButton;
 
 import javax.imageio.ImageIO;
@@ -9,9 +10,11 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class JoinPanel extends JPanel {
-    private JoinButton joinButton;
+    private MultiplayerConnectionButton joinButton;
     private BackButton backButton;
     private JTextField userNameField;
     private JTextField ipField;
@@ -27,6 +30,8 @@ public class JoinPanel extends JPanel {
     private BufferedImage image;
     private JLabel backgroundLabel;
 
+    private ArrayList<String> randomUserNames;
+
     private final int BUTTON_WIDTH = 300;
     private final int BUTTON_HEIGHT = 50;
 
@@ -34,6 +39,7 @@ public class JoinPanel extends JPanel {
         this.width = width;
         this.height = height;
 
+        initRandomNameList();
         initGUI();
 
         try {
@@ -53,6 +59,18 @@ public class JoinPanel extends JPanel {
         backgroundLabel.setOpaque(true);
 
         this.setVisible(true);
+    }
+
+    private void initRandomNameList(){
+        randomUserNames = new ArrayList<>();
+        randomUserNames.add("Umut");
+        randomUserNames.add("Taha");
+        randomUserNames.add("Enes");
+        randomUserNames.add("Furkan");
+        randomUserNames.add("Agabey");
+        randomUserNames.add("Nizamettin");
+        randomUserNames.add("Attila");
+        randomUserNames.add("Damla");
     }
 
     private void initButtons() {
@@ -122,6 +140,7 @@ public class JoinPanel extends JPanel {
 
         ipField.setText("localhost");
         portField.setText("2222");
+        userNameField.setText(randomUserNames.get((new Random()).nextInt(randomUserNames.size())));
 
         initButtons();
     }

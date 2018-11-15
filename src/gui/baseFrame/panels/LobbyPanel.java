@@ -38,6 +38,8 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener, Gam
     private final int BUTTON_WIDTH = 300;
     private final int BUTTON_HEIGHT = 50;
 
+    private final Color startButtonColor = Color.ORANGE;
+
     private final int INITIAL_X = 60;
     private final int INITIAL_Y = 60;
 
@@ -84,7 +86,6 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener, Gam
                 (this.height - 3 * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
 
         backButton.setBackground(Color.gray);
-        startButton.setBackground(Color.gray);
 
         readyButton.setBorderPainted(false);
         backButton.setBorderPainted(false);
@@ -107,6 +108,7 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener, Gam
             readyButton.setEnabled(false);
             startButton.setBounds((this.width - (-1) * BUTTON_WIDTH) / 2,
                     (this.height - (-5) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
+            startButton.setBackground(startButtonColor);
             this.add(startButton);
             this.remove(readyButton);
         } else {

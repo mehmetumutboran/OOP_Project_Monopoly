@@ -1,13 +1,14 @@
 package gui.baseFrame.buttons.hostJoinButtons;
 
 import domain.controller.ConnectGameHandler;
+import gui.InputChecker;
 import gui.baseFrame.BaseFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class HostButton extends JButton implements ActionListener {
+public class HostButton extends MultiplayerConnectionButton implements ActionListener {
     private JTextField IDField;
     private JTextField portField;
 
@@ -20,7 +21,6 @@ public class HostButton extends JButton implements ActionListener {
      */
     public HostButton(String text, JTextField IDField, JTextField portField) {
         super(text);
-        this.addActionListener(this);
         this.IDField = IDField;
         this.portField = portField;
     }
@@ -33,7 +33,30 @@ public class HostButton extends JButton implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         System.out.println("HostGame Button Pressed");
-        BaseFrame.setStatus("Lobby");
-        ConnectGameHandler.getInstance().connectHost(IDField.getText(), Integer.parseInt(portField.getText()));
+        checkConnection();
+    }
+
+    private void checkConnection(){
+        String username = null;
+        int port = 0;
+
+        if(InputChecker.getInstance().userNameChecker(IDField.getText())){
+            username = IDField.getText();
+        }else return;
+
+        if(InputChecker.getInstance().portChecker(portField.getText())){
+            port = Integer.parseInt(portField.getText());
+        }else return;
+
+        String status = ConnectGameHandler.getInstance().connectHost(username, port,this);
+        if(status.equals("Successful")) {
+            BaseFrame.setStatus("Lobby");
+        }
+    }
+
+    @Override
+    public void onConnectionFailedEvent() {
+        JOptionPane.showMessageDialog(null, "Cannot connect to the server!!",
+                "Error", JOptionPane.WARNING_MESSAGE);
     }
 }

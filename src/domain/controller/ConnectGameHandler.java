@@ -5,7 +5,11 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.MessageInterpreter;
 import domain.player.Player;
+import gui.baseFrame.buttons.hostJoinButtons.JoinButton;
+import gui.baseFrame.buttons.hostJoinButtons.MultiplayerConnectionButton;
+import gui.baseFrame.buttons.initialScreenButons.MultiplayerButton;
 import network.client.clientFacade.ClientFacade;
+import network.listeners.ConnectionFailedListener;
 import network.server.serverFacade.ServerFacade;
 import network.listeners.ReceivedChangedListener;
 
@@ -35,12 +39,13 @@ public class ConnectGameHandler implements ReceivedChangedListener {
      * @param username Username from the {@link gui.baseFrame.buttons.hostJoinButtons.HostButton} usernameField
      * @param port     Port number for the server connection from {@link gui.baseFrame.buttons.hostJoinButtons.HostButton}
      */
-    public void connectHost(String username, int port) {
+    public String connectHost(String username, int port, MultiplayerConnectionButton mcb) {
         if (serverFacade.createServer(port)) {
-//            MonopolyGameController.getInstance().addPlayer(username);
-//            System.out.println("In the Connection game handler Class\n");
-            connectClient(username, "localhost", port,true); // Connects the host as a client after it creates server
+            connectClient(username, "localhost", port,true,mcb); // Connects the host as a client after it creates server
+        }else{
+            return "Server cannot be created!!";
         }
+        return "Successful";
     }
 
     /**
@@ -48,14 +53,19 @@ public class ConnectGameHandler implements ReceivedChangedListener {
      * @param ip       IP for server connection
      * @param port     for server Connection
      */
-    public void connectClient(String username, String ip, int port,boolean isHost) {
+    public String connectClient(String username, String ip, int port, boolean isHost, MultiplayerConnectionButton mcb) {
         Player player = new Player(username);
         if(isHost) player.setReadiness("Host");
+        ClientFacade.getInstance().addConnectionFailedListener(mcb);
 
         if (ClientFacade.getInstance().createClient(ip, port)) {
             MonopolyGameController.getInstance().addPlayer(player);
             sendChange(player);
+            return "Successful";
+        }else{
+            return "Failed";
         }
+
     }
 
     public void sendChange(Player p) {
@@ -96,6 +106,7 @@ public class ConnectGameHandler implements ReceivedChangedListener {
                 if(!MonopolyGameController.getInstance().getPlayerList().get(0).isStarted()) {
                     MonopolyGameController.getInstance().checkReadiness();
                     clientFacade.removeReceivedChangedListener(this);
+                    clientFacade.removeAllConnectionFailedListeners();
                 }
             }
         } catch (IOException e) {
