@@ -3,6 +3,7 @@ package domain;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import domain.board.Board;
 import domain.controller.GameCommunicationHandler;
 import domain.player.Player;
 import gui.controlDisplay.PlayerLabel;
@@ -52,9 +53,53 @@ public class MessageInterpreter {
             case GameLogic.closeFlag:
                 interpretClose();
                 break;
+            case GameLogic.moveFlag:
+                interpretMove(m.substring(1));
+                break;
+            case GameLogic.increaseMoneyFlag:
+                interpretMoneyChange(m.substring(1));
+                break;
             default:
                 break;
         }
+    }
+
+    private void interpretMoneyChange(String message) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+        int money = 0;
+        String name = null;
+        try {
+            money = objectMapper.readValue(message, Player.class).getBalance();
+            name = objectMapper.readValue(message, Player.class).getName();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        int changedMoney = money - GameLogic.getInstance().getPlayer(name).getBalance();
+
+        GameLogic.getInstance().getPlayer(name).setBalance(money);
+        if(changedMoney > 0) UIUpdater.getInstance().setMessage(name + " 's money increased by " + changedMoney);
+        else UIUpdater.getInstance().setMessage(name + " 's money decreased by " + changedMoney);
+    }
+
+    private void interpretMove(String message) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+        int[] location = new int[2];
+        String name = null;
+        try {
+            location = objectMapper.readValue(message, Player.class).getToken().getLocation();
+            name = objectMapper.readValue(message, Player.class).getName();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(name + " in the location " + Arrays.toString(location));
+
+        GameLogic.getInstance().getPlayer(name).getToken().setLocation(location);
+
+        UIUpdater.getInstance().setMessage(name + " moved to " + Board.getInstance().getSquare(location[0],location[1]).getName()); //TODO Mrmonopoly
     }
 
     private void interpretClose() {
