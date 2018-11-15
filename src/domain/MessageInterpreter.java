@@ -3,13 +3,9 @@ package domain;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import domain.controller.GameCommunicationHandler;
 import domain.player.Player;
-import gui.controlDisplay.PlayerLabel;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.Deque;
 import java.util.LinkedList;
 
@@ -25,13 +21,13 @@ public class MessageInterpreter {
     }
 
     public static MessageInterpreter getInstance() {
-        if(instance == null)
+        if (instance == null)
             instance = new MessageInterpreter();
         return instance;
     }
 
 
-    public void interpret(String m) {
+    public synchronized void interpret(String m) {
         char flag = m.charAt(0);
         switch (flag) {
             case GameLogic.rollFlag:
@@ -67,7 +63,7 @@ public class MessageInterpreter {
 
         try {
             Player[] players = objectMapper.readValue(q, Player[].class);
-            System.out.println(Arrays.toString(objectMapper.readValue(q, Player[].class)));
+//            System.out.println(Arrays.toString(objectMapper.readValue(q, Player[].class)));
             Deque<Player> temp = new LinkedList<>();
             for (int i = 0; i < players.length; i++) {
                 temp.addLast(players[i]);
@@ -75,6 +71,17 @@ public class MessageInterpreter {
             GameLogic.getInstance().setPlayers(temp);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        //Bots play on only host's program
+        if(GameLogic.getInstance().getPlayerList().get(0).getReadiness().equals("Host")) {
+
+            // Check for bots if they starts the game.
+            for (Player player : GameLogic.getInstance().getPlayerList()) {
+                if (player.getReadiness().equals("Bot") && ((RandomPlayer) player).checkTurn()) {
+                    break;
+                }
+            }
         }
         UIUpdater.getInstance().turnUpdate();
     }

@@ -27,7 +27,8 @@ public class Client {
 
     public synchronized void send(String message) {
         try {
-            System.out.println("In the client class sending message:\n" + message);
+
+            System.out.println("In the Client class sending message:\n" + message + "\n\n");
             dos.writeUTF(message);
             dos.flush();
         } catch (IOException e) {
@@ -39,7 +40,7 @@ public class Client {
         String received = "";
         try {
             received = dis.readUTF();
-            System.out.println("client class received Message:\n" + received);
+            System.out.println("Client class received Message:\n" + received + "\n\n");
         } catch (IOException e) {
             e.printStackTrace();
         }

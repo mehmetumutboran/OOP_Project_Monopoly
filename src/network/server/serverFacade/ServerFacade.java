@@ -8,6 +8,17 @@ import network.server.Server;
 public class ServerFacade {
     private Server server;
 
+    private static ServerFacade instance;
+
+    private ServerFacade(){
+
+    }
+
+    public static ServerFacade getInstance() {
+        if(instance == null) instance = new ServerFacade();
+        return instance;
+    }
+
     /**
      * Creates server object and stores it
      *

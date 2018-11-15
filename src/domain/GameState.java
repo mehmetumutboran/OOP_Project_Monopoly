@@ -19,9 +19,7 @@ public class GameState {
 
     public String generateCurrentAction(char flag){
         //TODO
-        String s = flag + GameLogic.getInstance().getPlayers().peekFirst().toJSON();
-        System.out.println("GameState Message: \t" + s);
-        return s;
+        return flag + GameLogic.getInstance().getPlayers().peekFirst().toJSON();
     }
 
 }

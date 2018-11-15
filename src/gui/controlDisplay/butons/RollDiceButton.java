@@ -19,8 +19,8 @@ public class RollDiceButton extends JButton implements ActionListener, TurnChang
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        PlayerActionController.getInstance().roll();
         System.out.println("Roll dice clicked");
+        PlayerActionController.getInstance().roll();
     }
 
     @Override

@@ -38,8 +38,8 @@ public class GameCommunicationHandler implements ReceivedChangedListener {
 
 
     @Override
-    public void onReceivedChangedEvent(ClientFacade clientFacade) {
-        MessageInterpreter.getInstance().interpret(clientFacade.getMessage());
+    public void onReceivedChangedEvent() {
+        MessageInterpreter.getInstance().interpret(ClientFacade.getInstance().getMessage());
     }
 
 
