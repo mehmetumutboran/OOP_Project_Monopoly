@@ -98,7 +98,6 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener, Gam
         addBotButton.setBorderPainted(false);
         this.add(backButton);
         this.add(colorBox);
-        this.add(addBotButton);
     }
 
     public void initGUI() {
@@ -116,11 +115,13 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener, Gam
             startButton.setBounds((this.width - (-1) * BUTTON_WIDTH) / 2,
                     (this.height - (-5) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
             this.add(startButton);
+            this.add(addBotButton);
             this.remove(readyButton);
         } else {
             startButton.setEnabled(false);
             startButton.setVisible(false);
             this.add(readyButton);
+            this.remove(addBotButton);
             this.remove(startButton);
         }
     }
