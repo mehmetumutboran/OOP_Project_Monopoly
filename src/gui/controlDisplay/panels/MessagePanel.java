@@ -31,7 +31,7 @@ public class MessagePanel extends JPanel implements MessageChangedListener {
         this.add(messageLabel);
 
         scrollPane = new JScrollPane(messageLabel);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
         message = new StringBuilder("<html><body><div></div></body></html>");
 

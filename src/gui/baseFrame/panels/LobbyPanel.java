@@ -114,6 +114,8 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener, Gam
         if (getHost()) {
             readyButton.setVisible(false);
             readyButton.setEnabled(false);
+            startButton.setEnabled(true);
+            startButton.setVisible(true);
             startButton.setBounds((this.width - (-1) * BUTTON_WIDTH) / 2,
                     (this.height - (-5) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
             startButton.setBackground(startButtonColor);
@@ -123,6 +125,8 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener, Gam
         } else {
             startButton.setEnabled(false);
             startButton.setVisible(false);
+            readyButton.setVisible(true);
+            readyButton.setEnabled(true);
             this.add(readyButton);
             this.remove(addBotButton);
             this.remove(startButton);
