@@ -279,9 +279,9 @@ public class Board {
         squareList[2][22] = sq119;
         Property sq120 = new Property("lombard street", 2, 23, 210, 17, "WHITE");
         squareList[2][23] = sq120;
-
-
     }
+
+
 
 
 }

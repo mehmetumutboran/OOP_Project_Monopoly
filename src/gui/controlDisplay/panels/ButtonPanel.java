@@ -15,6 +15,9 @@ public class ButtonPanel extends JPanel {
     private UnmortgageButton unmortgageButton;
     private FinishTurnButton finishTurnButton;
     private RollDiceButton rollDiceButton;
+    private UpgradeButton upgradeButton;
+    private DowngradeButton downgradeButton;
+
 
     public ButtonPanel(int width, int height) {
         this.width = width;
@@ -34,6 +37,9 @@ public class ButtonPanel extends JPanel {
         unmortgageButton = new UnmortgageButton("Unmortgage");
         finishTurnButton = new FinishTurnButton("Finish Turn");
         rollDiceButton = new RollDiceButton("Roll Dice");
+        upgradeButton = new UpgradeButton("Upgrade");
+        downgradeButton = new DowngradeButton("Downgrade");
+
 
         this.add(buyButton);
         this.add(payRentButton);
@@ -41,5 +47,8 @@ public class ButtonPanel extends JPanel {
         this.add(unmortgageButton);
         this.add(finishTurnButton);
         this.add(rollDiceButton);
+
+        this.add(upgradeButton);
+        this.add(downgradeButton);
     }
 }

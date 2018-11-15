@@ -24,4 +24,7 @@ public class PlayerActionController {
     public void finishTurn() {
         GameLogic.getInstance().finishTurn();
     }
+   // public void upgrade() {GameLogic.getInstance().upgrade(); }
+
+    //public void downgrade(){ GameLogic.getInstance().downgrade(); }
 }
