@@ -3,13 +3,9 @@ package domain;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import domain.controller.GameCommunicationHandler;
 import domain.player.Player;
-import gui.controlDisplay.PlayerLabel;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.Deque;
 import java.util.LinkedList;
 
@@ -25,7 +21,7 @@ public class MessageInterpreter {
     }
 
     public static MessageInterpreter getInstance() {
-        if(instance == null)
+        if (instance == null)
             instance = new MessageInterpreter();
         return instance;
     }
@@ -76,6 +72,12 @@ public class MessageInterpreter {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        if (GameLogic.getInstance().getPlayers().peekFirst().getReadiness().equals("Bot")) {
+            Player player = GameLogic.getInstance().getPlayers().peekFirst();
+            ((RandomPlayer) player).playTurn();
+        }
+
         UIUpdater.getInstance().turnUpdate();
     }
 

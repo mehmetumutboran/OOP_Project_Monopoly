@@ -27,8 +27,8 @@ public class GameLogic {
     public static final char closeFlag = 'E';
     //TODO Add more
 
-    private Deque<Player> players;
-    private ArrayList<Player> playerList;
+    private volatile Deque<Player> players;
+    private volatile ArrayList<Player> playerList;
 
     public static GameLogic getInstance() {
         if (ourInstance == null) {
@@ -111,9 +111,12 @@ public class GameLogic {
         this.playerList = playerList;
     }
 
-    public void switchTurn() {
+    public synchronized void switchTurn() {
         players.addLast(players.removeFirst());
 
+        if (players.peekFirst().getReadiness().equals("Bot")) {
+            ((RandomPlayer) players.peekFirst()).playTurn();
+        }
 
     }
 

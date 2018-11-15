@@ -36,7 +36,7 @@ public class ConnectGameHandler implements ReceivedChangedListener {
      */
     public void connectHost(String username, int port) {
         if (ServerFacade.getInstance().createServer(port)) {
-            connectClient(username, "localhost", port,true); // Connects the host as a client after it creates server
+            connectClient(username, "localhost", port, true); // Connects the host as a client after it creates server
         }
     }
 
@@ -45,9 +45,9 @@ public class ConnectGameHandler implements ReceivedChangedListener {
      * @param ip       IP for server connection
      * @param port     for server Connection
      */
-    public void connectClient(String username, String ip, int port,boolean isHost) {
+    public void connectClient(String username, String ip, int port, boolean isHost) {
         Player player = new Player(username);
-        if(isHost) player.setReadiness("Host");
+        if (isHost) player.setReadiness("Host");
 
         if (ClientFacade.getInstance().createClient(ip, port)) {
             System.out.println("\n\n Added via Connect Client");
@@ -71,20 +71,16 @@ public class ConnectGameHandler implements ReceivedChangedListener {
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
         String message = clientFacade.getMessage();
         if (message == null || message.charAt(0) != '{') {
-             if (message.charAt(0) == 'E') {
+            if (message.charAt(0) == 'E') {
 //                System.out.println("OnReceived: " + message);
                 MonopolyGameController.getInstance().informClosed();
-            }else return;
+            } else return;
         }
 
         try {
             Player player = mapper.readValue(message, Player.class);
             if (!MonopolyGameController.getInstance().getPlayerList().contains(player)) { //New PLayer
                 clientFacade.send(MonopolyGameController.getInstance().getPlayerList().get(0).toJSON());
-                System.out.println("\n\n Connection handler observer: \n");
-                System.out.println("\nPlayer:" + player);
-                System.out.println("\nContains:"
-                        + MonopolyGameController.getInstance().getPlayerList().contains(player)+ "\n");
                 MonopolyGameController.getInstance().addPlayer(player);
             } else if (!MonopolyGameController.getInstance().getPlayerList().get(MonopolyGameController.getInstance(). //Color changed
                     getPlayerList().indexOf(player)).getToken().getColor().equals(player.getToken().getColor())) {
@@ -92,10 +88,10 @@ public class ConnectGameHandler implements ReceivedChangedListener {
             } else if (!MonopolyGameController.getInstance().getPlayerList().get(MonopolyGameController.getInstance().  // Readiness changed
                     getPlayerList().indexOf(player)).getReadiness().equals(player.getReadiness())) {
                 MonopolyGameController.getInstance().changePlayerReadiness(MonopolyGameController.getInstance().getPlayerList().indexOf(player));
-            } else if (player.isStarted()){  // Game started
+            } else if (player.isStarted()) {  // Game started
                 MonopolyGameController.getInstance().getPlayerList().get(MonopolyGameController.getInstance().
                         getPlayerList().indexOf(player)).setStarted(true);
-                if(!MonopolyGameController.getInstance().getPlayerList().get(0).isStarted()) {
+                if (!MonopolyGameController.getInstance().getPlayerList().get(0).isStarted()) {
                     MonopolyGameController.getInstance().checkReadiness();
                     clientFacade.removeReceivedChangedListener(this);
                 }
