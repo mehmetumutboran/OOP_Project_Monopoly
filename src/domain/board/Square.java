@@ -15,6 +15,10 @@ public abstract class Square {
      * @param layer Integer between [0,2] (inclusive). Indicates the layer on the game board.
      * @param index Integer between [0,55] (inclusive). Indicates the index of the square on that layer.
      */
+    public Square() {
+        this("" , 0, 0);
+    }
+
     public Square(String name , int layer , int index) {
         this.name = name;
         this.location = new int[]{layer, index};
@@ -53,5 +57,11 @@ public abstract class Square {
      */
     public void setLocation(int[] location) {
         this.location = location;
+    }
+
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

@@ -43,6 +43,18 @@ public class GameLogic {
 
     }
 
+    public boolean buy() {
+        /* true ??????? */
+        System.out.println("in  logic buy");
+
+        if (players.peekFirst().buy()) {
+            System.out.println("player buy completed, is sending action");
+            GameCommunicationHandler.getInstance().sendAction(buyFlag);
+            return true;}
+        else return false;
+    }
+
+
     public void roll() {
         players.peekFirst().rollDice();
         if(checkThirdDouble()){

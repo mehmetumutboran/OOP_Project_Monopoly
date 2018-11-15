@@ -1,6 +1,7 @@
 package gui.controlDisplay.butons;
 
 import domain.UIUpdater;
+import domain.controller.PlayerActionController;
 import domain.listeners.TurnChangedListener;
 
 import javax.swing.*;
@@ -18,6 +19,9 @@ public class BuyButton extends JButton implements ActionListener, TurnChangedLis
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
+        System.out.println("buy button  clicked");
+        PlayerActionController.getInstance().buy();
+
 
     }
 

@@ -24,4 +24,10 @@ public class PlayerActionController {
     public void finishTurn() {
         GameLogic.getInstance().finishTurn();
     }
+
+    public boolean buy() {
+        System.out.println("in player action controller");
+        return ( GameLogic.getInstance().buy() );
+
+    }
 }

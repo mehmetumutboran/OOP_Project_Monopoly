@@ -4,8 +4,9 @@ public class Token {
     private int[] location;
     private String color;
 
+
     public Token() {
-        this(new int[]{1,0}, "White");
+        this(new int[]{0,1}, "White");
     }
 
     public Token(String color) {

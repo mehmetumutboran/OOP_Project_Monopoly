@@ -3,6 +3,8 @@ package domain;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import domain.board.Board;
+import domain.board.Property;
 import domain.controller.GameCommunicationHandler;
 import domain.player.Player;
 import gui.controlDisplay.PlayerLabel;
@@ -38,6 +40,7 @@ public class MessageInterpreter {
                 interpretRoll(m.substring(1));
                 break;
             case GameLogic.buyFlag:
+                interpretBuy(m.substring(1));
                 break;
             case GameLogic.payRentFlag:
                 break;
@@ -86,6 +89,7 @@ public class MessageInterpreter {
     }
 
     private void interpretRoll(String message) {
+
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
         int[] location = new int[2];
@@ -103,6 +107,63 @@ public class MessageInterpreter {
 
         UIUpdater.getInstance().setMessage(name + " rolled " + faceValues[0] + " " + faceValues[1] + " " + faceValues[2]); //TODO Mrmonopoly
     }
+
+
+
+    public void interpretBuy(String message){
+        /*may be wrong !!!! */
+        System.out.println("in interpret buy flag");
+
+        ObjectMapper objectMapper2 = new ObjectMapper();
+        objectMapper2.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+
+        int[] location = null;
+        String name = null;
+        Property sq = null;
+        int money = 0;
+        int newBalance = 0;
+        try {
+            System.out.println("inside try catch");
+
+            name = objectMapper2.readValue(message, Player.class).getName();
+            System.out.println("name");
+
+            location = objectMapper2.readValue(message, Player.class).getToken().getLocation();
+            /* sq will be done for other classes */
+            System.out.println("location");
+
+            sq = (Property) Board.getInstance().getSquare(location[0] , location[1]);
+            System.out.println("square");
+
+            money = sq.getBuyValue();
+            System.out.println("money");
+
+            newBalance = GameLogic.getInstance().getPlayer(name).getBalance()-money;
+            System.out.println("new balamce");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        GameLogic.getInstance().getPlayer(name).setBalance(newBalance);
+        System.out.println("set balance");
+
+        GameLogic.getInstance().getPlayer(name).getOwnedProperties().add(sq);
+        System.out.println("added property");
+
+        ((Property) Board.getInstance().getSquareList()[location[0] ][location[1]]).setOwner(GameLogic.getInstance().getPlayer(name));
+
+        UIUpdater.getInstance().setMessage(name + " bought " + sq ); //TODO Mrmonopoly
+        System.out.println("UI updated");
+
+
+
+
+    }
+
+
+
+
 
 
 }
