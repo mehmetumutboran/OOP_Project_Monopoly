@@ -156,7 +156,7 @@ public class MonopolyGameController {
         return true;
     }
 
-    private void startGame(){
+    private synchronized void startGame(){
         playerList.get(0).setStarted(true);
         ConnectGameHandler.getInstance().sendChange(playerList.get(0));
         publishGameStartedEvent();
@@ -166,7 +166,6 @@ public class MonopolyGameController {
         if(playerList.get(0).getReadiness().equals("Host")) {
             initGame();
         }
-
     }
 
     private void initGame(){ // For now in this method players roll dice with initial roll strategy and they put to the queue corresponding to their total face values.

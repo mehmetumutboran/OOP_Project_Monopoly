@@ -50,7 +50,7 @@ public class ClientFacade {
      *
      * @param message Formatted as JSON String
      */
-    public void send(String message) {
+    public synchronized void send(String message) {
         client.send(message);
     }
 
@@ -60,7 +60,7 @@ public class ClientFacade {
      *
      * @param m Received Message Formatted as JSON
      */
-    public void sendReceivedMessage(String m) {
+    public synchronized void sendReceivedMessage(String m) {
         this.message = m;
 //        System.out.println(m);
         publishReceivedChangedAction();
@@ -69,7 +69,7 @@ public class ClientFacade {
     private synchronized void publishReceivedChangedAction() {
         for (ReceivedChangedListener aReceivedChangedListener : receivedChangedListeners) {
             if (aReceivedChangedListener == null) continue;
-            aReceivedChangedListener.onReceivedChangedEvent(ClientFacade.getInstance());
+            aReceivedChangedListener.onReceivedChangedEvent();
         }
     }
 

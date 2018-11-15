@@ -27,7 +27,7 @@ public class MessageInterpreter {
     }
 
 
-    public void interpret(String m) {
+    public synchronized void interpret(String m) {
         char flag = m.charAt(0);
         switch (flag) {
             case GameLogic.rollFlag:
@@ -73,11 +73,16 @@ public class MessageInterpreter {
             e.printStackTrace();
         }
 
-        if (GameLogic.getInstance().getPlayers().peekFirst().getReadiness().equals("Bot")) {
-            Player player = GameLogic.getInstance().getPlayers().peekFirst();
-            ((RandomPlayer) player).playTurn();
-        }
+        //Bots play on only host's program
+        if(GameLogic.getInstance().getPlayerList().get(0).getReadiness().equals("Host")) {
 
+            // Check for bots if they starts the game.
+            for (Player player : GameLogic.getInstance().getPlayerList()) {
+                if (player.getReadiness().equals("Bot") && ((RandomPlayer) player).checkTurn()) {
+                    break;
+                }
+            }
+        }
         UIUpdater.getInstance().turnUpdate();
     }
 

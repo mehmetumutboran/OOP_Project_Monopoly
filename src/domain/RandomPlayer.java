@@ -13,9 +13,19 @@ public class RandomPlayer extends Player {
     }
 
 
-    public synchronized void playTurn() {
+    private void playTurn() {
+
         GameLogic.getInstance().roll();
+
         GameLogic.getInstance().finishTurn();
+
     }
 
+    public synchronized boolean checkTurn() {
+        if(GameLogic.getInstance().getPlayers().peekFirst().equals(this)){
+            playTurn();
+            return true;
+        }
+        return false;
+    }
 }

@@ -114,10 +114,14 @@ public class GameLogic {
     public synchronized void switchTurn() {
         players.addLast(players.removeFirst());
 
-        if (players.peekFirst().getReadiness().equals("Bot")) {
-            ((RandomPlayer) players.peekFirst()).playTurn();
+        // Bots will play on only host's program
+        if(!playerList.get(0).getReadiness().equals("Host")) return;
+        // Check for bot's turn
+        for(Player player : playerList) {
+            if(player.getReadiness().equals("Bot") && ((RandomPlayer) player).checkTurn()){
+                break;
+            }
         }
-
     }
 
     public void finishTurn() {

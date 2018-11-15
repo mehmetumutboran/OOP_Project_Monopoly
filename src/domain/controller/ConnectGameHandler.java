@@ -66,10 +66,10 @@ public class ConnectGameHandler implements ReceivedChangedListener {
      * Right now it assumes Received message is new {@link Player} and adds it to the {@link MonopolyGameController#getPlayerList()}
      */
     @Override
-    public synchronized void onReceivedChangedEvent(ClientFacade clientFacade) {
+    public synchronized void onReceivedChangedEvent() {
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
-        String message = clientFacade.getMessage();
+        String message = ClientFacade.getInstance().getMessage();
         if (message == null || message.charAt(0) != '{') {
             if (message.charAt(0) == 'E') {
 //                System.out.println("OnReceived: " + message);
@@ -78,9 +78,16 @@ public class ConnectGameHandler implements ReceivedChangedListener {
         }
 
         try {
-            Player player = mapper.readValue(message, Player.class);
+            Player player;
+            if(mapper.readValue(message, Player.class).getReadiness().equals("Bot")){
+                player = mapper.readValue(message, RandomPlayer.class); // If player is Bot initialize it as RandomPlayer
+                                                                        // To prevent ClassCastException
+            }else{
+                player = mapper.readValue(message, Player.class);
+            }
+
             if (!MonopolyGameController.getInstance().getPlayerList().contains(player)) { //New PLayer
-                clientFacade.send(MonopolyGameController.getInstance().getPlayerList().get(0).toJSON());
+                ClientFacade.getInstance().send(MonopolyGameController.getInstance().getPlayerList().get(0).toJSON());
                 MonopolyGameController.getInstance().addPlayer(player);
             } else if (!MonopolyGameController.getInstance().getPlayerList().get(MonopolyGameController.getInstance(). //Color changed
                     getPlayerList().indexOf(player)).getToken().getColor().equals(player.getToken().getColor())) {
@@ -93,7 +100,7 @@ public class ConnectGameHandler implements ReceivedChangedListener {
                         getPlayerList().indexOf(player)).setStarted(true);
                 if (!MonopolyGameController.getInstance().getPlayerList().get(0).isStarted()) {
                     MonopolyGameController.getInstance().checkReadiness();
-                    clientFacade.removeReceivedChangedListener(this);
+                    ClientFacade.getInstance().removeReceivedChangedListener(this);
                 }
             }
         } catch (IOException e) {
