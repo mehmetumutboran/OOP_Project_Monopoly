@@ -120,4 +120,13 @@ public class GameLogic {
     public void finishTurn() {
         GameCommunicationHandler.getInstance().sendAction(finishTurnFlag);
     }
+
+    public void upgrade(){
+
+    }
+
+    public void downgrade(){
+
+    }
+
 }
