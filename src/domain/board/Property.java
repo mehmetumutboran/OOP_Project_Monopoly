@@ -65,7 +65,7 @@ public class Property extends DeedSquare {
             }
         }
     }
-    public boolean isUpgradable(){
+    public boolean isUpgradable(Property square){
         return false;
     }
 }

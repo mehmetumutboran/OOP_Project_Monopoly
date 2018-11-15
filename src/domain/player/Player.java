@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import domain.board.Board;
-import domain.board.Property;
-import domain.board.Railroad;
-import domain.board.Utility;
+import domain.board.*;
 import domain.controller.MonopolyGameController;
 import domain.die.DiceCup;
 
@@ -208,7 +205,7 @@ public class Player implements Comparable {
         sb.append('}');
         return sb.toString();
     }
-    public boolean checkMajority(){
+    public boolean checkMajority(Property square){
         return false;
     }
 }
