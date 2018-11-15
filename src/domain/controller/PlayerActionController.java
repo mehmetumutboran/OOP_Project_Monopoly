@@ -30,4 +30,10 @@ public class PlayerActionController {
         return ( GameLogic.getInstance().buy() );
 
     }
+
+    public boolean rent() {
+        System.out.println("in player action controller");
+        return ( GameLogic.getInstance().rent() );
+
+    }
 }

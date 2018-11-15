@@ -54,6 +54,17 @@ public class GameLogic {
         else return false;
     }
 
+    public boolean rent() {
+        /* true ??????? */
+        System.out.println("in  logic buy");
+
+        if (players.peekFirst().rent()) {
+            System.out.println("player rent completed, is sending action");
+            GameCommunicationHandler.getInstance().sendAction(payRentFlag);
+            return true;}
+        else return false;
+    }
+
 
     public void roll() {
         players.peekFirst().rollDice();

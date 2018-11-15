@@ -34,6 +34,8 @@ public class MessageInterpreter {
 
 
     public void interpret(String m) {
+        System.out.println("in interpreter");
+
         char flag = m.charAt(0);
         switch (flag) {
             case GameLogic.rollFlag:
@@ -43,6 +45,7 @@ public class MessageInterpreter {
                 interpretBuy(m.substring(1));
                 break;
             case GameLogic.payRentFlag:
+                interpretRent(m.substring(1));
                 break;
             case GameLogic.finishTurnFlag:
                 interpretFinishTurn();
@@ -164,6 +167,48 @@ public class MessageInterpreter {
 
 
 
+    public void interpretRent(String message){
+        System.out.println("in interpretRent");
+
+        ObjectMapper objectMapper3 = new ObjectMapper();
+        objectMapper3.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+
+        int[] location = null;
+        String name = null;
+        Property sq = null;
+        int money = 0;
+        int newBalance = 0;
+        int newBalanceTaker=0;
+        try {
+            name = objectMapper3.readValue(message, Player.class).getName();
+
+            location = objectMapper3.readValue(message, Player.class).getToken().getLocation();
+            /* sq will be done for other classes */
+
+            sq = (Property) Board.getInstance().getSquare(location[0] , location[1]);
+
+            money = sq.getRent();
+
+            newBalance = GameLogic.getInstance().getPlayer(name).getBalance()-money;
+            newBalanceTaker = GameLogic.getInstance().getPlayer(((Property) Board.getInstance().getSquareList()[location[0] ][location[1]]).getOwner().getName()).getBalance()+money;
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        /*payer*/
+        GameLogic.getInstance().getPlayer(name).setBalance(newBalance);
+        /*taker*/
+        GameLogic.getInstance().getPlayer(((Property) Board.getInstance().getSquareList()[location[0] ][location[1]]).getOwner().getName()).setBalance(newBalanceTaker);
+
+
+
+        UIUpdater.getInstance().setMessage(name + " paid rent " + money + " dollars to " + sq.getOwner().getName() ); //TODO Mrmonopoly
+
+
+
+
+    }
 
 
 }

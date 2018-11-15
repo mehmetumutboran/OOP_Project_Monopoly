@@ -275,6 +275,41 @@ public class Player implements Comparable {
 
 
 
+    public boolean rent(){
+        System.out.println("in  player rent");
+        boolean rented = false;
+        /* checks if buyable square i.e. railroad */
+
+
+        boolean rentable =
+                (Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]] instanceof Property ||
+                        Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]] instanceof Railroad ||
+                        Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]] instanceof Utility);
+
+        System.out.println("buyable checked");
+        /*
+        1. if which buyable square -> downcast accordingly
+        2. if have enough money
+        3. if owned ?
+        * */
+
+
+        if(rentable ) {
+
+            if (Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]] instanceof Property) {
+                    if (((Property) Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]]).isOwned()) {
+                        if (this.getBalance() > ((Property) Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]]).getRent()) {
+                        if(rented = false )  rented = true;
+                    }
+                }
+            }
+
+            /*others like railroad*/
+
+        }
+
+        return rented;
+    }
 
 
 

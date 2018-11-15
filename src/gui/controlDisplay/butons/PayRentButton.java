@@ -1,6 +1,7 @@
 package gui.controlDisplay.butons;
 
 import domain.UIUpdater;
+import domain.controller.PlayerActionController;
 import domain.listeners.TurnChangedListener;
 
 import javax.swing.*;
@@ -18,7 +19,8 @@ public class PayRentButton extends JButton implements ActionListener, TurnChange
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-
+        System.out.println("rent button  clicked");
+        PlayerActionController.getInstance().rent();
     }
 
     @Override
