@@ -112,10 +112,10 @@ public class ConnectGameHandler implements ReceivedChangedListener {
         ClientFacade.getInstance().send(e + player.toJSON());
     }
 
-    public void connectBot(String s) {
+    public void connectBot(String s, String color) {
         RandomPlayer randomPlayer = new RandomPlayer(s);
         randomPlayer.setReadiness("Bot");
-        randomPlayer.getToken().setColor("Blue"); //TODO Can be changed
+        randomPlayer.getToken().setColor(color);
 
         if (ClientFacade.getInstance().createClient("localhost", ServerFacade.getInstance().getServer().getSs().getLocalPort())) {
             MonopolyGameController.getInstance().addPlayer(randomPlayer);

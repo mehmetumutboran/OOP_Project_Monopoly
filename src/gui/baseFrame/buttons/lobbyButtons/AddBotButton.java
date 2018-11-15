@@ -1,10 +1,13 @@
 package gui.baseFrame.buttons.lobbyButtons;
 
 import domain.controller.ConnectGameHandler;
+import gui.baseFrame.ColorBox;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 public class AddBotButton extends JButton implements ActionListener {
     private String[] names = {"Annie", "Buddy", "John", "Amelia", "Tom", "Sophia", "Jessie", "Amy", "Luna", "Eric", "Ross"};
@@ -18,6 +21,7 @@ public class AddBotButton extends JButton implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         count++;
-        ConnectGameHandler.getInstance().connectBot("Bot " + names[count%11]);
+        Random random = new Random();
+        ConnectGameHandler.getInstance().connectBot("Bot " + names[count%11], ColorBox.colorList.get(random.nextInt(ColorBox.colorList.size())));
     }
 }
