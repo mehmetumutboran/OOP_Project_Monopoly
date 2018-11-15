@@ -8,6 +8,10 @@ public class Railroad extends DeedSquare {
         hasDepot = false;
     }
 
+    public void updateRent() {
+
+    }
+
     public boolean isHasDepot() {
         return hasDepot;
     }
@@ -15,4 +19,6 @@ public class Railroad extends DeedSquare {
     public void setHasDepot(boolean hasDepot) {
         this.hasDepot = hasDepot;
     }
+
+
 }

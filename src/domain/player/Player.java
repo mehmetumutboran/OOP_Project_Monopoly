@@ -208,4 +208,7 @@ public class Player implements Comparable {
         sb.append('}');
         return sb.toString();
     }
+    public boolean checkMajority(){
+        return false;
+    }
 }
