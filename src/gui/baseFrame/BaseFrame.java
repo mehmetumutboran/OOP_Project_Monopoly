@@ -15,6 +15,7 @@ import java.util.HashMap;
 public class BaseFrame extends JFrame implements Runnable, CloseButtonListener {
     private final int FRAME_WIDTH = 1080;
     private final int FRAME_HEIGHT = 720;
+    private final String CURRENT_VERSION = "v1.0.0";
 
     private HashMap<String, JPanel> panelMap;
     private static boolean changed = false;
@@ -50,7 +51,7 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener {
     }
 
     private void initializeFrame() {
-        initialScreenPanel = new InitialScreenPanel(FRAME_WIDTH, FRAME_HEIGHT);
+        initialScreenPanel = new InitialScreenPanel(CURRENT_VERSION,FRAME_WIDTH, FRAME_HEIGHT);
         multiPlayerPanel = new MultiPlayerPanel(FRAME_WIDTH, FRAME_HEIGHT);
         singlePlayerPanel = new SinglePlayerPanel(FRAME_WIDTH, FRAME_HEIGHT);
         lobbyPanel = new LobbyPanel(FRAME_WIDTH, FRAME_HEIGHT);

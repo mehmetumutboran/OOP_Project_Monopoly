@@ -22,13 +22,14 @@ public class InitialScreenPanel extends JPanel {
     private BufferedImage image1;
     private BufferedImage image2;
     private JLabel logoLabel;
+    private JLabel versionLabel;
     private JLabel backgroundLabel;
 
     private final int BUTTON_WIDTH = 300;
     private final int BUTTON_HEIGHT = 50;
 
 
-    public InitialScreenPanel(int width, int height) {
+    public InitialScreenPanel(String CURRENT_VERSION,int width, int height) {
         this.width = width;
         this.height = height;
 
@@ -51,6 +52,16 @@ public class InitialScreenPanel extends JPanel {
         this.add(logoLabel);
         logoLabel.setBounds(0, 0, width, 200);
         logoLabel.setOpaque(true);
+
+
+        versionLabel = new JLabel(CURRENT_VERSION);
+        versionLabel.setHorizontalAlignment(JLabel.CENTER);
+        versionLabel.setVerticalAlignment(JLabel.CENTER);
+        versionLabel.setFont(new Font("Serif", Font.BOLD, 20));
+        this.add(versionLabel);
+        versionLabel.setBounds((this.width - BUTTON_WIDTH) / 2,
+                (this.height - (-11) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
+        versionLabel.setOpaque(false);
 
         initButtons();
 
