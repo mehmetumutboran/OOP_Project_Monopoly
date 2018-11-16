@@ -36,8 +36,8 @@ public class GamePanel extends JPanel {
         }
 
         boardLabel = new JLabel(new ImageIcon(image));
-        this.add(boardLabel,BorderLayout.NORTH);
-        boardLabel.setSize(width,height);
+        this.add(boardLabel, BorderLayout.NORTH);
+        boardLabel.setSize(width, height);
         boardLabel.setOpaque(true);
     }
 }

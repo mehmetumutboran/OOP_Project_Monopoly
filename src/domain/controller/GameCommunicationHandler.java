@@ -20,8 +20,8 @@ public class GameCommunicationHandler implements ReceivedChangedListener {
     }
 
     public static GameCommunicationHandler getInstance() {
-        if(ourInstance == null)
-             ourInstance = new GameCommunicationHandler();
+        if (ourInstance == null)
+            ourInstance = new GameCommunicationHandler();
         return ourInstance;
     }
 
@@ -36,7 +36,8 @@ public class GameCommunicationHandler implements ReceivedChangedListener {
     public void sendAction(char flag) {
         ClientFacade.getInstance().send(GameState.getInstance().generateCurrentAction(flag));
     }
-    public void sendupdowngradeAction (char flag, DeedSquare square){
+
+    public void sendupdowngradeAction(char flag, DeedSquare square) {
         ClientFacade.getInstance().send(GameState.getInstance().generateupdownGradeAction(flag, square));
 
     }

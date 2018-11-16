@@ -17,7 +17,7 @@ public class StartButton extends JButton implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         boolean startStatus = MonopolyGameController.getInstance().checkReadiness();
-        if(!startStatus) {
+        if (!startStatus) {
             JOptionPane.showMessageDialog(null, "Not All Players are ready",
                     "Error", JOptionPane.WARNING_MESSAGE);
         }

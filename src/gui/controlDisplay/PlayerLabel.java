@@ -12,7 +12,7 @@ public class PlayerLabel extends JLabel implements MouseListener {
 
     public PlayerLabel(String text, PlayerLabelsPanel panel) {
         super(text);
-        playerLabelsPanel= panel;
+        playerLabelsPanel = panel;
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         this.setOpaque(true);
         this.addMouseListener(this);

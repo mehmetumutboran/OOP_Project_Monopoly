@@ -27,25 +27,25 @@ public class JoinButton extends MultiplayerConnectionButton implements ActionLis
         checkConnection();
     }
 
-    private void checkConnection(){
+    private void checkConnection() {
         String username = null;
         String ip = null;
         int port = 0;
-        if(InputChecker.getInstance().userNameChecker(IDField.getText())){
+        if (InputChecker.getInstance().userNameChecker(IDField.getText())) {
             username = IDField.getText();
-        }else return;
+        } else return;
 
-        if(InputChecker.getInstance().portChecker(portField.getText())){
+        if (InputChecker.getInstance().portChecker(portField.getText())) {
             port = Integer.parseInt(portField.getText());
-        }else return;
+        } else return;
 
-        if(InputChecker.getInstance().ipChecker(IPField.getText())){
+        if (InputChecker.getInstance().ipChecker(IPField.getText())) {
             ip = IPField.getText();
-        }else return;
+        } else return;
 
         String status = ConnectGameHandler.getInstance().connectClient(username, ip,
-                port,false,this);
-        if(status.equals("Successful")) {
+                port, false, this);
+        if (status.equals("Successful")) {
             BaseFrame.setStatus("Lobby");
         }
         //else if(status.equals("Failed"))

@@ -1,7 +1,6 @@
 package domain.controller;
 
 import domain.GameLogic;
-import domain.MessageInterpreter;
 import domain.UIUpdater;
 import domain.die.DiceCup;
 import domain.listeners.CloseButtonListener;
@@ -48,7 +47,7 @@ public class MonopolyGameController {
     public boolean addPlayer(Player player) {
 //        return playerList.add(player);
         playerList.add(player);
-        System.out.println("\n\nAdded Player" +  player + "\n\n");
+        System.out.println("\n\nAdded Player" + player + "\n\n");
         System.out.println(playerList + "\n\n");
         publishPlayerListEvent();
         return true;
@@ -68,7 +67,7 @@ public class MonopolyGameController {
         }
     }
 
-    private void publishGameStartedEvent(){
+    private void publishGameStartedEvent() {
         for (GameStartedListener gls : gameStartedListeners) {
             if (gls == null) continue;
             gls.onGameStartedEvent();
@@ -83,16 +82,16 @@ public class MonopolyGameController {
         return closeButtonListeners.add(cbl);
     }
 
-    public boolean addGameStartedListener(GameStartedListener gsl){
+    public boolean addGameStartedListener(GameStartedListener gsl) {
         return gameStartedListeners.add(gsl);
     }
 
-    public void addDisableColorChangeListener(DisableColorChangeListener dccl){
-        if(!disableColorChangeListeners.contains(dccl))
+    public void addDisableColorChangeListener(DisableColorChangeListener dccl) {
+        if (!disableColorChangeListeners.contains(dccl))
             disableColorChangeListeners.add(dccl);
     }
 
-    public void removeDisableColorChangeListeners(){
+    public void removeDisableColorChangeListeners() {
         disableColorChangeListeners = new ArrayList<>();
     }
 
@@ -140,7 +139,7 @@ public class MonopolyGameController {
     }
 
     public void changePlayerColor(int index, String color) {
-        if(color == null) return;
+        if (color == null) return;
         String oldColor = playerList.get(index).getToken().getColor();
         playerList.get(index).getToken().setColor(color);
         System.out.println("Player's color " + playerList.get(0).getToken().getColor());
@@ -158,7 +157,7 @@ public class MonopolyGameController {
             ConnectGameHandler.getInstance().sendChange(playerList.get(index));
         }
         publishPlayerListEvent();
-        if(index == 0){
+        if (index == 0) {
             publishDisableColorChangeEvent();
         }
     }
@@ -172,8 +171,8 @@ public class MonopolyGameController {
 
     public boolean checkReadiness() {
 //        if (playerList.size() == 1) return false; TODO
-        if((playerList.get(0).getReadiness().equals("Bot")) || (playerList.get(0).getReadiness().equals("Ready") &&
-                !playerList.get(0).getReadiness().equals("Host"))){
+        if ((playerList.get(0).getReadiness().equals("Bot")) || (playerList.get(0).getReadiness().equals("Ready") &&
+                !playerList.get(0).getReadiness().equals("Host"))) {
             startGame();
             return true;
         }
@@ -184,19 +183,19 @@ public class MonopolyGameController {
         return true;
     }
 
-    private synchronized void startGame(){
+    private synchronized void startGame() {
         playerList.get(0).setStarted(true);
         ConnectGameHandler.getInstance().sendChange(playerList.get(0));
         publishGameStartedEvent();
         GameCommunicationHandler.getInstance();
         UIUpdater.getInstance();
         GameLogic.getInstance().setPlayerList(playerList);
-        if(playerList.get(0).getReadiness().equals("Host")) {
+        if (playerList.get(0).getReadiness().equals("Host")) {
             initGame();
         }
     }
 
-    private void initGame(){ // For now in this method players roll dice with initial roll strategy and they put to the queue corresponding to their total face values.
+    private void initGame() { // For now in this method players roll dice with initial roll strategy and they put to the queue corresponding to their total face values.
         for (Player p : playerList) {
             DiceCup.getInstance().rollDice("Init");
             p.setFaceValues(DiceCup.getInstance().getFaceValues());
@@ -206,7 +205,7 @@ public class MonopolyGameController {
         Collections.sort(playerSortList);
         playerQueue.addAll(playerSortList);
         System.out.println("/////Player Queue//////");
-        for (Player p:playerQueue) {
+        for (Player p : playerQueue) {
             System.out.println(p);
         }
         GameLogic.getInstance().setPlayers(playerQueue);
@@ -215,8 +214,8 @@ public class MonopolyGameController {
 
 
     public void informClosed() {
-        if(MonopolyGameController.getInstance().getPlayerList().size() > 1){
-            if(playerList.get(0).getReadiness().equals("Host")) {
+        if (MonopolyGameController.getInstance().getPlayerList().size() > 1) {
+            if (playerList.get(0).getReadiness().equals("Host")) {
                 ConnectGameHandler.getInstance().sendChange(playerList.get(0), 'E');
             }
             // TODO if not host, remove players!!!!!

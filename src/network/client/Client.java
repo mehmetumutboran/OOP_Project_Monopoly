@@ -16,12 +16,12 @@ public class Client {
     private static DataInputStream dis;
 
     public Client(String ip, int port, ClientFacade clientFacade) throws IOException {
-            this.clientFacade = clientFacade;
-            socket = new Socket(ip, port);
-            dis = new DataInputStream(socket.getInputStream());
-            dos = new DataOutputStream(socket.getOutputStream());
-            clientReceiver = new ClientReceiver(dis, clientFacade);
-            clientReceiver.start();
+        this.clientFacade = clientFacade;
+        socket = new Socket(ip, port);
+        dis = new DataInputStream(socket.getInputStream());
+        dos = new DataOutputStream(socket.getOutputStream());
+        clientReceiver = new ClientReceiver(dis, clientFacade);
+        clientReceiver.start();
     }
 
 

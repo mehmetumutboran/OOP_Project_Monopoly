@@ -6,13 +6,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.MessageInterpreter;
 import domain.RandomPlayer;
 import domain.player.Player;
-import gui.baseFrame.buttons.hostJoinButtons.JoinButton;
 import gui.baseFrame.buttons.hostJoinButtons.MultiplayerConnectionButton;
-import gui.baseFrame.buttons.initialScreenButons.MultiplayerButton;
 import network.client.clientFacade.ClientFacade;
-import network.listeners.ConnectionFailedListener;
-import network.server.serverFacade.ServerFacade;
 import network.listeners.ReceivedChangedListener;
+import network.server.serverFacade.ServerFacade;
 
 import java.io.IOException;
 
@@ -40,8 +37,8 @@ public class ConnectGameHandler implements ReceivedChangedListener {
      */
     public String connectHost(String username, int port, MultiplayerConnectionButton mcb) {
         if (ServerFacade.getInstance().createServer(port)) {
-            connectClient(username, "localhost", port,true,mcb); // Connects the host as a client after it creates server
-        }else{
+            connectClient(username, "localhost", port, true, mcb); // Connects the host as a client after it creates server
+        } else {
             return "Server cannot be created!!";
         }
         return "Successful";
@@ -54,7 +51,7 @@ public class ConnectGameHandler implements ReceivedChangedListener {
      */
     public String connectClient(String username, String ip, int port, boolean isHost, MultiplayerConnectionButton mcb) {
         Player player = new Player(username);
-        if(isHost) player.setReadiness("Host");
+        if (isHost) player.setReadiness("Host");
         ClientFacade.getInstance().addConnectionFailedListener(mcb);
 
         if (ClientFacade.getInstance().createClient(ip, port)) {
@@ -63,7 +60,7 @@ public class ConnectGameHandler implements ReceivedChangedListener {
             System.out.println("\n\n");
             sendChange(player);
             return "Successful";
-        }else{
+        } else {
             return "Failed";
         }
 
@@ -91,10 +88,10 @@ public class ConnectGameHandler implements ReceivedChangedListener {
 
         try {
             Player player;
-            if(mapper.readValue(message, Player.class).getReadiness().equals("Bot")){
+            if (mapper.readValue(message, Player.class).getReadiness().equals("Bot")) {
                 player = mapper.readValue(message, RandomPlayer.class); // If player is Bot initialize it as RandomPlayer
-                                                                        // To prevent ClassCastException
-            }else{
+                // To prevent ClassCastException
+            } else {
                 player = mapper.readValue(message, Player.class);
             }
 

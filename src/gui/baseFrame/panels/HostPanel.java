@@ -61,7 +61,7 @@ public class HostPanel extends JPanel {
         this.setVisible(true);
     }
 
-    private void initRandomNameList(){
+    private void initRandomNameList() {
         randomUserNames = new ArrayList<>();
         randomUserNames.add("John");
         randomUserNames.add("Kirby");

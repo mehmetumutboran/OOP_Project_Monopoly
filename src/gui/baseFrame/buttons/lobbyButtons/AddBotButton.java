@@ -4,7 +4,6 @@ import domain.controller.ConnectGameHandler;
 import gui.baseFrame.ColorBox;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
@@ -22,6 +21,6 @@ public class AddBotButton extends JButton implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         count++;
         Random random = new Random();
-        ConnectGameHandler.getInstance().connectBot("Bot " + names[count%11], ColorBox.colorList.get(random.nextInt(ColorBox.colorList.size())));
+        ConnectGameHandler.getInstance().connectBot("Bot " + names[count % 11], ColorBox.colorList.get(random.nextInt(ColorBox.colorList.size())));
     }
 }

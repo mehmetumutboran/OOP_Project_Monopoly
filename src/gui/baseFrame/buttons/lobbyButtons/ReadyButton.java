@@ -6,7 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.print.PrinterAbortException;
 
 /**
  * When player presses REadyButton it changes and becomes unready Button.
@@ -28,7 +27,7 @@ public class ReadyButton extends JButton implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         MonopolyGameController.getInstance().changePlayerReadiness(0);
         counter++;
-        this.setText(state[counter%2]);
-        this.setBackground(colors[counter%2]);
+        this.setText(state[counter % 2]);
+        this.setBackground(colors[counter % 2]);
     }
 }

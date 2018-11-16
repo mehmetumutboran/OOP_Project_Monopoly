@@ -1,8 +1,6 @@
 package gui.controlDisplay.panels;
 
-import domain.MessageInterpreter;
 import domain.UIUpdater;
-import domain.controller.GameCommunicationHandler;
 import domain.listeners.MessageChangedListener;
 
 import javax.swing.*;

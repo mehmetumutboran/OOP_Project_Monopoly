@@ -29,7 +29,7 @@ public class InitialScreenPanel extends JPanel {
     private final int BUTTON_HEIGHT = 50;
 
 
-    public InitialScreenPanel(String CURRENT_VERSION,int width, int height) {
+    public InitialScreenPanel(String CURRENT_VERSION, int width, int height) {
         this.width = width;
         this.height = height;
 

@@ -36,20 +36,20 @@ public class HostButton extends MultiplayerConnectionButton implements ActionLis
         checkConnection();
     }
 
-    private void checkConnection(){
+    private void checkConnection() {
         String username = null;
         int port = 0;
 
-        if(InputChecker.getInstance().userNameChecker(IDField.getText())){
+        if (InputChecker.getInstance().userNameChecker(IDField.getText())) {
             username = IDField.getText();
-        }else return;
+        } else return;
 
-        if(InputChecker.getInstance().portChecker(portField.getText())){
+        if (InputChecker.getInstance().portChecker(portField.getText())) {
             port = Integer.parseInt(portField.getText());
-        }else return;
+        } else return;
 
-        String status = ConnectGameHandler.getInstance().connectHost(username, port,this);
-        if(status.equals("Successful")) {
+        String status = ConnectGameHandler.getInstance().connectHost(username, port, this);
+        if (status.equals("Successful")) {
             BaseFrame.setStatus("Lobby");
         }
     }
