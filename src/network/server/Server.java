@@ -38,7 +38,7 @@ public class Server implements Runnable {
      * @param clientSocket
      */
     private synchronized void setClientThread(int i, Socket clientSocket) { //TODO delete
-        clientThreads[i] = new ClientHandler(clientSocket, clientThreads);
+        clientThreads[i] = new ClientHandler(clientSocket);
     }
 
 
@@ -54,8 +54,7 @@ public class Server implements Runnable {
                 int i = 0;
                 for (; i < maxClientsCount; i++) {
                     if (clientThreads[i] == null) {
-//                        setClientThread(i, clientSocket);
-                        clientThreads[i] = new ClientHandler(clientSocket, clientThreads);
+                        clientThreads[i] = new ClientHandler(clientSocket);
                         (new Thread(clientThreads[i])).start();
                         break;
                     }
@@ -73,17 +72,11 @@ public class Server implements Runnable {
         return ss;
     }
 
-    public synchronized static void sendAll(String m) {
+    public synchronized static void sendAll(String m) throws IOException {
         for (ClientHandler clientThread : clientThreads) {
             if (clientThread == null) continue;
             clientThread.send(m);
         }
     }
 
-    public synchronized static void sendAllExceptOne(String m, ClientHandler ch) {
-        for (ClientHandler clientThread : clientThreads) {
-            if (clientThread == ch || clientThread == null) continue;
-            clientThread.send(m);
-        }
-    }
 }

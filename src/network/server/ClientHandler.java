@@ -7,13 +7,11 @@ import java.net.Socket;
 
 public class ClientHandler implements Runnable {
     private Socket socket;
-    private final ClientHandler[] clientThreads;
     private DataInputStream dis;
     private DataOutputStream dos;
 
-    public ClientHandler(Socket clientSocket, ClientHandler[] clientThreads) {
+    public ClientHandler(Socket clientSocket) {
         this.socket = clientSocket;
-        this.clientThreads = clientThreads;
     }
 
     @Override
@@ -31,17 +29,14 @@ public class ClientHandler implements Runnable {
 
         } catch (IOException e) {
             //TODO Handle Player exit
+            System.out.println("\n\n Player exited\n\n");
             e.printStackTrace();
         }
 
     }
 
-    public synchronized void send(String m) {
-        try {
-            dos.writeUTF(m);
-            dos.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public synchronized void send(String m) throws IOException {
+        dos.writeUTF(m);
+        dos.flush();
     }
 }
