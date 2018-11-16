@@ -103,7 +103,6 @@ public class MessageInterpreter {
                 e.printStackTrace();
             }
         }
-
         int index;
         if (square instanceof Railroad) {
             index = GameLogic.getInstance().getPlayer(name).getOwnedRailroads().indexOf(square);
@@ -113,12 +112,6 @@ public class MessageInterpreter {
             index = GameLogic.getInstance().getPlayer(name).getOwnedProperties().indexOf(square);
             GameLogic.getInstance().getPlayer(name).getOwnedProperties().get(index).setBuildingList(((Property) square).getBuildingList());
         }
-
-//        if (GameLogic.getInstance().getPlayer(name).getOwnedProperties().get(index) != null) {
-//
-//
-//        } else if (GameLogic.getInstance().getPlayer(name).getOwnedRailroads().get(index) != null) {
-//        }
         if (message.charAt(0) == GameLogic.upgradeFlag)
             UIUpdater.getInstance().setMessage(name + " upgraded " + square);
         else

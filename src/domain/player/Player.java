@@ -195,6 +195,7 @@ public class Player implements Comparable {
 
     public boolean checkMajority(Property square) {
         return false;
+        //TODO for upgrade downgrade
     }
 
     public void increaseMoney(int money) {

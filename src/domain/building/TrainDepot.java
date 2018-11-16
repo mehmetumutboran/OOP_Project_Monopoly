@@ -2,8 +2,8 @@ package domain.building;
 
 public class TrainDepot extends Building {
 
-    public TrainDepot(int cost) {
-        super(cost);
+    public TrainDepot() {
+
     }
 
     @Override
