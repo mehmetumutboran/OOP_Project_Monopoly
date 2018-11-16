@@ -24,7 +24,7 @@ public class RandomPlayer extends Player {
         Square square = Board.getInstance().getSquare(this.getToken().getLocation()[0], this.getToken().getLocation()[1]);
 
         if(square instanceof DeedSquare){
-            if(((DeedSquare) square).getOwner().equals(this)){
+            if(((DeedSquare) square).getOwner() == null || ((DeedSquare) square).getOwner().equals(this)){
                 GameLogic.getInstance().payRent();
             }
         }
@@ -38,7 +38,7 @@ public class RandomPlayer extends Player {
     }
 
     private boolean selectAction() {
-        int x = (new Random()).nextInt(6);
+        int x = (new Random()).nextInt(7);
 
         switch (x){
             case 0:
@@ -54,7 +54,7 @@ public class RandomPlayer extends Player {
 //            case 5:
 //                return GameLogic.getInstance().downgrade();
             default:
-                return false;
+                return true;
         }
     }
 
