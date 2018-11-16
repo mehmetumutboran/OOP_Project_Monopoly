@@ -169,18 +169,20 @@ public class MonopolyGameController {
         }
     }
 
-    public boolean checkReadiness() {
+    public int checkReadiness() {
 //        if (playerList.size() == 1) return false; TODO
         if ((playerList.get(0).getReadiness().equals("Bot")) || (playerList.get(0).getReadiness().equals("Ready") &&
                 !playerList.get(0).getReadiness().equals("Host"))) {
             startGame();
-            return true;
+            return 0; //  Can't return 1 since we return number of players not ready.
         }
+        int notReady = 0;
         for (int i = 1; i < playerList.size(); i++) {
-            if (playerList.get(i).getReadiness().equals("Not Ready")) return false;
+            if (playerList.get(i).getReadiness().equals("Not Ready")) notReady++;
         }
+        if(notReady!=0) return notReady;
         startGame();
-        return true;
+        return 0;
     }
 
     private synchronized void startGame() {
