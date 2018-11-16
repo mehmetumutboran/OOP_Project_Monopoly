@@ -104,7 +104,7 @@ public class GameLogic {
     private void move() {
         if (checkDouble()) GameLogic.getInstance().getPlayers().peekFirst().incrementDoubleCounter();
         int[] lastLoc = GameLogic.getInstance().getPlayers().peekFirst().getToken().getLocation();
-        int[] newLoc;
+        int[] newLoc = null;
         int totalRoll;
         int layerSQNumber = 0;
         switch (lastLoc[0]) {
@@ -126,8 +126,8 @@ public class GameLogic {
             totalRoll = GameLogic.getInstance().getPlayers().peekFirst().getFaceValues()[0]
                     + GameLogic.getInstance().getPlayers().peekFirst().getFaceValues()[1];
         }
-        if (lastLoc[1] + totalRoll < layerSQNumber - 1) {
-            if (Board.getInstance().railRoadFind(lastLoc, totalRoll)[0] != null && lastLoc[1] + totalRoll > Board.getInstance().railRoadFind(lastLoc, totalRoll)[0].getLocation()[1]) {
+
+        if (Board.getInstance().railRoadFind(lastLoc, totalRoll)[0] != null) {
                 if (totalRoll % 2 == 1) {
                     newLoc = normalMove(lastLoc, totalRoll, layerSQNumber);
                 } else {
@@ -136,23 +136,14 @@ public class GameLogic {
             } else {
                 newLoc = normalMove(lastLoc, totalRoll, layerSQNumber);
             }
-        } else {
-            if (Board.getInstance().railRoadFind(lastLoc, totalRoll)[0] != null && lastLoc[1] + totalRoll - layerSQNumber > Board.getInstance().railRoadFind(lastLoc, totalRoll)[0].getLocation()[1]) {
-                if (totalRoll % 2 == 1) {
-                    newLoc = normalMove(lastLoc, totalRoll, layerSQNumber);
-                } else {
-                    newLoc = upDownMove(lastLoc, totalRoll, layerSQNumber);
-                }
-            } else {
-                newLoc = normalMove(lastLoc, totalRoll, layerSQNumber);
-            }
-        }
+
         GameLogic.getInstance().getPlayers().peekFirst().getToken().setLocation(newLoc);
         System.out.println("In the Game Logic Move Method");
         GameCommunicationHandler.getInstance().sendAction(moveFlag);
     }
 
     private int[] upDownMove(int[] lastLoc, int roll, int layerSQNumber) {
+        System.out.println("UP DOWN MOVE!!!!!");
         int railroad;
         if (Board.getInstance().railRoadFind(lastLoc, roll)[0].getLocation()[1] - lastLoc[1] < 0)
             railroad = Board.getInstance().railRoadFind(lastLoc, roll)[0].getLocation()[1] - lastLoc[1] + layerSQNumber;
@@ -160,10 +151,10 @@ public class GameLogic {
         roll = roll - railroad;
         lastLoc = normalMove(lastLoc, railroad, layerSQNumber);
         System.out.println("IT WILL GO TO RECURSIVE METHOD");
-        return upDownMoveRec(lastLoc, roll, layerSQNumber);
+        return upDownMoveRec(lastLoc, roll);
     }
 
-    private int[] upDownMoveRec(int[] lastLoc, int roll, int layerSQNumber) {
+    private int[] upDownMoveRec(int[] lastLoc, int roll) {
         String sqName = Board.getInstance().railRoadFind(lastLoc, roll)[0].getName();
         int[] tryLoc = new int[2];
         System.out.println("LAST LOCATION: " +  Arrays.toString(lastLoc));
@@ -171,35 +162,37 @@ public class GameLogic {
             case "Reading Railroad":
                 if (lastLoc[0] == 0) {
                     //System.out.println("IT WILL GO TO HELPER METHOD");
-                   return railRoadHelper(lastLoc, 1, 5, tryLoc, roll, layerSQNumber);
+                   return railRoadHelper(lastLoc, 1, 5, tryLoc, roll, FIRSTLAYERSQ);
                 } else if (lastLoc[0] == 1) {
                     System.out.println("IT WILL GO TO HELPER METHOD");
-                    return railRoadHelper(lastLoc, 0, 7, tryLoc, roll, layerSQNumber);
+                    return railRoadHelper(lastLoc, 0, 7, tryLoc, roll, ZEROTHLAYERSQ);
                 }
                 break;
             case "B.&O. Railroad":
                 if (lastLoc[0] == 0) {
-                    return railRoadHelper(lastLoc, 1, 25, tryLoc, roll, layerSQNumber);
+                    return railRoadHelper(lastLoc, 1, 25, tryLoc, roll, FIRSTLAYERSQ);
                 } else if (lastLoc[0] == 1) {
-                    return railRoadHelper(lastLoc, 0, 35, tryLoc, roll, layerSQNumber);
+                    return railRoadHelper(lastLoc, 0, 35, tryLoc, roll, ZEROTHLAYERSQ);
                 }
                 break;
             case "Pennsylvania Railroad":
                 if (lastLoc[0] == 1) {
-                    return railRoadHelper(lastLoc, 2, 9, tryLoc, roll, layerSQNumber);
+                    return railRoadHelper(lastLoc, 2, 9, tryLoc, roll, SECONDLAYERSQ);
                 } else if (lastLoc[0] == 2) {
-                    return railRoadHelper(lastLoc, 1, 15, tryLoc, roll, layerSQNumber);
+                    return railRoadHelper(lastLoc, 1, 15, tryLoc, roll, FIRSTLAYERSQ);
                 }
                 break;
             case "Short Line Railroad":
                 System.out.println("WHERE AM I!!!!!");
                 if (lastLoc[0] == 1) {
                     System.out.println("IT WILL GO TO HELPER METHOD");
-                    return railRoadHelper(lastLoc, 2, 21, tryLoc, roll, layerSQNumber);
+                    return railRoadHelper(lastLoc, 2, 21, tryLoc, roll, SECONDLAYERSQ);
                 } else if (lastLoc[0] == 2) {
                     System.out.println("IT WILL GO TO HELPER METHOD");
-                    return railRoadHelper(lastLoc, 1, 35, tryLoc, roll, layerSQNumber);
+                    return railRoadHelper(lastLoc, 1, 35, tryLoc, roll, FIRSTLAYERSQ);
                 }
+                break;
+            default:
                 break;
         }
         return lastLoc;
@@ -212,7 +205,7 @@ public class GameLogic {
         tryLoc[1] = lastLoc[1] + 1;
         System.out.println("In the helper method with locations: " + Arrays.toString(lastLoc));
         if (Board.getInstance().railRoadFind(tryLoc, roll)[0] == null || Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1] > roll) {
-            lastLoc[1] = lastLoc[1] + roll;
+            lastLoc = normalMove(lastLoc, roll, layerSQNumber);
             return lastLoc;
         }
         int railroad;
@@ -221,7 +214,7 @@ public class GameLogic {
         else railroad = Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1];
         roll = roll - railroad;
         lastLoc = normalMove(lastLoc, railroad, layerSQNumber);
-        return upDownMoveRec(lastLoc, roll, FIRSTLAYERSQ);
+        return upDownMoveRec(lastLoc, roll);
     }
 
     private int[] normalMove(int[] lastLoc, int roll, int layerSQNumber) {

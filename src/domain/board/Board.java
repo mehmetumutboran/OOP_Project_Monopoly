@@ -54,27 +54,14 @@ public class Board {
         }
         Square[] closestRailRoads = new Square[2];
         for (int i = 0; i <= roll; i++) {
-            if (location[1] + i < layerSQNumber - 1) {
-                if (squareList[location[0]][location[1] + i].getClass().equals(Railroad.class)) {
-                    closestRailRoads[0] = squareList[location[0]][location[1] + i];
+            if (location[1] + i <= layerSQNumber - 1) {
+                if (squareList[location[0]][location[1] + i] instanceof Railroad) {
+                    closestRailRoads[0] = squareList[location[0]][location[1]+ i];
                     break;
                 }
             } else {
-                if (squareList[location[0]][location[1] + i - layerSQNumber + 1].getClass().equals(Railroad.class)) {
+                if (squareList[location[0]][location[1] + i - layerSQNumber + 1] instanceof Railroad) {
                     closestRailRoads[0] = squareList[location[0]][location[1] + i - layerSQNumber + 1];
-                    break;
-                }
-            }
-        }
-        for (int i = 0; i <= roll; i++) {
-            if (location[1] - i >= 0) {
-                if (squareList[location[0]][location[1] - i].getClass().equals(Railroad.class)) {
-                    closestRailRoads[1] = squareList[location[0]][location[1] - i];
-                    break;
-                }
-            } else {
-                if (squareList[location[0]][location[1] - i + layerSQNumber].getClass().equals(Railroad.class)) {
-                    closestRailRoads[1] = squareList[location[0]][location[1] - i + layerSQNumber - 1];
                     break;
                 }
             }
@@ -100,7 +87,7 @@ public class Board {
 
         BusTicket sq6 = new BusTicket("Bus Ticket", 0, 5);
         squareList[0][5] = sq6;
-        Utility sq7 = new Utility("Bhecker Cab Co.", 0, 6, 300, 1);
+        Utility sq7 = new Utility("Checker Cab Co.", 0, 6, 300, 1);
         squareList[0][6] = sq7;
         Railroad sq8 = new Railroad("Reading Railroad", 0, 7, 200, 25);
         squareList[0][7] = sq8;
@@ -202,7 +189,7 @@ public class Board {
         squareList[0][48] = sq49;
         Utility sq50 = new Utility("Sewage System", 0, 49, 150, 1);
         squareList[0][49] = sq50;
-        Utility sq51 = new Utility("Tte Cab Co.", 0, 50, 300, 1);
+        Utility sq51 = new Utility("Ute Cab Co.", 0, 50, 300, 1);
         squareList[0][50] = sq51;
         BirthDayGift sq52 = new BirthDayGift("Birthday Gift", 0, 51);
         squareList[0][51] = sq52;
