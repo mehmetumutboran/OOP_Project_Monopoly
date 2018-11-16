@@ -102,7 +102,7 @@ public class Board {
         squareList[0][5] = sq6;
         Utility sq7 = new Utility("Bhecker Cab Co.", 0, 6, 300, 1);
         squareList[0][6] = sq7;
-        Railroad sq8 = new Railroad("reading Railroad", 0, 7, 200, 25);
+        Railroad sq8 = new Railroad("Reading Railroad", 0, 7, 200, 25);
         squareList[0][7] = sq8;
         Property sq9 = new Property("Esplanada Avenue", 0, 8, 90, 25, "LIGHTGREEN");
         squareList[0][8] = sq9;
