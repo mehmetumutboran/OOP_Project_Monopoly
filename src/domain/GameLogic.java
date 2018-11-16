@@ -165,7 +165,7 @@ public class GameLogic {
         String sqName = Board.getInstance().railRoadFind(lastLoc, roll)[0].getName();
         int[] tryLoc = new int[2];
         switch (sqName) {
-            case "reading railroad":
+            case "Reading Railroad":
                 if (lastLoc[0] == 0) {
                     lastLoc[0] = 1;
                     lastLoc[1] = 5;
@@ -200,7 +200,7 @@ public class GameLogic {
                     return upDownMoveRec(lastLoc, roll, ZEROTHLAYERSQ);
                 }
                 break;
-            case "b.&o. railroad":
+            case "B.&O. railroad":
                 if (lastLoc[0] == 0) {
                     lastLoc[0] = 1;
                     lastLoc[1] = 25;
@@ -235,7 +235,7 @@ public class GameLogic {
                     return upDownMoveRec(lastLoc, roll, ZEROTHLAYERSQ);
                 }
                 break;
-            case "pennsylvania railroad":
+            case "Pennsylvania Railroad":
                 if (lastLoc[0] == 1) {
                     lastLoc[0] = 2;
                     lastLoc[1] = 9;
@@ -270,7 +270,7 @@ public class GameLogic {
                     return upDownMoveRec(lastLoc, roll, FIRSTLAYERSQ);
                 }
                 break;
-            case "short line railroad":
+            case "Short Line Railroad":
                 if (lastLoc[0] == 1) {
                     lastLoc[0] = 2;
                     lastLoc[1] = 21;
