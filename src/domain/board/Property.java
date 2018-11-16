@@ -9,8 +9,12 @@ public class Property extends DeedSquare {
     private ArrayList<Building> buildingList;
     private boolean hasUpgrade ;
 
+    public Property(){
+        this("", 0, 0, 0, 0, "");
+    }
+
     public Property(String name, int layer, int index, int buyValue, int rent, String color) {
-        super(name, layer, index, buyValue, rent);
+        super(name, layer, index, buyValue, rent,null);
         this.color = color;
         this.buildingList = new ArrayList<>();
         hasUpgrade = false;

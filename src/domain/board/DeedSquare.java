@@ -13,16 +13,27 @@ public abstract class DeedSquare extends Square {
     private int buyValue;
     private int rent;
     private Player owner;
-    private boolean isMortgaged;
+    private boolean owned;
+    private boolean mortgaged;
 
-    public DeedSquare(String name, int layer, int index, int buyValue, int rent) {
+
+    public DeedSquare() {
+        this("" , 0 , 0, 0, 0,null);
+    }
+
+    public DeedSquare(String name, int layer, int index, int buyValue, int rent , Player owner) {
         super(name, layer, index);
         this.buyValue = buyValue;
         this.rent = rent;
+        this.owner = owner;
     }
 
     public int getRent() {
         return rent;
+    }
+
+    public int getBuyValue() {
+        return buyValue;
     }
 
     public void setRent(int rent) {
@@ -38,15 +49,15 @@ public abstract class DeedSquare extends Square {
     }
 
     public boolean isMortgaged() {
-        return isMortgaged;
+        return mortgaged;
     }
 
     public void setMortgaged(boolean mortgaged) {
-        isMortgaged = mortgaged;
+        this.mortgaged = mortgaged;
     }
 
     public boolean isOwned() {
-        return owner == null;
+        return !(owner == null);
     }
 
     public String toJSON() {
