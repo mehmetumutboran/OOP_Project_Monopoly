@@ -12,7 +12,6 @@ import domain.controller.GameCommunicationHandler;
 import domain.player.Player;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.stream.Collectors;
@@ -104,7 +103,7 @@ public class GameLogic {
     private void move() {
         if (checkDouble()) GameLogic.getInstance().getPlayers().peekFirst().incrementDoubleCounter();
         int[] lastLoc = GameLogic.getInstance().getPlayers().peekFirst().getToken().getLocation();
-        int[] newLoc = null;
+        int[] newLoc;
         int totalRoll;
         int layerSQNumber = 0;
         switch (lastLoc[0]) {
@@ -127,14 +126,14 @@ public class GameLogic {
                     + GameLogic.getInstance().getPlayers().peekFirst().getFaceValues()[1];
         }
         if (Board.getInstance().railRoadFind(lastLoc, totalRoll)[0] != null) {
-                if (totalRoll % 2 == 1) {
-                    newLoc = normalMove(lastLoc, totalRoll, layerSQNumber);
-                } else {
-                    newLoc = upDownMove(lastLoc, totalRoll, layerSQNumber);
-                }
-            } else {
+            if (totalRoll % 2 == 1) {
                 newLoc = normalMove(lastLoc, totalRoll, layerSQNumber);
+            } else {
+                newLoc = upDownMove(lastLoc, totalRoll, layerSQNumber);
             }
+        } else {
+            newLoc = normalMove(lastLoc, totalRoll, layerSQNumber);
+        }
 
         GameLogic.getInstance().getPlayers().peekFirst().getToken().setLocation(newLoc);
         System.out.println("In the Game Logic Move Method");
@@ -157,8 +156,7 @@ public class GameLogic {
         switch (sqName) {
             case "Reading Railroad":
                 if (lastLoc[0] == 0) {
-                    //System.out.println("IT WILL GO TO HELPER METHOD");
-                   return railRoadHelper(lastLoc, 1, 5, tryLoc, roll, FIRSTLAYERSQ);
+                    return railRoadHelper(lastLoc, 1, 5, tryLoc, roll, FIRSTLAYERSQ);
                 } else if (lastLoc[0] == 1) {
                     return railRoadHelper(lastLoc, 0, 7, tryLoc, roll, ZEROTHLAYERSQ);
                 }
@@ -190,7 +188,7 @@ public class GameLogic {
         return lastLoc;
     }
 
-    private int [] railRoadHelper(int [] lastLoc,int layer ,int railSq,int [] tryLoc, int roll, int layerSQNumber){
+    private int[] railRoadHelper(int[] lastLoc, int layer, int railSq, int[] tryLoc, int roll, int layerSQNumber) {
         lastLoc[0] = layer;
         lastLoc[1] = railSq;
         tryLoc[0] = lastLoc[0];
