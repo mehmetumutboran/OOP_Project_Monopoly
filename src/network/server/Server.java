@@ -1,7 +1,9 @@
 package network.server;
 
+import domain.GameLogic;
 import domain.controller.ConnectGameHandler;
 import network.client.Client;
+import network.server.serverFacade.ServerFacade;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -18,6 +20,7 @@ public class Server implements Runnable {
     private static final int maxClientsCount = 12;
 
     private static final ClientHandler[] clientThreads = new ClientHandler[maxClientsCount];
+    private static final String[] clientNames = new String[maxClientsCount];
 
 
     public Server(int port) {
@@ -34,8 +37,26 @@ public class Server implements Runnable {
         for (int i = 0; i < maxClientsCount; i++) {
             if (clientThreads[i] == clientHandler) {
                 clientThreads[i] = null;
+                try {
+
+                    sendAll("X" + clientNames[i]);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                clientNames[i] = null;
             }
         }
+    }
+
+    public static void setClientInfo(String line) {
+        for (int i = 0; i < maxClientsCount; i++) {
+            if (clientNames[i] == null) {
+                clientNames[i] = line;
+                break;
+            }
+        }
+        System.out.println("\n\n---------============-------\n" + Arrays.toString(clientNames)
+                + "\n---------============-------\n\n");
     }
 
     /**

@@ -58,12 +58,17 @@ public class ConnectGameHandler implements ReceivedChangedListener {
             System.out.println("\n\n Added via Connect Client");
             MonopolyGameController.getInstance().addPlayer(player);
             System.out.println("\n\n");
+            sendClientInfo(username);
             sendChange(player);
             return "Successful";
         } else {
             return "Failed";
         }
 
+    }
+
+    private void sendClientInfo(String username) {
+        ClientFacade.getInstance().send(username);
     }
 
     public void sendChange(Player p) {
@@ -83,7 +88,12 @@ public class ConnectGameHandler implements ReceivedChangedListener {
             if (message.charAt(0) == 'E') {
 //                System.out.println("OnReceived: " + message);
                 MonopolyGameController.getInstance().informClosed();
-            } else return;
+            } else if (message.charAt(0) == 'X') {
+                System.out.println("\n\n=============---------------==================\n" +
+                        "In the Connect Game Handler Error!!!!!\n\n");
+                MonopolyGameController.getInstance().removePlayer(message.substring(1));
+            }
+            return;
         }
 
         try {
@@ -109,9 +119,9 @@ public class ConnectGameHandler implements ReceivedChangedListener {
                         getPlayerList().indexOf(player)).setStarted(true);
                 if (!MonopolyGameController.getInstance().getPlayerList().get(0).isStarted()) {
                     MonopolyGameController.getInstance().checkReadiness();
-                    ClientFacade.getInstance().removeReceivedChangedListener(this);
-                    ClientFacade.getInstance().removeAllConnectionFailedListeners();
                 }
+                ClientFacade.getInstance().removeReceivedChangedListener(this);
+                ClientFacade.getInstance().removeAllConnectionFailedListeners();
             }
         } catch (IOException e) {
             e.printStackTrace();

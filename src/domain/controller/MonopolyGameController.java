@@ -9,6 +9,7 @@ import domain.listeners.GameStartedListener;
 import domain.listeners.PlayerListChangedListener;
 import domain.player.Player;
 
+import javax.swing.text.html.HTMLDocument;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -223,5 +224,11 @@ public class MonopolyGameController {
             // TODO if not host, remove players!!!!!
         }
         publishCloseClickedEvent();
+    }
+
+    public boolean removePlayer(String username) {
+        playerList.removeIf(player -> player.getName().equals(username));
+        publishPlayerListEvent();
+        return true;
     }
 }

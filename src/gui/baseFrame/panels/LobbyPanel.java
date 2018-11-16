@@ -151,6 +151,9 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener, Gam
     }
 
     public void setPlayerLabelList(ArrayList<ArrayList<String>> playerAttributes) {
+        playerLabels.removeIf(p -> !MonopolyGameController.getInstance().getPlayerListName()
+                .contains(p.getText().substring(6, p.getText().indexOf('<',2))));
+
         for (ArrayList<String> player : playerAttributes) {
             getPlayer(player).setText("<HTML>" + player.get(0) + "<BR>" + player.get(2) + "</HTML>");
             getPlayer(player).setBackground(ColorConverter.getInstance().getColorMap().get(player.get(1)));

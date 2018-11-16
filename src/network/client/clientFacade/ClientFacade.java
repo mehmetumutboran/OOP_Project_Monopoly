@@ -22,8 +22,8 @@ public class ClientFacade {
     /**
      * Subscribers
      */
-    private ArrayList<ReceivedChangedListener> receivedChangedListeners;
-    private ArrayList<ConnectionFailedListener> connectionFailedListeners;
+    private volatile ArrayList<ReceivedChangedListener> receivedChangedListeners;
+    private volatile ArrayList<ConnectionFailedListener> connectionFailedListeners;
 
     private ClientFacade() {
         receivedChangedListeners = new ArrayList<>();
@@ -81,7 +81,8 @@ public class ClientFacade {
     }
 
     private synchronized void publishReceivedChangedAction() {
-        for (ReceivedChangedListener aReceivedChangedListener : receivedChangedListeners) {
+        ArrayList<ReceivedChangedListener> temp = (ArrayList<ReceivedChangedListener>) receivedChangedListeners.clone();
+        for (ReceivedChangedListener aReceivedChangedListener : temp) {
             if (aReceivedChangedListener == null) continue;
             aReceivedChangedListener.onReceivedChangedEvent();
         }
@@ -92,7 +93,11 @@ public class ClientFacade {
     }
 
     public synchronized void removeReceivedChangedListener(ReceivedChangedListener listener) {
-        if (receivedChangedListeners.contains(listener)) receivedChangedListeners.remove(listener);
+        if (receivedChangedListeners.contains(listener)){
+            ArrayList<ReceivedChangedListener> temp = (ArrayList<ReceivedChangedListener>) receivedChangedListeners.clone();
+            temp.remove(listener);
+            receivedChangedListeners = temp;
+        }
     }
 
     private synchronized void publishConnectionFailedAction() {

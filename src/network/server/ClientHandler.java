@@ -19,10 +19,11 @@ public class ClientHandler implements Runnable {
         try {
             this.dis = new DataInputStream(socket.getInputStream());
             this.dos = new DataOutputStream(socket.getOutputStream());
-
+            String line = dis.readUTF();
+            Server.setClientInfo(line);
 
             while (true) {
-                String line = dis.readUTF();
+                line = dis.readUTF();
                 Server.sendAll(line);
             }
 
