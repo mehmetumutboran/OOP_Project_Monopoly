@@ -30,7 +30,7 @@ public class ClientHandler implements Runnable {
         } catch (IOException e) {
             //TODO Handle Player exit
             System.out.println("\n\n Player exited\n\n");
-            e.printStackTrace();
+            Server.removeClient(this);
         }
 
     }

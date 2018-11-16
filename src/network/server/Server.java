@@ -6,6 +6,7 @@ import network.client.Client;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Arrays;
 
 /**
  * {@link Server} class that opens a server
@@ -26,6 +27,14 @@ public class Server implements Runnable {
             (new Thread(this)).start();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void removeClient(ClientHandler clientHandler) {
+        for (int i = 0; i < maxClientsCount; i++) {
+            if (clientThreads[i] == clientHandler) {
+                clientThreads[i] = null;
+            }
         }
     }
 
@@ -59,6 +68,7 @@ public class Server implements Runnable {
                         break;
                     }
                 }
+                System.out.println("\n\n ClientThreads: " + Arrays.toString(clientThreads) + "\n\n");
             } catch (IOException e) {
                 e.printStackTrace();
             }
