@@ -3,19 +3,26 @@ package gui.controlDisplay.panels;
 import domain.controller.MonopolyGameController;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class PlayerInfoPanel extends JPanel implements MouseListener {
 
     private PlayerStatusPanel playerStatusPanel;
-
     private JLabel playerInfo;
 
     public PlayerInfoPanel(PlayerStatusPanel playerStatusPanel) {
         this.playerStatusPanel = playerStatusPanel;
+        this.setLayout(new BorderLayout());
+
         this.playerInfo = new JLabel();
         this.add(playerInfo);
+
+        JScrollPane scrollPane = new JScrollPane(playerInfo);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        this.add(scrollPane);
+        scrollPane.addMouseListener(this);
         this.addMouseListener(this);
     }
 
@@ -48,10 +55,30 @@ public class PlayerInfoPanel extends JPanel implements MouseListener {
         StringBuilder sb = new StringBuilder();
         sb.append("<html>")
                 .append("<body>")
-                .append("<div align=\"left\" style=\"color:red; font-size:11px;\">Name: ")
+                .append("<div style=\"text-align:left; font-size:12px;\">")
+
+                .append("<br/><span style=\"color:red\">Name: </span>")
                 .append(MonopolyGameController.getInstance().getPlayerList().get(i).getName())
-                .append("</div>")
-                .append("</body></html>");
+
+                .append("<br/><span style=\"color:red\">Money: </span>")
+                .append(MonopolyGameController.getInstance().getPlayerList().get(i).getBalance())
+
+                .append("<br/><span style=\"color:red\">Owned Properties: </span>")
+                .append(MonopolyGameController.getInstance().getPlayerList().get(i).getOwnedProperties().toString()
+                        .replaceAll("\\[", "")
+                        .replaceAll("]", ""))
+
+                .append("<br/><span style=\"color:red\">Owned Utilities: </span>")
+                .append(MonopolyGameController.getInstance().getPlayerList().get(i).getOwnedUtilities().toString()
+                        .replaceAll("\\[", "")
+                        .replaceAll("]", ""))
+
+                .append("<br/><span style=\"color:red\">Owned Railroads: </span>")
+                .append(MonopolyGameController.getInstance().getPlayerList().get(i).getOwnedRailroads().toString()
+                        .replaceAll("\\[", "")
+                        .replaceAll("]", ""))
+
+                .append("</div></body></html>");
         playerInfo.setText(sb.toString());
     }
 }
