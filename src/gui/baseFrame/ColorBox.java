@@ -4,28 +4,23 @@ import domain.controller.MonopolyGameController;
 import domain.listeners.DisableColorChangeListener;
 import domain.listeners.PlayerListChangedListener;
 import gui.ColorBoxRenderer;
-import gui.ColorConverter;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.font.TextAttribute;
-import java.text.AttributedString;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class ColorBox extends JComboBox implements ActionListener, DisableColorChangeListener, PlayerListChangedListener {
 
     public static final ArrayList<String> colorList = (ArrayList<String>) (Stream.of("White", "LightGray", "Gray", "Blue", "Cyan", "Pink", "Green",
-            "Orange", "Magenta", "Yellow", "Red","Turquoise").collect(Collectors.toList()));
+            "Orange", "Magenta", "Yellow", "Red", "Turquoise").collect(Collectors.toList()));
     private String selectedItem;
 
     public ColorBox() {
         super();
-        for (int i=0; i<colorList.size();i++) {
+        for (int i = 0; i < colorList.size(); i++) {
             this.insertItemAt(colorList.get(i), i);
         }
         this.setRenderer(ColorBoxRenderer.getInstance());
@@ -34,7 +29,7 @@ public class ColorBox extends JComboBox implements ActionListener, DisableColorC
         MonopolyGameController.getInstance().addDisableColorChangeListener(this);
     }
 
-    private void refresh(ArrayList<String> selectedColors){
+    private void refresh(ArrayList<String> selectedColors) {
         this.removeAllItems();
         //this.addItem(selectedItem);
         //this.insertItemAt(ColorConverter.getInstance().getColor(selectedItem),0);
@@ -42,7 +37,7 @@ public class ColorBox extends JComboBox implements ActionListener, DisableColorC
         temp.removeAll(selectedColors);
         //temp.add(selectedItem);
         temp.remove(selectedItem);
-        for (int i=0; i < temp.size();i++) {
+        for (int i = 0; i < temp.size(); i++) {
             this.insertItemAt(temp.get(i), i);
         }
         this.setRenderer(ColorBoxRenderer.getInstance());
@@ -52,12 +47,12 @@ public class ColorBox extends JComboBox implements ActionListener, DisableColorC
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         this.selectedItem = (String) this.getSelectedItem();
-        MonopolyGameController.getInstance().changePlayerColor(0,(String) this.getSelectedItem());
+        MonopolyGameController.getInstance().changePlayerColor(0, (String) this.getSelectedItem());
     }
 
     @Override
     public void onDisableColorChangedEvent() {
-        if(this.isEnabled()) this.setEnabled(false);
+        if (this.isEnabled()) this.setEnabled(false);
         else this.setEnabled(true);
     }
 

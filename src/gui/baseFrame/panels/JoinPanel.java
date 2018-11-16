@@ -61,7 +61,7 @@ public class JoinPanel extends JPanel {
         this.setVisible(true);
     }
 
-    private void initRandomNameList(){
+    private void initRandomNameList() {
         randomUserNames = new ArrayList<>();
         randomUserNames.add("Umut");
         randomUserNames.add("Taha");

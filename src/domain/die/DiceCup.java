@@ -28,8 +28,8 @@ public class DiceCup {
 
     }
 
-    public static DiceCup getInstance(){
-        if(dc == null){
+    public static DiceCup getInstance() {
+        if (dc == null) {
             dc = new DiceCup();
         }
         return dc;
@@ -44,7 +44,8 @@ public class DiceCup {
     }
 
     public void setTotalFaceValue() {
-        if(7 > this.getFaceValues()[2]) this.totalFaceValue = this.getFaceValues()[0] + this.getFaceValues()[1] + this.getFaceValues()[2];
+        if (7 > this.getFaceValues()[2])
+            this.totalFaceValue = this.getFaceValues()[0] + this.getFaceValues()[1] + this.getFaceValues()[2];
         else this.totalFaceValue = this.getFaceValues()[0] + this.getFaceValues()[1];
     }
 

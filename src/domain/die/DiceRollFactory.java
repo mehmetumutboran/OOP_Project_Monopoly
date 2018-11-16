@@ -11,7 +11,7 @@ public class DiceRollFactory {
     private DiceRollStrategy diceRollStrategy;
 
     private DiceRollFactory() {
-         //TODO the roll strategy choosing will change
+        //TODO the roll strategy choosing will change
     }
 
     public static DiceRollFactory getInstance() {

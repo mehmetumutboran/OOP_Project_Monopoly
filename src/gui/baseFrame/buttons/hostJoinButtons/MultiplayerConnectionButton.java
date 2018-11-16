@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 public abstract class MultiplayerConnectionButton extends JButton implements ActionListener, ConnectionFailedListener {
 
-    public MultiplayerConnectionButton(String text){
+    public MultiplayerConnectionButton(String text) {
         super(text);
         this.addActionListener(this);
     }

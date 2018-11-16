@@ -6,11 +6,11 @@ public class Token {
 
 
     public Token() {
-        this(new int[]{1,0}, "White");
+        this(new int[]{1, 0}, "White");
     }
 
     public Token(String color) {
-        this(new int[]{1,0}, color);
+        this(new int[]{1, 0}, color);
     }
 
     public Token(int[] location, String color) {

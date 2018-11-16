@@ -4,7 +4,7 @@ import domain.board.SpecialSquareStrategy;
 import domain.board.Square;
 
 
-public class ReverseDirection extends Square implements SpecialSquareStrategy{
+public class ReverseDirection extends Square implements SpecialSquareStrategy {
     public ReverseDirection(String name, int layer, int index) {
         super(name, layer, index);
     }

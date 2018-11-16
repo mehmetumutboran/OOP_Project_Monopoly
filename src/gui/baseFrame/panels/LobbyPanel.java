@@ -18,8 +18,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class LobbyPanel extends JPanel implements PlayerListChangedListener, GameStartedListener {
     private ReadyButton readyButton;
@@ -180,7 +178,7 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener, Gam
     }
 
     @Override
-    public void onGameStartedEvent(){
+    public void onGameStartedEvent() {
         BaseFrame.setStatus("Game");
     }
 }

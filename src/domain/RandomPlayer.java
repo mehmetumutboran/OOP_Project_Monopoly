@@ -9,7 +9,7 @@ import java.util.Random;
 
 public class RandomPlayer extends Player {
 
-    public RandomPlayer(){
+    public RandomPlayer() {
         this("");
     }
 
@@ -20,16 +20,10 @@ public class RandomPlayer extends Player {
 
     private void playTurn() {
         GameLogic.getInstance().roll();
-// TODO: Uncomment
-        Square square = Board.getInstance().getSquare(this.getToken().getLocation()[0], this.getToken().getLocation()[1]);
 
-        if(square instanceof DeedSquare){
-            if(((DeedSquare) square).getOwner() == null || ((DeedSquare) square).getOwner().equals(this)){
-                GameLogic.getInstance().payRent();
-            }
-        }
+        GameLogic.getInstance().payRent();
 
-        while(true){
+        while (true) {
             if (selectAction()) break;
         }
 
@@ -40,7 +34,7 @@ public class RandomPlayer extends Player {
     private boolean selectAction() {
         int x = (new Random()).nextInt(7);
 
-        switch (x){
+        switch (x) {
             case 0:
                 return GameLogic.getInstance().buy();
 //            case 1:
@@ -59,7 +53,7 @@ public class RandomPlayer extends Player {
     }
 
     public synchronized boolean checkTurn() {
-        if(GameLogic.getInstance().getPlayers().peekFirst().equals(this)){
+        if (GameLogic.getInstance().getPlayers().peekFirst().equals(this)) {
             playTurn();
             return true;
         }

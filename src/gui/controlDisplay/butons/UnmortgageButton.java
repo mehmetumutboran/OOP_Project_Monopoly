@@ -27,4 +27,4 @@ public class UnmortgageButton extends JButton implements ActionListener, TurnCha
         this.setEnabled(isEnabled);
     }
 
-   }
+}

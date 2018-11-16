@@ -1,6 +1,5 @@
 package network.client;
 
-import network.client.Client;
 import network.client.clientFacade.ClientFacade;
 
 import java.io.DataInputStream;

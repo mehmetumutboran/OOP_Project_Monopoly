@@ -51,7 +51,7 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener {
     }
 
     private void initializeFrame() {
-        initialScreenPanel = new InitialScreenPanel(CURRENT_VERSION,FRAME_WIDTH, FRAME_HEIGHT);
+        initialScreenPanel = new InitialScreenPanel(CURRENT_VERSION, FRAME_WIDTH, FRAME_HEIGHT);
         multiPlayerPanel = new MultiPlayerPanel(FRAME_WIDTH, FRAME_HEIGHT);
         singlePlayerPanel = new SinglePlayerPanel(FRAME_WIDTH, FRAME_HEIGHT);
         lobbyPanel = new LobbyPanel(FRAME_WIDTH, FRAME_HEIGHT);
@@ -99,7 +99,7 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener {
                 else if (getStatus().equals("Host")) lobbyPanel.setHost(true);
                 else if (getStatus().equals("Init")) lobbyPanel.setHost(false);
                 else if (getStatus().equals("Game")) {
-                    this.setSize(1415,1040);
+                    this.setSize(1415, 1040);
                     this.controlDisplay.setVisible(true);
                 }
                 this.revalidate();

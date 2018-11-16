@@ -18,10 +18,10 @@ public abstract class DeedSquare extends Square {
 
 
     public DeedSquare() {
-        this("" , 0 , 0, 0, 0,null);
+        this("", 0, 0, 0, 0, null);
     }
 
-    public DeedSquare(String name, int layer, int index, int buyValue, int rent , Player owner) {
+    public DeedSquare(String name, int layer, int index, int buyValue, int rent, Player owner) {
         super(name, layer, index);
         this.buyValue = buyValue;
         this.rent = rent;

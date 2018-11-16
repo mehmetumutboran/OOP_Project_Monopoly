@@ -10,12 +10,12 @@ public class ServerFacade {
 
     private static ServerFacade instance;
 
-    private ServerFacade(){
+    private ServerFacade() {
 
     }
 
     public static ServerFacade getInstance() {
-        if(instance == null) instance = new ServerFacade();
+        if (instance == null) instance = new ServerFacade();
         return instance;
     }
 

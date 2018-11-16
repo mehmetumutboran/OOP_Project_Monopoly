@@ -39,9 +39,9 @@ public class Board {
         return squareMap.get(color);
     }
 
-    public Square[] railRoadFind(int [] location, int roll){
+    public Square[] railRoadFind(int[] location, int roll) {
         int layerSQNumber = 0;
-        switch (location[0]){
+        switch (location[0]) {
             case 0:
                 layerSQNumber = ZEROTHLAYERSQ;
                 break;
@@ -52,9 +52,9 @@ public class Board {
                 layerSQNumber = SECONDLAYERSQ;
                 break;
         }
-        Square [] closestRailRoads = new Square[2];
-        for(int i = 0 ; i <= roll ; i++) {
-            if (location[1] + i < layerSQNumber-1) {
+        Square[] closestRailRoads = new Square[2];
+        for (int i = 0; i <= roll; i++) {
+            if (location[1] + i < layerSQNumber - 1) {
                 if (squareList[location[0]][location[1] + i].getClass().equals(Railroad.class)) {
                     closestRailRoads[0] = squareList[location[0]][location[1] + i];
                     break;
@@ -66,13 +66,13 @@ public class Board {
                 }
             }
         }
-        for(int i = 0 ; i <= roll ; i++){
-            if(location[1] - i >= 0) {
+        for (int i = 0; i <= roll; i++) {
+            if (location[1] - i >= 0) {
                 if (squareList[location[0]][location[1] - i].getClass().equals(Railroad.class)) {
                     closestRailRoads[1] = squareList[location[0]][location[1] - i];
                     break;
                 }
-            }else{
+            } else {
                 if (squareList[location[0]][location[1] - i + layerSQNumber].getClass().equals(Railroad.class)) {
                     closestRailRoads[1] = squareList[location[0]][location[1] - i + layerSQNumber - 1];
                     break;
@@ -102,7 +102,7 @@ public class Board {
         squareList[0][5] = sq6;
         Utility sq7 = new Utility("Bhecker Cab Co.", 0, 6, 300, 1);
         squareList[0][6] = sq7;
-        Railroad sq8 = new Railroad("reading Railroad", 0, 7, 200, 25);
+        Railroad sq8 = new Railroad("Reading Railroad", 0, 7, 200, 25);
         squareList[0][7] = sq8;
         Property sq9 = new Property("Esplanada Avenue", 0, 8, 90, 25, "LIGHTGREEN");
         squareList[0][8] = sq9;
@@ -373,11 +373,11 @@ public class Board {
         squareMap.put("WHITE", new DeedSquare[]{sq98, sq99, sq120});
     }
 
-    public Square getNameGivenSquare (String name){
-        for (int x= 0; x<3 ; x++){
-            for (int y=0; y<56; y++){
-                if(squareList[x][y].equals(null))continue;
-                if(name.equals(squareList[x][y]))
+    public Square getNameGivenSquare(String name) {
+        for (int x = 0; x < 3; x++) {
+            for (int y = 0; y < 56; y++) {
+                if (squareList[x][y].equals(null)) continue;
+                if (name.equals(squareList[x][y]))
                     return squareList[x][y];
             }
         }

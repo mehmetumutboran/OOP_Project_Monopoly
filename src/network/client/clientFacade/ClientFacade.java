@@ -29,8 +29,8 @@ public class ClientFacade {
         connectionFailedListeners = new ArrayList<>();
     }
 
-    public static ClientFacade getInstance(){
-        if(clientFacade == null)
+    public static ClientFacade getInstance() {
+        if (clientFacade == null)
             clientFacade = new ClientFacade();
 
         return clientFacade;
@@ -54,7 +54,7 @@ public class ClientFacade {
         return true;
     }
 
-    private void createClientError(){
+    private void createClientError() {
         publishConnectionFailedAction();
     }
 
@@ -87,11 +87,11 @@ public class ClientFacade {
     }
 
     public synchronized void addReceivedChangedListener(ReceivedChangedListener listener) {
-        if(!receivedChangedListeners.contains(listener)) receivedChangedListeners.add(listener);
+        if (!receivedChangedListeners.contains(listener)) receivedChangedListeners.add(listener);
     }
 
     public synchronized void removeReceivedChangedListener(ReceivedChangedListener listener) {
-        if(receivedChangedListeners.contains(listener)) receivedChangedListeners.remove(listener);
+        if (receivedChangedListeners.contains(listener)) receivedChangedListeners.remove(listener);
     }
 
     private synchronized void publishConnectionFailedAction() {
@@ -102,13 +102,12 @@ public class ClientFacade {
     }
 
     public synchronized void addConnectionFailedListener(ConnectionFailedListener listener) {
-        if(!connectionFailedListeners.contains(listener)) connectionFailedListeners.add(listener);
+        if (!connectionFailedListeners.contains(listener)) connectionFailedListeners.add(listener);
     }
 
     public synchronized void removeAllConnectionFailedListeners() {
         connectionFailedListeners = new ArrayList<>();
     }
-
 
 
     public String getMessage() {
