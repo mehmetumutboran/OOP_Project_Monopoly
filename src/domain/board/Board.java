@@ -1,12 +1,13 @@
 package domain.board;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import domain.board.specialSquares.*;
 
 import java.util.HashMap;
 
 
 public class Board {
-    private static Board board;
+    private static Board instance;
     private Square[][] squareList;
     private HashMap<String, DeedSquare[]> squareMap;
 
@@ -17,19 +18,23 @@ public class Board {
     }
 
     public static Board getInstance() {
-        if (board == null) {
-            board = new Board();
+        if (instance == null) {
+            instance = new Board();
         }
-        return board;
+        return instance;
     }
 
-
+    @JsonGetter
     public Square[][] getSquareList() {
         return squareList;
     }
 
     public Square getSquare(int layer, int index) {
         return squareList[layer][index];
+    } //TODO: Change name
+
+    public DeedSquare[] getSameColoredSquares(String color) {
+        return squareMap.get(color);
     }
 
     private void initializeSquares() {

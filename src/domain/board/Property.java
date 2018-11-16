@@ -65,6 +65,12 @@ public class Property extends DeedSquare {
             }
         }
     }
+
+    /**
+     * Checks if all squares in Square's color group are at the same level.
+     * @param square
+     * @return
+     */
     public boolean isUpgradable(Property square){
         return false;
     }
