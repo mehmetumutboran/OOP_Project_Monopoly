@@ -1,5 +1,9 @@
 package domain.board;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.player.Player;
 
 /**
@@ -44,4 +48,17 @@ public abstract class DeedSquare extends Square {
     public boolean isOwned() {
         return owner == null;
     }
+
+    public String toJSON() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+        String result = "";
+        try {
+            result = objectMapper.writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
 }

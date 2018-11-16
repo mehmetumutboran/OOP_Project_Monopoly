@@ -34,6 +34,9 @@ public class Property extends DeedSquare {
     public ArrayList<Building> getBuildingList() {
         return buildingList;
     }
+    public void setBuildingList (ArrayList<Building> buildingList){
+        this.buildingList=buildingList;
+    }
 
     public int getHouseCost (){
         return 0;

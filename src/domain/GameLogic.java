@@ -33,6 +33,9 @@ public class GameLogic {
     public static final char finishTurnFlag = 'F';
     public static final char queueFlag = 'Q';
     public static final char closeFlag = 'E';
+    public static final char upgradeFlag = 'U';
+    public static final char downgradeFlag = 'Z';
+
     //TODO Add more
 
     private volatile Deque<Player> players;
@@ -149,16 +152,22 @@ public class GameLogic {
             if(currentPlayer.checkMajority(((Property)square))){
                 if(((Property)square).isUpgradable((Property)square)){
                     if(((Property) square).getBuildingList().get(0).getName().equals("Hotel")){
-                        ((Property)square).getBuildingList().remove(0);
-                        ((Property)square).getBuildingList().add(new Skyscraper(((Property)square).getSkyScrapperCost()));
-                        currentPlayer.setBalance((currentPlayer).getBalance()-((Property)square).getSkyScrapperCost());
+                        if(currentPlayer.getBalance() >= ((Property)square).getSkyScrapperCost()) {
+                            ((Property) square).getBuildingList().remove(0);
+                            ((Property) square).getBuildingList().add(new Skyscraper(((Property) square).getSkyScrapperCost()));
+                            currentPlayer.setBalance((currentPlayer).getBalance() - ((Property) square).getSkyScrapperCost());
+                        }
                     }else if(((Property) square).getBuildingList().size()==4){
-                        ((Property)square).getBuildingList().clear();
-                        ((Property)square).getBuildingList().add(new Hotel(((Property)square).getHotelCost()));
-                        currentPlayer.setBalance((currentPlayer).getBalance()-((Property)square).getHotelCost());
+                        if(currentPlayer.getBalance() >= ((Property)square).getSkyScrapperCost()) {
+                            ((Property) square).getBuildingList().clear();
+                            ((Property) square).getBuildingList().add(new Hotel(((Property) square).getHotelCost()));
+                            currentPlayer.setBalance((currentPlayer).getBalance() - ((Property) square).getHotelCost());
+                        }
                     }else {
-                        ((Property)square).getBuildingList().add(new House (((Property)square).getHouseCost()));
-                        currentPlayer.setBalance((currentPlayer).getBalance()-((Property)square).getHouseCost());
+                        if(currentPlayer.getBalance() >= ((Property)square).getSkyScrapperCost()) {
+                            ((Property) square).getBuildingList().add(new House(((Property) square).getHouseCost()));
+                            currentPlayer.setBalance((currentPlayer).getBalance() - ((Property) square).getHouseCost());
+                        }
                     }
                     ((Property)square).updateRent();
                     System.out.println(currentPlayer.getName() + " upgraded " + square.getName() + " to " +

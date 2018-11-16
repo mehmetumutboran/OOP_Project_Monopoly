@@ -281,7 +281,16 @@ public class Board {
         squareList[2][23] = sq120;
     }
 
-
+    public Square getNameGivenSquare (String name){
+        for (int x= 0; x<3 ; x++){
+            for (int y=0; y<56; y++){
+                if(squareList[x][y].equals(null))continue;
+                if(name.equals(squareList[x][y]))
+                    return squareList[x][y];
+            }
+        }
+        return null;
+    }
 
 
 }
