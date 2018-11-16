@@ -23,6 +23,7 @@ public class GameLogic {
     public static final char rollFlag = 'R';
     public static final char getRentFlag = 'I';
     public static final char decreaseMoneyFlag = 'D';
+    public static final char increaseMoneyFlag = 'S';
     public static final char payRentFlag = 'P';
     public static final char drawCardFlag = 'C';
     public static final char payDayFlag = 'Y';
@@ -39,6 +40,11 @@ public class GameLogic {
 
     private volatile Deque<Player> players;
     private volatile ArrayList<Player> playerList;
+
+    private static final int SECONDLAYERSQ = 24;
+    private static final int FIRSTLAYERSQ = 40;
+    private static final int ZEROTHLAYERSQ = 56;
+    private static final int GO_COLLECT = 200;
 
     public static GameLogic getInstance() {
         if (ourInstance == null) {
