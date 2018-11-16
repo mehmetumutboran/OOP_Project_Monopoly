@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.board.Board;
 import domain.board.Property;
+import domain.board.Railroad;
+import domain.board.Utility;
 import domain.controller.GameCommunicationHandler;
 import domain.player.Player;
 import gui.controlDisplay.PlayerLabel;
@@ -122,11 +124,12 @@ public class MessageInterpreter {
 
         int[] location = null;
         String name = null;
-        Property sq = null;
+        Property sq1 = null;
+        Railroad sq2 = null;
+        Utility sq3 = null;
         int money = 0;
         int newBalance = 0;
         try {
-            System.out.println("inside try catch");
 
             name = objectMapper2.readValue(message, Player.class).getName();
             System.out.println("name");
@@ -135,29 +138,52 @@ public class MessageInterpreter {
             /* sq will be done for other classes */
             System.out.println("location");
 
-            sq = (Property) Board.getInstance().getSquare(location[0] , location[1]);
-            System.out.println("square");
+            if(Board.getInstance().getSquare(location[0] , location[1]) instanceof Property){
+            sq1 = (Property) Board.getInstance().getSquare(location[0] , location[1]);
+                money = sq1.getBuyValue();
+                newBalance = GameLogic.getInstance().getPlayer(name).getBalance()-money;
 
-            money = sq.getBuyValue();
-            System.out.println("money");
+            }
+            else if(Board.getInstance().getSquare(location[0] , location[1]) instanceof Railroad){
+                sq2 = (Railroad)Board.getInstance().getSquare(location[0] , location[1]);
+                money = sq2.getBuyValue();
+                newBalance = GameLogic.getInstance().getPlayer(name).getBalance()-money;
 
-            newBalance = GameLogic.getInstance().getPlayer(name).getBalance()-money;
-            System.out.println("new balamce");
+            }
+            else if(Board.getInstance().getSquare(location[0] , location[1]) instanceof Utility){
+                sq3 = (Utility)Board.getInstance().getSquare(location[0] , location[1]);
+                money = sq3.getBuyValue();
+                newBalance = GameLogic.getInstance().getPlayer(name).getBalance()-money;
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         GameLogic.getInstance().getPlayer(name).setBalance(newBalance);
-        System.out.println("set balance");
 
-        GameLogic.getInstance().getPlayer(name).getOwnedProperties().add(sq);
-        System.out.println("added property");
+        if(Board.getInstance().getSquare(location[0] , location[1]) instanceof Property){
+            GameLogic.getInstance().getPlayer(name).getOwnedProperties().add(sq1);
+            UIUpdater.getInstance().setMessage(name + " bought " + sq1 ); //TODO Mrmonopoly
+            ((Property) Board.getInstance().getSquareList()[location[0] ][location[1]]).setOwner(GameLogic.getInstance().getPlayer(name));
 
-        ((Property) Board.getInstance().getSquareList()[location[0] ][location[1]]).setOwner(GameLogic.getInstance().getPlayer(name));
 
-        UIUpdater.getInstance().setMessage(name + " bought " + sq ); //TODO Mrmonopoly
-        System.out.println("UI updated");
+        }
+        else if(Board.getInstance().getSquare(location[0] , location[1]) instanceof Railroad){
+            GameLogic.getInstance().getPlayer(name).getOwnedRailroads().add(sq2);
+            UIUpdater.getInstance().setMessage(name + " bought " + sq2 ); //TODO Mrmonopoly
+            ((Railroad) Board.getInstance().getSquareList()[location[0] ][location[1]]).setOwner(GameLogic.getInstance().getPlayer(name));
+
+
+        }
+        else if(Board.getInstance().getSquare(location[0] , location[1]) instanceof Utility){
+            GameLogic.getInstance().getPlayer(name).getOwnedUtilities().add(sq3);
+            UIUpdater.getInstance().setMessage(name + " bought " + sq3 ); //TODO Mrmonopoly
+            ((Utility) Board.getInstance().getSquareList()[location[0] ][location[1]]).setOwner(GameLogic.getInstance().getPlayer(name));
+
+        }
+
+
 
 
 
@@ -175,7 +201,10 @@ public class MessageInterpreter {
 
         int[] location = null;
         String name = null;
-        Property sq = null;
+        Property sq1 = null;
+        Railroad sq2 = null;
+        Utility sq3 = null;
+
         int money = 0;
         int newBalance = 0;
         int newBalanceTaker=0;
@@ -184,13 +213,28 @@ public class MessageInterpreter {
 
             location = objectMapper3.readValue(message, Player.class).getToken().getLocation();
             /* sq will be done for other classes */
+            if(Board.getInstance().getSquare(location[0], location[1]) instanceof  Property){
+            sq1 = (Property) Board.getInstance().getSquare(location[0] , location[1]);
+                money = sq1.getRent();
+                newBalance = GameLogic.getInstance().getPlayer(name).getBalance()-money;
+                newBalanceTaker = GameLogic.getInstance().getPlayer(((Property) Board.getInstance().getSquareList()[location[0] ][location[1]]).getOwner().getName()).getBalance()+money;
 
-            sq = (Property) Board.getInstance().getSquare(location[0] , location[1]);
+            }
 
-            money = sq.getRent();
+            else if(Board.getInstance().getSquare(location[0], location[1]) instanceof  Railroad){
+                sq2 = (Railroad) Board.getInstance().getSquare(location[0] , location[1]);
+                money = sq2.getRent();
+                newBalance = GameLogic.getInstance().getPlayer(name).getBalance()-money;
+                newBalanceTaker = GameLogic.getInstance().getPlayer(((Railroad) Board.getInstance().getSquareList()[location[0] ][location[1]]).getOwner().getName()).getBalance()+money;
 
-            newBalance = GameLogic.getInstance().getPlayer(name).getBalance()-money;
-            newBalanceTaker = GameLogic.getInstance().getPlayer(((Property) Board.getInstance().getSquareList()[location[0] ][location[1]]).getOwner().getName()).getBalance()+money;
+            }
+            else if(Board.getInstance().getSquare(location[0], location[1]) instanceof  Utility){
+                sq3 = (Utility) Board.getInstance().getSquare(location[0] , location[1]);
+                money = sq3.getRent();
+                newBalance = GameLogic.getInstance().getPlayer(name).getBalance()-money;
+                newBalanceTaker = GameLogic.getInstance().getPlayer(((Utility) Board.getInstance().getSquareList()[location[0] ][location[1]]).getOwner().getName()).getBalance()+money;
+
+            }
 
 
         } catch (IOException e) {
@@ -199,11 +243,23 @@ public class MessageInterpreter {
         /*payer*/
         GameLogic.getInstance().getPlayer(name).setBalance(newBalance);
         /*taker*/
-        GameLogic.getInstance().getPlayer(((Property) Board.getInstance().getSquareList()[location[0] ][location[1]]).getOwner().getName()).setBalance(newBalanceTaker);
 
+        if(Board.getInstance().getSquare(location[0], location[1]) instanceof  Property){
+            GameLogic.getInstance().getPlayer(((Property) Board.getInstance().getSquareList()[location[0] ][location[1]]).getOwner().getName()).setBalance(newBalanceTaker);
+            UIUpdater.getInstance().setMessage(name + " paid rent " + money + " dollars to " + sq1.getOwner().getName() ); //TODO Mrmonopoly
 
+        }
 
-        UIUpdater.getInstance().setMessage(name + " paid rent " + money + " dollars to " + sq.getOwner().getName() ); //TODO Mrmonopoly
+        else if(Board.getInstance().getSquare(location[0], location[1]) instanceof  Railroad){
+            GameLogic.getInstance().getPlayer(((Railroad) Board.getInstance().getSquareList()[location[0] ][location[1]]).getOwner().getName()).setBalance(newBalanceTaker);
+            UIUpdater.getInstance().setMessage(name + " paid rent " + money + " dollars to " + sq2.getOwner().getName() ); //TODO Mrmonopoly
+
+        }
+        else if(Board.getInstance().getSquare(location[0], location[1]) instanceof  Utility){
+            GameLogic.getInstance().getPlayer(((Utility) Board.getInstance().getSquareList()[location[0] ][location[1]]).getOwner().getName()).setBalance(newBalanceTaker);
+            UIUpdater.getInstance().setMessage(name + " paid rent " + money + " dollars to " + sq3.getOwner().getName() ); //TODO Mrmonopoly
+
+        }
 
 
 

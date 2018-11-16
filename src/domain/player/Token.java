@@ -6,7 +6,7 @@ public class Token {
 
 
     public Token() {
-        this(new int[]{0,1}, "White");
+        this(new int[]{1,0}, "White");
     }
 
     public Token(String color) {
