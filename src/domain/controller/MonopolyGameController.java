@@ -228,6 +228,8 @@ public class MonopolyGameController {
 
     public boolean removePlayer(String username) {
         playerList.removeIf(player -> player.getName().equals(username));
+        System.out.println("\n\n----------===============---------\n" +
+                playerList + "\n");
         publishPlayerListEvent();
         return true;
     }

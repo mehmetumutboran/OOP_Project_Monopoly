@@ -3,6 +3,7 @@ package gui.baseFrame.buttons.hostJoinButtons;
 import domain.controller.ConnectGameHandler;
 import gui.InputChecker;
 import gui.baseFrame.BaseFrame;
+import gui.baseFrame.panels.LobbyPanel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -33,6 +34,7 @@ public class HostButton extends MultiplayerConnectionButton implements ActionLis
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         System.out.println("HostGame Button Pressed");
+//        LobbyPanel.setHost(true);
         checkConnection();
     }
 

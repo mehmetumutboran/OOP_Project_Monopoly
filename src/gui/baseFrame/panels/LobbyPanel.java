@@ -2,8 +2,6 @@ package gui.baseFrame.panels;
 
 import domain.controller.MonopolyGameController;
 import domain.listeners.GameStartedListener;
-import domain.listeners.PlayerListChangedListener;
-import gui.ColorConverter;
 import gui.baseFrame.BaseFrame;
 import gui.baseFrame.ColorBox;
 import gui.baseFrame.buttons.lobbyButtons.AddBotButton;
@@ -17,9 +15,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
-public class LobbyPanel extends JPanel implements PlayerListChangedListener, GameStartedListener {
+public class LobbyPanel extends JPanel implements GameStartedListener {
     private ReadyButton readyButton;
     private BackButton backButton;
     private StartButton startButton;
@@ -27,32 +24,36 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener, Gam
     private AddBotButton addBotButton;
     private boolean isHost;
 
-    private ArrayList<JLabel> playerLabels;
 
     private int width;
     private int height;
 
+    private LobbyPlayerListPanel lobbyPlayerListPanel;
     private BufferedImage image;
     private JLabel backgroundLabel;
+
+    private JPanel buttonPanel;
+    private CardLayout cardLayout;
+
 
     private final int BUTTON_WIDTH = 300;
     private final int BUTTON_HEIGHT = 50;
 
     private final Color startButtonColor = Color.ORANGE;
 
-    private final int INITIAL_X = 60;
-    private final int INITIAL_Y = 60;
 
-    private final int SQUARE_EDGE = 80;
-
-    public LobbyPanel(int width, int height) {
-        isHost = false;
+    public LobbyPanel(int width, int height, boolean b) {
+        isHost = b;
         this.width = width;
         this.height = height;
-        playerLabels = new ArrayList<>();
-        MonopolyGameController.getInstance().addPlayerListChangedListener(this);
         MonopolyGameController.getInstance().addGameStartedListener(this);
         initGUI();
+        //backgroundLabel.setOpaque(true);
+
+        this.setVisible(true);
+    }
+
+    private void initBgImage() {
         try {
             if (System.getProperty("os.name").startsWith("Windows")) {
                 image = ImageIO.read(new File("res\\Monopoly Background 7.jpg"));
@@ -66,36 +67,23 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener, Gam
         backgroundLabel = new JLabel(new ImageIcon(image));
         this.add(backgroundLabel);
         backgroundLabel.setBounds(0, 0, width, height);
-        //backgroundLabel.setOpaque(true);
-
-        this.setVisible(true);
     }
 
 
     private void initButtons() {
-        readyButton = new ReadyButton();
         backButton = new BackButton("Back");
-        startButton = new StartButton("Start");
-        addBotButton = new AddBotButton("Add Bot");
         colorBox = new ColorBox();
 
-        readyButton.setBounds((this.width - (-1) * BUTTON_WIDTH) / 2,
-                (this.height - (-5) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
+
         backButton.setBounds((this.width - (-1) * BUTTON_WIDTH) / 2,
                 (this.height - (-8) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
         colorBox.setBounds((this.width - (-1) * BUTTON_WIDTH) / 2,
                 (this.height - 3 * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
-        addBotButton.setBounds((this.width - (-1) * BUTTON_WIDTH) / 2,
-                (this.height - (-2) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
 
         backButton.setBackground(Color.gray);
-        startButton.setBackground(Color.gray);
-        addBotButton.setBackground(Color.gray);
+//        startButton.setBackground(Color.gray);
 
-        readyButton.setBorderPainted(false);
         backButton.setBorderPainted(false);
-        startButton.setBorderPainted(false);
-        addBotButton.setBorderPainted(false);
         this.add(backButton);
         this.add(colorBox);
     }
@@ -104,81 +92,106 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener, Gam
         this.setBackground(Color.GRAY);
         this.setLayout(null);
 
+        lobbyPlayerListPanel = new LobbyPlayerListPanel();
+        lobbyPlayerListPanel.setBounds(60, 60, 960, 80);
+        this.add(lobbyPlayerListPanel);
+
+        buttonPanel = new JPanel();
+        buttonPanel.setBounds((this.width - (-1) * BUTTON_WIDTH) / 2,
+                (this.height - (-5) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, 2*BUTTON_HEIGHT);
+        cardLayout = new CardLayout();
+        buttonPanel.setLayout(cardLayout);
+        buttonPanel.setVisible(true);
+        buttonPanel.setOpaque(true);
+
+        initPanels();
         initButtons();
-    }
+        initBgImage();
+        this.add(buttonPanel);
 
-    public synchronized void setHost(boolean b) {
-        isHost = b;
-        if (b) {
-            readyButton.setVisible(false);
-            readyButton.setEnabled(false);
-            startButton.setEnabled(true);
-            startButton.setVisible(true);
-            startButton.setBounds((this.width - (-1) * BUTTON_WIDTH) / 2,
-                    (this.height - (-5) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
-            startButton.setBackground(startButtonColor);
-            this.add(startButton);
-            this.add(addBotButton);
-            this.remove(readyButton);
-        } else {
-            readyButton.setVisible(true);
-            readyButton.setEnabled(true);
-            startButton.setEnabled(false);
-            startButton.setVisible(false);
-            readyButton.setVisible(true);
-            readyButton.setEnabled(true);
-            this.add(readyButton);
-            this.remove(addBotButton);
-            this.remove(startButton);
+        if(isHost){
+            cardLayout.show(buttonPanel, "Host");
+        }else{
+            cardLayout.show(buttonPanel, "Client");
         }
+
+        validate();
+        repaint();
     }
 
-    public synchronized boolean getHost() {
-        return isHost;
+    private void initPanels() {
+        JPanel hostButtonPanel = new JPanel();
+        hostButtonPanel.setLayout(new GridLayout(2, 1));
+
+        startButton = new StartButton("Start");
+        addBotButton = new AddBotButton("Add Bot");
+
+        startButton.setBackground(startButtonColor);
+        addBotButton.setBackground(Color.gray);
+
+        startButton.setBorderPainted(false);
+        addBotButton.setBorderPainted(false);
+        startButton.setVisible(true);
+        addBotButton.setVisible(true);
+
+        hostButtonPanel.add(addBotButton);
+        hostButtonPanel.add(startButton);
+
+        JPanel clientButtonPanel = new JPanel();
+        clientButtonPanel.setLayout(new GridLayout(1, 1));
+
+        readyButton = new ReadyButton();
+        readyButton.setVisible(true);
+        readyButton.setBorderPainted(false);
+        clientButtonPanel.add(readyButton);
+
+        buttonPanel.add(hostButtonPanel, "Host");
+        buttonPanel.add(clientButtonPanel, "Client");
     }
 
     @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        for (int i = 0; i < playerLabels.size(); i++) {
-            playerLabels.get(i).setBounds(INITIAL_X + i * SQUARE_EDGE, INITIAL_Y, SQUARE_EDGE, SQUARE_EDGE);
-            this.add(playerLabels.get(i));
-        }
+    public void paintComponents(Graphics g) {
+        super.paintComponents(g);
         this.add(backgroundLabel);
         backgroundLabel.setBounds(0, 0, width, height);
         backgroundLabel.setOpaque(false);
 
     }
 
-    public void setPlayerLabelList(ArrayList<ArrayList<String>> playerAttributes) {
-        playerLabels.removeIf(p -> !MonopolyGameController.getInstance().getPlayerListName()
-                .contains(p.getText().substring(6, p.getText().indexOf('<',2))));
+    public void setHost(boolean b) {
+        isHost = b;
+        System.out.println("\n\n =======---------------==========\n" + "setHost\n\n");
+        if (b) {
+//            readyButton.setVisible(false);
+//            readyButton.setEnabled(false);
+//            startButton.setEnabled(true);
+//            startButton.setVisible(true);
+//
+//            this.add(startButton);
+//            this.add(addBotButton);
+//            this.remove(readyButton);
+//            cardLayout.show(buttonPanel, "Client");
+        } else {
+//            readyButton.setVisible(true);
+//            readyButton.setEnabled(true);
+//            startButton.setEnabled(false);
+//            startButton.setVisible(false);
+//            readyButton.setVisible(true);
+//            readyButton.setEnabled(true);
+//            this.add(readyButton);
+//            this.remove(addBotButton);
+//            this.remove(startButton);
+//            cardLayout.show(buttonPanel, "Client");
 
-        for (ArrayList<String> player : playerAttributes) {
-            getPlayer(player).setText("<HTML>" + player.get(0) + "<BR>" + player.get(2) + "</HTML>");
-            getPlayer(player).setBackground(ColorConverter.getInstance().getColorMap().get(player.get(1)));
         }
-        repaint();
+//        validate();
+//        repaint();
     }
 
-    private JLabel getPlayer(ArrayList<String> list) {
-        for (int i = 0; i < playerLabels.size(); i++) {
-            if (playerLabels.get(i) == null) continue;
-            else if (playerLabels.get(i).getText().contains(list.get(0))) {
-                return playerLabels.get(i);
-            }
-        }
-        JLabel temp = new JLabel(list.get(0));
-        temp.setBackground(ColorConverter.getInstance().getColorMap().get(list.get(1)));
-        temp.setOpaque(true);
-        this.playerLabels.add(temp);
-        return getPlayer(list);
+    public synchronized boolean getHost() {
+        return isHost;
     }
 
-    @Override
-    public void onPlayerListChangedEvent(ArrayList<String> selectedColors) {
-        setPlayerLabelList(MonopolyGameController.getInstance().getPlayerConnectAttributes());
-    }
 
     @Override
     public void onGameStartedEvent() {

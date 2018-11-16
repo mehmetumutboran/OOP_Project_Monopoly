@@ -24,6 +24,17 @@ public class Client {
         clientReceiver.start();
     }
 
+    public Socket getSocket() {
+        return socket;
+    }
+
+    public static DataOutputStream getDos() {
+        return dos;
+    }
+
+    public static DataInputStream getDis() {
+        return dis;
+    }
 
     public synchronized void send(String message) {
         try {
@@ -41,8 +52,8 @@ public class Client {
         try {
             received = dis.readUTF();
             System.out.println("Client class received Message:\n" + received + "\n\n");
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ignored) {
+
         }
 
         return received;

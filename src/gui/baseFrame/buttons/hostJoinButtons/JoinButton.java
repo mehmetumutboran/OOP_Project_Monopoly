@@ -3,6 +3,7 @@ package gui.baseFrame.buttons.hostJoinButtons;
 import domain.controller.ConnectGameHandler;
 import gui.InputChecker;
 import gui.baseFrame.BaseFrame;
+import gui.baseFrame.panels.LobbyPanel;
 import network.listeners.ConnectionFailedListener;
 
 import javax.swing.*;
@@ -24,6 +25,7 @@ public class JoinButton extends MultiplayerConnectionButton implements ActionLis
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         System.out.println("Join Button Pressed");
+//        LobbyPanel.setHost(false);
         checkConnection();
     }
 

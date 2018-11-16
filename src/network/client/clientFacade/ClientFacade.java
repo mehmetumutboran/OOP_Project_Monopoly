@@ -115,6 +115,15 @@ public class ClientFacade {
         connectionFailedListeners = new ArrayList<>();
     }
 
+    public void terminate(){
+        try {
+            Client.getDis().close();
+            Client.getDos().close();
+            client.getSocket().close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public String getMessage() {
         return message;
