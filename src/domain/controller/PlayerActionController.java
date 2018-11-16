@@ -36,7 +36,7 @@ public class PlayerActionController {
 
     public boolean rent() {
         System.out.println("in player action controller");
-        return ( GameLogic.getInstance().rent() );
+        return ( GameLogic.getInstance().payRent() );
 
     }
 }

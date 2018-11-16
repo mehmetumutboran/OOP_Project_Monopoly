@@ -1,7 +1,6 @@
 package domain;
 
 import domain.board.Board;
-import domain.board.DeedSquare;
 import domain.board.Property;
 import domain.board.Railroad;
 import domain.board.Square;
@@ -12,9 +11,7 @@ import domain.building.Skyscraper;
 import domain.controller.GameCommunicationHandler;
 import domain.player.Player;
 
-import javax.sound.midi.Soundbank;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.stream.Collectors;
@@ -73,12 +70,12 @@ public class GameLogic {
         else return false;
     }
 
-    public boolean rent() {
+    public boolean payRent() {
         /* true ??????? */
         System.out.println("in  logic buy");
 
-        if (players.peekFirst().rent()) {
-            System.out.println("player rent completed, is sending action");
+        if (players.peekFirst().payRent()) {
+            System.out.println("player payRent completed, is sending action");
             GameCommunicationHandler.getInstance().sendAction(payRentFlag);
             return true;}
         else return false;
