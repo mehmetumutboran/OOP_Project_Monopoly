@@ -19,7 +19,7 @@ import java.util.stream.Stream;
 
 public class ColorBox extends JComboBox implements ActionListener, DisableColorChangeListener, PlayerListChangedListener {
 
-    private ArrayList<String> colorList = (ArrayList<String>) (Stream.of("White", "LightGray", "Gray", "Blue", "Cyan", "Pink", "Green",
+    public static final ArrayList<String> colorList = (ArrayList<String>) (Stream.of("White", "LightGray", "Gray", "Blue", "Cyan", "Pink", "Green",
             "Orange", "Magenta", "Yellow", "Red","Turquoise").collect(Collectors.toList()));
     private String selectedItem;
 

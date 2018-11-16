@@ -24,4 +24,19 @@ public class PlayerActionController {
     public void finishTurn() {
         GameLogic.getInstance().finishTurn();
     }
+   // public void upgrade() {GameLogic.getInstance().upgrade(); }
+
+    //public void downgrade(){ GameLogic.getInstance().downgrade(); }
+
+    public boolean buy() {
+        System.out.println("in player action controller");
+        return ( GameLogic.getInstance().buy() );
+
+    }
+
+    public boolean rent() {
+        System.out.println("in player action controller");
+        return ( GameLogic.getInstance().payRent() );
+
+    }
 }

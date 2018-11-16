@@ -8,21 +8,20 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class BuyButton extends JButton implements ActionListener, TurnChangedListener {
-
-    public BuyButton(String text) {
+public class UpgradeButton extends JButton implements ActionListener, TurnChangedListener {
+    public UpgradeButton(String text) {
         super(text);
         this.addActionListener(this);
         this.setEnabled(false);
         UIUpdater.getInstance().addTurnChangedListener(this);
+
     }
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        System.out.println("buy button  clicked");
-        PlayerActionController.getInstance().buy();
-
-
+        //TODO should call another label for choosing own deeds.
+       // PlayerActionController.getInstance().upgrade();
+        System.out.println("Upgrade Button is clicked");
     }
 
     @Override

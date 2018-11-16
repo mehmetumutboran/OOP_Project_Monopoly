@@ -4,4 +4,9 @@ public class Skyscraper extends Building {
     public Skyscraper(int cost) {
         super(cost);
     }
+
+    @Override
+    public String getName() {
+        return "Skyscraper";
+    }
 }

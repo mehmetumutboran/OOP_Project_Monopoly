@@ -1,6 +1,5 @@
 package domain;
 
-import domain.controller.PlayerActionController;
 import domain.listeners.CloseButtonListener;
 import domain.listeners.MessageChangedListener;
 import domain.listeners.TurnChangedListener;
@@ -17,7 +16,7 @@ public class UIUpdater {
     String message;
 
     public static UIUpdater getInstance() {
-        if(ourInstance == null)
+        if (ourInstance == null)
             ourInstance = new UIUpdater();
         return ourInstance;
     }
@@ -36,20 +35,22 @@ public class UIUpdater {
         messageChangedListeners.forEach(MessageChangedListener::onMessageChangedEvent);
     }
 
-    public void addTurnChangedListener(TurnChangedListener tcl){
+    public void addTurnChangedListener(TurnChangedListener tcl) {
         turnChangedListeners.add(tcl);
     }
-    public void addCloseButtonListener(CloseButtonListener cbl){
+
+    public void addCloseButtonListener(CloseButtonListener cbl) {
         closeButtonListeners.add(cbl);
     }
 
-    private void publishTurnChangedEvent(boolean isEnabled){
-        for(TurnChangedListener tcl : turnChangedListeners) {
+    private void publishTurnChangedEvent(boolean isEnabled) {
+        for (TurnChangedListener tcl : turnChangedListeners) {
             tcl.onTurnChangedEvent(isEnabled);
         }
     }
-    private void publishCloseButtonEvent(){
-        for(CloseButtonListener cbl : closeButtonListeners) {
+
+    private void publishCloseButtonEvent() {
+        for (CloseButtonListener cbl : closeButtonListeners) {
             cbl.onCloseClickedEvent();
         }
     }
@@ -64,15 +65,8 @@ public class UIUpdater {
     }
 
     public void turnUpdate() {
-        System.out.println("\n\n\nTurnUpdate: \n" + GameLogic.getInstance().getPlayers() + "\nList:\n" + GameLogic.getInstance().getPlayerList() + "\n\n");
-
         publishTurnChangedEvent(GameLogic.getInstance().getPlayers().peekFirst()
                 .equals(GameLogic.getInstance().getPlayerList().get(0)));
-
-
-        System.out.println("Valuse: " + GameLogic.getInstance().getPlayers().peekFirst()
-                .equals(GameLogic.getInstance().getPlayerList().get(0)) + "\n\n");
-        System.out.println("Listeners: " + turnChangedListeners + "\n\n");
 
     }
 

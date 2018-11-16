@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.GameLogic;
 import domain.GameState;
 import domain.MessageInterpreter;
+import domain.board.DeedSquare;
 import network.client.clientFacade.ClientFacade;
 import network.listeners.ReceivedChangedListener;
 
@@ -35,11 +36,14 @@ public class GameCommunicationHandler implements ReceivedChangedListener {
     public void sendAction(char flag) {
         ClientFacade.getInstance().send(GameState.getInstance().generateCurrentAction(flag));
     }
+    public void sendupdowngradeAction (char flag, DeedSquare square){
+        ClientFacade.getInstance().send(GameState.getInstance().generateupdownGradeAction(flag, square));
 
+    }
 
     @Override
-    public void onReceivedChangedEvent(ClientFacade clientFacade) {
-        MessageInterpreter.getInstance().interpret(clientFacade.getMessage());
+    public void onReceivedChangedEvent() {
+        MessageInterpreter.getInstance().interpret(ClientFacade.getInstance().getMessage());
     }
 
 

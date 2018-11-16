@@ -18,7 +18,6 @@ public class MessagePanel extends JPanel implements MessageChangedListener {
 
     private static StringBuilder message;
     private JLabel messageLabel;
-    private JScrollBar scrollBar;
     private JScrollPane scrollPane;
 
     public MessagePanel(int width, int height) {
@@ -26,17 +25,19 @@ public class MessagePanel extends JPanel implements MessageChangedListener {
         this.height = height;
 
         this.setPreferredSize(new Dimension(width, height / 5));
-
         this.setLayout(new BorderLayout());
-        scrollPane = new JScrollPane();
-        scrollBar = new JScrollBar();
-//        scrollBar.setMaximum(100);
-        scrollPane.add(scrollBar);
-        this.add(scrollPane, BorderLayout.CENTER);
 
-        message = new StringBuilder("<html><body><div></div></body></html>");
         messageLabel = new JLabel();
         this.add(messageLabel);
+
+        scrollPane = new JScrollPane(messageLabel);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+
+        message = new StringBuilder("<html><body><div></div></body></html>");
+
+
+        this.add(scrollPane);
+
         UIUpdater.getInstance().addMessageChangedListener(this);
         setBackground(Color.WHITE);
 

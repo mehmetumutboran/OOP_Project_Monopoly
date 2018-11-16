@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import domain.board.Board;
-import domain.board.Property;
-import domain.board.Railroad;
-import domain.board.Utility;
+import domain.board.*;
 import domain.controller.MonopolyGameController;
 import domain.die.DiceCup;
 
@@ -68,22 +65,11 @@ public class Player implements Comparable {
         return result;
     }
 
-    /**
-     * Main method to test {@link #toJSON()}
-     *
-     * @param args cmdline args
-     */
-    public static void main(String[] args) {
-        Player player = new Player("Player32");
-        System.out.println(player.toJSON());
-    }
-
-
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Player)) return false;
         Player player = (Player) o;
         return Objects.equals(name, player.name);
     }
@@ -208,4 +194,126 @@ public class Player implements Comparable {
         sb.append('}');
         return sb.toString();
     }
+
+    public boolean checkMajority(Property square) {
+        return false;
+    }
+
+    public void increaseMoney(int money){
+       this.setBalance(this.getBalance() + money);
+    }
+
+    public void decreaseMoney(int money){
+        this.setBalance(this.getBalance() - money);
+    }
+
+
+    public boolean buy(){
+        System.out.println("in  player buy");
+        boolean sold = false;
+        /* checks if buyable square i.e. railroad */
+
+
+        boolean buyable =
+                (Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]] instanceof Property ||
+                        Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]] instanceof Railroad ||
+                        Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]] instanceof Utility);
+
+        System.out.println("buyable checked");
+        /*
+        1. if which buyable square -> downcast accordingly
+        2. if have enough money
+        3. if owned ?
+        * */
+
+
+        if(buyable ) {
+            System.out.println("buyable 2 checked ");
+
+            if (Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]] instanceof Property) {
+                if (this.getBalance() > ((Property) Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]]).getBuyValue()) {
+                    if (!((Property) Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]]).isOwned()) {
+                        sold = true;
+                    }
+                }
+            }
+            else if (Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]] instanceof Railroad) {
+                if (this.getBalance() > ((Railroad) Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]]).getBuyValue()) {
+                    if (!((Railroad) Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]]).isOwned()) {
+                        sold = true;
+                    }
+                }
+            }
+            else if (Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]] instanceof Utility) {
+                if (this.getBalance() > ((Utility) Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]]).getBuyValue()) {
+                    if (!((Utility) Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]]).isOwned()) {
+                        sold = true;
+                    }
+                }
+            }
+
+        }
+
+        return sold;
+    }
+
+
+
+    public boolean payRent(){
+        System.out.println("in  player payRent");
+        boolean rented = false;
+        /* checks if buyable square i.e. railroad */
+
+
+        boolean rentable =
+                (Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]] instanceof Property ||
+                        Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]] instanceof Railroad ||
+                        Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]] instanceof Utility);
+
+        /*
+        1. if which buyable square -> downcast accordingly
+        2. if have enough money
+        3. if owned ?
+        * */
+
+
+        if(rentable ) {
+
+            if (Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]] instanceof Property) {
+                    if (((Property) Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]]).isOwned()) {
+                        if (this.getBalance() > ((Property) Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]]).getRent()) {
+                         rented = true;
+
+                        }
+                }
+            }
+
+            /*others like railroad*/
+            else if (Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]] instanceof Railroad) {
+                if (((Railroad) Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]]).isOwned()) {
+                    if (this.getBalance() > ((Railroad) Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]]).getRent()) {
+                        rented = true;
+
+                    }
+                }
+            }
+
+            else if (Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]] instanceof Utility) {
+                if (((Utility) Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]]).isOwned()) {
+                    if (this.getBalance() > ((Utility) Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]]).getRent()) {
+                        rented = true;
+
+                    }
+                }
+            }
+
+
+
+        }
+
+        return rented;
+    }
+
+
+
 }
