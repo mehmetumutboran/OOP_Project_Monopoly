@@ -10,6 +10,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class PlayerLabelsPanel extends JLabel implements GameStartedListener {
+    private final int SQUARE_EDGE = 90;
 
     private ArrayList<PlayerLabel> playerLabels;
 
@@ -19,7 +20,7 @@ public class PlayerLabelsPanel extends JLabel implements GameStartedListener {
     public PlayerLabelsPanel(PlayerStatusPanel playerStatusPanel) {
         this.playerStatusPanel = playerStatusPanel;
 
-        this.setLayout(new GridLayout(2,6));
+        this.setLayout(new GridLayout(2, 6));
         this.setPreferredSize(playerStatusPanel.getSize());
         MonopolyGameController.getInstance().addGameStartedListener(this);
         initGUI();
@@ -38,6 +39,7 @@ public class PlayerLabelsPanel extends JLabel implements GameStartedListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         for (PlayerLabel playerLabel : playerLabels) {
+            playerLabel.setPreferredSize(new Dimension(SQUARE_EDGE, SQUARE_EDGE));
             this.add(playerLabel);
         }
     }
