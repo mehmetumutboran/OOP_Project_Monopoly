@@ -1,7 +1,5 @@
 package gui.baseFrame.panels;
 
-import gui.baseFrame.BaseFrame;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -13,11 +11,9 @@ public class GamePanel extends JPanel {
 
     private int width;
     private int height;
-    private BaseFrame frame;
 
     private BufferedImage image;
-    Image img;
-    private JLabel boardLabel;
+    private Image img;
 
     public GamePanel(int width, int height) {
         this.width = width;
@@ -33,15 +29,11 @@ public class GamePanel extends JPanel {
                 image = ImageIO.read(new File("res/Monopoly Game Board.png"));
             }
         } catch (IOException ex) {
-            System.out.println(ex);
+            ex.printStackTrace();
         }
 
 
         img = new ImageIcon(image).getImage();
-//        boardLabel = new JLabel();
-//        this.add(boardLabel, BorderLayout.NORTH);
-//        boardLabel.setSize(width, height);
-//        boardLabel.setOpaque(true);
     }
 
     @Override
