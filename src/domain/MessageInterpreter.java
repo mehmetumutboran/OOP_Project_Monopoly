@@ -360,18 +360,18 @@ public class MessageInterpreter {
 
         if(Board.getInstance().getSquare(location[0], location[1]) instanceof  Property){
             GameLogic.getInstance().getPlayer(((Property) Board.getInstance().getSquareList()[location[0] ][location[1]]).getOwner().getName()).setBalance(newBalanceTaker);
-            UIUpdater.getInstance().setMessage(name + " paid rent " + money + " dollars to " + sq1.getOwner().getName() ); //TODO Mrmonopoly
+            UIUpdater.getInstance().setMessage(name + " paid payRent " + money + " dollars to " + sq1.getOwner().getName() ); //TODO Mrmonopoly
 
         }
 
         else if(Board.getInstance().getSquare(location[0], location[1]) instanceof  Railroad){
             GameLogic.getInstance().getPlayer(((Railroad) Board.getInstance().getSquareList()[location[0] ][location[1]]).getOwner().getName()).setBalance(newBalanceTaker);
-            UIUpdater.getInstance().setMessage(name + " paid rent " + money + " dollars to " + sq2.getOwner().getName() ); //TODO Mrmonopoly
+            UIUpdater.getInstance().setMessage(name + " paid payRent " + money + " dollars to " + sq2.getOwner().getName() ); //TODO Mrmonopoly
 
         }
         else if(Board.getInstance().getSquare(location[0], location[1]) instanceof  Utility){
             GameLogic.getInstance().getPlayer(((Utility) Board.getInstance().getSquareList()[location[0] ][location[1]]).getOwner().getName()).setBalance(newBalanceTaker);
-            UIUpdater.getInstance().setMessage(name + " paid rent " + money + " dollars to " + sq3.getOwner().getName() ); //TODO Mrmonopoly
+            UIUpdater.getInstance().setMessage(name + " paid payRent " + money + " dollars to " + sq3.getOwner().getName() ); //TODO Mrmonopoly
 
         }
 

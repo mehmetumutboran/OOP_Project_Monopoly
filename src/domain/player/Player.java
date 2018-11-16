@@ -264,8 +264,8 @@ public class Player implements Comparable {
 
 
 
-    public boolean rent(){
-        System.out.println("in  player rent");
+    public boolean payRent(){
+        System.out.println("in  player payRent");
         boolean rented = false;
         /* checks if buyable square i.e. railroad */
 
