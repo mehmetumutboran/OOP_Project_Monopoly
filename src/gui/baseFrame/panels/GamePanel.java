@@ -16,6 +16,7 @@ public class GamePanel extends JPanel {
     private BaseFrame frame;
 
     private BufferedImage image;
+    Image img;
     private JLabel boardLabel;
 
     public GamePanel(int width, int height) {
@@ -35,9 +36,17 @@ public class GamePanel extends JPanel {
             System.out.println(ex);
         }
 
-        boardLabel = new JLabel(new ImageIcon(image));
-        this.add(boardLabel, BorderLayout.NORTH);
-        boardLabel.setSize(width, height);
-        boardLabel.setOpaque(true);
+
+        img = new ImageIcon(image).getImage();
+//        boardLabel = new JLabel();
+//        this.add(boardLabel, BorderLayout.NORTH);
+//        boardLabel.setSize(width, height);
+//        boardLabel.setOpaque(true);
+    }
+
+    @Override
+    public void paintComponent(Graphics G) {
+        super.paintComponent(G);
+        G.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
     }
 }
