@@ -36,14 +36,14 @@ public class ColorBox extends JComboBox implements ActionListener, DisableColorC
 
     private void refresh(ArrayList<String> selectedColors){
         this.removeAllItems();
-        this.addItem(selectedItem);
+        //this.addItem(selectedItem);
         //this.insertItemAt(ColorConverter.getInstance().getColor(selectedItem),0);
         ArrayList<String> temp = (ArrayList<String>) colorList.clone();
         temp.removeAll(selectedColors);
         //temp.add(selectedItem);
         temp.remove(selectedItem);
         for (int i=0; i < temp.size();i++) {
-            this.insertItemAt(temp.get(i), i+1);
+            this.insertItemAt(temp.get(i), i);
         }
         this.setRenderer(ColorBoxRenderer.getInstance());
         //this.removeItem(selectedItem);
@@ -63,6 +63,6 @@ public class ColorBox extends JComboBox implements ActionListener, DisableColorC
 
     @Override
     public void onPlayerListChangedEvent(ArrayList<String> selectedColors) {
-        //refresh(selectedColors);
+        refresh(selectedColors);
     }
 }
