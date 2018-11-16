@@ -126,7 +126,6 @@ public class GameLogic {
             totalRoll = GameLogic.getInstance().getPlayers().peekFirst().getFaceValues()[0]
                     + GameLogic.getInstance().getPlayers().peekFirst().getFaceValues()[1];
         }
-
         if (Board.getInstance().railRoadFind(lastLoc, totalRoll)[0] != null) {
                 if (totalRoll % 2 == 1) {
                     newLoc = normalMove(lastLoc, totalRoll, layerSQNumber);
@@ -143,28 +142,24 @@ public class GameLogic {
     }
 
     private int[] upDownMove(int[] lastLoc, int roll, int layerSQNumber) {
-        System.out.println("UP DOWN MOVE!!!!!");
         int railroad;
         if (Board.getInstance().railRoadFind(lastLoc, roll)[0].getLocation()[1] - lastLoc[1] < 0)
             railroad = Board.getInstance().railRoadFind(lastLoc, roll)[0].getLocation()[1] - lastLoc[1] + layerSQNumber;
         else railroad = Board.getInstance().railRoadFind(lastLoc, roll)[0].getLocation()[1] - lastLoc[1];
         roll = roll - railroad;
         lastLoc = normalMove(lastLoc, railroad, layerSQNumber);
-        System.out.println("IT WILL GO TO RECURSIVE METHOD");
         return upDownMoveRec(lastLoc, roll);
     }
 
     private int[] upDownMoveRec(int[] lastLoc, int roll) {
         String sqName = Board.getInstance().railRoadFind(lastLoc, roll)[0].getName();
         int[] tryLoc = new int[2];
-        System.out.println("LAST LOCATION: " +  Arrays.toString(lastLoc));
         switch (sqName) {
             case "Reading Railroad":
                 if (lastLoc[0] == 0) {
                     //System.out.println("IT WILL GO TO HELPER METHOD");
                    return railRoadHelper(lastLoc, 1, 5, tryLoc, roll, FIRSTLAYERSQ);
                 } else if (lastLoc[0] == 1) {
-                    System.out.println("IT WILL GO TO HELPER METHOD");
                     return railRoadHelper(lastLoc, 0, 7, tryLoc, roll, ZEROTHLAYERSQ);
                 }
                 break;
@@ -183,12 +178,9 @@ public class GameLogic {
                 }
                 break;
             case "Short Line Railroad":
-                System.out.println("WHERE AM I!!!!!");
                 if (lastLoc[0] == 1) {
-                    System.out.println("IT WILL GO TO HELPER METHOD");
                     return railRoadHelper(lastLoc, 2, 21, tryLoc, roll, SECONDLAYERSQ);
                 } else if (lastLoc[0] == 2) {
-                    System.out.println("IT WILL GO TO HELPER METHOD");
                     return railRoadHelper(lastLoc, 1, 35, tryLoc, roll, FIRSTLAYERSQ);
                 }
                 break;
@@ -203,7 +195,6 @@ public class GameLogic {
         lastLoc[1] = railSq;
         tryLoc[0] = lastLoc[0];
         tryLoc[1] = lastLoc[1] + 1;
-        System.out.println("In the helper method with locations: " + Arrays.toString(lastLoc));
         if (Board.getInstance().railRoadFind(tryLoc, roll)[0] == null || Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1] > roll) {
             lastLoc = normalMove(lastLoc, roll, layerSQNumber);
             return lastLoc;
