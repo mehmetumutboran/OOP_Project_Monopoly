@@ -12,6 +12,7 @@ public class Board {
     private static final int SECONDLAYERSQ = 24;
     private static final int FIRSTLAYERSQ = 40;
     private static final int ZEROTHLAYERSQ = 56;
+    private static final int [][] railRoads = {{0,7}, {0, 35}, {1, 5}, {1, 15}, {1, 25}, {1, 35}, {2, 9}, {2, 21}};
 
     private Board() {
         squareList = new Square[3][56];
@@ -54,34 +55,20 @@ public class Board {
         }
         Square[] closestRailRoads = new Square[2];
         for (int i = 0; i <= roll; i++) {
-            if (location[1] + i < layerSQNumber - 1) {
-                if (squareList[location[0]][location[1] + i].getClass().equals(Railroad.class)) {
-                    closestRailRoads[0] = squareList[location[0]][location[1] + i];
+            if (location[1] + i <= layerSQNumber - 1) {
+                if (squareList[location[0]][location[1] + i] instanceof Railroad) {
+                    closestRailRoads[0] = squareList[location[0]][location[1]+ i];
                     break;
                 }
             } else {
-                if (squareList[location[0]][location[1] + i - layerSQNumber + 1].getClass().equals(Railroad.class)) {
+                if (squareList[location[0]][location[1] + i - layerSQNumber + 1] instanceof Railroad) {
                     closestRailRoads[0] = squareList[location[0]][location[1] + i - layerSQNumber + 1];
-                    break;
-                }
-            }
-        }
-        for (int i = 0; i <= roll; i++) {
-            if (location[1] - i >= 0) {
-                if (squareList[location[0]][location[1] - i].getClass().equals(Railroad.class)) {
-                    closestRailRoads[1] = squareList[location[0]][location[1] - i];
-                    break;
-                }
-            } else {
-                if (squareList[location[0]][location[1] - i + layerSQNumber].getClass().equals(Railroad.class)) {
-                    closestRailRoads[1] = squareList[location[0]][location[1] - i + layerSQNumber - 1];
                     break;
                 }
             }
         }
         return closestRailRoads;
     }
-
 
     private void initializeSquares() {
 
@@ -100,7 +87,7 @@ public class Board {
 
         BusTicket sq6 = new BusTicket("Bus Ticket", 0, 5);
         squareList[0][5] = sq6;
-        Utility sq7 = new Utility("Bhecker Cab Co.", 0, 6, 300, 1);
+        Utility sq7 = new Utility("Checker Cab Co.", 0, 6, 300, 1);
         squareList[0][6] = sq7;
         Railroad sq8 = new Railroad("Reading Railroad", 0, 7, 200, 25);
         squareList[0][7] = sq8;
@@ -202,7 +189,7 @@ public class Board {
         squareList[0][48] = sq49;
         Utility sq50 = new Utility("Sewage System", 0, 49, 150, 1);
         squareList[0][49] = sq50;
-        Utility sq51 = new Utility("Tte Cab Co.", 0, 50, 300, 1);
+        Utility sq51 = new Utility("Ute Cab Co.", 0, 50, 300, 1);
         squareList[0][50] = sq51;
         BirthDayGift sq52 = new BirthDayGift("Birthday Gift", 0, 51);
         squareList[0][51] = sq52;
@@ -302,7 +289,7 @@ public class Board {
         squareList[1][34] = sq91;
         squareMap.put("GREEN", new DeedSquare[]{sq88, sq89, sq91});
 
-        Railroad sq92 = new Railroad("Shortline Railroad", 1, 35, 200, 25);
+        Railroad sq92 = new Railroad("Short Line Railroad", 1, 35, 200, 25);
         squareList[1][35] = sq92;
         Chance sq93 = new Chance("Chance", 1, 36);
         squareList[1][36] = sq93;

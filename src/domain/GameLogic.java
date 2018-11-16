@@ -122,27 +122,16 @@ public class GameLogic {
             totalRoll = GameLogic.getInstance().getPlayers().peekFirst().getFaceValues()[0]
                     + GameLogic.getInstance().getPlayers().peekFirst().getFaceValues()[1];
         }
-        if (lastLoc[1] + totalRoll < layerSQNumber - 1) {
-            if (Board.getInstance().railRoadFind(lastLoc, totalRoll)[0] != null && lastLoc[1] + totalRoll > Board.getInstance().railRoadFind(lastLoc, totalRoll)[0].getLocation()[1]) {
-                if (totalRoll % 2 == 1) {
-                    newLoc = normalMove(lastLoc, totalRoll, layerSQNumber);
-                } else {
-                    newLoc = upDownMove(lastLoc, totalRoll, layerSQNumber);
-                }
-            } else {
+        if (Board.getInstance().railRoadFind(lastLoc, totalRoll)[0] != null) {
+            if (totalRoll % 2 == 1) {
                 newLoc = normalMove(lastLoc, totalRoll, layerSQNumber);
+            } else {
+                newLoc = upDownMove(lastLoc, totalRoll, layerSQNumber);
             }
         } else {
-            if (Board.getInstance().railRoadFind(lastLoc, totalRoll)[0] != null && lastLoc[1] + totalRoll - layerSQNumber > Board.getInstance().railRoadFind(lastLoc, totalRoll)[0].getLocation()[1]) {
-                if (totalRoll % 2 == 1) {
-                    newLoc = normalMove(lastLoc, totalRoll, layerSQNumber);
-                } else {
-                    newLoc = upDownMove(lastLoc, totalRoll, layerSQNumber);
-                }
-            } else {
-                newLoc = normalMove(lastLoc, totalRoll, layerSQNumber);
-            }
+            newLoc = normalMove(lastLoc, totalRoll, layerSQNumber);
         }
+
         GameLogic.getInstance().getPlayers().peekFirst().getToken().setLocation(newLoc);
         System.out.println("In the Game Logic Move Method");
         GameCommunicationHandler.getInstance().sendAction(moveFlag);
@@ -155,157 +144,63 @@ public class GameLogic {
         else railroad = Board.getInstance().railRoadFind(lastLoc, roll)[0].getLocation()[1] - lastLoc[1];
         roll = roll - railroad;
         lastLoc = normalMove(lastLoc, railroad, layerSQNumber);
-        return upDownMoveRec(lastLoc, roll, layerSQNumber);
+        return upDownMoveRec(lastLoc, roll);
     }
 
-    private int[] upDownMoveRec(int[] lastLoc, int roll, int layerSQNumber) {
+    private int[] upDownMoveRec(int[] lastLoc, int roll) {
         String sqName = Board.getInstance().railRoadFind(lastLoc, roll)[0].getName();
         int[] tryLoc = new int[2];
         switch (sqName) {
             case "Reading Railroad":
                 if (lastLoc[0] == 0) {
-                    lastLoc[0] = 1;
-                    lastLoc[1] = 5;
-                    tryLoc[0] = lastLoc[0];
-                    tryLoc[1] = lastLoc[1] + 1;
-                    if (Board.getInstance().railRoadFind(tryLoc, roll)[0] == null || Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1] > roll) {
-                        lastLoc[1] = lastLoc[1] + roll;
-                        return lastLoc;
-                    }
-                    int railroad;
-                    if (Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1] < 0)
-                        railroad = Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1] + layerSQNumber;
-                    else railroad = Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1];
-                    roll = roll - railroad;
-                    lastLoc = normalMove(lastLoc, railroad, layerSQNumber);
-                    return upDownMoveRec(lastLoc, roll, FIRSTLAYERSQ);
+                    return railRoadHelper(lastLoc, 1, 5, tryLoc, roll, FIRSTLAYERSQ);
                 } else if (lastLoc[0] == 1) {
-                    lastLoc[0] = 0;
-                    lastLoc[1] = 7;
-                    tryLoc[0] = lastLoc[0];
-                    tryLoc[1] = lastLoc[1] + 1;
-                    if (Board.getInstance().railRoadFind(tryLoc, roll)[0] == null || Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1] > roll) {
-                        lastLoc[1] = lastLoc[1] + roll;
-                        return lastLoc;
-                    }
-                    int railroad;
-                    if (Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1] < 0)
-                        railroad = Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1] + layerSQNumber;
-                    else railroad = Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1];
-                    roll = roll - railroad;
-                    lastLoc = normalMove(lastLoc, railroad, layerSQNumber);
-                    return upDownMoveRec(lastLoc, roll, ZEROTHLAYERSQ);
+                    return railRoadHelper(lastLoc, 0, 7, tryLoc, roll, ZEROTHLAYERSQ);
                 }
                 break;
-            case "B.&O. railroad":
+            case "B.&O. Railroad":
                 if (lastLoc[0] == 0) {
-                    lastLoc[0] = 1;
-                    lastLoc[1] = 25;
-                    tryLoc[0] = lastLoc[0];
-                    tryLoc[1] = lastLoc[1] + 1;
-                    if (Board.getInstance().railRoadFind(tryLoc, roll)[0] == null || Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1] > roll) {
-                        lastLoc[1] = lastLoc[1] + roll;
-                        return lastLoc;
-                    }
-                    int railroad;
-                    if (Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1] < 0)
-                        railroad = Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1] + layerSQNumber;
-                    else railroad = Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1];
-                    roll = roll - railroad;
-                    lastLoc = normalMove(lastLoc, railroad, layerSQNumber);
-                    return upDownMoveRec(lastLoc, roll, FIRSTLAYERSQ);
+                    return railRoadHelper(lastLoc, 1, 25, tryLoc, roll, FIRSTLAYERSQ);
                 } else if (lastLoc[0] == 1) {
-                    lastLoc[0] = 0;
-                    lastLoc[1] = 35;
-                    tryLoc[0] = lastLoc[0];
-                    tryLoc[1] = lastLoc[1] + 1;
-                    if (Board.getInstance().railRoadFind(tryLoc, roll)[0] == null || Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1] > roll) {
-                        lastLoc[1] = lastLoc[1] + roll;
-                        return lastLoc;
-                    }
-                    int railroad;
-                    if (Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1] < 0)
-                        railroad = Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1] + layerSQNumber;
-                    else railroad = Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1];
-                    roll = roll - railroad;
-                    lastLoc = normalMove(lastLoc, railroad, layerSQNumber);
-                    return upDownMoveRec(lastLoc, roll, ZEROTHLAYERSQ);
+                    return railRoadHelper(lastLoc, 0, 35, tryLoc, roll, ZEROTHLAYERSQ);
                 }
                 break;
             case "Pennsylvania Railroad":
                 if (lastLoc[0] == 1) {
-                    lastLoc[0] = 2;
-                    lastLoc[1] = 9;
-                    tryLoc[0] = lastLoc[0];
-                    tryLoc[1] = lastLoc[1] + 1;
-                    if (Board.getInstance().railRoadFind(tryLoc, roll)[0] == null || Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1] > roll) {
-                        lastLoc[1] = lastLoc[1] + roll;
-                        return lastLoc;
-                    }
-                    int railroad;
-                    if (Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1] < 0)
-                        railroad = Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1] + layerSQNumber;
-                    else railroad = Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1];
-                    roll = roll - railroad;
-                    lastLoc = normalMove(lastLoc, railroad, layerSQNumber);
-                    return upDownMoveRec(lastLoc, roll, SECONDLAYERSQ);
+                    return railRoadHelper(lastLoc, 2, 9, tryLoc, roll, SECONDLAYERSQ);
                 } else if (lastLoc[0] == 2) {
-                    lastLoc[0] = 1;
-                    lastLoc[1] = 15;
-                    tryLoc[0] = lastLoc[0];
-                    tryLoc[1] = lastLoc[1] + 1;
-                    if (Board.getInstance().railRoadFind(tryLoc, roll)[0] == null || Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1] > roll) {
-                        lastLoc[1] = lastLoc[1] + roll;
-                        return lastLoc;
-                    }
-                    int railroad;
-                    if (Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1] < 0)
-                        railroad = Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1] + layerSQNumber;
-                    else railroad = Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1];
-                    roll = roll - railroad;
-                    lastLoc = normalMove(lastLoc, railroad, layerSQNumber);
-                    return upDownMoveRec(lastLoc, roll, FIRSTLAYERSQ);
+                    return railRoadHelper(lastLoc, 1, 15, tryLoc, roll, FIRSTLAYERSQ);
                 }
                 break;
             case "Short Line Railroad":
                 if (lastLoc[0] == 1) {
-                    lastLoc[0] = 2;
-                    lastLoc[1] = 21;
-                    tryLoc[0] = lastLoc[0];
-                    tryLoc[1] = lastLoc[1] + 1;
-                    if (Board.getInstance().railRoadFind(tryLoc, roll)[0] == null || Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1] > roll) {
-                        if (lastLoc[1] + roll == 24) lastLoc[1] = 0;
-                        lastLoc[1] = lastLoc[1] + roll;
-                        return lastLoc;
-                    }
-                    int railroad;
-                    if (Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1] < 0)
-                        railroad = Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1] + layerSQNumber;
-                    else railroad = Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1];
-                    roll = roll - railroad;
-                    lastLoc = normalMove(lastLoc, railroad, layerSQNumber);
-                    return upDownMoveRec(lastLoc, roll, SECONDLAYERSQ);
+                    return railRoadHelper(lastLoc, 2, 21, tryLoc, roll, SECONDLAYERSQ);
                 } else if (lastLoc[0] == 2) {
-                    lastLoc[0] = 1;
-                    lastLoc[1] = 35;
-                    tryLoc[0] = lastLoc[0];
-                    tryLoc[1] = lastLoc[1] + 1;
-                    if (Board.getInstance().railRoadFind(tryLoc, roll)[0] == null || Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1] > roll) {
-                        if (lastLoc[1] + roll == 40) lastLoc[1] = 0;
-                        lastLoc[1] = lastLoc[1] + roll;
-                        return lastLoc;
-                    }
-                    int railroad;
-                    if (Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1] < 0)
-                        railroad = Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1] + layerSQNumber;
-                    else railroad = Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1];
-                    roll = roll - railroad;
-                    lastLoc = normalMove(lastLoc, railroad, layerSQNumber);
-                    return upDownMoveRec(lastLoc, roll, FIRSTLAYERSQ);
+                    return railRoadHelper(lastLoc, 1, 35, tryLoc, roll, FIRSTLAYERSQ);
                 }
+                break;
+            default:
                 break;
         }
         return lastLoc;
+    }
+
+    private int[] railRoadHelper(int[] lastLoc, int layer, int railSq, int[] tryLoc, int roll, int layerSQNumber) {
+        lastLoc[0] = layer;
+        lastLoc[1] = railSq;
+        tryLoc[0] = lastLoc[0];
+        tryLoc[1] = lastLoc[1] + 1;
+        if (Board.getInstance().railRoadFind(tryLoc, roll)[0] == null || Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1] > roll) {
+            lastLoc = normalMove(lastLoc, roll, layerSQNumber);
+            return lastLoc;
+        }
+        int railroad;
+        if (Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1] < 0)
+            railroad = Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1] + layerSQNumber;
+        else railroad = Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1];
+        roll = roll - railroad;
+        lastLoc = normalMove(lastLoc, railroad, layerSQNumber);
+        return upDownMoveRec(lastLoc, roll);
     }
 
     private int[] normalMove(int[] lastLoc, int roll, int layerSQNumber) {
