@@ -103,15 +103,19 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener, Gam
 
     public synchronized void setHost(boolean b) {
         isHost = b;
-        if (getHost()) {
+        if (b) {
             readyButton.setVisible(false);
             readyButton.setEnabled(false);
+            startButton.setEnabled(true);
+            startButton.setVisible(true);
             startButton.setBounds((this.width - (-1) * BUTTON_WIDTH) / 2,
                     (this.height - (-5) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
             startButton.setBackground(startButtonColor);
             this.add(startButton);
             this.remove(readyButton);
         } else {
+            readyButton.setVisible(true);
+            readyButton.setEnabled(true);
             startButton.setEnabled(false);
             startButton.setVisible(false);
             this.add(readyButton);
@@ -159,7 +163,7 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener, Gam
     }
 
     @Override
-    public void onPlayerListChangedEvent() {
+    public void onPlayerListChangedEvent(ArrayList<String> selectedColors) {
         setPlayerLabelList(MonopolyGameController.getInstance().getPlayerConnectAttributes());
     }
 
