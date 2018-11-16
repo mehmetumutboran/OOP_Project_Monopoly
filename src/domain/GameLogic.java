@@ -19,16 +19,10 @@ import java.util.stream.Collectors;
 public class GameLogic {
     private static GameLogic ourInstance;
 
-    private static final int GO_COLLECT = 200;
-    private static final int SECONDLAYERSQ = 24;
-    private static final int FIRSTLAYERSQ = 40;
-    private static final int ZEROTHLAYERSQ = 56;
-
     public static final char buyFlag = 'B';
     public static final char rollFlag = 'R';
-    public static final char getRentFlag = 'T';
+    public static final char getRentFlag = 'I';
     public static final char decreaseMoneyFlag = 'D';
-    public static final char increaseMoneyFlag = 'I';
     public static final char payRentFlag = 'P';
     public static final char drawCardFlag = 'C';
     public static final char payDayFlag = 'Y';
@@ -343,11 +337,7 @@ public class GameLogic {
     }
 
     private boolean checkThirdDouble() {
-        if(GameLogic.getInstance().getPlayers().peekFirst().getDoubleCounter() == 3){
-            GameLogic.getInstance().getPlayers().peekFirst().setInJail(true);
-            GameLogic.getInstance().getPlayers().peekFirst().resetDoubleCounter();
-            return true;
-        }else return false;
+        return false;
     }
 
     public ArrayList<Player> getPlayerList() {

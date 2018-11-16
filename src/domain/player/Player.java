@@ -23,7 +23,7 @@ public class Player implements Comparable {
     private ArrayList<Railroad> ownedRailroads;
     private String readiness;
     private boolean started;
-    private int doubleCounter;
+    private int doubleCounter; // Constructor
     private boolean inJail;
     private int[] faceValues;
 
@@ -32,11 +32,11 @@ public class Player implements Comparable {
     }
 
     public Player(String name) {
-        this(name, new Token(), 3200, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), "Not Ready", 0);
+        this(name, new Token(), 3200, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), "Not Ready");
     }
 
     public Player(String name, Token token, int balance, ArrayList<Property> ownedProperties, ArrayList<Utility> ownedUtilities,
-                  ArrayList<Railroad> ownedRailroads, String readiness, int doubleCounter) {
+                  ArrayList<Railroad> ownedRailroads, String readiness) {
         this.name = name;
         this.token = token;
         this.balance = balance;
@@ -45,7 +45,6 @@ public class Player implements Comparable {
         this.ownedRailroads = ownedRailroads;
         this.readiness = readiness;
         this.faceValues = new int[3];
-        this.doubleCounter = doubleCounter;
     }
 
     /**
@@ -159,10 +158,6 @@ public class Player implements Comparable {
 
     public void incrementDoubleCounter() {
         this.doubleCounter+=1;
-    }
-
-    public int getDoubleCounter(){
-        return this.doubleCounter;
     }
 
     public boolean isInJail() {

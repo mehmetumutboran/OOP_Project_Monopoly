@@ -5,6 +5,7 @@ import domain.MessageInterpreter;
 import domain.UIUpdater;
 import domain.die.DiceCup;
 import domain.listeners.CloseButtonListener;
+import domain.listeners.DisableColorChangeListener;
 import domain.listeners.GameStartedListener;
 import domain.listeners.PlayerListChangedListener;
 import domain.player.Player;
@@ -16,12 +17,14 @@ public class MonopolyGameController {
     private ArrayList<Player> playerList;
     private ArrayList<Player> playerSortList;
     private Deque<Player> playerQueue;
+    private ArrayList<String> selectedColors;
 
     private static MonopolyGameController monopolyGameController;
 
     private ArrayList<PlayerListChangedListener> playerListChangedListeners;
     private ArrayList<GameStartedListener> gameStartedListeners;
     private ArrayList<CloseButtonListener> closeButtonListeners;
+    private ArrayList<DisableColorChangeListener> disableColorChangeListeners;
 
     private MonopolyGameController() {
         playerList = new ArrayList<>();
@@ -30,6 +33,16 @@ public class MonopolyGameController {
         playerListChangedListeners = new ArrayList<>();
         gameStartedListeners = new ArrayList<>();
         closeButtonListeners = new ArrayList<>();
+        disableColorChangeListeners = new ArrayList<>();
+        selectedColors = new ArrayList<>();
+    }
+
+    public static MonopolyGameController getInstance() {
+        if (monopolyGameController == null) {
+            monopolyGameController = new MonopolyGameController();
+        }
+
+        return monopolyGameController;
     }
 
     public boolean addPlayer(Player player) {
@@ -51,7 +64,7 @@ public class MonopolyGameController {
     private void publishPlayerListEvent() {
         for (PlayerListChangedListener plc : playerListChangedListeners) {
             if (plc == null) continue;
-            plc.onPlayerListChangedEvent();
+            plc.onPlayerListChangedEvent(selectedColors);
         }
     }
 
@@ -74,12 +87,13 @@ public class MonopolyGameController {
         return gameStartedListeners.add(gsl);
     }
 
-    public static MonopolyGameController getInstance() {
-        if (monopolyGameController == null) {
-            monopolyGameController = new MonopolyGameController();
-        }
+    public void addDisableColorChangeListener(DisableColorChangeListener dccl){
+        if(!disableColorChangeListeners.contains(dccl))
+            disableColorChangeListeners.add(dccl);
+    }
 
-        return monopolyGameController;
+    public void removeDisableColorChangeListeners(){
+        disableColorChangeListeners = new ArrayList<>();
     }
 
     public ArrayList<Player> getPlayerList() {
@@ -126,11 +140,15 @@ public class MonopolyGameController {
     }
 
     public void changePlayerColor(int index, String color) {
+        if(color == null) return;
+        String oldColor = playerList.get(index).getToken().getColor();
         playerList.get(index).getToken().setColor(color);
         System.out.println("Player's color " + playerList.get(0).getToken().getColor());
         if (playerList.size() > 1) {
             ConnectGameHandler.getInstance().sendChange(playerList.get(index));
         }
+        selectedColors.add(color);
+        selectedColors.remove(oldColor);
         publishPlayerListEvent();
     }
 
@@ -140,6 +158,16 @@ public class MonopolyGameController {
             ConnectGameHandler.getInstance().sendChange(playerList.get(index));
         }
         publishPlayerListEvent();
+        if(index == 0){
+            publishDisableColorChangeEvent();
+        }
+    }
+
+    private void publishDisableColorChangeEvent() {
+        for (DisableColorChangeListener dccl : disableColorChangeListeners) {
+            if (dccl == null) continue;
+            dccl.onDisableColorChangedEvent();
+        }
     }
 
     public boolean checkReadiness() {
@@ -187,8 +215,12 @@ public class MonopolyGameController {
 
 
     public void informClosed() {
-        if(MonopolyGameController.getInstance().getPlayerList().size() > 1)ConnectGameHandler.getInstance().sendChange(playerList.get(0),'E');
+        if(MonopolyGameController.getInstance().getPlayerList().size() > 1){
+            if(playerList.get(0).getReadiness().equals("Host")) {
+                ConnectGameHandler.getInstance().sendChange(playerList.get(0), 'E');
+            }
+            // TODO if not host, remove players!!!!!
+        }
         publishCloseClickedEvent();
     }
-
 }
