@@ -5,11 +5,13 @@ import domain.board.specialSquares.*;
 
 import java.util.HashMap;
 
-
 public class Board {
     private static Board instance;
     private Square[][] squareList;
     private HashMap<String, DeedSquare[]> squareMap;
+    private static final int SECONDLAYERSQ = 24;
+    private static final int FIRSTLAYERSQ = 40;
+    private static final int ZEROTHLAYERSQ = 56;
 
     private Board() {
         squareList = new Square[3][56];
@@ -35,6 +37,49 @@ public class Board {
 
     public DeedSquare[] getSameColoredSquares(String color) {
         return squareMap.get(color);
+    }
+
+    public Square[] railRoadFind(int [] location, int roll){
+        int layerSQNumber = 0;
+        switch (location[0]){
+            case 0:
+                layerSQNumber = ZEROTHLAYERSQ;
+                break;
+            case 1:
+                layerSQNumber = FIRSTLAYERSQ;
+                break;
+            case 2:
+                layerSQNumber = SECONDLAYERSQ;
+                break;
+        }
+        Square [] closestRailRoads = new Square[2];
+        for(int i = 0 ; i <= roll ; i++) {
+            if (location[1] + i < layerSQNumber-1) {
+                if (squareList[location[0]][location[1] + i].getClass().equals(Railroad.class)) {
+                    closestRailRoads[0] = squareList[location[0]][location[1] + i];
+                    break;
+                }
+            } else {
+                if (squareList[location[0]][location[1] + i - layerSQNumber + 1].getClass().equals(Railroad.class)) {
+                    closestRailRoads[0] = squareList[location[0]][location[1] + i - layerSQNumber + 1];
+                    break;
+                }
+            }
+        }
+        for(int i = 0 ; i <= roll ; i++){
+            if(location[1] - i >= 0) {
+                if (squareList[location[0]][location[1] - i].getClass().equals(Railroad.class)) {
+                    closestRailRoads[1] = squareList[location[0]][location[1] - i];
+                    break;
+                }
+            }else{
+                if (squareList[location[0]][location[1] - i + layerSQNumber].getClass().equals(Railroad.class)) {
+                    closestRailRoads[1] = squareList[location[0]][location[1] - i + layerSQNumber - 1];
+                    break;
+                }
+            }
+        }
+        return closestRailRoads;
     }
 
     private void initializeSquares() {
