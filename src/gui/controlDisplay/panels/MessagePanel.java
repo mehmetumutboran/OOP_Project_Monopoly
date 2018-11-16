@@ -12,7 +12,7 @@ public class MessagePanel extends JPanel implements MessageChangedListener {
     private int width;
     private int height;
 
-    private final int OFFSET = 17;
+    private final int OFFSET = 22;
 
     private static StringBuilder message;
     private JLabel messageLabel;
@@ -31,7 +31,7 @@ public class MessagePanel extends JPanel implements MessageChangedListener {
         scrollPane = new JScrollPane(messageLabel);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-        message = new StringBuilder("<html><body><div></div></body></html>");
+        message = new StringBuilder("<html><body><div><br/></div></body></html>");
 
 
         this.add(scrollPane);
@@ -44,7 +44,6 @@ public class MessagePanel extends JPanel implements MessageChangedListener {
     @Override
     public void onMessageChangedEvent() {
         String s = UIUpdater.getInstance().getMessage();
-//        String s = "Hello";
         message.insert(OFFSET, LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")) + " - " + s + "<br>");
         System.out.println(message.toString());
         messageLabel.setText(message.toString());
