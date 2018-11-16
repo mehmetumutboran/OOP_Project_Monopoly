@@ -163,7 +163,7 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener, Gam
     }
 
     @Override
-    public void onPlayerListChangedEvent() {
+    public void onPlayerListChangedEvent(ArrayList<String> selectedColors) {
         setPlayerLabelList(MonopolyGameController.getInstance().getPlayerConnectAttributes());
     }
 

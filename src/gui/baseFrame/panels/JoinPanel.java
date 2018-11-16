@@ -50,7 +50,7 @@ public class JoinPanel extends JPanel {
 
             }
         } catch (IOException ex) {
-            System.out.println(ex);
+            ex.getMessage();
         }
 
         backgroundLabel = new JLabel(new ImageIcon(image));

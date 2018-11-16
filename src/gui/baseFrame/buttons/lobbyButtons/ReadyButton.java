@@ -22,9 +22,7 @@ public class ReadyButton extends JButton implements ActionListener {
         colors = new Color[]{Color.GREEN, Color.RED};
         this.setBackground(colors[0]);
         addActionListener(this);
-
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
