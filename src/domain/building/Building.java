@@ -3,8 +3,7 @@ package domain.building;
 public abstract class Building {
     private int cost;
 
-    public Building(int cost) {
-        this.cost = cost;
+    public Building() {
     }
 
     public int getCost() {

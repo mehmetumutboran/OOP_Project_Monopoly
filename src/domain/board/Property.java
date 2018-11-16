@@ -79,6 +79,7 @@ public class Property extends DeedSquare {
      * @return
      */
     public boolean isUpgradable(Property square){
+        //TODO for upgrade downgrade
         return false;
     }
 }
