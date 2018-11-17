@@ -54,7 +54,7 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener {
         initialScreenPanel = new InitialScreenPanel(CURRENT_VERSION, FRAME_WIDTH, FRAME_HEIGHT);
         multiPlayerPanel = new MultiPlayerPanel(FRAME_WIDTH, FRAME_HEIGHT);
         singlePlayerPanel = new SinglePlayerPanel(FRAME_WIDTH, FRAME_HEIGHT);
-        lobbyPanel = new LobbyPanel(FRAME_WIDTH, FRAME_HEIGHT, false);
+        lobbyPanel = new LobbyPanel(FRAME_WIDTH, FRAME_HEIGHT);
         hostPanel = new HostPanel(FRAME_WIDTH, FRAME_HEIGHT);
         joinPanel = new JoinPanel(FRAME_WIDTH, FRAME_HEIGHT);
         gamePanel = new GamePanel(1400, 1000);
@@ -95,9 +95,9 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener {
             if (isChanged()) {
                 this.getContentPane().removeAll();
                 this.getContentPane().add(panelMap.get(getStatus()));
-                if (getStatus().equals("Join")) lobbyPanel = new LobbyPanel(FRAME_WIDTH, FRAME_HEIGHT, false);
-                else if (getStatus().equals("Host")) lobbyPanel = new LobbyPanel(FRAME_WIDTH, FRAME_HEIGHT, true);
-//                else if (getStatus().equals("Init")) lobbyPanel.setHost(false);
+                if (getStatus().equals("Join")) lobbyPanel.setHost(false);
+                else if (getStatus().equals("Host")) lobbyPanel.setHost(true);
+                //else if (getStatus().equals("Init")) lobbyPanel.setHost(false);
                 else if (getStatus().equals("Game")) {
                     this.setSize(1415, 1040);
                     this.controlDisplay.setVisible(true);

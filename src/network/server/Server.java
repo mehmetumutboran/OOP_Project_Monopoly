@@ -19,8 +19,8 @@ public class Server implements Runnable {
 
     private static final int maxClientsCount = 12;
 
-    private static final ClientHandler[] clientThreads = new ClientHandler[maxClientsCount];
-    private static final String[] clientNames = new String[maxClientsCount];
+    private volatile static ClientHandler[] clientThreads = new ClientHandler[maxClientsCount];
+    private volatile static String[] clientNames = new String[maxClientsCount];
 
 
     public Server(int port) {
@@ -33,17 +33,18 @@ public class Server implements Runnable {
         }
     }
 
-    public static void removeClient(ClientHandler clientHandler) {
+    public synchronized static void removeClient(ClientHandler clientHandler) {
         for (int i = 0; i < maxClientsCount; i++) {
             if (clientThreads[i] == clientHandler) {
-                clientThreads[i] = null;
                 try {
+                    System.out.println("\n\nCLientName[i]\n" + clientNames[i] + "\n");
 
                     sendAll("X" + clientNames[i]);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 clientNames[i] = null;
+                clientThreads[i] = null;
             }
         }
     }

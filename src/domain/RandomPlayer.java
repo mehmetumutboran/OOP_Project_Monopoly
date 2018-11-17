@@ -59,4 +59,9 @@ public class RandomPlayer extends Player {
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

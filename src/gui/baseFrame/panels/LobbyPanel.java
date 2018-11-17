@@ -42,15 +42,29 @@ public class LobbyPanel extends JPanel implements GameStartedListener {
     private final Color startButtonColor = Color.ORANGE;
 
 
-    public LobbyPanel(int width, int height, boolean b) {
-        isHost = b;
+    public LobbyPanel(int width, int height) {
         this.width = width;
         this.height = height;
-        MonopolyGameController.getInstance().addGameStartedListener(this);
-        initGUI();
-        //backgroundLabel.setOpaque(true);
 
+        MonopolyGameController.getInstance().addGameStartedListener(this);
+
+        initGUI();
         this.setVisible(true);
+    }
+
+    public void initGUI() {
+        this.setBackground(Color.GRAY);
+        this.setLayout(null);
+
+        initPanels();
+        initButtons();
+        this.add(buttonPanel);
+
+        System.out.println("aslkdfjsa;lkfdjasl;kfdj : :: "+ isHost);
+
+        validate();
+        repaint();
+        initBgImage();
     }
 
     private void initBgImage() {
@@ -67,6 +81,7 @@ public class LobbyPanel extends JPanel implements GameStartedListener {
         backgroundLabel = new JLabel(new ImageIcon(image));
         this.add(backgroundLabel);
         backgroundLabel.setBounds(0, 0, width, height);
+        backgroundLabel.setOpaque(true);
     }
 
 
@@ -76,7 +91,7 @@ public class LobbyPanel extends JPanel implements GameStartedListener {
 
 
         backButton.setBounds((this.width - (-1) * BUTTON_WIDTH) / 2,
-                (this.height - (-8) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
+                (this.height - (-10) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
         colorBox.setBounds((this.width - (-1) * BUTTON_WIDTH) / 2,
                 (this.height - 3 * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
 
@@ -88,43 +103,20 @@ public class LobbyPanel extends JPanel implements GameStartedListener {
         this.add(colorBox);
     }
 
-    public void initGUI() {
-        this.setBackground(Color.GRAY);
-        this.setLayout(null);
-
+    private void initPanels() {
         lobbyPlayerListPanel = new LobbyPlayerListPanel();
         lobbyPlayerListPanel.setBounds(60, 60, 960, 80);
         this.add(lobbyPlayerListPanel);
 
-        buttonPanel = new JPanel();
-        buttonPanel.setBounds((this.width - (-1) * BUTTON_WIDTH) / 2,
-                (this.height - (-5) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, 2*BUTTON_HEIGHT);
-        cardLayout = new CardLayout();
-        buttonPanel.setLayout(cardLayout);
-        buttonPanel.setVisible(true);
-        buttonPanel.setOpaque(true);
-
-        initPanels();
-        initButtons();
-        initBgImage();
-        this.add(buttonPanel);
-
-        if(isHost){
-            cardLayout.show(buttonPanel, "Host");
-        }else{
-            cardLayout.show(buttonPanel, "Client");
-        }
-
-        validate();
-        repaint();
-    }
-
-    private void initPanels() {
         JPanel hostButtonPanel = new JPanel();
-        hostButtonPanel.setLayout(new GridLayout(2, 1));
+        hostButtonPanel.setLayout(null);
+        hostButtonPanel.setOpaque(false);
 
         startButton = new StartButton("Start");
         addBotButton = new AddBotButton("Add Bot");
+
+        startButton.setBounds(0, 2*BUTTON_HEIGHT, BUTTON_WIDTH, BUTTON_HEIGHT);
+        addBotButton.setBounds(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT);
 
         startButton.setBackground(startButtonColor);
         addBotButton.setBackground(Color.gray);
@@ -138,15 +130,26 @@ public class LobbyPanel extends JPanel implements GameStartedListener {
         hostButtonPanel.add(startButton);
 
         JPanel clientButtonPanel = new JPanel();
-        clientButtonPanel.setLayout(new GridLayout(1, 1));
+        clientButtonPanel.setLayout(null);
+        clientButtonPanel.setOpaque(false);
 
         readyButton = new ReadyButton();
         readyButton.setVisible(true);
         readyButton.setBorderPainted(false);
+        readyButton.setBounds(0, 2*BUTTON_HEIGHT, BUTTON_WIDTH, BUTTON_HEIGHT);
         clientButtonPanel.add(readyButton);
+
+        buttonPanel = new JPanel();
+        buttonPanel.setBounds((this.width - (-1) * BUTTON_WIDTH) / 2,
+                (this.height - (-2) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, 3*BUTTON_HEIGHT);
+        cardLayout = new CardLayout();
+        buttonPanel.setLayout(cardLayout);
+        buttonPanel.setVisible(true);
+        buttonPanel.setOpaque(false);
 
         buttonPanel.add(hostButtonPanel, "Host");
         buttonPanel.add(clientButtonPanel, "Client");
+
     }
 
     @Override
@@ -158,10 +161,15 @@ public class LobbyPanel extends JPanel implements GameStartedListener {
 
     }
 
-    public void setHost(boolean b) {
+    public synchronized void setHost(boolean b) {
         isHost = b;
         System.out.println("\n\n =======---------------==========\n" + "setHost\n\n");
-        if (b) {
+        if(isHost){
+            cardLayout.show(buttonPanel, "Host");
+        }else{
+            cardLayout.show(buttonPanel, "Client");
+        }
+        //if (b) {
 //            readyButton.setVisible(false);
 //            readyButton.setEnabled(false);
 //            startButton.setEnabled(true);
@@ -171,7 +179,7 @@ public class LobbyPanel extends JPanel implements GameStartedListener {
 //            this.add(addBotButton);
 //            this.remove(readyButton);
 //            cardLayout.show(buttonPanel, "Client");
-        } else {
+        //} else {
 //            readyButton.setVisible(true);
 //            readyButton.setEnabled(true);
 //            startButton.setEnabled(false);
@@ -183,9 +191,9 @@ public class LobbyPanel extends JPanel implements GameStartedListener {
 //            this.remove(startButton);
 //            cardLayout.show(buttonPanel, "Client");
 
-        }
-//        validate();
-//        repaint();
+        //}
+        validate();
+        repaint();
     }
 
     public synchronized boolean getHost() {
