@@ -2,5 +2,5 @@ package domain.listeners;
 
 public interface TokenMovementListener {
 
-    void onTokenMovement();
+    void onTokenMovement(String pName,int x , int y);
 }

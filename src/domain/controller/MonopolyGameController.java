@@ -133,7 +133,7 @@ public class MonopolyGameController {
         ArrayList<String> cList = getPlayerListColor();
         ArrayList <String> pca = new ArrayList<>();
         for(int i = 0; i < pList.size(); i++){
-            pca.add(i, pList.get(i) + '~' + cList.get(i));
+            pca.add(i, pList.get(i) + "@" + cList.get(i));
         }
         return pca;
     }

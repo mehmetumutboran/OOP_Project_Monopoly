@@ -44,6 +44,7 @@ public class GameLogic {
     private static final int FIRSTLAYERSQ = 40;
     private static final int ZEROTHLAYERSQ = 56;
     private static final int GO_COLLECT = 200;
+    private int [] lL;
 
     public static GameLogic getInstance() {
         if (ourInstance == null) {
@@ -102,6 +103,7 @@ public class GameLogic {
     private void move() {
         if (checkDouble()) GameLogic.getInstance().getPlayers().peekFirst().incrementDoubleCounter();
         int[] lastLoc = GameLogic.getInstance().getPlayers().peekFirst().getToken().getLocation();
+        lL = lastLoc.clone();
         int[] newLoc;
         int totalRoll;
         int layerSQNumber = 0;
@@ -137,7 +139,7 @@ public class GameLogic {
         GameLogic.getInstance().getPlayers().peekFirst().getToken().setLocation(newLoc);
         System.out.println("In the Game Logic Move Method");
         GameCommunicationHandler.getInstance().sendAction(moveFlag);
-        GameCommunicationHandler.getInstance().sendAction(tokenFlag);
+        GameCommunicationHandler.getInstance().sendTokenMovementAction(tokenFlag,lL);
     }
 
     private int[] upDownMove(int[] lastLoc, int roll, int layerSQNumber) {

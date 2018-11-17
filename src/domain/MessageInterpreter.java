@@ -76,20 +76,24 @@ public class MessageInterpreter {
     private void interpretTokenMovement(String message) {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+        int seperate = message.indexOf("£");
         String name = null;
         Token token = null;
             try {
-                name = objectMapper.readValue(message, Player.class).getName();
-                token = objectMapper.readValue(message, Player.class).getToken();
+                name = objectMapper.readValue(message.substring(0,seperate), Player.class).getName();
+                token = objectMapper.readValue(message.substring(0,seperate), Player.class).getToken();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            int [] lastLoc = GameLogic.getInstance().getPlayer(name).getToken().getLocation();
+            int [] lastLoc = new int[2];
+            int space = message.indexOf("@");
+            lastLoc[0] = Integer.parseInt(message.substring(seperate+1,space));
+            lastLoc[1] = Integer.parseInt(message.substring(space+1));
             int [] newLoc = token.getLocation();
-
-
-
-            //UIUpdater.getInstance().setTokenLocation
+            if(newLoc[1] > 10){
+                UIUpdater.getInstance().setTokenLocation(name,1070 - (newLoc[1] - lastLoc[1]) * 72 , 150);
+            }else
+            UIUpdater.getInstance().setTokenLocation(name,1070,(newLoc[1] - lastLoc[1]) * 59 + 150);
     }
 
 

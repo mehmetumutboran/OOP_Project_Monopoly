@@ -27,6 +27,7 @@ public class UIUpdater {
         messageChangedListeners = new ArrayList<>();
         turnChangedListeners = new ArrayList<>();
         closeButtonListeners = new ArrayList<>();
+        tokenMovementListeners = new ArrayList<>();
     }
 
     public void addMessageChangedListener(MessageChangedListener mcl) {
@@ -49,9 +50,9 @@ public class UIUpdater {
     }
 
 
-    private void publishTokenMovementEvent() {
+    private void publishTokenMovementEvent(String name, int x , int y) {
         for (TokenMovementListener tml: tokenMovementListeners) {
-            tml.onTokenMovement();
+            tml.onTokenMovement(name,x,y);
         }
     }
     private void publishTurnChangedEvent(boolean isEnabled) {
@@ -85,5 +86,9 @@ public class UIUpdater {
 
     public void close() {
         publishCloseButtonEvent();
+    }
+
+    public void setTokenLocation(String name, int x, int y) {
+        this.publishTokenMovementEvent(name,x,y);
     }
 }

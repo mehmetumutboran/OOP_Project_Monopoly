@@ -25,4 +25,9 @@ public class GameState {
         return flag + GameLogic.getInstance().getPlayers().peekFirst().toJSON() + "~" + square.toJSON();
     }
 
+    public String generatetokenMovementAction(char flag, int[] llocation) {
+        String location = llocation[0]+ "@"+ llocation[1];
+        return flag + GameLogic.getInstance().getPlayers().peekFirst().toJSON() + "£" + location;
+
+    }
 }
