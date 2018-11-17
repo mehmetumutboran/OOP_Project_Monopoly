@@ -67,10 +67,10 @@ public class MonopolyGameController {
         }
     }
 
-    private void publishGameStartedEvent() {
+    private void publishGameStartedEvent(ArrayList<String> pcl) {
         for (GameStartedListener gls : gameStartedListeners) {
             if (gls == null) continue;
-            gls.onGameStartedEvent();
+            gls.onGameStartedEvent(pcl);
         }
     }
 
@@ -122,6 +122,20 @@ public class MonopolyGameController {
      */
     public ArrayList<String> getPlayerListName() {
         return (ArrayList<String>) playerList.stream().map(Player::getName).collect(Collectors.toList());
+    }
+
+    public ArrayList<String> getPlayerListColor() {
+        return (ArrayList<String>) playerList.stream().map(Player::tokenColor).collect(Collectors.toList());
+    }
+
+    public ArrayList<String> getPlayerColorArray(){
+        ArrayList<String> pList = getPlayerListName();
+        ArrayList<String> cList = getPlayerListColor();
+        ArrayList <String> pca = new ArrayList<>();
+        for(int i = 0; i < pList.size(); i++){
+            pca.add(i, pList.get(i) + '~' + cList.get(i));
+        }
+        return pca;
     }
 
     public ArrayList<ArrayList<String>> getPlayerConnectAttributes() {
@@ -188,7 +202,7 @@ public class MonopolyGameController {
     private synchronized void startGame() {
         playerList.get(0).setStarted(true);
         ConnectGameHandler.getInstance().sendChange(playerList.get(0));
-        publishGameStartedEvent();
+        publishGameStartedEvent(getPlayerColorArray());
         GameCommunicationHandler.getInstance();
         UIUpdater.getInstance();
         GameLogic.getInstance().setPlayerList(playerList);

@@ -104,6 +104,8 @@ public class Player implements Comparable {
         return token;
     }
 
+    public String tokenColor(){return this.getToken().getColor();}
+
     public void setToken(Token token) {
         this.token = token;
     }

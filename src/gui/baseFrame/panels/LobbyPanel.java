@@ -178,7 +178,7 @@ public class LobbyPanel extends JPanel implements PlayerListChangedListener, Gam
     }
 
     @Override
-    public void onGameStartedEvent() {
+    public void onGameStartedEvent(ArrayList<String> pca) {
         BaseFrame.setStatus("Game");
     }
 }
