@@ -1,7 +1,6 @@
 package gui.baseFrame;
 
 import domain.controller.MonopolyGameController;
-import domain.listeners.DisableColorChangeListener;
 import domain.listeners.PlayerListChangedListener;
 import gui.ColorBoxRenderer;
 
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class ColorBox extends JComboBox implements ActionListener, DisableColorChangeListener, PlayerListChangedListener {
+public class ColorBox extends JComboBox implements ActionListener, PlayerListChangedListener {
 
     public static final ArrayList<String> colorList = (ArrayList<String>) (Stream.of("White", "LightGray", "Gray", "Blue", "Cyan", "Pink", "Green",
             "Orange", "Magenta", "Yellow", "Red", "Turquoise").collect(Collectors.toList()));
@@ -26,7 +25,6 @@ public class ColorBox extends JComboBox implements ActionListener, DisableColorC
         this.setRenderer(ColorBoxRenderer.getInstance());
         MonopolyGameController.getInstance().addPlayerListChangedListener(this);
         this.addActionListener(this);
-        MonopolyGameController.getInstance().addDisableColorChangeListener(this);
     }
 
     private void refresh(ArrayList<String> selectedColors) {
@@ -50,11 +48,6 @@ public class ColorBox extends JComboBox implements ActionListener, DisableColorC
         MonopolyGameController.getInstance().changePlayerColor(0, (String) this.getSelectedItem());
     }
 
-    @Override
-    public void onDisableColorChangedEvent() {
-        if (this.isEnabled()) this.setEnabled(false);
-        else this.setEnabled(true);
-    }
 
     @Override
     public void onPlayerListChangedEvent(ArrayList<String> selectedColors) {

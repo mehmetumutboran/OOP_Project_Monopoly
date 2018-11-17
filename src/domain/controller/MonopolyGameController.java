@@ -4,12 +4,10 @@ import domain.GameLogic;
 import domain.UIUpdater;
 import domain.die.DiceCup;
 import domain.listeners.CloseButtonListener;
-import domain.listeners.DisableColorChangeListener;
 import domain.listeners.GameStartedListener;
 import domain.listeners.PlayerListChangedListener;
 import domain.player.Player;
 
-import javax.swing.text.html.HTMLDocument;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -24,7 +22,6 @@ public class MonopolyGameController {
     private ArrayList<PlayerListChangedListener> playerListChangedListeners;
     private ArrayList<GameStartedListener> gameStartedListeners;
     private ArrayList<CloseButtonListener> closeButtonListeners;
-    private ArrayList<DisableColorChangeListener> disableColorChangeListeners;
 
     private MonopolyGameController() {
         playerList = new ArrayList<>();
@@ -33,7 +30,6 @@ public class MonopolyGameController {
         playerListChangedListeners = new ArrayList<>();
         gameStartedListeners = new ArrayList<>();
         closeButtonListeners = new ArrayList<>();
-        disableColorChangeListeners = new ArrayList<>();
         selectedColors = new ArrayList<>();
     }
 
@@ -87,14 +83,6 @@ public class MonopolyGameController {
         return gameStartedListeners.add(gsl);
     }
 
-    public void addDisableColorChangeListener(DisableColorChangeListener dccl) {
-        if (!disableColorChangeListeners.contains(dccl))
-            disableColorChangeListeners.add(dccl);
-    }
-
-    public void removeDisableColorChangeListeners() {
-        disableColorChangeListeners = new ArrayList<>();
-    }
 
     public ArrayList<Player> getPlayerList() {
         return playerList;
@@ -158,17 +146,8 @@ public class MonopolyGameController {
             ConnectGameHandler.getInstance().sendChange(playerList.get(index));
         }
         publishPlayerListEvent();
-        if (index == 0) {
-            publishDisableColorChangeEvent();
-        }
     }
 
-    private void publishDisableColorChangeEvent() {
-        for (DisableColorChangeListener dccl : disableColorChangeListeners) {
-            if (dccl == null) continue;
-            dccl.onDisableColorChangedEvent();
-        }
-    }
 
     public int checkReadiness() {
 //        if (playerList.size() == 1) return false; TODO
@@ -181,7 +160,7 @@ public class MonopolyGameController {
         for (int i = 1; i < playerList.size(); i++) {
             if (playerList.get(i).getReadiness().equals("Not Ready")) notReady++;
         }
-        if(notReady!=0) return notReady;
+        if (notReady != 0) return notReady;
         startGame();
         return 0;
     }
@@ -232,5 +211,9 @@ public class MonopolyGameController {
                 playerList + "\n");
         publishPlayerListEvent();
         return true;
+    }
+
+    public void reset() {
+        playerList = new ArrayList<>();
     }
 }

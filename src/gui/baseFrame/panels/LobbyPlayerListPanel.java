@@ -28,7 +28,7 @@ public class LobbyPlayerListPanel extends JPanel implements PlayerListChangedLis
         super.paintComponent(g);
         for (int i = 0; i < playerLabels.size(); i++) {
             this.remove(playerLabels.get(i));
-            playerLabels.get(i).setBounds( i * SQUARE_EDGE, 0, SQUARE_EDGE, SQUARE_EDGE);
+            playerLabels.get(i).setBounds(i * SQUARE_EDGE, 0, SQUARE_EDGE, SQUARE_EDGE);
             this.add(playerLabels.get(i));
         }
 

@@ -21,7 +21,7 @@ public class ClientReceiver extends Thread {
         String received;
         while (true) {
             received = receive();
-            if(socket.isClosed()) break;
+            if (socket.isClosed()) break;
 
 //            System.out.println("client receiver :" + received);
             ClientFacade.getInstance().sendReceivedMessage(received);

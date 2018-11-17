@@ -1,6 +1,7 @@
 package network.client.clientFacade;
 
 
+import domain.controller.MonopolyGameController;
 import network.client.Client;
 import network.listeners.ConnectionFailedListener;
 import network.listeners.ReceivedChangedListener;
@@ -134,6 +135,7 @@ public class ClientFacade {
 
     public void terminate() {
         try {
+            MonopolyGameController.getInstance().reset();
             hostClient.getDis().close();
             hostClient.getDos().close();
             hostClient.getSocket().close();

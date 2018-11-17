@@ -1,8 +1,5 @@
 package domain;
 
-import domain.board.Board;
-import domain.board.DeedSquare;
-import domain.board.Square;
 import domain.player.Player;
 
 import java.util.Random;

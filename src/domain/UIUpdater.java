@@ -78,7 +78,7 @@ public class UIUpdater {
         publishCloseButtonEvent();
     }
 
-    public void removeUpdate(String name){
+    public void removeUpdate(String name) {
         publishPlayerQuitEvent(name);
     }
 
@@ -88,7 +88,7 @@ public class UIUpdater {
 
     private void publishPlayerQuitEvent(String name) {
         for (PlayerQuitEventListener pqel : playerQuitEventListeners) {
-            if(pqel == null) continue;
+            if (pqel == null) continue;
             pqel.onPlayerQuitEvent(name);
         }
     }

@@ -56,11 +56,11 @@ public class LobbyPanel extends JPanel implements GameStartedListener {
         this.setBackground(Color.GRAY);
         this.setLayout(null);
 
-        initPanels();
         initButtons();
+        initPanels();
         this.add(buttonPanel);
 
-        System.out.println("aslkdfjsa;lkfdjasl;kfdj : :: "+ isHost);
+        System.out.println("aslkdfjsa;lkfdjasl;kfdj : :: " + isHost);
 
         validate();
         repaint();
@@ -115,7 +115,7 @@ public class LobbyPanel extends JPanel implements GameStartedListener {
         startButton = new StartButton("Start");
         addBotButton = new AddBotButton("Add Bot");
 
-        startButton.setBounds(0, 2*BUTTON_HEIGHT, BUTTON_WIDTH, BUTTON_HEIGHT);
+        startButton.setBounds(0, 2 * BUTTON_HEIGHT, BUTTON_WIDTH, BUTTON_HEIGHT);
         addBotButton.setBounds(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT);
 
         startButton.setBackground(startButtonColor);
@@ -133,15 +133,15 @@ public class LobbyPanel extends JPanel implements GameStartedListener {
         clientButtonPanel.setLayout(null);
         clientButtonPanel.setOpaque(false);
 
-        readyButton = new ReadyButton();
+        readyButton = new ReadyButton(colorBox);
         readyButton.setVisible(true);
         readyButton.setBorderPainted(false);
-        readyButton.setBounds(0, 2*BUTTON_HEIGHT, BUTTON_WIDTH, BUTTON_HEIGHT);
+        readyButton.setBounds(0, 2 * BUTTON_HEIGHT, BUTTON_WIDTH, BUTTON_HEIGHT);
         clientButtonPanel.add(readyButton);
 
         buttonPanel = new JPanel();
         buttonPanel.setBounds((this.width - (-1) * BUTTON_WIDTH) / 2,
-                (this.height - (-2) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, 3*BUTTON_HEIGHT);
+                (this.height - (-2) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, 3 * BUTTON_HEIGHT);
         cardLayout = new CardLayout();
         buttonPanel.setLayout(cardLayout);
         buttonPanel.setVisible(true);
@@ -164,9 +164,9 @@ public class LobbyPanel extends JPanel implements GameStartedListener {
     public synchronized void setHost(boolean b) {
         isHost = b;
         System.out.println("\n\n =======---------------==========\n" + "setHost\n\n");
-        if(isHost){
+        if (isHost) {
             cardLayout.show(buttonPanel, "Host");
-        }else{
+        } else {
             cardLayout.show(buttonPanel, "Client");
         }
         //if (b) {
@@ -204,6 +204,10 @@ public class LobbyPanel extends JPanel implements GameStartedListener {
     @Override
     public void onGameStartedEvent() {
         BaseFrame.setStatus("Game");
+    }
+
+    public void reset() {
+        readyButton.reset();
     }
 }
 

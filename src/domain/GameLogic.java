@@ -354,16 +354,15 @@ public class GameLogic {
         Player player = playerList.stream().filter(p -> p.getName().equals(name)).collect(Collectors.toList()).get(0);
 
         resetPlayer(player);
-        if(GameLogic.getInstance().getPlayers().peekFirst().getName().equals(name))
+        if (GameLogic.getInstance().getPlayers().peekFirst().getName().equals(name))
             GameLogic.getInstance().finishTurn();
 
         playerList.removeIf(p -> p.getName().equals(name));
         players.remove(player);
 
-        System.out.println("\n\n===========================\n"+
+        System.out.println("\n\n===========================\n" +
                 playerList + "\n" +
-                players +"\n");
-
+                players + "\n");
 
 
     }

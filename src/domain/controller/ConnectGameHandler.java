@@ -87,7 +87,7 @@ public class ConnectGameHandler implements ReceivedChangedListener {
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
         String message = ClientFacade.getInstance().getMessage();
 
-        if(message == null){
+        if (message == null) {
             System.out.println("\nMessage Null");
             return;
         }
@@ -111,8 +111,11 @@ public class ConnectGameHandler implements ReceivedChangedListener {
             }
 
             if (!MonopolyGameController.getInstance().getPlayerList().contains(player)) { //New PLayer
-                ClientFacade.getInstance().send(MonopolyGameController.getInstance().getPlayerList().get(0).getName(), MonopolyGameController.getInstance().getPlayerList().get(0).toJSON());
+                ClientFacade.getInstance().send(MonopolyGameController.getInstance().getPlayerList().get(0).getName(),
+                        MonopolyGameController.getInstance().getPlayerList().get(0).toJSON());
+
                 MonopolyGameController.getInstance().addPlayer(player);
+
             } else if (!MonopolyGameController.getInstance().getPlayerList().get(MonopolyGameController.getInstance(). //Color changed
                     getPlayerList().indexOf(player)).getToken().getColor().equals(player.getToken().getColor())) {
                 MonopolyGameController.getInstance().changePlayerColor(MonopolyGameController.getInstance().getPlayerList().indexOf(player), player.getToken().getColor());
@@ -142,7 +145,7 @@ public class ConnectGameHandler implements ReceivedChangedListener {
         randomPlayer.setReadiness("Bot");
         randomPlayer.getToken().setColor(color);
 
-        if (ClientFacade.getInstance().createBotClient(s,"localhost", ServerFacade.getInstance().getServer().getSs().getLocalPort())) {
+        if (ClientFacade.getInstance().createBotClient(s, "localhost", ServerFacade.getInstance().getServer().getSs().getLocalPort())) {
             MonopolyGameController.getInstance().addPlayer(randomPlayer);
             sendClientInfo(s);
             sendChange(randomPlayer);

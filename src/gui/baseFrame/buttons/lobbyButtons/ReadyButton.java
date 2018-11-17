@@ -1,6 +1,7 @@
 package gui.baseFrame.buttons.lobbyButtons;
 
 import domain.controller.MonopolyGameController;
+import gui.baseFrame.ColorBox;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,19 +9,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * When player presses REadyButton it changes and becomes unready Button.
+ * When player presses ReadyButton it changes and becomes unready Button.
  */
 public class ReadyButton extends JButton implements ActionListener {
     private String[] state;
     private Color[] colors;
     private static int counter = 0;
+    private ColorBox colorBox;
 
-    public ReadyButton() {
+    public ReadyButton(ColorBox colorBox) {
         super("Ready");
         state = new String[]{"Ready", "Unready"};
         colors = new Color[]{Color.GREEN, Color.RED};
         this.setBackground(colors[0]);
         addActionListener(this);
+        this.colorBox = colorBox;
     }
 
     @Override
@@ -29,5 +32,15 @@ public class ReadyButton extends JButton implements ActionListener {
         counter++;
         this.setText(state[counter % 2]);
         this.setBackground(colors[counter % 2]);
+        this.colorBox.setEnabled(counter % 2 == 0);
+    }
+
+    public void reset() {
+        counter = 0;
+        this.setText(state[counter % 2]);
+        this.setBackground(colors[counter % 2]);
+        this.colorBox.setEnabled(true);
+        validate();
+        repaint();
     }
 }

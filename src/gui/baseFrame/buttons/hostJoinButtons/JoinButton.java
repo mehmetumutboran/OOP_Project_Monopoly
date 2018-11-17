@@ -3,7 +3,6 @@ package gui.baseFrame.buttons.hostJoinButtons;
 import domain.controller.ConnectGameHandler;
 import gui.InputChecker;
 import gui.baseFrame.BaseFrame;
-import gui.baseFrame.panels.LobbyPanel;
 import network.listeners.ConnectionFailedListener;
 
 import javax.swing.*;

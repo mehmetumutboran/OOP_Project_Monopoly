@@ -12,7 +12,7 @@ public class Board {
     private static final int SECONDLAYERSQ = 24;
     private static final int FIRSTLAYERSQ = 40;
     private static final int ZEROTHLAYERSQ = 56;
-    private static final int [][] railRoads = {{0,7}, {0, 35}, {1, 5}, {1, 15}, {1, 25}, {1, 35}, {2, 9}, {2, 21}};
+    private static final int[][] railRoads = {{0, 7}, {0, 35}, {1, 5}, {1, 15}, {1, 25}, {1, 35}, {2, 9}, {2, 21}};
 
     private Board() {
         squareList = new Square[3][56];
@@ -57,7 +57,7 @@ public class Board {
         for (int i = 0; i <= roll; i++) {
             if (location[1] + i <= layerSQNumber - 1) {
                 if (squareList[location[0]][location[1] + i] instanceof Railroad) {
-                    closestRailRoads[0] = squareList[location[0]][location[1]+ i];
+                    closestRailRoads[0] = squareList[location[0]][location[1] + i];
                     break;
                 }
             } else {

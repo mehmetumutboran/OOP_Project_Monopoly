@@ -1,9 +1,7 @@
 package network.server;
 
-import domain.GameLogic;
 import domain.controller.ConnectGameHandler;
 import network.client.Client;
-import network.server.serverFacade.ServerFacade;
 
 import java.io.IOException;
 import java.net.ServerSocket;
