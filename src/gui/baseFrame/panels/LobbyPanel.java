@@ -133,7 +133,7 @@ public class LobbyPanel extends JPanel implements GameStartedListener {
         clientButtonPanel.setLayout(null);
         clientButtonPanel.setOpaque(false);
 
-        readyButton = new ReadyButton(colorBox);
+        readyButton = new ReadyButton(backButton, colorBox);
         readyButton.setVisible(true);
         readyButton.setBorderPainted(false);
         readyButton.setBounds(0, 2 * BUTTON_HEIGHT, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -204,10 +204,6 @@ public class LobbyPanel extends JPanel implements GameStartedListener {
     @Override
     public void onGameStartedEvent() {
         BaseFrame.setStatus("Game");
-    }
-
-    public void reset() {
-        readyButton.reset();
     }
 }
 

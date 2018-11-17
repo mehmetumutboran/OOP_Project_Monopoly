@@ -113,9 +113,11 @@ public class ConnectGameHandler implements ReceivedChangedListener {
             if (!MonopolyGameController.getInstance().getPlayerList().contains(player)) { //New PLayer
                 ClientFacade.getInstance().send(MonopolyGameController.getInstance().getPlayerList().get(0).getName(),
                         MonopolyGameController.getInstance().getPlayerList().get(0).toJSON());
-
+                if(MonopolyGameController.getInstance().getPlayerList().get(0).getReadiness().equals("Host")) {
+                    MonopolyGameController.getInstance().getPlayerList().stream().filter(p -> p.getReadiness().equals("Bot"))
+                            .forEach(p -> ClientFacade.getInstance().send(p.getName(), p.toJSON()));
+                }
                 MonopolyGameController.getInstance().addPlayer(player);
-
             } else if (!MonopolyGameController.getInstance().getPlayerList().get(MonopolyGameController.getInstance(). //Color changed
                     getPlayerList().indexOf(player)).getToken().getColor().equals(player.getToken().getColor())) {
                 MonopolyGameController.getInstance().changePlayerColor(MonopolyGameController.getInstance().getPlayerList().indexOf(player), player.getToken().getColor());
