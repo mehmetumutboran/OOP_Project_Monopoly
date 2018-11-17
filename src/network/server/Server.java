@@ -37,14 +37,12 @@ public class Server implements Runnable {
         for (int i = 0; i < maxClientsCount; i++) {
             if (clientThreads[i] == clientHandler) {
                 try {
-                    System.out.println("\n\nCLientName[i]\n" + clientNames[i] + "\n");
-
+                    clientThreads[i] = null;
                     sendAll("X" + clientNames[i]);
+                    clientNames[i] = null;
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                clientNames[i] = null;
-                clientThreads[i] = null;
             }
         }
     }

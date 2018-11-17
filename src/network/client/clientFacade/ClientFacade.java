@@ -1,22 +1,23 @@
 package network.client.clientFacade;
 
 
-import domain.controller.MonopolyGameController;
 import network.client.Client;
 import network.listeners.ConnectionFailedListener;
 import network.listeners.ReceivedChangedListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
- * Class that provides network logic to client Player
+ * Class that provides network logic to hostClient Player
  * Uses observer pattern to publish Received message (~Game state)
  */
 public class ClientFacade {
     private static ClientFacade clientFacade;
 
-    private Client client;
+    private Client hostClient;
+    private ArrayList<Client> bots;
     private String message;
 
     /**
@@ -28,6 +29,7 @@ public class ClientFacade {
     private ClientFacade() {
         receivedChangedListeners = new ArrayList<>();
         connectionFailedListeners = new ArrayList<>();
+        bots = new ArrayList<>();
     }
 
     public static ClientFacade getInstance() {
@@ -39,15 +41,25 @@ public class ClientFacade {
 
 
     /**
-     * Creates new client object and stores it
+     * Creates new hostClient object and stores it
      *
      * @param ip   server ip
      * @param port server socket port
-     * @return Whether client successfully created
+     * @return Whether hostClient successfully created
      */
-    public boolean createClient(String ip, int port) {
+    public boolean createClient(String username, String ip, int port) {
         try {
-            client = new Client(ip, port, this);
+            hostClient = new Client(username, ip, port);
+        } catch (IOException e) {
+            createClientError();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean createBotClient(String username, String ip, int localPort) {
+        try {
+            bots.add(new Client(username, ip, localPort));
         } catch (IOException e) {
             createClientError();
             return false;
@@ -62,14 +74,19 @@ public class ClientFacade {
     /**
      * Sends Message to the server
      *
+     * @param name
      * @param message Formatted as JSON String
      */
-    public synchronized void send(String message) {
-        client.send(message);
+    public synchronized void send(String name, String message) {
+        if (name.contains("Bot")) {
+            bots.stream().filter(x -> x.getUsername().equals(name))
+                    .collect(Collectors.toList()).get(0).send(message);
+        } else
+            hostClient.send(message);
     }
 
     /**
-     * Called by client when a message received
+     * Called by hostClient when a message received
      * Also calls publish method to notify listeners
      *
      * @param m Received Message Formatted as JSON
@@ -93,7 +110,7 @@ public class ClientFacade {
     }
 
     public synchronized void removeReceivedChangedListener(ReceivedChangedListener listener) {
-        if (receivedChangedListeners.contains(listener)){
+        if (receivedChangedListeners.contains(listener)) {
             ArrayList<ReceivedChangedListener> temp = (ArrayList<ReceivedChangedListener>) receivedChangedListeners.clone();
             temp.remove(listener);
             receivedChangedListeners = temp;
@@ -115,11 +132,11 @@ public class ClientFacade {
         connectionFailedListeners = new ArrayList<>();
     }
 
-    public void terminate(){
+    public void terminate() {
         try {
-            Client.getDis().close();
-            Client.getDos().close();
-            client.getSocket().close();
+            hostClient.getDis().close();
+            hostClient.getDos().close();
+            hostClient.getSocket().close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -128,4 +145,6 @@ public class ClientFacade {
     public String getMessage() {
         return message;
     }
+
+
 }

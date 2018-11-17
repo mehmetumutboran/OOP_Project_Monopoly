@@ -33,12 +33,13 @@ public class GameCommunicationHandler implements ReceivedChangedListener {
         this.message = message;
     }
 
-    public void sendAction(char flag) {
-        ClientFacade.getInstance().send(GameState.getInstance().generateCurrentAction(flag));
+    public synchronized void sendAction(char flag) {
+        ClientFacade.getInstance().send(GameLogic.getInstance().getPlayers().peekFirst().getName(),
+                GameState.getInstance().generateCurrentAction(flag));
     }
 
     public void sendupdowngradeAction(char flag, DeedSquare square) {
-        ClientFacade.getInstance().send(GameState.getInstance().generateupdownGradeAction(flag, square));
+        ClientFacade.getInstance().send(GameLogic.getInstance().getPlayers().peekFirst().getName(), GameState.getInstance().generateupdownGradeAction(flag, square));
 
     }
 
@@ -57,6 +58,6 @@ public class GameCommunicationHandler implements ReceivedChangedListener {
             e.printStackTrace();
         }
 
-        ClientFacade.getInstance().send(GameLogic.queueFlag + s);
+        ClientFacade.getInstance().send(GameLogic.getInstance().getPlayers().peekFirst().getName(), GameLogic.queueFlag + s);
     }
 }
