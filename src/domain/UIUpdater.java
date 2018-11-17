@@ -2,6 +2,7 @@ package domain;
 
 import domain.listeners.CloseButtonListener;
 import domain.listeners.MessageChangedListener;
+import domain.listeners.TokenMovementListener;
 import domain.listeners.TurnChangedListener;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ public class UIUpdater {
     private ArrayList<MessageChangedListener> messageChangedListeners;
     private ArrayList<TurnChangedListener> turnChangedListeners;
     private ArrayList<CloseButtonListener> closeButtonListeners;
+    private ArrayList<TokenMovementListener> tokenMovementListeners;
 
     String message;
 
@@ -34,6 +36,9 @@ public class UIUpdater {
     private void publishMessageChangedEvent() {
         messageChangedListeners.forEach(MessageChangedListener::onMessageChangedEvent);
     }
+    public void addTokenMovementListeners (TokenMovementListener tml) { tokenMovementListeners.add(tml);}
+
+
 
     public void addTurnChangedListener(TurnChangedListener tcl) {
         turnChangedListeners.add(tcl);
@@ -43,6 +48,12 @@ public class UIUpdater {
         closeButtonListeners.add(cbl);
     }
 
+
+    private void publishTokenMovementEvent() {
+        for (TokenMovementListener tml: tokenMovementListeners) {
+            tml.onTokenMovement();
+        }
+    }
     private void publishTurnChangedEvent(boolean isEnabled) {
         for (TurnChangedListener tcl : turnChangedListeners) {
             tcl.onTurnChangedEvent(isEnabled);
@@ -54,6 +65,8 @@ public class UIUpdater {
             cbl.onCloseClickedEvent();
         }
     }
+//TODO when player leaves
+    public void removeTokenMovementListeners (TokenMovementListener tml) {tokenMovementListeners.remove(tml);}
 
     public String getMessage() {
         return this.message;

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.board.*;
 import domain.player.Player;
+import domain.player.Token;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -64,9 +65,31 @@ public class MessageInterpreter {
             case GameLogic.increaseMoneyFlag:
                 interpretMoneyChange(m.substring(1));
                 break;
+            case GameLogic.tokenFlag:
+                interpretTokenMovement(m.substring(1));
+                break;
             default:
                 break;
         }
+    }
+
+    private void interpretTokenMovement(String message) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+        String name = null;
+        Token token = null;
+            try {
+                name = objectMapper.readValue(message, Player.class).getName();
+                token = objectMapper.readValue(message, Player.class).getToken();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            int [] lastLoc = GameLogic.getInstance().getPlayer(name).getToken().getLocation();
+            int [] newLoc = token.getLocation();
+
+
+
+            //UIUpdater.getInstance().setTokenLocation
     }
 
 

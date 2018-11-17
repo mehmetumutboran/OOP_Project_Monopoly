@@ -33,6 +33,8 @@ public class GameLogic {
     public static final char upgradeFlag = 'U';
     public static final char downgradeFlag = 'Z';
     public static final char moveFlag = 'M';
+    public static final char tokenFlag = 'T';
+
     //TODO Add more
 
     private volatile Deque<Player> players;
@@ -135,6 +137,7 @@ public class GameLogic {
         GameLogic.getInstance().getPlayers().peekFirst().getToken().setLocation(newLoc);
         System.out.println("In the Game Logic Move Method");
         GameCommunicationHandler.getInstance().sendAction(moveFlag);
+        GameCommunicationHandler.getInstance().sendAction(tokenFlag);
     }
 
     private int[] upDownMove(int[] lastLoc, int roll, int layerSQNumber) {
@@ -219,6 +222,10 @@ public class GameLogic {
         }
         return newLoc;
     }
+
+    //public int bigSquareChecker (int [] l1 , int [] l2){
+      //7  if(l1[])
+    //}
 
     private boolean checkDouble() {
         return (GameLogic.getInstance().getPlayers().peekFirst().getFaceValues()[0] ==
