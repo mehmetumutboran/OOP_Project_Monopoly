@@ -100,8 +100,10 @@ public class ConnectGameHandler implements ReceivedChangedListener {
             return;
         }
         else if (message.charAt(0) != '{') {
-            if (message.charAt(0) == 'E') {
-                MonopolyGameController.getInstance().informClosed();
+            if (message.charAt(0) == 'E' &&
+                    !MonopolyGameController.getInstance().getPlayerList().get(0).getReadiness().equals("Host")) {
+                ClientFacade.getInstance().terminate();
+                publishPlayerKickedEvent();
             } else if (message.charAt(0) == 'X') {
                 MonopolyGameController.getInstance().removePlayer(message.substring(1));
             }
@@ -156,7 +158,7 @@ public class ConnectGameHandler implements ReceivedChangedListener {
     }
 
     public void sendChange(Player player, char e) {
-        ClientFacade.getInstance().send(GameLogic.getInstance().getPlayers().peekFirst().getName(), e + player.toJSON());
+        ClientFacade.getInstance().send(player.getName(), e + player.toJSON());
     }
 
     public void connectBot(String s, String color) {
