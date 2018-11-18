@@ -79,112 +79,70 @@ public class MessageInterpreter {
         int seperate = message.indexOf("£");
         String name = null;
         Token token = null;
+        Player p = null;
         try {
             name = objectMapper.readValue(message.substring(0, seperate), Player.class).getName();
             token = objectMapper.readValue(message.substring(0, seperate), Player.class).getToken();
+            p = objectMapper.readValue(message.substring(0, seperate), Player.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        int[] lastLoc = new int[2];
-        int space = message.indexOf("@");
-        lastLoc[0] = Integer.parseInt(message.substring(seperate + 1, space));
-        lastLoc[1] = Integer.parseInt(message.substring(space + 1));
+
+        int xLoc = 0;
+        int yLoc = 0;
         int[] newLoc = token.getLocation();
-        char locationIdentifierforOuterLayer = ' ';
-        char locationIdentifierforMiddleLayer = ' ';
-        char locationIdentifierforInsideLayer = ' ';
-        if (newLoc[0] == 0 &&
-                (newLoc[1] == 0 || newLoc[1] == 1 || newLoc[1] == 2 || newLoc[1] == 3 || newLoc[1] == 4 || newLoc[1] == 5 || newLoc[1] == 6 || newLoc[1] == 7 || newLoc[1] == 8 ||
-                        newLoc[1] == 9 || newLoc[1] == 10 || newLoc[1] == 11 || newLoc[1] == 12 || newLoc[1] == 13 || newLoc[1] == 14)) {
-            locationIdentifierforOuterLayer = 'r';
 
-        } else if (newLoc[0] == 0 &&
-                (newLoc[1] == 15 || newLoc[1] == 16 || newLoc[1] == 17 || newLoc[1] == 18 || newLoc[1] == 19 || newLoc[1] == 20 || newLoc[1] == 21 || newLoc[1] == 22 || newLoc[1] == 23 ||
-                        newLoc[1] == 24 || newLoc[1] == 25 || newLoc[1] == 26 || newLoc[1] == 27)) {
-            locationIdentifierforOuterLayer = 'b';
+        int pIndex = GameLogic.getInstance().getPlayerList().indexOf(p);
 
-        } else if (newLoc[0] == 0 &&
-                (newLoc[1] == 28 || newLoc[1] == 29 || newLoc[1] == 30 || newLoc[1] == 31 || newLoc[1] == 32 || newLoc[1] == 33 || newLoc[1] == 34 || newLoc[1] == 35 || newLoc[1] == 36 ||
-                        newLoc[1] == 37 || newLoc[1] == 38 || newLoc[1] == 39 || newLoc[1] == 40 || newLoc[1] == 41 || newLoc[1] == 42)) {
-            locationIdentifierforOuterLayer = 'l';
-
-        } else if (newLoc[0] == 0 &&
-                (newLoc[1] == 43 || newLoc[1] == 44 || newLoc[1] == 45 || newLoc[1] == 46 || newLoc[1] == 47 || newLoc[1] == 48 || newLoc[1] == 49 || newLoc[1] == 50 || newLoc[1] == 51 ||
-                        newLoc[1] == 52 || newLoc[1] == 53 || newLoc[1] == 54 || newLoc[1] == 55)) {
-            locationIdentifierforOuterLayer = 'u';
+        if(newLoc[0] == 0) {
+            if(newLoc[1]>=0 && newLoc[1]<14){
+                if(pIndex > 6) {
+                    yLoc = 90 + newLoc[1] * 59 + 25;
+                    xLoc = 1240 + pIndex*25;
+                }else{
+                    yLoc = 90 + newLoc[1] * 59;
+                    xLoc = 1240 + pIndex*25;
+                }
+            }else if(newLoc[1]>=14 && newLoc[1]<28){
+                yLoc = 905;
+                xLoc = (1240 - (newLoc[1] - 14)*89) + 44; //14
+            }else if(newLoc[1]>=28 && newLoc[1]<42){
+                yLoc = 905 - (newLoc[1] - 28)*59;
+                xLoc = 30;
+            }else if(newLoc[1]>=42 && newLoc[1]<56){
+                yLoc = 90;
+                xLoc = (30 + (newLoc[1] - 42)*89) + 44; //42
+            }
+        }else if(newLoc[0] == 1){
+            if(newLoc[1]>=0 && newLoc[1]<10){
+                yLoc = 210 + newLoc[1]*57;
+                xLoc = 1070;
+            }else if(newLoc[1]>=10 && newLoc[1]<20){
+                yLoc = 790;
+                xLoc = (1070 - (newLoc[1] - 10)*78) + 39; //10
+            }else if(newLoc[1]>=20 && newLoc[1]<30){
+                yLoc = 790 - (newLoc[1] - 20)*57;
+                xLoc = 200;
+            }else if(newLoc[1]>=30 && newLoc[1]<40){
+                yLoc = 210;
+                xLoc = (200 + (newLoc[1] - 30)*78) + 39; //30
+            }
+        }else if (newLoc[0] == 2){
+            if(newLoc[1]>=0 && newLoc[1]<6){
+                yLoc = 325 + newLoc[1]*58;
+                xLoc = 905;
+            }else if(newLoc[1]>=6 && newLoc[1]<12){
+                yLoc = 675;
+                xLoc = (905 - (newLoc[1] - 6)*75)  + 37; //6
+            }else if(newLoc[1]>=12 && newLoc[1]<18){
+                yLoc = 675 - (newLoc[1]- 12)*58;
+                xLoc = 370;
+            }else if(newLoc[1]>=18 && newLoc[1]<24){
+                yLoc = 325;
+                xLoc = (370 + (newLoc[1] - 18)*75) + 37; //18
+            }
         }
-        if (newLoc[0] == 1 &&
-                (newLoc[1] == 0 || newLoc[1] == 1 || newLoc[1] == 2 || newLoc[1] == 3 || newLoc[1] == 4 || newLoc[1] == 5 || newLoc[1] == 6 || newLoc[1] == 7 || newLoc[1] == 8 ||
-                        newLoc[1] == 9 || newLoc[1] == 10)) {
-            locationIdentifierforMiddleLayer = 'r';
-
-        } else if (newLoc[0] == 1 &&
-                (newLoc[1] == 11 || newLoc[1] == 12 || newLoc[1] == 13 || newLoc[1] == 14 || newLoc[1] == 15 || newLoc[1] == 16 || newLoc[1] == 17 || newLoc[1] == 18 || newLoc[1] == 19)) {
-            locationIdentifierforMiddleLayer = 'b';
-
-        } else if (newLoc[0] == 1 &&
-                (newLoc[1] == 20 || newLoc[1] == 21 || newLoc[1] == 22 || newLoc[1] == 23 || newLoc[1] == 24 || newLoc[1] == 25 || newLoc[1] == 26 || newLoc[1] == 27 || newLoc[1] == 28 ||
-                        newLoc[1] == 29 || newLoc[1] == 30)) {
-            locationIdentifierforMiddleLayer = 'l';
-
-        } else if (newLoc[0] == 1 &&
-                (newLoc[1] == 31 || newLoc[1] == 32 || newLoc[1] == 33 || newLoc[1] == 34 || newLoc[1] == 35 || newLoc[1] == 36 || newLoc[1] == 37 || newLoc[1] == 38 || newLoc[1] == 39)) {
-            locationIdentifierforMiddleLayer = 'u';
-        }
-        if (newLoc[0] == 2 &&
-                (newLoc[1] == 0 || newLoc[1] == 1 || newLoc[1] == 2 || newLoc[1] == 3 || newLoc[1] == 4 || newLoc[1] == 5 || newLoc[1] == 6)) {
-            locationIdentifierforInsideLayer = 'r';
-
-        } else if (newLoc[0] == 2 &&
-                (newLoc[1] == 7 || newLoc[1] == 8 || newLoc[1] == 9 || newLoc[1] == 10 || newLoc[1] == 11)) {
-            locationIdentifierforInsideLayer = 'b';
-
-        } else if (newLoc[0] == 2 &&
-                (newLoc[1] == 12 || newLoc[1] == 13 || newLoc[1] == 14 || newLoc[1] == 15 || newLoc[1] == 16 || newLoc[1] == 17 || newLoc[1] == 18)) {
-            locationIdentifierforInsideLayer = 'l';
-
-        } else if (newLoc[0] == 2 &&
-                (newLoc[1] == 19 || newLoc[1] == 20 || newLoc[1] == 21 || newLoc[1] == 22 || newLoc[1] == 23)) {
-            locationIdentifierforInsideLayer = 'u';
-        } //TODO Use < > to sımplıfy ıf statements.
-        int columndiff = newLoc[1] - lastLoc[1];
-        int layerdiff = newLoc[0] - lastLoc[0];
-
-        if (locationIdentifierforOuterLayer == 'r') {
-            UIUpdater.getInstance().setTokenLocation(name, 1240, 150);//fix x
-
-        } else if (locationIdentifierforOuterLayer == 'b') {
-            UIUpdater.getInstance().setTokenLocation(name, 1220, 905);//fix y
-        } else if (locationIdentifierforOuterLayer == 'l') {
-            UIUpdater.getInstance().setTokenLocation(name, 30, 150);//fix x
-
-        }else if (locationIdentifierforOuterLayer == 'u') {
-            UIUpdater.getInstance().setTokenLocation(name, 1220, 90);//fix y
-        }
-
-        if (locationIdentifierforMiddleLayer == 'r') {
-            UIUpdater.getInstance().setTokenLocation(name, 1070, 150);//fix x
-
-        } else if (locationIdentifierforMiddleLayer == 'b') {
-            UIUpdater.getInstance().setTokenLocation(name, 1220, 790);//fix y
-        } else if (locationIdentifierforMiddleLayer == 'l') {
-            UIUpdater.getInstance().setTokenLocation(name, 200, 150);//fix x
-        }else if (locationIdentifierforMiddleLayer == 'u') {
-            UIUpdater.getInstance().setTokenLocation(name, 1220, 210);//fix y
-        }
-
-        if (locationIdentifierforInsideLayer == 'r') {
-            UIUpdater.getInstance().setTokenLocation(name, 905, 150); //fix x
-
-        } else if (locationIdentifierforInsideLayer == 'b') {
-            UIUpdater.getInstance().setTokenLocation(name, 1220, 675);//fix y
-        } else if (locationIdentifierforInsideLayer == 'l') {
-            UIUpdater.getInstance().setTokenLocation(name, 370, 150);//fix x
-        }
-        else if (locationIdentifierforInsideLayer == 'u') {
-            UIUpdater.getInstance().setTokenLocation(name, 1220, 325);//fix y
-        }
-
+        UIUpdater.getInstance().setTokenLocation(name,xLoc,yLoc);
     }
     private void interpretupdownGrade(String message) {
         ObjectMapper objectMapper = new ObjectMapper();
