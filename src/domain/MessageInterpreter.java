@@ -79,24 +79,113 @@ public class MessageInterpreter {
         int seperate = message.indexOf("£");
         String name = null;
         Token token = null;
-            try {
-                name = objectMapper.readValue(message.substring(0,seperate), Player.class).getName();
-                token = objectMapper.readValue(message.substring(0,seperate), Player.class).getToken();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            int [] lastLoc = new int[2];
-            int space = message.indexOf("@");
-            lastLoc[0] = Integer.parseInt(message.substring(seperate+1,space));
-            lastLoc[1] = Integer.parseInt(message.substring(space+1));
-            int [] newLoc = token.getLocation();
-            if(newLoc[1] > 10){
-                UIUpdater.getInstance().setTokenLocation(name,1070 - (newLoc[1] - lastLoc[1]) * 72 , 150);
-            }else
-            UIUpdater.getInstance().setTokenLocation(name,1070,(newLoc[1] - lastLoc[1]) * 59 + 150);
+        try {
+            name = objectMapper.readValue(message.substring(0, seperate), Player.class).getName();
+            token = objectMapper.readValue(message.substring(0, seperate), Player.class).getToken();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        int[] lastLoc = new int[2];
+        int space = message.indexOf("@");
+        lastLoc[0] = Integer.parseInt(message.substring(seperate + 1, space));
+        lastLoc[1] = Integer.parseInt(message.substring(space + 1));
+        int[] newLoc = token.getLocation();
+        char locationIdentifierforOuterLayer = ' ';
+        char locationIdentifierforMiddleLayer = ' ';
+        char locationIdentifierforInsideLayer = ' ';
+        if (newLoc[0] == 0 &&
+                (newLoc[1] == 0 || newLoc[1] == 1 || newLoc[1] == 2 || newLoc[1] == 3 || newLoc[1] == 4 || newLoc[1] == 5 || newLoc[1] == 6 || newLoc[1] == 7 || newLoc[1] == 8 ||
+                        newLoc[1] == 9 || newLoc[1] == 10 || newLoc[1] == 11 || newLoc[1] == 12 || newLoc[1] == 13 || newLoc[1] == 14)) {
+            locationIdentifierforOuterLayer = 'r';
+
+        } else if (newLoc[0] == 0 &&
+                (newLoc[1] == 15 || newLoc[1] == 16 || newLoc[1] == 17 || newLoc[1] == 18 || newLoc[1] == 19 || newLoc[1] == 20 || newLoc[1] == 21 || newLoc[1] == 22 || newLoc[1] == 23 ||
+                        newLoc[1] == 24 || newLoc[1] == 25 || newLoc[1] == 26 || newLoc[1] == 27)) {
+            locationIdentifierforOuterLayer = 'b';
+
+        } else if (newLoc[0] == 0 &&
+                (newLoc[1] == 28 || newLoc[1] == 29 || newLoc[1] == 30 || newLoc[1] == 31 || newLoc[1] == 32 || newLoc[1] == 33 || newLoc[1] == 34 || newLoc[1] == 35 || newLoc[1] == 36 ||
+                        newLoc[1] == 37 || newLoc[1] == 38 || newLoc[1] == 39 || newLoc[1] == 40 || newLoc[1] == 41 || newLoc[1] == 42)) {
+            locationIdentifierforOuterLayer = 'l';
+
+        } else if (newLoc[0] == 0 &&
+                (newLoc[1] == 43 || newLoc[1] == 44 || newLoc[1] == 45 || newLoc[1] == 46 || newLoc[1] == 47 || newLoc[1] == 48 || newLoc[1] == 49 || newLoc[1] == 50 || newLoc[1] == 51 ||
+                        newLoc[1] == 52 || newLoc[1] == 53 || newLoc[1] == 54 || newLoc[1] == 55)) {
+            locationIdentifierforOuterLayer = 'u';
+        }
+        if (newLoc[0] == 1 &&
+                (newLoc[1] == 0 || newLoc[1] == 1 || newLoc[1] == 2 || newLoc[1] == 3 || newLoc[1] == 4 || newLoc[1] == 5 || newLoc[1] == 6 || newLoc[1] == 7 || newLoc[1] == 8 ||
+                        newLoc[1] == 9 || newLoc[1] == 10)) {
+            locationIdentifierforMiddleLayer = 'r';
+
+        } else if (newLoc[0] == 1 &&
+                (newLoc[1] == 11 || newLoc[1] == 12 || newLoc[1] == 13 || newLoc[1] == 14 || newLoc[1] == 15 || newLoc[1] == 16 || newLoc[1] == 17 || newLoc[1] == 18 || newLoc[1] == 19)) {
+            locationIdentifierforMiddleLayer = 'b';
+
+        } else if (newLoc[0] == 1 &&
+                (newLoc[1] == 20 || newLoc[1] == 21 || newLoc[1] == 22 || newLoc[1] == 23 || newLoc[1] == 24 || newLoc[1] == 25 || newLoc[1] == 26 || newLoc[1] == 27 || newLoc[1] == 28 ||
+                        newLoc[1] == 29 || newLoc[1] == 30)) {
+            locationIdentifierforMiddleLayer = 'l';
+
+        } else if (newLoc[0] == 1 &&
+                (newLoc[1] == 31 || newLoc[1] == 32 || newLoc[1] == 33 || newLoc[1] == 34 || newLoc[1] == 35 || newLoc[1] == 36 || newLoc[1] == 37 || newLoc[1] == 38 || newLoc[1] == 39)) {
+            locationIdentifierforMiddleLayer = 'u';
+        }
+        if (newLoc[0] == 2 &&
+                (newLoc[1] == 0 || newLoc[1] == 1 || newLoc[1] == 2 || newLoc[1] == 3 || newLoc[1] == 4 || newLoc[1] == 5 || newLoc[1] == 6)) {
+            locationIdentifierforInsideLayer = 'r';
+
+        } else if (newLoc[0] == 2 &&
+                (newLoc[1] == 7 || newLoc[1] == 8 || newLoc[1] == 9 || newLoc[1] == 10 || newLoc[1] == 11)) {
+            locationIdentifierforInsideLayer = 'b';
+
+        } else if (newLoc[0] == 2 &&
+                (newLoc[1] == 12 || newLoc[1] == 13 || newLoc[1] == 14 || newLoc[1] == 15 || newLoc[1] == 16 || newLoc[1] == 17 || newLoc[1] == 18)) {
+            locationIdentifierforInsideLayer = 'l';
+
+        } else if (newLoc[0] == 2 &&
+                (newLoc[1] == 19 || newLoc[1] == 20 || newLoc[1] == 21 || newLoc[1] == 22 || newLoc[1] == 23)) {
+            locationIdentifierforInsideLayer = 'u';
+        } //TODO Use < > to sımplıfy ıf statements.
+        int columndiff = newLoc[1] - lastLoc[1];
+        int layerdiff = newLoc[0] - lastLoc[0];
+
+        if (locationIdentifierforOuterLayer == 'r') {
+            UIUpdater.getInstance().setTokenLocation(name, 1240, 150);//fix x
+
+        } else if (locationIdentifierforOuterLayer == 'b') {
+            UIUpdater.getInstance().setTokenLocation(name, 1220, 905);//fix y
+        } else if (locationIdentifierforOuterLayer == 'l') {
+            UIUpdater.getInstance().setTokenLocation(name, 30, 150);//fix x
+
+        }else if (locationIdentifierforOuterLayer == 'u') {
+            UIUpdater.getInstance().setTokenLocation(name, 1220, 90);//fix y
+        }
+
+        if (locationIdentifierforMiddleLayer == 'r') {
+            UIUpdater.getInstance().setTokenLocation(name, 1070, 150);//fix x
+
+        } else if (locationIdentifierforMiddleLayer == 'b') {
+            UIUpdater.getInstance().setTokenLocation(name, 1220, 790);//fix y
+        } else if (locationIdentifierforMiddleLayer == 'l') {
+            UIUpdater.getInstance().setTokenLocation(name, 200, 150);//fix x
+        }else if (locationIdentifierforMiddleLayer == 'u') {
+            UIUpdater.getInstance().setTokenLocation(name, 1220, 210);//fix y
+        }
+
+        if (locationIdentifierforInsideLayer == 'r') {
+            UIUpdater.getInstance().setTokenLocation(name, 905, 150); //fix x
+
+        } else if (locationIdentifierforInsideLayer == 'b') {
+            UIUpdater.getInstance().setTokenLocation(name, 1220, 675);//fix y
+        } else if (locationIdentifierforInsideLayer == 'l') {
+            UIUpdater.getInstance().setTokenLocation(name, 370, 150);//fix x
+        }
+        else if (locationIdentifierforInsideLayer == 'u') {
+            UIUpdater.getInstance().setTokenLocation(name, 1220, 325);//fix y
+        }
+
     }
-
-
     private void interpretupdownGrade(String message) {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
