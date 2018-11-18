@@ -68,6 +68,13 @@ public class Server implements Runnable {
         clientThreads[i] = new ClientHandler(clientSocket);
     }
 
+    public ClientHandler getClientHandler(String username) {
+        for (int i = 0; i < clientNames.length; i++) {
+            if (clientNames[i].equals(username)) return clientThreads[i];
+        }
+        return null;
+    }
+
 
     /**
      * server thread that accepts new {@link Client} and assigns a {@link ClientHandler} to it.

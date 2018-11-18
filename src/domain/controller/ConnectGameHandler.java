@@ -6,13 +6,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.GameLogic;
 import domain.MessageInterpreter;
 import domain.RandomPlayer;
+import domain.listeners.PlayerKickedListener;
 import domain.player.Player;
-import gui.baseFrame.buttons.hostJoinButtons.MultiplayerConnectionButton;
 import network.client.clientFacade.ClientFacade;
 import network.listeners.ReceivedChangedListener;
 import network.server.serverFacade.ServerFacade;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Singleton Class to handle communication between UI and Network during initialization
@@ -21,8 +22,11 @@ public class ConnectGameHandler implements ReceivedChangedListener {
 
     private static ConnectGameHandler connectGameHandler;
 
+    private ArrayList<PlayerKickedListener> playerKickedListeners;
+
     private ConnectGameHandler() {
         ClientFacade.getInstance().addReceivedChangedListener(this);
+        playerKickedListeners = new ArrayList<>();
     }
 
     public static ConnectGameHandler getInstance() {
@@ -36,9 +40,9 @@ public class ConnectGameHandler implements ReceivedChangedListener {
      * @param username Username from the {@link gui.baseFrame.buttons.hostJoinButtons.HostButton} usernameField
      * @param port     Port number for the server connection from {@link gui.baseFrame.buttons.hostJoinButtons.HostButton}
      */
-    public String connectHost(String username, int port, MultiplayerConnectionButton mcb) {
+    public String connectHost(String username, int port) {
         if (ServerFacade.getInstance().createServer(port)) {
-            connectClient(username, "localhost", port, true, mcb); // Connects the host as a client after it creates server
+            connectClient(username, "localhost", port, true); // Connects the host as a client after it creates server
         } else {
             return "Server cannot be created!!";
         }
@@ -50,10 +54,9 @@ public class ConnectGameHandler implements ReceivedChangedListener {
      * @param ip       IP for server connection
      * @param port     for server Connection
      */
-    public String connectClient(String username, String ip, int port, boolean isHost, MultiplayerConnectionButton mcb) {
+    public String connectClient(String username, String ip, int port, boolean isHost) {
         Player player = new Player(username);
         if (isHost) player.setReadiness("Host");
-        ClientFacade.getInstance().addConnectionFailedListener(mcb);
 
         if (ClientFacade.getInstance().createClient(username, ip, port)) {
             System.out.println("\n\n Added via Connect Client");
@@ -91,8 +94,12 @@ public class ConnectGameHandler implements ReceivedChangedListener {
             System.out.println("\nMessage Null");
             return;
         }
-
-        if (message.charAt(0) != '{') {
+        else if (message.equals("You are kicked!")) {
+            ClientFacade.getInstance().terminate();
+            publishPlayerKickedEvent();
+            return;
+        }
+        else if (message.charAt(0) != '{') {
             if (message.charAt(0) == 'E') {
                 MonopolyGameController.getInstance().informClosed();
             } else if (message.charAt(0) == 'X') {
@@ -113,7 +120,7 @@ public class ConnectGameHandler implements ReceivedChangedListener {
             if (!MonopolyGameController.getInstance().getPlayerList().contains(player)) { //New PLayer
                 ClientFacade.getInstance().send(MonopolyGameController.getInstance().getPlayerList().get(0).getName(),
                         MonopolyGameController.getInstance().getPlayerList().get(0).toJSON());
-                if(MonopolyGameController.getInstance().getPlayerList().get(0).getReadiness().equals("Host")) {
+                if (MonopolyGameController.getInstance().getPlayerList().get(0).getReadiness().equals("Host")) {
                     MonopolyGameController.getInstance().getPlayerList().stream().filter(p -> p.getReadiness().equals("Bot"))
                             .forEach(p -> ClientFacade.getInstance().send(p.getName(), p.toJSON()));
                 }
@@ -138,6 +145,16 @@ public class ConnectGameHandler implements ReceivedChangedListener {
         }
     }
 
+    public void addPlayerKickedListener(PlayerKickedListener pkl){
+        playerKickedListeners.add(pkl);
+    }
+
+    private void publishPlayerKickedEvent() {
+        for (PlayerKickedListener playerKickedListener : playerKickedListeners) {
+            playerKickedListener.onPlayerKickedEvent();
+        }
+    }
+
     public void sendChange(Player player, char e) {
         ClientFacade.getInstance().send(GameLogic.getInstance().getPlayers().peekFirst().getName(), e + player.toJSON());
     }
@@ -152,5 +169,9 @@ public class ConnectGameHandler implements ReceivedChangedListener {
             sendClientInfo(s);
             sendChange(randomPlayer);
         }
+    }
+
+    public void kickPlayer(String username) {
+        ServerFacade.getInstance().kick(username);
     }
 }

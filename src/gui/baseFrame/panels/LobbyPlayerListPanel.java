@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class LobbyPlayerListPanel extends JPanel implements PlayerListChangedListener {
     private final int SQUARE_EDGE = 80;
 
-    private ArrayList<JLabel> playerLabels;
+    private ArrayList<LobbyPlayerLabel> playerLabels;
 
 
     public LobbyPlayerListPanel() {
@@ -35,13 +35,13 @@ public class LobbyPlayerListPanel extends JPanel implements PlayerListChangedLis
 
     }
 
-    public void setPlayerLabelList(ArrayList<ArrayList<String>> playerAttributes) {
+    public void setPlayerLabelList(ArrayList<ArrayList<String>> playerAttributes, boolean isHost) {
         playerLabels.removeIf(p -> !MonopolyGameController.getInstance().getPlayerListName()
-                .contains(p.getText().substring(6, p.getText().indexOf('<', 2))));
+                .contains(p.getName()));
 
         for (ArrayList<String> player : playerAttributes) {
-            getPlayer(player).setText("<HTML>" + player.get(0) + "<BR>" + player.get(2) + "</HTML>");
-            getPlayer(player).setBackground(ColorConverter.getInstance().getColorMap().get(player.get(1)));
+            getPlayer(player, isHost).setText("<HTML>" + player.get(0) + "<BR>" + player.get(2) + "</HTML>");
+            getPlayer(player, isHost).setBackground(ColorConverter.getInstance().getColorMap().get(player.get(1)));
         }
 
         this.removeAll();
@@ -49,23 +49,26 @@ public class LobbyPlayerListPanel extends JPanel implements PlayerListChangedLis
         repaint();
     }
 
-    private JLabel getPlayer(ArrayList<String> list) {
+    private LobbyPlayerLabel getPlayer(ArrayList<String> list, boolean isHost) {
         for (int i = 0; i < playerLabels.size(); i++) {
             if (playerLabels.get(i) == null) continue;
             else if (playerLabels.get(i).getText().contains(list.get(0))) {
                 return playerLabels.get(i);
             }
         }
-        JLabel temp = new JLabel(list.get(0));
-        temp.setBackground(ColorConverter.getInstance().getColorMap().get(list.get(1)));
-        temp.setOpaque(true);
+        LobbyPlayerLabel temp = new LobbyPlayerLabel(list.get(0),
+                ColorConverter.getInstance().getColorMap().get(list.get(1)), isHost);
+        if (isHost &&
+                temp.getName().equals(MonopolyGameController.getInstance().getPlayerList().get(0).getName()))
+            temp.removeMouseListener(temp);
         this.playerLabels.add(temp);
-        return getPlayer(list);
+        return getPlayer(list, isHost);
     }
 
     @Override
     public void onPlayerListChangedEvent(ArrayList<String> selectedColors) {
-        setPlayerLabelList(MonopolyGameController.getInstance().getPlayerConnectAttributes());
+        setPlayerLabelList(MonopolyGameController.getInstance().getPlayerConnectAttributes(),
+                (MonopolyGameController.getInstance().getPlayerList().get(0).getReadiness().equals("Host")));
     }
 
 }

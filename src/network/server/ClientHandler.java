@@ -42,4 +42,15 @@ public class ClientHandler implements Runnable {
         dos.writeUTF(m);
         dos.flush();
     }
+
+    public void terminate() {
+        try {
+            send("You are kicked!");
+            dis.close();
+            dos.close();
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

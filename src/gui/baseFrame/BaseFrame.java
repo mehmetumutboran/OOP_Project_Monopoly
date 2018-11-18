@@ -1,10 +1,13 @@
 package gui.baseFrame;
 
 import domain.UIUpdater;
+import domain.controller.ConnectGameHandler;
 import domain.controller.MonopolyGameController;
 import domain.listeners.CloseButtonListener;
+import domain.listeners.PlayerKickedListener;
 import gui.baseFrame.panels.*;
 import gui.controlDisplay.ControlFrame;
+import network.client.clientFacade.ClientFacade;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +15,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.HashMap;
 
-public class BaseFrame extends JFrame implements Runnable, CloseButtonListener {
+public class BaseFrame extends JFrame implements Runnable, CloseButtonListener, PlayerKickedListener {
     private final int FRAME_WIDTH = 1080;
     private final int FRAME_HEIGHT = 720;
     private final String CURRENT_VERSION = "v1.3.0";
@@ -20,7 +23,7 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener {
     private HashMap<String, JPanel> panelMap;
     private static boolean changed = false;
 
-    public static String status = "Init";
+    private static String status = "Init";
 
     private InitialScreenPanel initialScreenPanel;
     private MultiPlayerPanel multiPlayerPanel;
@@ -35,6 +38,7 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener {
     public BaseFrame() throws HeadlessException {
         this.setSize(FRAME_WIDTH, FRAME_HEIGHT);
         //this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        ConnectGameHandler.getInstance().addPlayerKickedListener(this);
         this.panelMap = new HashMap<>();
         initializeFrame();
         MonopolyGameController.getInstance().addCloseButtonListener(this);
@@ -115,5 +119,15 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener {
     @Override
     public void onCloseClickedEvent() {
         System.exit(0);
+    }
+
+    @Override
+    public void onPlayerKickedEvent() {
+        setStatus("Join");
+        //TODO Reenter unready
+        revalidate();
+        repaint();
+        JOptionPane.showMessageDialog(null, "You are kicked!!" ,
+                "Connection terminated", JOptionPane.WARNING_MESSAGE);
     }
 }

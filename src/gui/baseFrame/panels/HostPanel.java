@@ -1,7 +1,6 @@
 package gui.baseFrame.panels;
 
 import gui.baseFrame.buttons.hostJoinButtons.HostButton;
-import gui.baseFrame.buttons.hostJoinButtons.MultiplayerConnectionButton;
 import gui.baseFrame.buttons.multiplayerButtons.BackButton;
 
 import javax.imageio.ImageIO;
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class HostPanel extends JPanel {
-    private MultiplayerConnectionButton hostButton;
+    private HostButton hostButton;
     private BackButton backButton;
 
     private JLabel title;
