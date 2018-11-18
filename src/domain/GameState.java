@@ -21,6 +21,11 @@ public class GameState {
         return flag + GameLogic.getInstance().getPlayers().peekFirst().toJSON();
     }
 
+    public String generatePoolAction(char flag , int money) {
+        //TODO
+        return flag + Integer.toString(money);
+    }
+
     public String generateupdownGradeAction(char flag, DeedSquare square) {
         return flag + GameLogic.getInstance().getPlayers().peekFirst().toJSON() + "~" + square.toJSON();
     }

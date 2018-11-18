@@ -2,6 +2,10 @@ package domain.board;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import domain.board.specialSquares.*;
+import domain.card.ChanceCard;
+import domain.card.Community;
+import domain.card.chanceDeck.HolidayBonus;
+import domain.card.communityDeck.TheInsidersEdge;
 
 import java.util.HashMap;
 
@@ -13,11 +17,15 @@ public class Board {
     private static final int FIRSTLAYERSQ = 40;
     private static final int ZEROTHLAYERSQ = 56;
     private static final int[][] railRoads = {{0, 7}, {0, 35}, {1, 5}, {1, 15}, {1, 25}, {1, 35}, {2, 9}, {2, 21}};
-
+    private ChanceCard[] chanceDeckList;
+    private Community[] communityDeckList;
+    private int pool;
     private Board() {
         squareList = new Square[3][56];
         squareMap = new HashMap<>();
         initializeSquares();
+        initializeDecks();
+        pool =0;
     }
 
     public static Board getInstance() {
@@ -26,6 +34,23 @@ public class Board {
         }
         return instance;
     }
+
+    public int getPool() {
+                return pool;    }
+    public void setPool(int money) {
+            this.pool=money;
+    }
+    public void increasePool(int money) {
+        this.pool+=money;
+    }
+
+    public ChanceCard[]  getChanceDeckList() {
+        return chanceDeckList;
+    }
+    public Community[]  getCommunityDeckList() {
+        return communityDeckList;
+    }
+
 
     @JsonGetter
     public Square[][] getSquareList() {
@@ -68,6 +93,16 @@ public class Board {
             }
         }
         return closestRailRoads;
+    }
+
+    private void initializeDecks(){
+        chanceDeckList = new ChanceCard[23];
+        communityDeckList = new Community[11];
+
+        TheInsidersEdge theInsidersEdge = new TheInsidersEdge("theInsidersEdge");
+        communityDeckList[0] = theInsidersEdge;
+        HolidayBonus holidayBonus = new HolidayBonus("holidayBonus");
+        chanceDeckList[0] = holidayBonus;
     }
 
     private void initializeSquares() {

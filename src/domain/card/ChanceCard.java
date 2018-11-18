@@ -1,8 +1,8 @@
 package domain.card;
 
-public class Chance extends Card {
+public class ChanceCard extends Card {
 
-    public Chance(String name) {
+    public ChanceCard(String name) {
         super(name);
     }
 
