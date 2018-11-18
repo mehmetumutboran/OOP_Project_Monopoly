@@ -18,7 +18,7 @@ import java.util.HashMap;
 public class BaseFrame extends JFrame implements Runnable, CloseButtonListener, PlayerKickedListener {
     private final int FRAME_WIDTH = 1080;
     private final int FRAME_HEIGHT = 720;
-    private final String CURRENT_VERSION = "v1.3.0";
+    private final String CURRENT_VERSION = "v1.4.0";
 
     private HashMap<String, JPanel> panelMap;
     private static boolean changed = false;
