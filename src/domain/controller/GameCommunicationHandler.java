@@ -48,6 +48,10 @@ public class GameCommunicationHandler implements ReceivedChangedListener {
 
     }
 
+    public void sendTokenMovementAction (char flag, int [] llocation){
+        ClientFacade.getInstance().send(GameLogic.getInstance().getPlayers().peekFirst().getName(), GameState.getInstance().generatetokenMovementAction(flag, llocation));
+    }
+
     @Override
     public void onReceivedChangedEvent() {
         MessageInterpreter.getInstance().interpret(ClientFacade.getInstance().getMessage());

@@ -15,6 +15,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class LobbyPanel extends JPanel implements GameStartedListener {
     private ReadyButton readyButton;
@@ -202,7 +203,7 @@ public class LobbyPanel extends JPanel implements GameStartedListener {
 
 
     @Override
-    public void onGameStartedEvent() {
+    public void onGameStartedEvent(ArrayList<String> pca) {
         BaseFrame.setStatus("Game");
     }
 }

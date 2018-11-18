@@ -7,6 +7,7 @@ import domain.board.*;
 import domain.board.specialSquares.Chance;
 import domain.board.specialSquares.CommunityChest;
 import domain.player.Player;
+import domain.player.Token;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -74,6 +75,8 @@ public class MessageInterpreter {
                 break;
             case GameLogic.poolFlag:
                 interpretPool(m.substring(1));
+            case GameLogic.tokenFlag:
+                interpretTokenMovement(m.substring(1));
                 break;
             default:
                 break;
@@ -103,7 +106,6 @@ public class MessageInterpreter {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         int[] loc = GameLogic.getInstance().getPlayer(name).getToken().getLocation();
         if (Board.getInstance().getSquare(loc[0], loc[1]) instanceof Chance) {
             UIUpdater.getInstance().setMessage(name + " picked " + Board.getInstance().getChanceDeckList()[0].getName());
@@ -112,6 +114,79 @@ public class MessageInterpreter {
         }
 
         return true;
+    }
+
+    private void interpretTokenMovement(String message) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+        int seperate = message.indexOf("£");
+        String name = null;
+        Token token = null;
+        Player p = null;
+        try {
+            name = objectMapper.readValue(message.substring(0, seperate), Player.class).getName();
+            token = objectMapper.readValue(message.substring(0, seperate), Player.class).getToken();
+            p = objectMapper.readValue(message.substring(0, seperate), Player.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        int xLoc = 0;
+        int yLoc = 0;
+        int[] newLoc = token.getLocation();
+
+        int pIndex = GameLogic.getInstance().getPlayerList().indexOf(p);
+
+        if (newLoc[0] == 0) {
+            if (newLoc[1] >= 0 && newLoc[1] < 14) {
+                if (pIndex > 6) {
+                    yLoc = 90 + newLoc[1] * 59 + 25;
+                    xLoc = 1240 + pIndex * 25;
+                } else {
+                    yLoc = 90 + newLoc[1] * 59;
+                    xLoc = 1240 + pIndex * 25;
+                }
+            } else if (newLoc[1] >= 14 && newLoc[1] < 28) {
+                yLoc = 905;
+                xLoc = (1240 - (newLoc[1] - 14) * 89) + 44; //14
+            } else if (newLoc[1] >= 28 && newLoc[1] < 42) {
+                yLoc = 905 - (newLoc[1] - 28) * 59;
+                xLoc = 30;
+            } else if (newLoc[1] >= 42 && newLoc[1] < 56) {
+                yLoc = 90;
+                xLoc = (30 + (newLoc[1] - 42) * 89) + 44; //42
+            }
+        } else if (newLoc[0] == 1) {
+            if (newLoc[1] >= 0 && newLoc[1] < 10) {
+                yLoc = 210 + newLoc[1] * 57;
+                xLoc = 1070;
+            } else if (newLoc[1] >= 10 && newLoc[1] < 20) {
+                yLoc = 790;
+                xLoc = (1070 - (newLoc[1] - 10) * 78) + 39; //10
+            } else if (newLoc[1] >= 20 && newLoc[1] < 30) {
+                yLoc = 790 - (newLoc[1] - 20) * 57;
+                xLoc = 200;
+            } else if (newLoc[1] >= 30 && newLoc[1] < 40) {
+                yLoc = 210;
+                xLoc = (200 + (newLoc[1] - 30) * 78) + 39; //30
+            }
+        } else if (newLoc[0] == 2) {
+            if (newLoc[1] >= 0 && newLoc[1] < 6) {
+                yLoc = 325 + newLoc[1] * 58;
+                xLoc = 905;
+            } else if (newLoc[1] >= 6 && newLoc[1] < 12) {
+                yLoc = 675;
+                xLoc = (905 - (newLoc[1] - 6) * 75) + 37; //6
+            } else if (newLoc[1] >= 12 && newLoc[1] < 18) {
+                yLoc = 675 - (newLoc[1] - 12) * 58;
+                xLoc = 370;
+            } else if (newLoc[1] >= 18 && newLoc[1] < 24) {
+                yLoc = 325;
+                xLoc = (370 + (newLoc[1] - 18) * 75) + 37; //18
+            }
+        }
+        UIUpdater.getInstance().setTokenLocation(name, xLoc, yLoc);
     }
 
     private void interpretupdownGrade(String message) {

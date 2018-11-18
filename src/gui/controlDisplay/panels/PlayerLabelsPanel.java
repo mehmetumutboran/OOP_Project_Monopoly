@@ -53,7 +53,7 @@ public class PlayerLabelsPanel extends JLabel implements GameStartedListener, Pl
     }
 
     @Override
-    public void onGameStartedEvent() {
+    public void onGameStartedEvent(ArrayList<String> pca) {
         for (int i = 0; i < MonopolyGameController.getInstance().getPlayerListName().size(); i++) {
             PlayerLabel temp = new PlayerLabel(MonopolyGameController.getInstance().getPlayerListName().get(i), this);
             temp.setBackground(ColorConverter.getInstance().getColor(

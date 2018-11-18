@@ -38,7 +38,7 @@ public class GameLogic {
     public static final char removeFlag = 'X';
     public static final char specialSquareFlag = 'A';
     public static final char poolFlag = 'H';
-
+    public static final char tokenFlag = 'T';
 
     //TODO Add more
 
@@ -49,6 +49,7 @@ public class GameLogic {
     private static final int FIRSTLAYERSQ = 40;
     private static final int ZEROTHLAYERSQ = 56;
     private static final int GO_COLLECT = 200;
+    private int [] lL;
 
     public static GameLogic getInstance() {
         if (ourInstance == null) {
@@ -112,6 +113,7 @@ public class GameLogic {
     private void move() {
         if (checkDouble()) GameLogic.getInstance().getPlayers().peekFirst().incrementDoubleCounter();
         int[] lastLoc = GameLogic.getInstance().getPlayers().peekFirst().getToken().getLocation();
+        lL = lastLoc.clone();
         int[] newLoc;
         int totalRoll;
         int layerSQNumber = 0;
@@ -149,6 +151,7 @@ public class GameLogic {
 
         GameCommunicationHandler.getInstance().sendAction(moveFlag);
         /*********************************/
+        GameCommunicationHandler.getInstance().sendTokenMovementAction(tokenFlag,lL);
         checkSpecialSquare(newLoc);
     }
 
@@ -234,6 +237,10 @@ public class GameLogic {
         }
         return newLoc;
     }
+
+    //public int bigSquareChecker (int [] l1 , int [] l2){
+      //7  if(l1[])
+    //}
 
     private boolean checkDouble() {
         return (GameLogic.getInstance().getPlayers().peekFirst().getFaceValues()[0] ==
