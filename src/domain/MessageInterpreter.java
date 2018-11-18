@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.board.*;
+import domain.board.specialSquares.Chance;
+import domain.board.specialSquares.CommunityChest;
 import domain.player.Player;
 
 import java.io.IOException;
@@ -67,6 +69,9 @@ public class MessageInterpreter {
             case GameLogic.removeFlag:
                 interpretRemove(m.substring(1));
                 break;
+            case GameLogic.specialSquareFlag:
+                interpretSpecial(m.substring(1));
+                break;
             default:
                 break;
         }
@@ -77,6 +82,25 @@ public class MessageInterpreter {
         UIUpdater.getInstance().removeUpdate(name);
     }
 
+    private boolean interpretSpecial(String message) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+        String name = null;
+
+        try {
+            name = objectMapper.readValue(message, Player.class).getName();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        int[] loc = GameLogic.getInstance().getPlayer(name).getToken().getLocation();
+        if(Board.getInstance().getSquare(loc[0] , loc[1]) instanceof Chance){
+            UIUpdater.getInstance().setMessage(name + " picked " + Board.getInstance().getChanceDeckList()[0].getName());}
+        else if(Board.getInstance().getSquare(loc[0] , loc[1]) instanceof CommunityChest){
+            UIUpdater.getInstance().setMessage(name + " picked " + Board.getInstance().getCommunityDeckList()[0].getName());}
+
+            return true;
+    }
 
     private void interpretupdownGrade(String message) {
         ObjectMapper objectMapper = new ObjectMapper();

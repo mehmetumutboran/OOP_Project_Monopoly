@@ -7,6 +7,8 @@ import domain.building.House;
 import domain.building.Skyscraper;
 import domain.controller.GameCommunicationHandler;
 import domain.player.Player;
+import domain.board.specialSquares.Chance;
+import domain.board.specialSquares.CommunityChest;
 
 import java.util.ArrayList;
 import java.util.Deque;
@@ -34,6 +36,8 @@ public class GameLogic {
     public static final char downgradeFlag = 'Z';
     public static final char moveFlag = 'M';
     public static final char removeFlag = 'X';
+    public static final char specialSquareFlag = 'A';
+
     //TODO Add more
 
     private volatile Deque<Player> players;
@@ -135,7 +139,10 @@ public class GameLogic {
 
         GameLogic.getInstance().getPlayers().peekFirst().getToken().setLocation(newLoc);
         System.out.println("In the Game Logic Move Method");
+
         GameCommunicationHandler.getInstance().sendAction(moveFlag);
+        /*********************************/
+        checkSpecialSquare(newLoc);
     }
 
     private int[] upDownMove(int[] lastLoc, int roll, int layerSQNumber) {
@@ -379,4 +386,29 @@ public class GameLogic {
         player.getOwnedUtilities().forEach(x -> x.setOwner(null));
 
     }
+
+    private boolean checkSpecialSquare(int[] newLoc) {
+        Square square = Board.getInstance().getSquare(newLoc[0] , newLoc[1]);
+        if(square instanceof SpecialSquareStrategy){
+            ((SpecialSquareStrategy)square).doAction();
+            GameCommunicationHandler.getInstance().sendAction(specialSquareFlag);
+
+
+            /*sendAction will be handled for many cards
+             * so far considers only two cards
+             * interpret should conside rother cards as well.
+             * defined flags not enough*/
+            if(square instanceof Chance){
+                GameCommunicationHandler.getInstance().sendAction(increaseMoneyFlag);
+            }
+            else if(square instanceof CommunityChest){
+                int loc []= GameLogic.getInstance().getPlayers().peekFirst().getToken().getLocation();
+                if(loc[0]!=1)GameCommunicationHandler.getInstance().sendAction(increaseMoneyFlag);
+                /*increase money flag handles both increase and decrease*/
+
+            }
+        }
+        return true;
+    }
+
 }
