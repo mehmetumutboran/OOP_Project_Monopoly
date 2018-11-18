@@ -3,7 +3,6 @@ package domain.controller;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import domain.GameLogic;
 import domain.MessageInterpreter;
 import domain.RandomPlayer;
 import domain.listeners.PlayerKickedListener;
@@ -93,13 +92,11 @@ public class ConnectGameHandler implements ReceivedChangedListener {
         if (message == null) {
             System.out.println("\nMessage Null");
             return;
-        }
-        else if (message.equals("You are kicked!")) {
+        } else if (message.equals("You are kicked!")) {
             ClientFacade.getInstance().terminate();
             publishPlayerKickedEvent();
             return;
-        }
-        else if (message.charAt(0) != '{') {
+        } else if (message.charAt(0) != '{') {
             if (message.charAt(0) == 'E' &&
                     !MonopolyGameController.getInstance().getPlayerList().get(0).getReadiness().equals("Host")) {
                 ClientFacade.getInstance().terminate();
@@ -147,7 +144,7 @@ public class ConnectGameHandler implements ReceivedChangedListener {
         }
     }
 
-    public void addPlayerKickedListener(PlayerKickedListener pkl){
+    public void addPlayerKickedListener(PlayerKickedListener pkl) {
         playerKickedListeners.add(pkl);
     }
 

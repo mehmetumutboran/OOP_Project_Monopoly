@@ -21,7 +21,7 @@ public class GameState {
         return flag + GameLogic.getInstance().getPlayers().peekFirst().toJSON();
     }
 
-    public String generatePoolAction(char flag , int money) {
+    public String generatePoolAction(char flag, int money) {
         //TODO
         return flag + Integer.toString(money);
     }

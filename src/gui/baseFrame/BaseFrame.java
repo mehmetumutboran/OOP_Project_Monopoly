@@ -7,7 +7,6 @@ import domain.listeners.CloseButtonListener;
 import domain.listeners.PlayerKickedListener;
 import gui.baseFrame.panels.*;
 import gui.controlDisplay.ControlFrame;
-import network.client.clientFacade.ClientFacade;
 
 import javax.swing.*;
 import java.awt.*;
@@ -127,7 +126,7 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener, 
         //TODO Reenter unready
         revalidate();
         repaint();
-        JOptionPane.showMessageDialog(null, "You are kicked!!" ,
+        JOptionPane.showMessageDialog(null, "You are kicked!!",
                 "Connection terminated", JOptionPane.WARNING_MESSAGE);
     }
 }

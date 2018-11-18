@@ -1,14 +1,14 @@
 package domain;
 
 import domain.board.*;
+import domain.board.specialSquares.Chance;
+import domain.board.specialSquares.CommunityChest;
 import domain.building.Building;
 import domain.building.Hotel;
 import domain.building.House;
 import domain.building.Skyscraper;
 import domain.controller.GameCommunicationHandler;
 import domain.player.Player;
-import domain.board.specialSquares.Chance;
-import domain.board.specialSquares.CommunityChest;
 
 import java.util.ArrayList;
 import java.util.Deque;
@@ -62,6 +62,7 @@ public class GameLogic {
         playerList = new ArrayList<>();
 
     }
+
     public void changePool(String money) {
 
         Board.getInstance().increasePool(Integer.parseInt(money));
@@ -394,9 +395,9 @@ public class GameLogic {
     }
 
     private boolean checkSpecialSquare(int[] newLoc) {
-        Square square = Board.getInstance().getSquare(newLoc[0] , newLoc[1]);
-        if(square instanceof SpecialSquareStrategy){
-            ((SpecialSquareStrategy)square).doAction();
+        Square square = Board.getInstance().getSquare(newLoc[0], newLoc[1]);
+        if (square instanceof SpecialSquareStrategy) {
+            ((SpecialSquareStrategy) square).doAction();
             GameCommunicationHandler.getInstance().sendAction(specialSquareFlag);
 
 
@@ -404,12 +405,11 @@ public class GameLogic {
              * so far considers only two cards
              * interpret should conside rother cards as well.
              * defined flags not enough*/
-            if(square instanceof Chance){
+            if (square instanceof Chance) {
                 GameCommunicationHandler.getInstance().sendAction(increaseMoneyFlag);
-            }
-            else if(square instanceof CommunityChest){
-                int loc []= GameLogic.getInstance().getPlayers().peekFirst().getToken().getLocation();
-                if(loc[0]!=1)GameCommunicationHandler.getInstance().sendAction(increaseMoneyFlag);
+            } else if (square instanceof CommunityChest) {
+                int loc[] = GameLogic.getInstance().getPlayers().peekFirst().getToken().getLocation();
+                if (loc[0] != 1) GameCommunicationHandler.getInstance().sendAction(increaseMoneyFlag);
                 /*increase money flag handles both increase and decrease*/
 
             }

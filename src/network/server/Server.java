@@ -70,7 +70,7 @@ public class Server implements Runnable {
 
     public ClientHandler getClientHandler(String username) {
         for (int i = 0; i < clientNames.length; i++) {
-            if(clientNames[i]==null) continue;
+            if (clientNames[i] == null) continue;
             if (clientNames[i].equals(username)) return clientThreads[i];
         }
         return null;

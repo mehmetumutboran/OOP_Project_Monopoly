@@ -17,7 +17,7 @@ public class StartButton extends JButton implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         int startStatus = MonopolyGameController.getInstance().checkReadiness();
-        if(startStatus == -1){
+        if (startStatus == -1) {
             JOptionPane.showMessageDialog(null, "Cannot start with only 1 player",
                     "Error", JOptionPane.WARNING_MESSAGE);
         } else if (startStatus == 1) {

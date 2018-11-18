@@ -38,9 +38,9 @@ public class GameCommunicationHandler implements ReceivedChangedListener {
                 GameState.getInstance().generateCurrentAction(flag));
     }
 
-    public synchronized void sendPoolAction(char flag , int money) {
+    public synchronized void sendPoolAction(char flag, int money) {
         ClientFacade.getInstance().send(GameLogic.getInstance().getPlayers().peekFirst().getName(),
-                GameState.getInstance().generatePoolAction(flag , money));
+                GameState.getInstance().generatePoolAction(flag, money));
     }
 
     public void sendupdowngradeAction(char flag, DeedSquare square) {

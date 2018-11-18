@@ -20,12 +20,13 @@ public class Board {
     private ChanceCard[] chanceDeckList;
     private Community[] communityDeckList;
     private int pool;
+
     private Board() {
         squareList = new Square[3][56];
         squareMap = new HashMap<>();
         initializeSquares();
         initializeDecks();
-        pool =0;
+        pool = 0;
     }
 
     public static Board getInstance() {
@@ -36,18 +37,22 @@ public class Board {
     }
 
     public int getPool() {
-                return pool;    }
-    public void setPool(int money) {
-            this.pool=money;
-    }
-    public void increasePool(int money) {
-        this.pool+=money;
+        return pool;
     }
 
-    public ChanceCard[]  getChanceDeckList() {
+    public void setPool(int money) {
+        this.pool = money;
+    }
+
+    public void increasePool(int money) {
+        this.pool += money;
+    }
+
+    public ChanceCard[] getChanceDeckList() {
         return chanceDeckList;
     }
-    public Community[]  getCommunityDeckList() {
+
+    public Community[] getCommunityDeckList() {
         return communityDeckList;
     }
 
@@ -95,7 +100,7 @@ public class Board {
         return closestRailRoads;
     }
 
-    private void initializeDecks(){
+    private void initializeDecks() {
         chanceDeckList = new ChanceCard[23];
         communityDeckList = new Community[11];
 

@@ -88,7 +88,7 @@ public class MessageInterpreter {
     private void interpretPool(String message) {
         String money = message;
         GameLogic.getInstance().changePool(money);
-        UIUpdater.getInstance().setMessage("Pool money is increased by :  "+ money +" \nCurrent pool balance is : " + Board.getInstance().getPool() );
+        UIUpdater.getInstance().setMessage("Pool money is increased by :  " + money + " \nCurrent pool balance is : " + Board.getInstance().getPool());
 
     }
 
@@ -105,12 +105,13 @@ public class MessageInterpreter {
         }
 
         int[] loc = GameLogic.getInstance().getPlayer(name).getToken().getLocation();
-        if(Board.getInstance().getSquare(loc[0] , loc[1]) instanceof Chance){
-            UIUpdater.getInstance().setMessage(name + " picked " + Board.getInstance().getChanceDeckList()[0].getName());}
-        else if(Board.getInstance().getSquare(loc[0] , loc[1]) instanceof CommunityChest){
-            UIUpdater.getInstance().setMessage(name + " picked " + Board.getInstance().getCommunityDeckList()[0].getName());}
+        if (Board.getInstance().getSquare(loc[0], loc[1]) instanceof Chance) {
+            UIUpdater.getInstance().setMessage(name + " picked " + Board.getInstance().getChanceDeckList()[0].getName());
+        } else if (Board.getInstance().getSquare(loc[0], loc[1]) instanceof CommunityChest) {
+            UIUpdater.getInstance().setMessage(name + " picked " + Board.getInstance().getCommunityDeckList()[0].getName());
+        }
 
-            return true;
+        return true;
     }
 
     private void interpretupdownGrade(String message) {
