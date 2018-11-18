@@ -19,12 +19,13 @@ public class Board {
     private static final int[][] railRoads = {{0, 7}, {0, 35}, {1, 5}, {1, 15}, {1, 25}, {1, 35}, {2, 9}, {2, 21}};
     private ChanceCard[] chanceDeckList;
     private Community[] communityDeckList;
-
+    private int pool;
     private Board() {
         squareList = new Square[3][56];
         squareMap = new HashMap<>();
         initializeSquares();
         initializeDecks();
+        pool =0;
     }
 
     public static Board getInstance() {
@@ -32,6 +33,15 @@ public class Board {
             instance = new Board();
         }
         return instance;
+    }
+
+    public int getPool() {
+                return pool;    }
+    public void setPool(int money) {
+            this.pool=money;
+    }
+    public void increasePool(int money) {
+        this.pool+=money;
     }
 
     public ChanceCard[]  getChanceDeckList() {

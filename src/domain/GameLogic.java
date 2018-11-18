@@ -37,6 +37,8 @@ public class GameLogic {
     public static final char moveFlag = 'M';
     public static final char removeFlag = 'X';
     public static final char specialSquareFlag = 'A';
+    public static final char poolFlag = 'H';
+
 
     //TODO Add more
 
@@ -59,6 +61,10 @@ public class GameLogic {
         players = new LinkedList<>();
         playerList = new ArrayList<>();
 
+    }
+    public void changePool(String money) {
+
+        Board.getInstance().increasePool(Integer.parseInt(money));
     }
 
     public boolean buy() {
