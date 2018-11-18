@@ -3,12 +3,14 @@ package gui.baseFrame.buttons.hostJoinButtons;
 import domain.controller.ConnectGameHandler;
 import gui.InputChecker;
 import gui.baseFrame.BaseFrame;
+import network.client.clientFacade.ClientFacade;
+import network.listeners.ConnectionFailedListener;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class HostButton extends MultiplayerConnectionButton implements ActionListener {
+public class HostButton extends JButton implements ActionListener, ConnectionFailedListener {
     private JTextField IDField;
     private JTextField portField;
 
@@ -23,6 +25,9 @@ public class HostButton extends MultiplayerConnectionButton implements ActionLis
         super(text);
         this.IDField = IDField;
         this.portField = portField;
+        this.addActionListener(this);
+        ClientFacade.getInstance().addConnectionFailedListener(this);
+
     }
 
     /**
@@ -33,6 +38,7 @@ public class HostButton extends MultiplayerConnectionButton implements ActionLis
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         System.out.println("HostGame Button Pressed");
+//        LobbyPanel.setHost(true);
         checkConnection();
     }
 
@@ -48,7 +54,7 @@ public class HostButton extends MultiplayerConnectionButton implements ActionLis
             port = Integer.parseInt(portField.getText());
         } else return;
 
-        String status = ConnectGameHandler.getInstance().connectHost(username, port, this);
+        String status = ConnectGameHandler.getInstance().connectHost(username, port);
         if (status.equals("Successful")) {
             BaseFrame.setStatus("Lobby");
         }

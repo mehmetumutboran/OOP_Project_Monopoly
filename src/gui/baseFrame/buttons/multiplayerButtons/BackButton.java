@@ -1,6 +1,7 @@
 package gui.baseFrame.buttons.multiplayerButtons;
 
 import gui.baseFrame.BaseFrame;
+import network.client.clientFacade.ClientFacade;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -18,6 +19,10 @@ public class BackButton extends JButton implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         System.out.println("Back Button Pressed");
+        if (BaseFrame.getStatus().equals("Lobby")) {
+            ClientFacade.getInstance().terminate();
+        }
+
         BaseFrame.setStatus("Init");
     }
 }

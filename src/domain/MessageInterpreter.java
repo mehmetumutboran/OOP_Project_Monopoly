@@ -64,9 +64,17 @@ public class MessageInterpreter {
             case GameLogic.increaseMoneyFlag:
                 interpretMoneyChange(m.substring(1));
                 break;
+            case GameLogic.removeFlag:
+                interpretRemove(m.substring(1));
+                break;
             default:
                 break;
         }
+    }
+
+    private void interpretRemove(String name) {
+        GameLogic.getInstance().removePlayer(name);
+        UIUpdater.getInstance().removeUpdate(name);
     }
 
 
@@ -237,8 +245,8 @@ public class MessageInterpreter {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if(square instanceof SpecialSquareStrategy) return;
-        if(square==null) return;
+        if (square instanceof SpecialSquareStrategy) return;
+        if (square == null) return;
 
         GameLogic.getInstance().getPlayer(name).decreaseMoney(((DeedSquare) square).getBuyValue());
 
@@ -284,8 +292,8 @@ public class MessageInterpreter {
             e.printStackTrace();
         }
         /*payer*/
-        if(square instanceof SpecialSquareStrategy) return;
-        if(square==null) return;
+        if (square instanceof SpecialSquareStrategy) return;
+        if (square == null) return;
         GameLogic.getInstance().getPlayer(name).decreaseMoney(rentVal);
         /*taker*/
 

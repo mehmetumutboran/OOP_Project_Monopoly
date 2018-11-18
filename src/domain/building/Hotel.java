@@ -1,7 +1,7 @@
 package domain.building;
 
-public class Hotel extends Building{
-    public Hotel(){
+public class Hotel extends Building {
+    public Hotel() {
 
     }
 
