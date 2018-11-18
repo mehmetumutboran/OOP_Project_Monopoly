@@ -51,6 +51,6 @@ public class ColorBox extends JComboBox implements ActionListener, PlayerListCha
 
     @Override
     public void onPlayerListChangedEvent(ArrayList<String> selectedColors) {
-        refresh(selectedColors);
+        //refresh(selectedColors);
     }
 }
