@@ -151,7 +151,7 @@ public class GameLogic {
 
         GameCommunicationHandler.getInstance().sendAction(moveFlag);
         /*********************************/
-        GameCommunicationHandler.getInstance().sendTokenMovementAction(tokenFlag,lL);
+        GameCommunicationHandler.getInstance().sendAction(tokenFlag);
         checkSpecialSquare(newLoc);
     }
 
@@ -166,39 +166,41 @@ public class GameLogic {
     }
 
     private int[] upDownMoveRec(int[] lastLoc, int roll) {
-        String sqName = Board.getInstance().railRoadFind(lastLoc, roll)[0].getName();
-        int[] tryLoc = new int[2];
-        switch (sqName) {
-            case "Reading Railroad":
-                if (lastLoc[0] == 0) {
-                    return railRoadHelper(lastLoc, 1, 5, tryLoc, roll, FIRSTLAYERSQ);
-                } else if (lastLoc[0] == 1) {
-                    return railRoadHelper(lastLoc, 0, 7, tryLoc, roll, ZEROTHLAYERSQ);
-                }
-                break;
-            case "B.&O. Railroad":
-                if (lastLoc[0] == 0) {
-                    return railRoadHelper(lastLoc, 1, 25, tryLoc, roll, FIRSTLAYERSQ);
-                } else if (lastLoc[0] == 1) {
-                    return railRoadHelper(lastLoc, 0, 35, tryLoc, roll, ZEROTHLAYERSQ);
-                }
-                break;
-            case "Pennsylvania Railroad":
-                if (lastLoc[0] == 1) {
-                    return railRoadHelper(lastLoc, 2, 9, tryLoc, roll, SECONDLAYERSQ);
-                } else if (lastLoc[0] == 2) {
-                    return railRoadHelper(lastLoc, 1, 15, tryLoc, roll, FIRSTLAYERSQ);
-                }
-                break;
-            case "Short Line Railroad":
-                if (lastLoc[0] == 1) {
-                    return railRoadHelper(lastLoc, 2, 21, tryLoc, roll, SECONDLAYERSQ);
-                } else if (lastLoc[0] == 2) {
-                    return railRoadHelper(lastLoc, 1, 35, tryLoc, roll, FIRSTLAYERSQ);
-                }
-                break;
-            default:
-                break;
+        if(Board.getInstance().railRoadFind(lastLoc, roll)[0] != null) {
+            String sqName = Board.getInstance().railRoadFind(lastLoc, roll)[0].getName();
+            int[] tryLoc = new int[2];
+            switch (sqName) {
+                case "Reading Railroad":
+                    if (lastLoc[0] == 0) {
+                        return railRoadHelper(lastLoc, 1, 5, tryLoc, roll, FIRSTLAYERSQ);
+                    } else if (lastLoc[0] == 1) {
+                        return railRoadHelper(lastLoc, 0, 7, tryLoc, roll, ZEROTHLAYERSQ);
+                    }
+                    break;
+                case "B.&O. Railroad":
+                    if (lastLoc[0] == 0) {
+                        return railRoadHelper(lastLoc, 1, 25, tryLoc, roll, FIRSTLAYERSQ);
+                    } else if (lastLoc[0] == 1) {
+                        return railRoadHelper(lastLoc, 0, 35, tryLoc, roll, ZEROTHLAYERSQ);
+                    }
+                    break;
+                case "Pennsylvania Railroad":
+                    if (lastLoc[0] == 1) {
+                        return railRoadHelper(lastLoc, 2, 9, tryLoc, roll, SECONDLAYERSQ);
+                    } else if (lastLoc[0] == 2) {
+                        return railRoadHelper(lastLoc, 1, 15, tryLoc, roll, FIRSTLAYERSQ);
+                    }
+                    break;
+                case "Short Line Railroad":
+                    if (lastLoc[0] == 1) {
+                        return railRoadHelper(lastLoc, 2, 21, tryLoc, roll, SECONDLAYERSQ);
+                    } else if (lastLoc[0] == 2) {
+                        return railRoadHelper(lastLoc, 1, 35, tryLoc, roll, FIRSTLAYERSQ);
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
         return lastLoc;
     }

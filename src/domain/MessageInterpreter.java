@@ -61,6 +61,7 @@ public class MessageInterpreter {
                 break;
             case GameLogic.downgradeFlag:
                 interpretupdownGrade(m);
+                break;
             case GameLogic.moveFlag:
                 interpretMove(m.substring(1));
                 break;
@@ -75,6 +76,7 @@ public class MessageInterpreter {
                 break;
             case GameLogic.poolFlag:
                 interpretPool(m.substring(1));
+                break;
             case GameLogic.tokenFlag:
                 interpretTokenMovement(m.substring(1));
                 break;
@@ -119,14 +121,13 @@ public class MessageInterpreter {
     private void interpretTokenMovement(String message) {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
-        int seperate = message.indexOf("£");
         String name = null;
         Token token = null;
         Player p = null;
         try {
-            name = objectMapper.readValue(message.substring(0, seperate), Player.class).getName();
-            token = objectMapper.readValue(message.substring(0, seperate), Player.class).getToken();
-            p = objectMapper.readValue(message.substring(0, seperate), Player.class);
+            name = objectMapper.readValue(message, Player.class).getName();
+            token = objectMapper.readValue(message, Player.class).getToken();
+            p = objectMapper.readValue(message, Player.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
