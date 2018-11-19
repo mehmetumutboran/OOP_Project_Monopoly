@@ -2,6 +2,7 @@ package domain;
 
 import domain.listeners.CloseButtonListener;
 import domain.listeners.MessageChangedListener;
+import domain.listeners.PlayerQuitEventListener;
 import domain.listeners.TokenMovementListener;
 import domain.listeners.TurnChangedListener;
 
@@ -13,6 +14,7 @@ public class UIUpdater {
     private ArrayList<MessageChangedListener> messageChangedListeners;
     private ArrayList<TurnChangedListener> turnChangedListeners;
     private ArrayList<CloseButtonListener> closeButtonListeners;
+    private ArrayList<PlayerQuitEventListener> playerQuitEventListeners;
     private ArrayList<TokenMovementListener> tokenMovementListeners;
 
     String message;
@@ -27,6 +29,7 @@ public class UIUpdater {
         messageChangedListeners = new ArrayList<>();
         turnChangedListeners = new ArrayList<>();
         closeButtonListeners = new ArrayList<>();
+        playerQuitEventListeners = new ArrayList<>();
         tokenMovementListeners = new ArrayList<>();
     }
 
@@ -86,6 +89,21 @@ public class UIUpdater {
 
     public void close() {
         publishCloseButtonEvent();
+    }
+
+    public void removeUpdate(String name) {
+        publishPlayerQuitEvent(name);
+    }
+
+    public void addPlayerQuitEventListener(PlayerQuitEventListener pqel) {
+        playerQuitEventListeners.add(pqel);
+    }
+
+    private void publishPlayerQuitEvent(String name) {
+        for (PlayerQuitEventListener pqel : playerQuitEventListeners) {
+            if (pqel == null) continue;
+            pqel.onPlayerQuitEvent(name);
+        }
     }
 
     public void setTokenLocation(String name, int x, int y) {

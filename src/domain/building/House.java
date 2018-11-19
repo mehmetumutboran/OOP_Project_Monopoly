@@ -1,6 +1,6 @@
 package domain.building;
 
-public class House extends Building{
+public class House extends Building {
     public House() {
 
     }

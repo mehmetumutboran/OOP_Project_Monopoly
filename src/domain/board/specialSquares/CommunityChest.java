@@ -1,5 +1,6 @@
 package domain.board.specialSquares;
 
+import domain.board.Board;
 import domain.board.SpecialSquareStrategy;
 import domain.board.Square;
 
@@ -11,6 +12,8 @@ public class CommunityChest extends Square implements SpecialSquareStrategy {
 
     @Override
     public boolean doAction() {
-        return false;
+        Board.getInstance().getCommunityDeckList()[0].doAction();
+        return true;
+
     }
 }

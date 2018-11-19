@@ -19,11 +19,13 @@ public class ClientHandler implements Runnable {
         try {
             this.dis = new DataInputStream(socket.getInputStream());
             this.dos = new DataOutputStream(socket.getOutputStream());
-
+            String line = dis.readUTF();
+            Server.setClientInfo(line);
 
             while (true) {
-                String line = dis.readUTF();
+                line = dis.readUTF();
                 Server.sendAll(line);
+
             }
 
 
@@ -35,8 +37,20 @@ public class ClientHandler implements Runnable {
 
     }
 
+
     public synchronized void send(String m) throws IOException {
         dos.writeUTF(m);
         dos.flush();
+    }
+
+    public void terminate() {
+        try {
+            send("You are kicked!");
+            dis.close();
+            dos.close();
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

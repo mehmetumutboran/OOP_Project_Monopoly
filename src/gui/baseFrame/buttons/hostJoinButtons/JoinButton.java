@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class JoinButton extends MultiplayerConnectionButton implements ActionListener, ConnectionFailedListener {
+public class JoinButton extends JButton implements ActionListener, ConnectionFailedListener {
     private JTextField IDField;
     private JTextField IPField;
     private JTextField portField;
@@ -19,11 +19,13 @@ public class JoinButton extends MultiplayerConnectionButton implements ActionLis
         this.IDField = IDField;
         this.IPField = IPField;
         this.portField = portField;
+        this.addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         System.out.println("Join Button Pressed");
+//        LobbyPanel.setHost(false);
         checkConnection();
     }
 
@@ -44,7 +46,7 @@ public class JoinButton extends MultiplayerConnectionButton implements ActionLis
         } else return;
 
         String status = ConnectGameHandler.getInstance().connectClient(username, ip,
-                port, false, this);
+                port, false);
         if (status.equals("Successful")) {
             BaseFrame.setStatus("Lobby");
         }

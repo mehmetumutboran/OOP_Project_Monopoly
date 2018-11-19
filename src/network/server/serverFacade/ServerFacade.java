@@ -34,4 +34,8 @@ public class ServerFacade {
     public Server getServer() {
         return server;
     }
+
+    public void kick(String username) {
+        server.getClientHandler(username).terminate();
+    }
 }

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.board.*;
+import domain.board.specialSquares.Chance;
+import domain.board.specialSquares.CommunityChest;
 import domain.player.Player;
 import domain.player.Token;
 
@@ -65,12 +67,53 @@ public class MessageInterpreter {
             case GameLogic.increaseMoneyFlag:
                 interpretMoneyChange(m.substring(1));
                 break;
+            case GameLogic.removeFlag:
+                interpretRemove(m.substring(1));
+                break;
+            case GameLogic.specialSquareFlag:
+                interpretSpecial(m.substring(1));
+                break;
+            case GameLogic.poolFlag:
+                interpretPool(m.substring(1));
             case GameLogic.tokenFlag:
                 interpretTokenMovement(m.substring(1));
                 break;
             default:
                 break;
         }
+    }
+
+    private void interpretRemove(String name) {
+        GameLogic.getInstance().removePlayer(name);
+        UIUpdater.getInstance().removeUpdate(name);
+    }
+
+    private void interpretPool(String message) {
+        String money = message;
+        GameLogic.getInstance().changePool(money);
+        UIUpdater.getInstance().setMessage("Pool money is increased by :  " + money + " \nCurrent pool balance is : " + Board.getInstance().getPool());
+
+    }
+
+
+    private boolean interpretSpecial(String message) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+        String name = null;
+
+        try {
+            name = objectMapper.readValue(message, Player.class).getName();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        int[] loc = GameLogic.getInstance().getPlayer(name).getToken().getLocation();
+        if (Board.getInstance().getSquare(loc[0], loc[1]) instanceof Chance) {
+            UIUpdater.getInstance().setMessage(name + " picked " + Board.getInstance().getChanceDeckList()[0].getName());
+        } else if (Board.getInstance().getSquare(loc[0], loc[1]) instanceof CommunityChest) {
+            UIUpdater.getInstance().setMessage(name + " picked " + Board.getInstance().getCommunityDeckList()[0].getName());
+        }
+
+        return true;
     }
 
     private void interpretTokenMovement(String message) {
@@ -87,6 +130,7 @@ public class MessageInterpreter {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
 
         int xLoc = 0;
         int yLoc = 0;
@@ -197,8 +241,9 @@ public class MessageInterpreter {
                 }
             }
         }
-        UIUpdater.getInstance().setTokenLocation(name,xLoc,yLoc);
+        UIUpdater.getInstance().setTokenLocation(name, xLoc, yLoc);
     }
+
     private void interpretupdownGrade(String message) {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
@@ -366,8 +411,8 @@ public class MessageInterpreter {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if(square instanceof SpecialSquareStrategy) return;
-        if(square==null) return;
+        if (square instanceof SpecialSquareStrategy) return;
+        if (square == null) return;
 
         GameLogic.getInstance().getPlayer(name).decreaseMoney(((DeedSquare) square).getBuyValue());
 
@@ -413,8 +458,8 @@ public class MessageInterpreter {
             e.printStackTrace();
         }
         /*payer*/
-        if(square instanceof SpecialSquareStrategy) return;
-        if(square==null) return;
+        if (square instanceof SpecialSquareStrategy) return;
+        if (square == null) return;
         GameLogic.getInstance().getPlayer(name).decreaseMoney(rentVal);
         /*taker*/
 

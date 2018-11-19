@@ -2,10 +2,13 @@ package gui;
 
 import gui.baseFrame.BaseFrame;
 
+import javax.swing.*;
+
 public class Main {
 
     public static void main(String[] args) {
-        new BaseFrame();
+        SwingUtilities.invokeLater(BaseFrame::new);
+
     }
 
 }

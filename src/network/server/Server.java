@@ -17,7 +17,8 @@ public class Server implements Runnable {
 
     private static final int maxClientsCount = 12;
 
-    private static final ClientHandler[] clientThreads = new ClientHandler[maxClientsCount];
+    private volatile static ClientHandler[] clientThreads = new ClientHandler[maxClientsCount];
+    private volatile static String[] clientNames = new String[maxClientsCount];
 
 
     public Server(int port) {
@@ -30,12 +31,29 @@ public class Server implements Runnable {
         }
     }
 
-    public static void removeClient(ClientHandler clientHandler) {
+    public synchronized static void removeClient(ClientHandler clientHandler) {
         for (int i = 0; i < maxClientsCount; i++) {
             if (clientThreads[i] == clientHandler) {
-                clientThreads[i] = null;
+                try {
+                    clientThreads[i] = null;
+                    sendAll("X" + clientNames[i]);
+                    clientNames[i] = null;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
+    }
+
+    public static void setClientInfo(String line) {
+        for (int i = 0; i < maxClientsCount; i++) {
+            if (clientNames[i] == null) {
+                clientNames[i] = line;
+                break;
+            }
+        }
+        System.out.println("\n\n---------============-------\n" + Arrays.toString(clientNames)
+                + "\n---------============-------\n\n");
     }
 
     /**
@@ -48,6 +66,14 @@ public class Server implements Runnable {
      */
     private synchronized void setClientThread(int i, Socket clientSocket) { //TODO delete
         clientThreads[i] = new ClientHandler(clientSocket);
+    }
+
+    public ClientHandler getClientHandler(String username) {
+        for (int i = 0; i < clientNames.length; i++) {
+            if (clientNames[i] == null) continue;
+            if (clientNames[i].equals(username)) return clientThreads[i];
+        }
+        return null;
     }
 
 
