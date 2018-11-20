@@ -61,7 +61,6 @@ public class GameLogic {
     }
 
     public void changePool(String money) {
-
         Board.getInstance().increasePool(Integer.parseInt(money));
     }
 
@@ -398,14 +397,17 @@ public class GameLogic {
 
     }
 
-    private boolean checkSpecialSquare(int[] newLoc) {
+    private void checkSpecialSquare(int[] newLoc) {
         Square square = Board.getInstance().getSquare(newLoc[0], newLoc[1]);
         if (square instanceof SpecialSquareStrategy) {
             int initMoney = getCurrentPlayer().getBalance();
             System.out.println("\n\n================\nInitMoney: " + initMoney + "\n");
+
             ((SpecialSquareStrategy) square).doAction();
+
             int finalMoney = getCurrentPlayer().getBalance();
             System.out.println("\n\n================\nFinalMoney: " + finalMoney + "\n");
+
             GameCommunicationHandler.getInstance().sendAction(specialSquareFlag);
 
 
@@ -423,7 +425,6 @@ public class GameLogic {
 
             }
         }
-        return true;
     }
 
 

@@ -75,7 +75,7 @@ public class ClientFacade {
     /**
      * Sends Message to the server
      *
-     * @param name
+     * @param name Name of the player who performed action
      * @param message Formatted as JSON String
      */
     public synchronized void send(String name, String message) {
@@ -98,6 +98,7 @@ public class ClientFacade {
         publishReceivedChangedAction();
     }
 
+    @SuppressWarnings("unchecked")
     private synchronized void publishReceivedChangedAction() {
         ArrayList<ReceivedChangedListener> temp = (ArrayList<ReceivedChangedListener>) receivedChangedListeners.clone();
         for (ReceivedChangedListener aReceivedChangedListener : temp) {
@@ -110,6 +111,7 @@ public class ClientFacade {
         if (!receivedChangedListeners.contains(listener)) receivedChangedListeners.add(listener);
     }
 
+    @SuppressWarnings("unchecked")
     public synchronized void removeReceivedChangedListener(ReceivedChangedListener listener) {
         if (receivedChangedListeners.contains(listener)) {
             ArrayList<ReceivedChangedListener> temp = (ArrayList<ReceivedChangedListener>) receivedChangedListeners.clone();
