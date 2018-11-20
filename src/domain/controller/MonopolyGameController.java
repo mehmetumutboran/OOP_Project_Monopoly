@@ -117,11 +117,11 @@ public class MonopolyGameController {
         return (ArrayList<String>) playerList.stream().map(Player::tokenColor).collect(Collectors.toList());
     }
 
-    public ArrayList<String> getPlayerColorArray(){
+    public ArrayList<String> getPlayerColorArray() {
         ArrayList<String> pList = getPlayerListName();
         ArrayList<String> cList = getPlayerListColor();
-        ArrayList <String> pca = new ArrayList<>();
-        for(int i = 0; i < pList.size(); i++){
+        ArrayList<String> pca = new ArrayList<>();
+        for (int i = 0; i < pList.size(); i++) {
             pca.add(i, pList.get(i) + "@" + cList.get(i));
         }
         return pca;
@@ -204,7 +204,9 @@ public class MonopolyGameController {
         for (Player p : playerQueue) {
             System.out.println(p);
         }
-        GameLogic.getInstance().setPlayers(playerQueue);
+
+        playerQueue.forEach(x -> GameLogic.getInstance().getPlayers().addLast(x.getName()));
+//        GameLogic.getInstance().setPlayers(playerQueue.stream().map(Player::getName).collect(Collectors.toCollection(LinkedList::new)));
         GameCommunicationHandler.getInstance().sendQueue();
     }
 

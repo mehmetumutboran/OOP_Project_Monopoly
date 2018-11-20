@@ -1,6 +1,7 @@
 package domain.board;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,6 +13,7 @@ import domain.player.Player;
 public abstract class DeedSquare extends Square {
     private int buyValue;
     private int rent;
+    @JsonIgnoreProperties({"ownedProperties", "ownedRailroads", "ownedUtilities"})
     private Player owner;
     private boolean owned;
     private boolean mortgaged;

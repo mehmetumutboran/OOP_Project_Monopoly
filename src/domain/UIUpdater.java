@@ -1,10 +1,6 @@
 package domain;
 
-import domain.listeners.CloseButtonListener;
-import domain.listeners.MessageChangedListener;
-import domain.listeners.PlayerQuitEventListener;
-import domain.listeners.TokenMovementListener;
-import domain.listeners.TurnChangedListener;
+import domain.listeners.*;
 
 import java.util.ArrayList;
 
@@ -40,8 +36,10 @@ public class UIUpdater {
     private void publishMessageChangedEvent() {
         messageChangedListeners.forEach(MessageChangedListener::onMessageChangedEvent);
     }
-    public void addTokenMovementListeners (TokenMovementListener tml) { tokenMovementListeners.add(tml);}
 
+    public void addTokenMovementListeners(TokenMovementListener tml) {
+        tokenMovementListeners.add(tml);
+    }
 
 
     public void addTurnChangedListener(TurnChangedListener tcl) {
@@ -53,11 +51,12 @@ public class UIUpdater {
     }
 
 
-    private void publishTokenMovementEvent(String name, int x , int y) {
-        for (TokenMovementListener tml: tokenMovementListeners) {
-            tml.onTokenMovement(name,x,y);
+    private void publishTokenMovementEvent(String name, int x, int y) {
+        for (TokenMovementListener tml : tokenMovementListeners) {
+            tml.onTokenMovement(name, x, y);
         }
     }
+
     private void publishTurnChangedEvent(boolean isEnabled) {
         for (TurnChangedListener tcl : turnChangedListeners) {
             tcl.onTurnChangedEvent(isEnabled);
@@ -69,8 +68,11 @@ public class UIUpdater {
             cbl.onCloseClickedEvent();
         }
     }
-//TODO when player leaves
-    public void removeTokenMovementListeners (TokenMovementListener tml) {tokenMovementListeners.remove(tml);}
+
+    //TODO when player leaves
+    public void removeTokenMovementListeners(TokenMovementListener tml) {
+        tokenMovementListeners.remove(tml);
+    }
 
     public String getMessage() {
         return this.message;
@@ -82,7 +84,7 @@ public class UIUpdater {
     }
 
     public void turnUpdate() {
-        publishTurnChangedEvent(GameLogic.getInstance().getPlayers().peekFirst()
+        publishTurnChangedEvent(GameLogic.getInstance().getCurrentPlayer()
                 .equals(GameLogic.getInstance().getPlayerList().get(0)));
 
     }
@@ -107,6 +109,6 @@ public class UIUpdater {
     }
 
     public void setTokenLocation(String name, int x, int y) {
-        this.publishTokenMovementEvent(name,x,y);
+        this.publishTokenMovementEvent(name, x, y);
     }
 }

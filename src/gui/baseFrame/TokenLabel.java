@@ -5,17 +5,17 @@ import gui.ColorConverter;
 
 import javax.swing.*;
 
-public class TokenLabel extends JLabel{
+public class TokenLabel extends JLabel {
 
     private String owner;
     private String color;
 
 
-    public TokenLabel(String owner,String color){
-       super();
-       this.owner = owner;
-       this.color = color;
-       this.setBackground(ColorConverter.getInstance().getColor(this.color));
+    public TokenLabel(String owner, String color) {
+        super();
+        this.owner = owner;
+        this.color = color;
+        this.setBackground(ColorConverter.getInstance().getColor(this.color));
     }
 
     public String getOwner() {
