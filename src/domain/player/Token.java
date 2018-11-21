@@ -5,7 +5,7 @@ public class Token {
     private String color;
 
 
-    public Token() {
+    Token() {
         this(new int[]{1, 0}, "White");
     }
 
@@ -13,7 +13,7 @@ public class Token {
         this(new int[]{1, 0}, color);
     }
 
-    public Token(int[] location, String color) {
+    private Token(int[] location, String color) {
         this.location = location;
         this.color = color;
     }

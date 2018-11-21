@@ -30,11 +30,6 @@ public class GameState {
         return flag + GameLogic.getInstance().getCurrentPlayer().toJSON() + "~" + square.toJSON();
     }
 
-    public String generatetokenMovementAction(char flag, int[] llocation) {
-        String location = llocation[0] + "@" + llocation[1];
-        return flag + GameLogic.getInstance().getCurrentPlayer().toJSON() + "£" + location;
-
-    }
 
     public String generateMoneyChangeAction(int amount, String name) {
         return GameLogic.moneyFlag + "" + amount + GameLogic.getInstance().getPlayer(name).toJSON();

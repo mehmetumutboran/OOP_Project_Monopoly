@@ -54,7 +54,7 @@ public class GameCommunicationHandler implements ReceivedChangedListener {
     }
 
 
-    public void sendQueue() {
+    void sendQueue() {
         ObjectMapper objectMapper = new ObjectMapper();
         String s = null;
         try {

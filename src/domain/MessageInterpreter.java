@@ -57,10 +57,10 @@ public class MessageInterpreter {
                 interpretClose();
                 break;
             case GameLogic.upgradeFlag:
-                interpretupdownGrade(m);
+                interpretUpDownGrade(m);
                 break;
             case GameLogic.downgradeFlag:
-                interpretupdownGrade(m);
+                interpretUpDownGrade(m);
                 break;
             case GameLogic.moveFlag:
                 interpretMove(m.substring(1));
@@ -91,14 +91,13 @@ public class MessageInterpreter {
     }
 
     private void interpretPool(String message) {
-        String money = message;
-        GameLogic.getInstance().changePool(money);
-        UIUpdater.getInstance().setMessage("Pool money is increased by :  " + money + " \nCurrent pool balance is : " + Board.getInstance().getPool());
+        GameLogic.getInstance().changePool(message);
+        UIUpdater.getInstance().setMessage("Pool money is increased by :  " + message + " \nCurrent pool balance is : " + Board.getInstance().getPool());
 
     }
 
 
-    private boolean interpretSpecial(String message) {
+    private void interpretSpecial(String message) {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
         String name = null;
@@ -115,7 +114,6 @@ public class MessageInterpreter {
             UIUpdater.getInstance().setMessage(name + " picked " + Board.getInstance().getCommunityDeckList()[0].getName());
         }
 
-        return true;
     }
 
     private void interpretTokenMovement(String message) {
@@ -245,7 +243,7 @@ public class MessageInterpreter {
         UIUpdater.getInstance().setTokenLocation(name, xLoc, yLoc);
     }
 
-    private void interpretupdownGrade(String message) {
+    private void interpretUpDownGrade(String message) {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
         String name = null;
@@ -297,7 +295,7 @@ public class MessageInterpreter {
     private void interpretMoneyChange(String message) {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
-        String name = null;
+        String name;
         String player = message.substring(message.indexOf('{'));
         Player received = null;
         int changedMoney = Integer.parseInt(message.substring(0, message.indexOf('{')));
@@ -394,14 +392,14 @@ public class MessageInterpreter {
     }
 
 
-    public void interpretBuy(String message) {
+    private void interpretBuy(String message) {
         /*may be wrong !!!! */
         System.out.println("in interpret buy flag");
 
         ObjectMapper objectMapper2 = new ObjectMapper();
         objectMapper2.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
 
-        int[] location = null;
+        int[] location;
         String name = null;
         Square square = null;
         try {
@@ -443,13 +441,13 @@ public class MessageInterpreter {
     }
 
 
-    public void interpretRent(String message) {
+    private void interpretRent(String message) {
         System.out.println("in interpretRent");
 
         ObjectMapper objectMapper3 = new ObjectMapper();
         objectMapper3.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
 
-        int[] location = null;
+        int[] location;
         String name = null;
         Square square = null;
         int rentVal = 0;

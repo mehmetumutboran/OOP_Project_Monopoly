@@ -192,13 +192,11 @@ public class Player implements Comparable {
 
     @Override
     public String toString() { //TODO This toString() is for debugging. It may change.
-        final StringBuilder sb = new StringBuilder("Player{");
-        sb.append("name='").append(name).append('\'');
-        sb.append(", token=").append(token);
-        sb.append(", balance=").append(balance);
-        sb.append(", started=").append(started);
-        sb.append('}');
-        return sb.toString();
+        return "Player{" + "name='" + name + '\'' +
+                ", token=" + token +
+                ", balance=" + balance +
+                ", started=" + started +
+                '}';
     }
 
     public boolean checkMajority(Property square) {
@@ -217,7 +215,6 @@ public class Player implements Comparable {
 
     public boolean buy() {
         System.out.println("in  player buy");
-        boolean sold = false;
         /* checks if buyable square i.e. railroad */
         Square square = Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]];
 
@@ -245,11 +242,9 @@ public class Player implements Comparable {
                     && this.getBalance() > ((Railroad) square).getBuyValue()
                     && !((Railroad) square).isOwned()) {
                 return true;
-            } else if (square instanceof Utility
+            } else return square instanceof Utility
                     && this.getBalance() > ((Utility) square).getBuyValue()
-                    && !((Utility) square).isOwned()) {
-                return true;
-            }
+                    && !((Utility) square).isOwned();
         }
 
         return false;
@@ -288,12 +283,10 @@ public class Player implements Comparable {
                     && !((Railroad) square).getOwner().equals(this)
                     && this.getBalance() > ((Railroad) square).getRent()) {
                 return true;
-            } else if (square instanceof Utility
+            } else return square instanceof Utility
                     && ((Utility) square).isOwned()
                     && !((Utility) square).getOwner().equals(this)
-                    && this.getBalance() > ((Utility) square).getRent()) {
-                return true;
-            }
+                    && this.getBalance() > ((Utility) square).getRent();
         }
 
         return false;

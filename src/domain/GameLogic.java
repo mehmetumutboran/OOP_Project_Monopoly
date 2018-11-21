@@ -16,35 +16,35 @@ import java.util.stream.Collectors;
 public class GameLogic {
     private static GameLogic ourInstance;
 
-    public static final char buyFlag = 'B';
-    public static final char rollFlag = 'R';
-    public static final char getRentFlag = 'I';
-    public static final char moneyFlag = 'S';
-    public static final char payRentFlag = 'P';
-    public static final char drawCardFlag = 'C';
-    public static final char payDayFlag = 'Y';
-    public static final char goFlag = 'G';
-    public static final char bonusFlag = 'O';
-    public static final char jailFlag = 'J';
-    public static final char finishTurnFlag = 'F';
+    static final char buyFlag = 'B';
+    static final char rollFlag = 'R';
+    static final char getRentFlag = 'I';
+    static final char moneyFlag = 'S';
+    static final char payRentFlag = 'P';
+    static final char drawCardFlag = 'C';
+    static final char payDayFlag = 'Y';
+    static final char goFlag = 'G';
+    static final char bonusFlag = 'O';
+    static final char jailFlag = 'J';
+    static final char finishTurnFlag = 'F';
     public static final char queueFlag = 'Q';
-    public static final char closeFlag = 'E';
-    public static final char upgradeFlag = 'U';
-    public static final char downgradeFlag = 'Z';
-    public static final char moveFlag = 'M';
-    public static final char removeFlag = 'X';
-    public static final char specialSquareFlag = 'A';
+    static final char closeFlag = 'E';
+    static final char upgradeFlag = 'U';
+    static final char downgradeFlag = 'Z';
+    static final char moveFlag = 'M';
+    static final char removeFlag = 'X';
+    static final char specialSquareFlag = 'A';
     public static final char poolFlag = 'H';
-    public static final char tokenFlag = 'T';
+    static final char tokenFlag = 'T';
 
     //TODO Add more
 
     private volatile Deque<String> players;
     private volatile ArrayList<Player> playerList;
 
-    private static final int SECONDLAYERSQ = 24;
-    private static final int FIRSTLAYERSQ = 40;
-    private static final int ZEROTHLAYERSQ = 56;
+    private static final int SECOND_LAYER_SQ = 24;
+    private static final int FIRST_LAYER_SQ = 40;
+    private static final int ZEROTH_LAYER_SQ = 56;
     private static final int GO_COLLECT = 200;
 
     public static GameLogic getInstance() {
@@ -60,7 +60,7 @@ public class GameLogic {
 
     }
 
-    public void changePool(String money) {
+    void changePool(String money) {
         Board.getInstance().increasePool(Integer.parseInt(money));
     }
 
@@ -108,19 +108,18 @@ public class GameLogic {
     private void move() {
         if (checkDouble()) getCurrentPlayer().incrementDoubleCounter();
         int[] lastLoc = getCurrentPlayer().getToken().getLocation();
-        int[] lL = lastLoc.clone();
         int[] newLoc;
         int totalRoll;
         int layerSQNumber = 0;
         switch (lastLoc[0]) {
             case 0:
-                layerSQNumber = ZEROTHLAYERSQ;
+                layerSQNumber = ZEROTH_LAYER_SQ;
                 break;
             case 1:
-                layerSQNumber = FIRSTLAYERSQ;
+                layerSQNumber = FIRST_LAYER_SQ;
                 break;
             case 2:
-                layerSQNumber = SECONDLAYERSQ;
+                layerSQNumber = SECOND_LAYER_SQ;
                 break;
         }
         if (getCurrentPlayer().getFaceValues()[2] <= 3) {
@@ -145,7 +144,6 @@ public class GameLogic {
         System.out.println("In the Game Logic Move Method");
 
         GameCommunicationHandler.getInstance().sendAction(moveFlag);
-        /*********************************/
         GameCommunicationHandler.getInstance().sendAction(tokenFlag);
         checkSpecialSquare(newLoc);
     }
@@ -167,30 +165,30 @@ public class GameLogic {
             switch (sqName) {
                 case "Reading Railroad":
                     if (lastLoc[0] == 0) {
-                        return railRoadHelper(lastLoc, 1, 5, tryLoc, roll, FIRSTLAYERSQ);
+                        return railRoadHelper(lastLoc, 1, 5, tryLoc, roll, FIRST_LAYER_SQ);
                     } else if (lastLoc[0] == 1) {
-                        return railRoadHelper(lastLoc, 0, 7, tryLoc, roll, ZEROTHLAYERSQ);
+                        return railRoadHelper(lastLoc, 0, 7, tryLoc, roll, ZEROTH_LAYER_SQ);
                     }
                     break;
                 case "B.&O. Railroad":
                     if (lastLoc[0] == 0) {
-                        return railRoadHelper(lastLoc, 1, 25, tryLoc, roll, FIRSTLAYERSQ);
+                        return railRoadHelper(lastLoc, 1, 25, tryLoc, roll, FIRST_LAYER_SQ);
                     } else if (lastLoc[0] == 1) {
-                        return railRoadHelper(lastLoc, 0, 35, tryLoc, roll, ZEROTHLAYERSQ);
+                        return railRoadHelper(lastLoc, 0, 35, tryLoc, roll, ZEROTH_LAYER_SQ);
                     }
                     break;
                 case "Pennsylvania Railroad":
                     if (lastLoc[0] == 1) {
-                        return railRoadHelper(lastLoc, 2, 9, tryLoc, roll, SECONDLAYERSQ);
+                        return railRoadHelper(lastLoc, 2, 9, tryLoc, roll, SECOND_LAYER_SQ);
                     } else if (lastLoc[0] == 2) {
-                        return railRoadHelper(lastLoc, 1, 15, tryLoc, roll, FIRSTLAYERSQ);
+                        return railRoadHelper(lastLoc, 1, 15, tryLoc, roll, FIRST_LAYER_SQ);
                     }
                     break;
                 case "Short Line Railroad":
                     if (lastLoc[0] == 1) {
-                        return railRoadHelper(lastLoc, 2, 21, tryLoc, roll, SECONDLAYERSQ);
+                        return railRoadHelper(lastLoc, 2, 21, tryLoc, roll, SECOND_LAYER_SQ);
                     } else if (lastLoc[0] == 2) {
-                        return railRoadHelper(lastLoc, 1, 35, tryLoc, roll, FIRSTLAYERSQ);
+                        return railRoadHelper(lastLoc, 1, 35, tryLoc, roll, FIRST_LAYER_SQ);
                     }
                     break;
                 default:
@@ -265,11 +263,11 @@ public class GameLogic {
         return false;
     }
 
-    public ArrayList<Player> getPlayerList() {
+    ArrayList<Player> getPlayerList() {
         return playerList;
     }
 
-    public void setPlayers(Deque<String> playerQueue) {
+    void setPlayers(Deque<String> playerQueue) {
         this.players = playerQueue;
     }
 
@@ -278,7 +276,7 @@ public class GameLogic {
         return players;
     }
 
-    public Player getPlayer(String name) {
+    Player getPlayer(String name) {
         return playerList.stream().filter(x -> x.getName().equals(name)).collect(Collectors.toList()).get(0);
     }
 
@@ -286,7 +284,7 @@ public class GameLogic {
         this.playerList = playerList;
     }
 
-    public synchronized void switchTurn() {
+    synchronized void switchTurn() {
         players.addLast(players.removeFirst());
         // Bots will play on only host's program
         if (!playerList.get(0).getReadiness().equals("Host")) return;
@@ -369,7 +367,7 @@ public class GameLogic {
 //        GameCommunicationHandler.getInstance().sendupdowngradeAction(downgradeFlag, (DeedSquare) square);
 //    }
 
-    public void removePlayer(String name) {
+    void removePlayer(String name) {
         Player player = playerList.stream().filter(p -> p.getName().equals(name)).collect(Collectors.toList()).get(0);
 
         resetPlayer(player);

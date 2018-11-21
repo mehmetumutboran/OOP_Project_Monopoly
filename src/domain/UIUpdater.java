@@ -13,7 +13,7 @@ public class UIUpdater {
     private ArrayList<PlayerQuitEventListener> playerQuitEventListeners;
     private ArrayList<TokenMovementListener> tokenMovementListeners;
 
-    String message;
+    private String message;
 
     public static UIUpdater getInstance() {
         if (ourInstance == null)
@@ -69,11 +69,6 @@ public class UIUpdater {
         }
     }
 
-    //TODO when player leaves
-    public void removeTokenMovementListeners(TokenMovementListener tml) {
-        tokenMovementListeners.remove(tml);
-    }
-
     public String getMessage() {
         return this.message;
     }
@@ -83,17 +78,17 @@ public class UIUpdater {
         publishMessageChangedEvent();
     }
 
-    public void turnUpdate() {
+    void turnUpdate() {
         publishTurnChangedEvent(GameLogic.getInstance().getCurrentPlayer()
                 .equals(GameLogic.getInstance().getPlayerList().get(0)));
 
     }
 
-    public void close() {
+    void close() {
         publishCloseButtonEvent();
     }
 
-    public void removeUpdate(String name) {
+    void removeUpdate(String name) {
         publishPlayerQuitEvent(name);
     }
 
@@ -108,7 +103,7 @@ public class UIUpdater {
         }
     }
 
-    public void setTokenLocation(String name, int x, int y) {
+    void setTokenLocation(String name, int x, int y) {
         this.publishTokenMovementEvent(name, x, y);
     }
 }
