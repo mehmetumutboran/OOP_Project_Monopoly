@@ -18,7 +18,7 @@ public class GameState {
 
     public String generateCurrentAction(char flag) {
         //TODO
-        return flag + GameLogic.getInstance().getPlayers().peekFirst().toJSON();
+        return flag + GameLogic.getInstance().getCurrentPlayer().toJSON();
     }
 
     public String generatePoolAction(char flag, int money) {
@@ -27,7 +27,16 @@ public class GameState {
     }
 
     public String generateupdownGradeAction(char flag, DeedSquare square) {
-        return flag + GameLogic.getInstance().getPlayers().peekFirst().toJSON() + "~" + square.toJSON();
+        return flag + GameLogic.getInstance().getCurrentPlayer().toJSON() + "~" + square.toJSON();
     }
 
+    public String generatetokenMovementAction(char flag, int[] llocation) {
+        String location = llocation[0] + "@" + llocation[1];
+        return flag + GameLogic.getInstance().getCurrentPlayer().toJSON() + "£" + location;
+
+    }
+
+    public String generateMoneyChangeAction(int amount, String name) {
+        return GameLogic.moneyFlag + "" + amount + GameLogic.getInstance().getPlayer(name).toJSON();
+    }
 }

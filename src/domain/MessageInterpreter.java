@@ -65,7 +65,7 @@ public class MessageInterpreter {
             case GameLogic.moveFlag:
                 interpretMove(m.substring(1));
                 break;
-            case GameLogic.increaseMoneyFlag:
+            case GameLogic.moneyFlag:
                 interpretMoneyChange(m.substring(1));
                 break;
             case GameLogic.removeFlag:
@@ -297,18 +297,22 @@ public class MessageInterpreter {
     private void interpretMoneyChange(String message) {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
-        int money = 0;
         String name = null;
+        String player = message.substring(message.indexOf('{'));
+        Player received = null;
+        int changedMoney = Integer.parseInt(message.substring(0, message.indexOf('{')));
         try {
-            money = objectMapper.readValue(message, Player.class).getBalance();
-            name = objectMapper.readValue(message, Player.class).getName();
+            received = objectMapper.readValue(player, Player.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        int changedMoney = money - GameLogic.getInstance().getPlayer(name).getBalance();
-
-        GameLogic.getInstance().getPlayer(name).setBalance(money);
+        assert received != null;
+        name = received.getName();
+        assert received.getName() != null;
+        if (!name.equals(GameLogic.getInstance().getPlayerList().get(0).getName()) && !(received.getReadiness().equals("Bot") && GameLogic.getInstance().getPlayerList().get(0).getReadiness().equals("Host"))) {
+            int money = changedMoney + GameLogic.getInstance().getPlayer(name).getBalance();
+            GameLogic.getInstance().getPlayer(name).setBalance(money);
+        }
         if (changedMoney > 0) UIUpdater.getInstance().setMessage(name + " 's money increased by " + changedMoney);
         else UIUpdater.getInstance().setMessage(name + " 's money decreased by " + changedMoney);
     }
@@ -340,11 +344,11 @@ public class MessageInterpreter {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
         try {
-            Player[] players = objectMapper.readValue(q, Player[].class);
+            String[] players = objectMapper.readValue(q, String[].class);
 //            System.out.println(Arrays.toString(objectMapper.readValue(q, Player[].class)));
-            Deque<Player> temp = new LinkedList<>();
-            for (int i = 0; i < players.length; i++) {
-                temp.addLast(players[i]);
+            Deque<String> temp = new LinkedList<>();
+            for (String player : players) {
+                temp.addLast(player);
             }
             GameLogic.getInstance().setPlayers(temp);
         } catch (IOException e) {

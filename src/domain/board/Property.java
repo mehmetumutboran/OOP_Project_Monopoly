@@ -45,17 +45,17 @@ public class Property extends DeedSquare {
         this.buildingList = buildingList;
     }
 
-    public int getHouseCost() {
-        return 0;
-    }
+//    public int getHouseCost() {
+//        return 0;
+//    }
 
-    public int getHotelCost() {
-        return 0;
-    }
+//    public int getHotelCost() {
+//        return 0;
+//    }
 
-    public int getSkyScrapperCost() {
-        return 0;
-    }
+//    public int getSkyScrapperCost() {
+//        return 0;
+//    }
 
     public void updateRent() {
         if (this.buildingList.isEmpty()) {

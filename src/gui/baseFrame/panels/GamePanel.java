@@ -61,23 +61,23 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
             String message = pcl.get(i);
             int sep = message.indexOf('@');
             System.out.println(sep);
-            String pName = message.substring(0,sep);
-            String cName = message.substring(sep+1);
-            TokenLabel tl = TokenFactory.getInstance().getNewToken(pName,cName);
+            String pName = message.substring(0, sep);
+            String cName = message.substring(sep + 1);
+            TokenLabel tl = TokenFactory.getInstance().getNewToken(pName, cName);
             tl.setOpaque(true);
-            if(i>=6) tl.setBounds(1070 + (i-6)*25,125,20,20);
-            else tl.setBounds(1070 + i*25,150,20,20);
+            if (i >= 6) tl.setBounds(1070 + (i - 6) * 25, 125, 20, 20);
+            else tl.setBounds(1070 + i * 25, 150, 20, 20);
             this.add(tl);
             tlist.add(tl);
         }
     }
 
     @Override
-    public void onTokenMovement(String pname,int x, int y) {
-        for(TokenLabel t:tlist) {
-            if(t.getOwner().equals(pname))
+    public void onTokenMovement(String pname, int x, int y) {
+        for (TokenLabel t : tlist) {
+            if (t.getOwner().equals(pname))
                 t.setBounds(x, y, VERTEX, VERTEX);
-                this.revalidate();
+            this.revalidate();
         }
 
     }

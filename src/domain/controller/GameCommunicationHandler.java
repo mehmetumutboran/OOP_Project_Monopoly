@@ -34,17 +34,17 @@ public class GameCommunicationHandler implements ReceivedChangedListener {
     }
 
     public synchronized void sendAction(char flag) {
-        ClientFacade.getInstance().send(GameLogic.getInstance().getPlayers().peekFirst().getName(),
+        ClientFacade.getInstance().send(GameLogic.getInstance().getCurrentPlayer().getName(),
                 GameState.getInstance().generateCurrentAction(flag));
     }
 
     public synchronized void sendPoolAction(char flag, int money) {
-        ClientFacade.getInstance().send(GameLogic.getInstance().getPlayers().peekFirst().getName(),
+        ClientFacade.getInstance().send(GameLogic.getInstance().getCurrentPlayer().getName(),
                 GameState.getInstance().generatePoolAction(flag, money));
     }
 
     public void sendupdowngradeAction(char flag, DeedSquare square) {
-        ClientFacade.getInstance().send(GameLogic.getInstance().getPlayers().peekFirst().getName(), GameState.getInstance().generateupdownGradeAction(flag, square));
+        ClientFacade.getInstance().send(GameLogic.getInstance().getCurrentPlayer().getName(), GameState.getInstance().generateupdownGradeAction(flag, square));
 
     }
 
@@ -63,6 +63,10 @@ public class GameCommunicationHandler implements ReceivedChangedListener {
             e.printStackTrace();
         }
 
-        ClientFacade.getInstance().send(GameLogic.getInstance().getPlayers().peekFirst().getName(), GameLogic.queueFlag + s);
+        ClientFacade.getInstance().send(GameLogic.getInstance().getCurrentPlayer().getName(), GameLogic.queueFlag + s);
+    }
+
+    public void sendMoneyAction(int amount, String name) {
+        ClientFacade.getInstance().send(name, GameState.getInstance().generateMoneyChangeAction(amount, name));
     }
 }

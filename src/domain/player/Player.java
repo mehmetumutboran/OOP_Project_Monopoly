@@ -1,6 +1,7 @@
 package domain.player;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,8 +15,11 @@ public class Player implements Comparable {
     private String name;
     private Token token;
     private int balance;
+    @JsonIgnoreProperties("owner")
     private ArrayList<Property> ownedProperties;
+    @JsonIgnoreProperties("owner")
     private ArrayList<Utility> ownedUtilities;
+    @JsonIgnoreProperties("owner")
     private ArrayList<Railroad> ownedRailroads;
     private String readiness;
     private boolean started;
@@ -104,7 +108,9 @@ public class Player implements Comparable {
         return token;
     }
 
-    public String tokenColor(){return this.getToken().getColor();}
+    public String tokenColor() {
+        return this.getToken().getColor();
+    }
 
     public void setToken(Token token) {
         this.token = token;
