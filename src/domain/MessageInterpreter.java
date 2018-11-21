@@ -245,14 +245,17 @@ public class MessageInterpreter {
         objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
         String name = null;
         String player = message.substring(message.indexOf('{'));
+        Player received = null;
         int changedMoney = Integer.parseInt(message.substring(0, message.indexOf('{')));
         try {
-            name = objectMapper.readValue(player, Player.class).getName();
+            received = objectMapper.readValue(player, Player.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        assert name != null;
-        if (!name.equals(GameLogic.getInstance().getPlayerList().get(0).getName())) {
+        assert received != null;
+        name = received.getName();
+        assert received.getName() != null;
+        if (!name.equals(GameLogic.getInstance().getPlayerList().get(0).getName()) && !(received.getReadiness().equals("Bot") && GameLogic.getInstance().getPlayerList().get(0).getReadiness().equals("Host"))) {
             int money = changedMoney + GameLogic.getInstance().getPlayer(name).getBalance();
             GameLogic.getInstance().getPlayer(name).setBalance(money);
         }
