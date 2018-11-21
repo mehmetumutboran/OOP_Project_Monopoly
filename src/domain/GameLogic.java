@@ -159,7 +159,7 @@ public class GameLogic {
     }
 
     private int[] upDownMoveRec(int[] lastLoc, int roll) {
-        if(Board.getInstance().railRoadFind(lastLoc, roll)[0] != null) {
+        if (Board.getInstance().railRoadFind(lastLoc, roll)[0] != null) {
             String sqName = Board.getInstance().railRoadFind(lastLoc, roll)[0].getName();
             int[] tryLoc = new int[2];
             switch (sqName) {

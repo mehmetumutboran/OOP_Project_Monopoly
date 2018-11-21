@@ -75,7 +75,7 @@ public class ClientFacade {
     /**
      * Sends Message to the server
      *
-     * @param name Name of the player who performed action
+     * @param name    Name of the player who performed action
      * @param message Formatted as JSON String
      */
     public synchronized void send(String name, String message) {
