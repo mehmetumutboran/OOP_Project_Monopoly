@@ -18,6 +18,9 @@ public class GameState {
 
     public String generateCurrentAction(char flag) {
         //TODO
+        switch (flag){
+
+        }
         return flag + GameLogic.getInstance().getCurrentPlayer().toJSON();
     }
 
