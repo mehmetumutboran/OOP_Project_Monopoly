@@ -41,7 +41,7 @@ public class TokenLabel extends JLabel {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        g.drawImage(new ImageIcon(img).getImage(), x, y, this);
+        g.drawImage(new ImageIcon(img.getScaledInstance(30,30,Image.SCALE_SMOOTH)).getImage(), x, y, this);
     }
 
     public void setCoordinates(int x, int y){
