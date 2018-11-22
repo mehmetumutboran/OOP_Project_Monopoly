@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.GameLogic;
 import domain.GameState;
 import domain.MessageInterpreter;
-import domain.board.DeedSquare;
 import network.client.clientFacade.ClientFacade;
 import network.listeners.ReceivedChangedListener;
 
@@ -35,17 +34,17 @@ public class GameCommunicationHandler implements ReceivedChangedListener {
 
     public synchronized void sendAction(char flag, String name) {
         ClientFacade.getInstance().send(GameLogic.getInstance().getCurrentPlayer().getName(),
-                GameState.getInstance().generateCurrentAction(flag,name));
+                GameState.getInstance().generateCurrentAction(flag, name));
     }
 
-    public synchronized void sendAction(char flag, String name,String buildName) {
+    public synchronized void sendAction(char flag, String name, String buildName) {
         ClientFacade.getInstance().send(GameLogic.getInstance().getCurrentPlayer().getName(),
-                GameState.getInstance().generateCurrentAction(flag,name,buildName));
+                GameState.getInstance().generateCurrentAction(flag, name, buildName));
     }
 
     public synchronized void sendAction(char flag, String name, int changedMoney) {
         ClientFacade.getInstance().send(GameLogic.getInstance().getCurrentPlayer().getName(),
-                GameState.getInstance().generateCurrentAction(flag,name,changedMoney));
+                GameState.getInstance().generateCurrentAction(flag, name, changedMoney));
     }
 
     @Override

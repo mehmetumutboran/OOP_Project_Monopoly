@@ -256,7 +256,7 @@ public class Player implements Comparable {
 
 
         boolean rentable =
-                       (square instanceof Property ||
+                (square instanceof Property ||
                         square instanceof Railroad ||
                         square instanceof Utility);
 
@@ -290,12 +290,12 @@ public class Player implements Comparable {
         return false;
     }
 
-    public void addDeed(Square square){
-        if(square instanceof Property){
+    public void addDeed(Square square) {
+        if (square instanceof Property) {
             ownedProperties.add((Property) square);
-        }else if (square instanceof Railroad){
+        } else if (square instanceof Railroad) {
             ownedRailroads.add((Railroad) square);
-        }else if (square instanceof Utility){
+        } else if (square instanceof Utility) {
             ownedUtilities.add((Utility) square);
         }
     }
