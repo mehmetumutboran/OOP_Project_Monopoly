@@ -22,6 +22,7 @@ public class MessageInterpreter {
         Interpreter tokenMovementInterpreter = new TokenMovementInterpreter();
         Interpreter rollInterpreter = new RollInterpreter();
         Interpreter specialSquareInterpreter = new SpecialSquareInterpreter();
+        Interpreter jailInterpreter = new JailInterpreter();
 
         interpreterMap = new HashMap<>();
         interpreterMap.put(GameLogic.moveFlag, moveInterpreter);
@@ -34,6 +35,8 @@ public class MessageInterpreter {
         interpreterMap.put(GameLogic.tokenFlag, tokenMovementInterpreter);
         interpreterMap.put(GameLogic.rollFlag, rollInterpreter);
         interpreterMap.put(GameLogic.specialSquareFlag, specialSquareInterpreter);
+        interpreterMap.put(GameLogic.jailFlag, jailInterpreter);
+        interpreterMap.put(GameLogic.goOutJailFlag,jailInterpreter);
     }
 
     public static MessageInterpreter getInstance() {

@@ -23,7 +23,7 @@ public class GameLogic {
     static final char drawCardFlag = 'C';
     static final char payDayFlag = 'Y';
     static final char bonusFlag = 'O';
-    static final char jailFlag = 'J';
+    public static final char jailFlag = 'J';
     static final char finishTurnFlag = 'F';
     public static final char queueFlag = 'Q';
     static final char closeFlag = 'E';
@@ -34,7 +34,7 @@ public class GameLogic {
     static final char specialSquareFlag = 'A';
     public static final char poolFlag = 'H';
     static final char tokenFlag = 'T';
-    static final char goOutJailFlag = 'G';
+    public static final char goOutJailFlag = 'G';
 
     //TODO Add more
 
