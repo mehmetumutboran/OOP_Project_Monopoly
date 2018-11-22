@@ -31,6 +31,7 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener, 
     private HostPanel hostPanel;
     private JoinPanel joinPanel;
     private GamePanel gamePanel;
+    private CreditsPanel creditsPanel;
     private ControlFrame controlDisplay;
 
 
@@ -54,12 +55,13 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener, 
     }
 
     private void initializeFrame() {
-        initialScreenPanel = new InitialScreenPanel(CURRENT_VERSION, FRAME_WIDTH, FRAME_HEIGHT);
+        initialScreenPanel = new InitialScreenPanel(FRAME_WIDTH, FRAME_HEIGHT);
         multiPlayerPanel = new MultiPlayerPanel(FRAME_WIDTH, FRAME_HEIGHT);
         singlePlayerPanel = new SinglePlayerPanel(FRAME_WIDTH, FRAME_HEIGHT);
         lobbyPanel = new LobbyPanel(FRAME_WIDTH, FRAME_HEIGHT);
         hostPanel = new HostPanel(FRAME_WIDTH, FRAME_HEIGHT);
         joinPanel = new JoinPanel(FRAME_WIDTH, FRAME_HEIGHT);
+        creditsPanel = new CreditsPanel(FRAME_WIDTH, FRAME_HEIGHT, CURRENT_VERSION);
         gamePanel = new GamePanel(1400, 1000);
         controlDisplay = new ControlFrame(this);
 
@@ -70,6 +72,7 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener, 
         panelMap.put("Host", hostPanel);
         panelMap.put("Join", joinPanel);
         panelMap.put("Game", gamePanel);
+        panelMap.put("Credits", creditsPanel);
     }
 
 
