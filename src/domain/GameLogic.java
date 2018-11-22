@@ -18,12 +18,10 @@ public class GameLogic {
 
     static final char buyFlag = 'B';
     static final char rollFlag = 'R';
-    static final char getRentFlag = 'I';
     static final char moneyFlag = 'S';
     static final char payRentFlag = 'P';
     static final char drawCardFlag = 'C';
     static final char payDayFlag = 'Y';
-    static final char goFlag = 'G';
     static final char bonusFlag = 'O';
     static final char jailFlag = 'J';
     static final char finishTurnFlag = 'F';
@@ -60,9 +58,10 @@ public class GameLogic {
 
     }
 
-    void changePool(String money) {
-        Board.getInstance().increasePool(Integer.parseInt(money));
-    }
+//    void changePool(String money) { // TODO Useless
+//        Board.getInstance().increasePool(Integer.parseInt(money));
+//        GameCommunicationHandler.getInstance().sendAction(poolFlag, getCurrentPlayer().getName(), money);
+//    }
 
     public boolean buy() {
         /* true ??????? */
@@ -70,7 +69,7 @@ public class GameLogic {
 
         if (getCurrentPlayer().buy()) {
             System.out.println("player buy completed, is sending action");
-            GameCommunicationHandler.getInstance().sendAction(buyFlag);
+            GameCommunicationHandler.getInstance().sendAction(buyFlag,getCurrentPlayer().getName());
             return true;
         } else return false;
     }
@@ -81,7 +80,7 @@ public class GameLogic {
 
         if (getCurrentPlayer().payRent()) {
             System.out.println("player payRent completed, is sending action");
-            GameCommunicationHandler.getInstance().sendAction(payRentFlag);
+            GameCommunicationHandler.getInstance().sendAction(payRentFlag,getCurrentPlayer().getName());
             return true;
         } else return false;
     }
@@ -90,7 +89,7 @@ public class GameLogic {
     public void roll() {
         getCurrentPlayer().rollDice();
 
-        GameCommunicationHandler.getInstance().sendAction(rollFlag);
+//        GameCommunicationHandler.getInstance().sendAction(rollFlag);
 
 
         if (checkThirdDouble()) {
@@ -106,6 +105,7 @@ public class GameLogic {
 
         checkMrMonopoly();
         System.out.println("In the Game Logic Roll Method");
+        GameCommunicationHandler.getInstance().sendAction(rollFlag, getCurrentPlayer().getName());
     }
 
     private void move() {
@@ -146,8 +146,8 @@ public class GameLogic {
         getCurrentPlayer().getToken().setLocation(newLoc);
         System.out.println("In the Game Logic Move Method");
 
-        GameCommunicationHandler.getInstance().sendAction(moveFlag);
-        GameCommunicationHandler.getInstance().sendAction(tokenFlag);
+        GameCommunicationHandler.getInstance().sendAction(moveFlag,getCurrentPlayer().getName());
+        GameCommunicationHandler.getInstance().sendAction(tokenFlag,getCurrentPlayer().getName());
         checkSpecialSquare(newLoc);
     }
 
@@ -227,7 +227,7 @@ public class GameLogic {
             if (lastLoc[0] == 1) {
                 getCurrentPlayer().increaseMoney(GO_COLLECT);
                 System.out.println("Player passed above Go Square");
-                GameCommunicationHandler.getInstance().sendMoneyAction(GO_COLLECT, getCurrentPlayer().getName());
+                GameCommunicationHandler.getInstance().sendAction(moneyFlag, getCurrentPlayer().getName(), GO_COLLECT);
             }
         } else {
             newLoc[0] = lastLoc[0];
@@ -235,10 +235,6 @@ public class GameLogic {
         }
         return newLoc;
     }
-
-    //public int bigSquareChecker (int [] l1 , int [] l2){
-    //7  if(l1[])
-    //}
 
     private boolean checkDouble() {
         return (getCurrentPlayer().getFaceValues()[0] ==
@@ -300,7 +296,7 @@ public class GameLogic {
     }
 
     public void finishTurn() {
-        GameCommunicationHandler.getInstance().sendAction(finishTurnFlag);
+        GameCommunicationHandler.getInstance().sendAction(finishTurnFlag, getCurrentPlayer().getName());
     }
 
 //    public void upgrade(Square square) {
@@ -411,7 +407,7 @@ public class GameLogic {
             int finalMoney = getCurrentPlayer().getBalance();
             System.out.println("\n\n================\nFinalMoney: " + finalMoney + "\n");
 
-            GameCommunicationHandler.getInstance().sendAction(specialSquareFlag);
+            GameCommunicationHandler.getInstance().sendAction(specialSquareFlag, getCurrentPlayer().getName());
 
 
             /* sendAction will be handled for many cards
@@ -419,11 +415,11 @@ public class GameLogic {
              * interpret should consider other cards as well.
              * defined flags not enough*/
             if (square instanceof Chance) {
-                GameCommunicationHandler.getInstance().sendMoneyAction(finalMoney - initMoney, getCurrentPlayer().getName());
+                GameCommunicationHandler.getInstance().sendAction(specialSquareFlag, getCurrentPlayer().getName(), finalMoney - initMoney);
             } else if (square instanceof CommunityChest) {
                 int loc[] = getCurrentPlayer().getToken().getLocation();
                 if (loc[0] != 1)
-                    GameCommunicationHandler.getInstance().sendMoneyAction(finalMoney - initMoney, getCurrentPlayer().getName());
+                    GameCommunicationHandler.getInstance().sendAction(specialSquareFlag, getCurrentPlayer().getName(), finalMoney - initMoney);
                 /*increase money flag handles both increase and decrease*/
 
             }
