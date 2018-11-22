@@ -70,7 +70,7 @@ public class GameLogic {
 
         if (getCurrentPlayer().buy()) {
             System.out.println("player buy completed, is sending action");
-            GameCommunicationHandler.getInstance().sendAction(buyFlag,getCurrentPlayer().getName());
+            GameCommunicationHandler.getInstance().sendAction(buyFlag, getCurrentPlayer().getName());
             return true;
         } else return false;
     }
@@ -81,7 +81,7 @@ public class GameLogic {
 
         if (getCurrentPlayer().payRent()) {
             System.out.println("player payRent completed, is sending action");
-            GameCommunicationHandler.getInstance().sendAction(payRentFlag,getCurrentPlayer().getName());
+            GameCommunicationHandler.getInstance().sendAction(payRentFlag, getCurrentPlayer().getName());
             return true;
         } else return false;
     }
@@ -89,6 +89,10 @@ public class GameLogic {
 
     public void roll() {
         getCurrentPlayer().rollDice();
+
+//        GameCommunicationHandler.getInstance().sendAction(rollFlag);
+
+
         if (checkThirdDouble()) {
             sendToJail();
         } else if (checkJail()) {
@@ -165,8 +169,8 @@ public class GameLogic {
         getCurrentPlayer().getToken().setLocation(newLoc);
         System.out.println("In the Game Logic Move Method");
 
-        GameCommunicationHandler.getInstance().sendAction(moveFlag,getCurrentPlayer().getName());
-        GameCommunicationHandler.getInstance().sendAction(tokenFlag,getCurrentPlayer().getName());
+        GameCommunicationHandler.getInstance().sendAction(moveFlag, getCurrentPlayer().getName());
+        GameCommunicationHandler.getInstance().sendAction(tokenFlag, getCurrentPlayer().getName());
         checkSpecialSquare(newLoc);
     }
 
@@ -287,11 +291,11 @@ public class GameLogic {
         return false;
     }
 
-    ArrayList<Player> getPlayerList() {
+    public ArrayList<Player> getPlayerList() {
         return playerList;
     }
 
-    void setPlayers(Deque<String> playerQueue) {
+    public void setPlayers(Deque<String> playerQueue) {
         this.players = playerQueue;
     }
 
@@ -300,7 +304,7 @@ public class GameLogic {
         return players;
     }
 
-    Player getPlayer(String name) {
+    public Player getPlayer(String name) {
         return playerList.stream().filter(x -> x.getName().equals(name)).collect(Collectors.toList()).get(0);
     }
 
@@ -441,11 +445,11 @@ public class GameLogic {
              * interpret should consider other cards as well.
              * defined flags not enough*/
             if (square instanceof Chance) {
-                GameCommunicationHandler.getInstance().sendAction(specialSquareFlag, getCurrentPlayer().getName(), finalMoney - initMoney);
+                GameCommunicationHandler.getInstance().sendAction(moneyFlag, getCurrentPlayer().getName(), finalMoney - initMoney);
             } else if (square instanceof CommunityChest) {
                 int loc[] = getCurrentPlayer().getToken().getLocation();
                 if (loc[0] != 1)
-                    GameCommunicationHandler.getInstance().sendAction(specialSquareFlag, getCurrentPlayer().getName(), finalMoney - initMoney);
+                    GameCommunicationHandler.getInstance().sendAction(moneyFlag, getCurrentPlayer().getName(), finalMoney - initMoney);
                 /*increase money flag handles both increase and decrease*/
 
             }

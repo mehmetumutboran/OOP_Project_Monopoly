@@ -223,9 +223,7 @@ public class Player implements Comparable {
         Square square = Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]];
 
 
-        boolean buyable = (square instanceof Property ||
-                square instanceof Railroad ||
-                square instanceof Utility);
+        boolean buyable = (square instanceof DeedSquare);
 
         System.out.println("buyable checked");
         /*
@@ -296,5 +294,14 @@ public class Player implements Comparable {
         return false;
     }
 
+    public void addDeed(Square square) {
+        if (square instanceof Property) {
+            ownedProperties.add((Property) square);
+        } else if (square instanceof Railroad) {
+            ownedRailroads.add((Railroad) square);
+        } else if (square instanceof Utility) {
+            ownedUtilities.add((Utility) square);
+        }
+    }
 
 }

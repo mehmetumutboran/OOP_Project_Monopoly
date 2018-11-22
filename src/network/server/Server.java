@@ -2,7 +2,6 @@ package network.server;
 
 import domain.controller.ConnectGameHandler;
 import network.client.Client;
-import network.server.serverFacade.ServerFacade;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -94,7 +93,7 @@ public class Server implements Runnable {
                     if (clientThreads[i] == null) {
                         clientThreads[i] = new ClientHandler(clientSocket);
                         (new Thread(clientThreads[i])).start();
-                        if(!isMulti && !clientSocket.getInetAddress().getHostAddress().equals("127.0.0.1")){
+                        if (!isMulti && !clientSocket.getInetAddress().getHostAddress().equals("127.0.0.1")) {
                             clientThreads[i].terminate();
                             clientThreads[i] = null;
                             continue;
