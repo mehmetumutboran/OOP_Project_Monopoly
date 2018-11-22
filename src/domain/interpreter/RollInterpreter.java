@@ -7,8 +7,8 @@ import domain.UIUpdater;
 public class RollInterpreter implements Interpreter {
     @Override
     public void interpret(String[] message) {
-        String name = message[0];
-        int[] faceValues = MessageConverter.convertStringToIntArray(message[1]);
+        String name = message[1];
+        int[] faceValues = MessageConverter.convertStringToIntArray(message[2]);
 
         GameLogic.getInstance().getPlayer(name).setFaceValues(faceValues);
 

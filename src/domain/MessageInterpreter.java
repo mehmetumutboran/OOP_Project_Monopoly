@@ -57,7 +57,7 @@ public class MessageInterpreter {
         char flag = m.charAt(0);
 
         if(interpreterMap.keySet().contains(flag))
-            interpreterMap.get(flag).interpret(m.substring(1).split("[|]"));
+            interpreterMap.get(flag).interpret(m.split("[|]"));
 
         switch (flag) {
             case GameLogic.finishTurnFlag:

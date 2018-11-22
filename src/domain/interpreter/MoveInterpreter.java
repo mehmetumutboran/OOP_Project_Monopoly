@@ -9,8 +9,8 @@ import domain.player.Player;
 public class MoveInterpreter implements Interpreter {
     @Override
     public void interpret(String[] message) {
-        String name = message[0];
-        int[] location = MessageConverter.convertStringToIntArray(message[1]);
+        String name = message[1];
+        int[] location = MessageConverter.convertStringToIntArray(message[2]);
 
         Player player = GameLogic.getInstance().getPlayer(name);
 

@@ -11,8 +11,8 @@ public class BuyInterpreter implements Interpreter {
 
     @Override
     public void interpret(String[] message) {
-        String name = message[0];
-        String sqName = message[1];
+        String name = message[1];
+        String sqName = message[2];
 
         Player player = GameLogic.getInstance().getPlayer(name);
         Square square = Board.getInstance().getNameGivenSquare(sqName);

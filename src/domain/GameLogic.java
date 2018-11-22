@@ -262,11 +262,11 @@ public class GameLogic {
         return false;
     }
 
-    ArrayList<Player> getPlayerList() {
+    public ArrayList<Player> getPlayerList() {
         return playerList;
     }
 
-    void setPlayers(Deque<String> playerQueue) {
+    public void setPlayers(Deque<String> playerQueue) {
         this.players = playerQueue;
     }
 

@@ -78,7 +78,7 @@ public class UIUpdater {
         publishMessageChangedEvent();
     }
 
-    void turnUpdate() {
+    public void turnUpdate() {
         publishTurnChangedEvent(GameLogic.getInstance().getCurrentPlayer()
                 .equals(GameLogic.getInstance().getPlayerList().get(0)));
 
