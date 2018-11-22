@@ -2,8 +2,12 @@ package gui.baseFrame.panels;
 
 import gui.baseFrame.buttons.multiplayerButtons.BackButton;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class CreditsPanel extends JPanel {
     private JLabel titleLabel;
@@ -11,6 +15,9 @@ public class CreditsPanel extends JPanel {
     private RecentUpdatesPanel recentUpdates;
     private JLabel recentUpdatesLabel;
     private BackButton backButton;
+    private JLabel backgroundLabel;
+    private BufferedImage image;
+    private Image img;
 
     private int width;
     private int height;
@@ -24,6 +31,18 @@ public class CreditsPanel extends JPanel {
         this.width = width;
         this.height = height;
         this.version = version;
+
+        try {
+            if (System.getProperty("os.name").startsWith("Windows")) {
+                image = ImageIO.read(new File("res\\Monopoly Background 8.jpg"));
+            } else {
+                image = ImageIO.read(new File("res/Monopoly Background 8.jpg"));
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        img = new ImageIcon(image).getImage();
 
         initGUI();
     }
@@ -76,12 +95,17 @@ public class CreditsPanel extends JPanel {
                 (this.height - (-10) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
         backButton.setBackground(Color.lightGray);
 
+        backgroundLabel = new JLabel(new ImageIcon(img));
+        backgroundLabel.setBounds(0, 0, width, height);
+        backgroundLabel.setOpaque(true);
+
         this.add(titleLabel);
         this.add(backButton);
         this.add(versionLabel);
         this.add(contributorsLabel);
         this.add(recentUpdates);
         this.add(recentUpdatesLabel);
+        this.add(backgroundLabel);
     }
 
 }
