@@ -74,9 +74,9 @@ public class MessageInterpreter {
             case GameLogic.specialSquareFlag:
                 interpretSpecial(m.substring(1));
                 break;
-            case GameLogic.poolFlag:
-                interpretPool(m.substring(1));
-                break;
+//            case GameLogic.poolFlag:
+//                interpretPool(m.substring(1));
+//                break;
             case GameLogic.tokenFlag:
                 interpretTokenMovement(m.substring(1));
                 break;
@@ -90,11 +90,11 @@ public class MessageInterpreter {
         UIUpdater.getInstance().removeUpdate(name);
     }
 
-    private void interpretPool(String message) {
-        GameLogic.getInstance().changePool(message);
-        UIUpdater.getInstance().setMessage("Pool money is increased by :  " + message + " \nCurrent pool balance is : " + Board.getInstance().getPool());
-
-    }
+//    private void interpretPool(String message) {
+//        GameLogic.getInstance().changePool(message);
+//        UIUpdater.getInstance().setMessage("Pool money is increased by :  " + message + " \nCurrent pool balance is : " + Board.getInstance().getPool());
+//
+//    }
 
 
     private void interpretSpecial(String message) {
