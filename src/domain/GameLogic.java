@@ -34,6 +34,7 @@ public class GameLogic {
     static final char specialSquareFlag = 'A';
     public static final char poolFlag = 'H';
     static final char tokenFlag = 'T';
+    static final char goOutJailFlag = 'G';
 
     //TODO Add more
 
@@ -89,13 +90,15 @@ public class GameLogic {
     public void roll() {
         getCurrentPlayer().rollDice();
         if (checkThirdDouble()) {
-
+            sendToJail();
         } else if (checkJail()) {
-
+            tryToGoOutOfJail();
+        } else if(checkTriple()) {
+            selectDestinationSQ();
         } else if (checkBus()) {
 
         } else {
-            move();
+            move(false);
         }
 
 
@@ -104,8 +107,28 @@ public class GameLogic {
         GameCommunicationHandler.getInstance().sendAction(rollFlag, getCurrentPlayer().getName());
     }
 
-    private void move() {
-        if (checkDouble()) getCurrentPlayer().incrementDoubleCounter();
+    private void selectDestinationSQ() {
+        // TODO Burda UI ile iletisime gecmem lazim gibi duruyo
+        // UIUptader e squareden dinlemesini soyleyecek, Square den dinlenen square name Player Action controller ile burdaki bi methoda gelcek o da player suraya gitti diye mesaj yollayacak buyuk olasilikla move flag i ile.
+    }
+
+    private void tryToGoOutOfJail() {
+        if(checkDouble()){
+            GameCommunicationHandler.getInstance().sendAction(goOutJailFlag,getCurrentPlayer().getName());
+            //getCurrentPlayer().setInJail(false); // TODO Message Interpret does this
+            move(true); // TODO Jailden cikarkenki double atma double count u arttirir mi?
+        } // TODO Burda else yazcak bisey olur mu?
+    }
+
+    private void sendToJail() {
+        //getCurrentPlayer().setInJail(true); // TODO Message Interpret does this
+        //getCurrentPlayer().getToken().setLocation(Board.getInstance().getNameGivenSquare("Jail").getLocation()); // TODO Message Interpret does this
+        GameCommunicationHandler.getInstance().sendAction(jailFlag,getCurrentPlayer().getName());
+        GameCommunicationHandler.getInstance().sendAction(tokenFlag,getCurrentPlayer().getName());
+    }
+
+    private void move(Boolean isFromJail) {
+        if (checkDouble() && !isFromJail) getCurrentPlayer().incrementDoubleCounter(); // TODO Burada UI a yada MessageInt. den UI a mesaj yollayip cift degilse roll butonunu kapatmamiz lazim.
         int[] lastLoc = getCurrentPlayer().getToken().getLocation();
         int[] newLoc;
         int totalRoll;
@@ -221,7 +244,7 @@ public class GameLogic {
             newLoc[0] = lastLoc[0];
             newLoc[1] = lastLoc[1] + roll - layerSQNumber;
             if (lastLoc[0] == 1) {
-                getCurrentPlayer().increaseMoney(GO_COLLECT);
+                // getCurrentPlayer().increaseMoney(GO_COLLECT); // TODO Message Interpret does this
                 System.out.println("Player passed above Go Square");
                 GameCommunicationHandler.getInstance().sendAction(moneyFlag, getCurrentPlayer().getName(), GO_COLLECT);
             }
@@ -239,7 +262,7 @@ public class GameLogic {
 
 
     private boolean checkJail() {
-        return false;
+        return getCurrentPlayer().isInJail();
     }
 
     private boolean checkBus() {
@@ -251,10 +274,16 @@ public class GameLogic {
     }
 
     private boolean checkTriple() {
-        return false;
+        return (getCurrentPlayer().getFaceValues()[0] ==
+                getCurrentPlayer().getFaceValues()[1] && getCurrentPlayer().getFaceValues()[1] ==
+                getCurrentPlayer().getFaceValues()[2]);
     }
 
     private boolean checkThirdDouble() {
+        if(getCurrentPlayer().getDoubleCounter() == 2 && checkDouble()) {
+            getCurrentPlayer().resetDoubleCounter();
+            return true;
+        }
         return false;
     }
 
@@ -289,6 +318,7 @@ public class GameLogic {
                 break;
             }
         }
+        // TODO Burda UI a yada MessageInt. den UI a mesaj yollayip jail de ise adam sadece roll dice ve finish turn buttonlarinin acik olmasi lazim.
     }
 
     public void finishTurn() {
@@ -392,7 +422,7 @@ public class GameLogic {
 
     }
 
-    private void checkSpecialSquare(int[] newLoc) {
+    private void checkSpecialSquare(int[] newLoc) { // TODO Buggy Code Burda para degisimi yollanan mesajlar felan ile ilgili sorunlar var.
         Square square = Board.getInstance().getSquare(newLoc[0], newLoc[1]);
         if (square instanceof SpecialSquareStrategy) {
             int initMoney = getCurrentPlayer().getBalance();

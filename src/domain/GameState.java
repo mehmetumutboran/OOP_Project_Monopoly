@@ -42,6 +42,10 @@ public class GameState {
                 return generateSpecialSquareAction(specialSquareFlag, name);
             case tokenFlag:
                 return generateTokenMovementAction(tokenFlag, name);
+            case jailFlag:
+                return generateJailAction(jailFlag,name);
+            case goOutJailFlag:
+                return generateJailAction(goOutJailFlag,name);
             default:
                 break;
         }
@@ -125,6 +129,10 @@ public class GameState {
     private String generateRollAction(char flag, String name) {
         int [] faceVal = GameLogic.getInstance().getPlayer(name).getFaceValues();
         return flag + '|' + name + '|' + MessageConverter.convertArrayToString(faceVal);
+    }
+
+    private String generateJailAction(char flag, String name) {
+        return flag + '|' + name;
     }
 
     private String generatePoolAction(char flag, String name, int changedMoney) {

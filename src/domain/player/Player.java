@@ -162,6 +162,10 @@ public class Player implements Comparable {
         return this.doubleCounter = 0;
     }
 
+    public int getDoubleCounter() {
+        return doubleCounter;
+    }
+
     public void incrementDoubleCounter() {
         this.doubleCounter += 1;
     }
@@ -175,8 +179,8 @@ public class Player implements Comparable {
     }
 
     public void rollDice() {
-//        String locName = Board.getInstance().getSq(this.token.getLocation()).getName();
-        String locName = "Go";
+        String locName = Board.getInstance().getSquare(this.token.getLocation()[0],this.token.getLocation()[1]).getName();
+        // String locName = "Go";
         DiceCup.getInstance().rollDice(locName);
         this.faceValues = DiceCup.getInstance().getFaceValues();
     } // Player gives command to roll dice to the controller.
