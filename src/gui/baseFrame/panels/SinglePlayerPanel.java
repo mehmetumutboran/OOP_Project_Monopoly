@@ -57,7 +57,7 @@ public class SinglePlayerPanel extends JPanel {
         userNameLabel = new JLabel("Username");
         userNameLabel.setFont(new Font("Serif", Font.BOLD, 30));
         userNameLabel.setForeground(Color.red);
-        enterButton = new EnterButton("Enter",userNameField);
+        enterButton = new EnterButton("Enter", userNameField);
         backButton = new BackButton("Back");
 
         userNameField.setBounds((this.width - BUTTON_WIDTH) / 2,

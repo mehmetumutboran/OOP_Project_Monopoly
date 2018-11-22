@@ -7,9 +7,7 @@ import domain.card.Community;
 import domain.card.chanceDeck.HolidayBonus;
 import domain.card.communityDeck.TheInsidersEdge;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.stream.Collectors;
 
 public class Board {
     private static Board instance;

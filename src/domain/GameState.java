@@ -19,7 +19,7 @@ public class GameState {
         return gs;
     }
 
-    public String generateCurrentAction(char flag,String name) {
+    public String generateCurrentAction(char flag, String name) {
         //TODO
         switch (flag) {
             case rollFlag:
@@ -42,14 +42,18 @@ public class GameState {
                 return generateSpecialSquareAction(specialSquareFlag, name);
             case tokenFlag:
                 return generateTokenMovementAction(tokenFlag, name);
+            case jailFlag:
+                return generateJailAction(jailFlag,name);
+            case goOutJailFlag:
+                return generateJailAction(goOutJailFlag,name);
             default:
                 break;
         }
         return generateQueueAction(queueFlag); // TODO This is for writing return it does not changes anything.
     }
 
-    public String generateCurrentAction(char flag,String name, String buildName) {
-        switch (flag){
+    public String generateCurrentAction(char flag, String name, String buildName) {
+        switch (flag) {
             case upgradeFlag:
                 return generateUpgradeAction(flag, name, buildName);
             case downgradeFlag:
@@ -58,8 +62,8 @@ public class GameState {
         return generateQueueAction(queueFlag);
     }
 
-    public String generateCurrentAction(char flag,String name, int changedMoney) {
-        switch(flag) {
+    public String generateCurrentAction(char flag, String name, int changedMoney) {
+        switch (flag) {
             case moneyFlag:
                 return generateMoneyAction(flag, name, changedMoney);
             case poolFlag:
@@ -69,7 +73,7 @@ public class GameState {
     }
 
     private String generateTokenMovementAction(char flag, String name) {
-        int [] loc = GameLogic.getInstance().getPlayer(name).getToken().getLocation();
+        int[] loc = GameLogic.getInstance().getPlayer(name).getToken().getLocation();
         return flag + "|" + name + "|" + MessageConverter.convertArrayToString(loc);
     }
 
@@ -86,18 +90,18 @@ public class GameState {
     }
 
     private String generateMoveAction(char flag, String name) {
-        int [] loc = GameLogic.getInstance().getPlayer(name).getToken().getLocation();
+        int[] loc = GameLogic.getInstance().getPlayer(name).getToken().getLocation();
         return flag + "|" + name + "|" + MessageConverter.convertArrayToString(loc);
     }
 
     private String generateDowngradeAction(char flag, String name, String buildName) {
-        int [] loc = GameLogic.getInstance().getPlayer(name).getToken().getLocation();
-        return flag + "|" + name + "|" + Board.getInstance().getSquare(loc[0],loc[1]) + "|" + buildName;
+        int[] loc = GameLogic.getInstance().getPlayer(name).getToken().getLocation();
+        return flag + "|" + name + "|" + Board.getInstance().getSquare(loc[0], loc[1]) + "|" + buildName;
     }
 
     private String generateUpgradeAction(char flag, String name, String buildName) {
-        int [] loc = GameLogic.getInstance().getPlayer(name).getToken().getLocation();
-        return flag + "|" + name + "|" + Board.getInstance().getSquare(loc[0],loc[1]) + "|" + buildName;
+        int[] loc = GameLogic.getInstance().getPlayer(name).getToken().getLocation();
+        return flag + "|" + name + "|" + Board.getInstance().getSquare(loc[0], loc[1]) + "|" + buildName;
     }
 
     private String generateCloseAction(char flag) {
@@ -113,18 +117,22 @@ public class GameState {
     }
 
     private String generateRentAction(char flag, String name) {
-        int [] loc = GameLogic.getInstance().getPlayer(name).getToken().getLocation();
-        return flag + "|" + name + "|" + Board.getInstance().getSquare(loc[0],loc[1]);
+        int[] loc = GameLogic.getInstance().getPlayer(name).getToken().getLocation();
+        return flag + "|" + name + "|" + Board.getInstance().getSquare(loc[0], loc[1]);
     }
 
     private String generateBuyAction(char flag, String name) {
-        int [] loc = GameLogic.getInstance().getPlayer(name).getToken().getLocation();
-        return flag + "|" + name + "|" + Board.getInstance().getSquare(loc[0],loc[1]);
+        int[] loc = GameLogic.getInstance().getPlayer(name).getToken().getLocation();
+        return flag + "|" + name + "|" + Board.getInstance().getSquare(loc[0], loc[1]);
     }
 
     private String generateRollAction(char flag, String name) {
-        int [] faceVal = GameLogic.getInstance().getPlayer(name).getFaceValues();
+        int[] faceVal = GameLogic.getInstance().getPlayer(name).getFaceValues();
         return flag + "|" + name + "|" + MessageConverter.convertArrayToString(faceVal);
+    }
+
+    private String generateJailAction(char flag, String name) {
+        return flag + "|" + name;
     }
 
     private String generatePoolAction(char flag, String name, int changedMoney) {
