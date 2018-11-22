@@ -30,7 +30,7 @@ public class LobbyPlayerLabel extends JLabel implements MouseListener {
                 null, //Icon icon,
                 new String[]{"Yes", "No"}, //Object[] options,
                 "Yes");//Object initialValue
-        if (choice == 0 && !name.equals("Taha")) {
+        if (choice == 0) {
             System.out.println("Player " + name + " is kicked!!!!");
             ConnectGameHandler.getInstance().kickPlayer(name);
         }
