@@ -34,14 +34,10 @@ public class GameState {
                 return generateQueueAction(queueFlag);
             case closeFlag:
                 return generateCloseAction(closeFlag);
-            case moveFlag:
-                return generateMoveAction(moveFlag, name);
             case removeFlag:
                 return generateRemoveAction(removeFlag, name);
             case specialSquareFlag:
                 return generateSpecialSquareAction(specialSquareFlag, name);
-            case tokenFlag:
-                return generateTokenMovementAction(tokenFlag, name);
             case jailFlag:
                 return generateJailAction(jailFlag,name);
             case goOutJailFlag:
@@ -52,12 +48,16 @@ public class GameState {
         return generateQueueAction(queueFlag); // TODO This is for writing return it does not changes anything.
     }
 
-    public String generateCurrentAction(char flag, String name, String buildName) {
+    public String generateCurrentAction(char flag, String name, String buildNameOrLoc) {
         switch (flag) {
             case upgradeFlag:
-                return generateUpgradeAction(flag, name, buildName);
+                return generateUpgradeAction(flag, name, buildNameOrLoc);
             case downgradeFlag:
-                return generateDowngradeAction(flag, name, buildName);
+                return generateDowngradeAction(flag, name, buildNameOrLoc);
+            case moveFlag:
+                return generateMoveAction(moveFlag, name, buildNameOrLoc);
+            case tokenFlag:
+                return generateTokenMovementAction(tokenFlag, name, buildNameOrLoc);
         }
         return generateQueueAction(queueFlag);
     }
@@ -72,9 +72,8 @@ public class GameState {
         return generateQueueAction(queueFlag);
     }
 
-    private String generateTokenMovementAction(char flag, String name) {
-        int[] loc = GameLogic.getInstance().getPlayer(name).getToken().getLocation();
-        return flag + "|" + name + "|" + MessageConverter.convertArrayToString(loc);
+    private String generateTokenMovementAction(char flag, String name, String loc) {
+        return flag + "|" + name + "|" + loc;
     }
 
     private String generateSpecialSquareAction(char flag, String name) {
@@ -89,9 +88,8 @@ public class GameState {
         return flag + "|" + name + "|" + changedMoney;
     }
 
-    private String generateMoveAction(char flag, String name) {
-        int[] loc = GameLogic.getInstance().getPlayer(name).getToken().getLocation();
-        return flag + "|" + name + "|" + MessageConverter.convertArrayToString(loc);
+    private String generateMoveAction(char flag, String name, String loc) {
+        return flag + "|" + name + "|" + loc;
     }
 
     private String generateDowngradeAction(char flag, String name, String buildName) {

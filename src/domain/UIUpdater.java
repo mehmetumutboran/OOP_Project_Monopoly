@@ -103,7 +103,7 @@ public class UIUpdater {
         }
     }
 
-    void setTokenLocation(String name, int x, int y) {
+    public void setTokenLocation(String name, int x, int y) {
         this.publishTokenMovementEvent(name, x, y);
     }
 }

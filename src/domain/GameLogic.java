@@ -128,7 +128,7 @@ public class GameLogic {
         //getCurrentPlayer().setInJail(true); // TODO Message Interpret does this
         //getCurrentPlayer().getToken().setLocation(Board.getInstance().getNameGivenSquare("Jail").getLocation()); // TODO Message Interpret does this
         GameCommunicationHandler.getInstance().sendAction(jailFlag,getCurrentPlayer().getName());
-        GameCommunicationHandler.getInstance().sendAction(tokenFlag,getCurrentPlayer().getName());
+        //GameCommunicationHandler.getInstance().sendAction(tokenFlag,getCurrentPlayer().getName());
     }
 
     private void move(Boolean isFromJail) {
@@ -166,11 +166,13 @@ public class GameLogic {
             newLoc = normalMove(lastLoc, totalRoll, layerSQNumber);
         }
 
-        getCurrentPlayer().getToken().setLocation(newLoc);
+        //getCurrentPlayer().getToken().setLocation(newLoc);
+
+        String locStr = MessageConverter.convertArrayToString(newLoc);
         System.out.println("In the Game Logic Move Method");
 
-        GameCommunicationHandler.getInstance().sendAction(moveFlag, getCurrentPlayer().getName());
-        GameCommunicationHandler.getInstance().sendAction(tokenFlag, getCurrentPlayer().getName());
+        GameCommunicationHandler.getInstance().sendAction(moveFlag, getCurrentPlayer().getName(), locStr);
+        GameCommunicationHandler.getInstance().sendAction(tokenFlag, getCurrentPlayer().getName(), locStr);
         checkSpecialSquare(newLoc);
     }
 
@@ -313,6 +315,7 @@ public class GameLogic {
     }
 
     synchronized void switchTurn() {
+        getCurrentPlayer().resetDoubleCounter();
         players.addLast(players.removeFirst());
         // Bots will play on only host's program
         if (!playerList.get(0).getReadiness().equals("Host")) return;
