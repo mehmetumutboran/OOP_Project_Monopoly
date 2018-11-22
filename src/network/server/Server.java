@@ -2,6 +2,7 @@ package network.server;
 
 import domain.controller.ConnectGameHandler;
 import network.client.Client;
+import network.server.serverFacade.ServerFacade;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -14,6 +15,7 @@ import java.util.Arrays;
  */
 public class Server implements Runnable {
     private ServerSocket ss;
+    private boolean isMulti;
 
     private static final int maxClientsCount = 12;
 
@@ -21,9 +23,10 @@ public class Server implements Runnable {
     private volatile static String[] clientNames = new String[maxClientsCount];
 
 
-    public Server(int port) {
+    public Server(int port, boolean isMulti) {
         try {
             ss = new ServerSocket(port);
+            this.isMulti = isMulti;
             System.out.println("server crated with the port: " + port);
             (new Thread(this)).start();
         } catch (IOException e) {
@@ -91,6 +94,11 @@ public class Server implements Runnable {
                     if (clientThreads[i] == null) {
                         clientThreads[i] = new ClientHandler(clientSocket);
                         (new Thread(clientThreads[i])).start();
+                        if(!isMulti && !clientSocket.getInetAddress().getHostAddress().equals("127.0.0.1")){
+                            clientThreads[i].terminate();
+                            clientThreads[i] = null;
+                            continue;
+                        }
                         break;
                     }
                 }

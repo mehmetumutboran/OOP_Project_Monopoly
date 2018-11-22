@@ -39,8 +39,8 @@ public class ConnectGameHandler implements ReceivedChangedListener {
      * @param username Username from the {@link gui.baseFrame.buttons.hostJoinButtons.HostButton} usernameField
      * @param port     Port number for the server connection from {@link gui.baseFrame.buttons.hostJoinButtons.HostButton}
      */
-    public String connectHost(String username, int port) {
-        if (ServerFacade.getInstance().createServer(port)) {
+    public String connectHost(String username, int port, boolean isMulti) {
+        if (ServerFacade.getInstance().createServer(port, isMulti)) {
             connectClient(username, "localhost", port, true); // Connects the host as a client after it creates server
         } else {
             return "Server cannot be created!!";

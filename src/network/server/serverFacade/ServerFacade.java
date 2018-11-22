@@ -25,8 +25,8 @@ public class ServerFacade {
      * @param port server socket port
      * @return Whether server successfully created
      */
-    public boolean createServer(int port) {
-        server = new Server(port);
+    public boolean createServer(int port, boolean isMulti) {
+        server = new Server(port, isMulti);
         //noinspection ConstantConditions
         return server != null;
     }
