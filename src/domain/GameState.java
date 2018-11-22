@@ -105,7 +105,7 @@ public class GameState {
     }
 
     private String generateQueueAction(char flag) {
-        return flag + '|' + MessageConverter.convertQueueToString(GameLogic.getInstance().getPlayers());
+        return flag + "|" + MessageConverter.convertQueueToString(GameLogic.getInstance().getPlayers());
     }
 
     private String generateFinishTurnAction(char flag) {
