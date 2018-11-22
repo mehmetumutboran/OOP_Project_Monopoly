@@ -89,6 +89,10 @@ public class GameLogic {
 
     public void roll() {
         getCurrentPlayer().rollDice();
+
+        GameCommunicationHandler.getInstance().sendAction(rollFlag);
+
+
         if (checkThirdDouble()) {
 
         } else if (checkJail()) {
@@ -102,7 +106,6 @@ public class GameLogic {
 
         checkMrMonopoly();
         System.out.println("In the Game Logic Roll Method");
-        GameCommunicationHandler.getInstance().sendAction(rollFlag);
     }
 
     private void move() {
@@ -276,7 +279,7 @@ public class GameLogic {
         return players;
     }
 
-    Player getPlayer(String name) {
+    public Player getPlayer(String name) {
         return playerList.stream().filter(x -> x.getName().equals(name)).collect(Collectors.toList()).get(0);
     }
 

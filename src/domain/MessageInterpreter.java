@@ -6,12 +6,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.board.*;
 import domain.board.specialSquares.Chance;
 import domain.board.specialSquares.CommunityChest;
+import domain.interpreter.*;
 import domain.player.Player;
 import domain.player.Token;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 /**
@@ -20,9 +22,28 @@ import java.util.LinkedList;
 public class MessageInterpreter {
     private static MessageInterpreter instance;
 
+    private HashMap<Character, Interpreter> interpreterMap;
 
     private MessageInterpreter() {
+        Interpreter moveInterpreter = new MoveInterpreter();
+        Interpreter moneyChangeInterpreter = new MoneyChangeInterpreter();
+        Interpreter buyInterpreter = new BuyInterpreter();
+        Interpreter payRentInterpreter = new PayRentInterpreter();
+        Interpreter queueInterpreter = new QueueInterpreter();
+        Interpreter upDownInterpreter = new UpDownInterpreter();
+        Interpreter tokenMovementInterpreter = new TokenMovementInterpreter();
+        Interpreter rollInterpreter = new RollInterpreter();
 
+        interpreterMap = new HashMap<>();
+        interpreterMap.put(GameLogic.moveFlag, moveInterpreter);
+        interpreterMap.put(GameLogic.moneyFlag, moneyChangeInterpreter);
+        interpreterMap.put(GameLogic.buyFlag, buyInterpreter);
+        interpreterMap.put(GameLogic.payRentFlag, payRentInterpreter);
+        interpreterMap.put(GameLogic.queueFlag, queueInterpreter);
+        interpreterMap.put(GameLogic.upgradeFlag, upDownInterpreter);
+        interpreterMap.put(GameLogic.downgradeFlag, upDownInterpreter);
+        interpreterMap.put(GameLogic.tokenFlag, tokenMovementInterpreter);
+        interpreterMap.put(GameLogic.rollFlag, rollInterpreter);
     }
 
     public static MessageInterpreter getInstance() {
@@ -33,40 +54,17 @@ public class MessageInterpreter {
 
 
     public synchronized void interpret(String m) {
-
         char flag = m.charAt(0);
+
+        if(interpreterMap.keySet().contains(flag))
+            interpreterMap.get(flag).interpret(m.substring(1).split("[|]"));
+
         switch (flag) {
-            case GameLogic.rollFlag:
-                interpretRoll(m.substring(1));
-                break;
-            case GameLogic.buyFlag:
-                interpretBuy(m.substring(1));
-                break;
-            case GameLogic.payRentFlag:
-                interpretRent(m.substring(1));
-                break;
             case GameLogic.finishTurnFlag:
                 interpretFinishTurn();
                 break;
-            case GameLogic.bonusFlag:
-                break;
-            case GameLogic.queueFlag:
-                interpretQueue(m.substring(1));
-                break;
             case GameLogic.closeFlag:
                 interpretClose();
-                break;
-            case GameLogic.upgradeFlag:
-                interpretUpDownGrade(m);
-                break;
-            case GameLogic.downgradeFlag:
-                interpretUpDownGrade(m);
-                break;
-            case GameLogic.moveFlag:
-                interpretMove(m.substring(1));
-                break;
-            case GameLogic.moneyFlag:
-                interpretMoneyChange(m.substring(1));
                 break;
             case GameLogic.removeFlag:
                 interpretRemove(m.substring(1));
@@ -76,9 +74,6 @@ public class MessageInterpreter {
                 break;
             case GameLogic.poolFlag:
                 interpretPool(m.substring(1));
-                break;
-            case GameLogic.tokenFlag:
-                interpretTokenMovement(m.substring(1));
                 break;
             default:
                 break;
@@ -312,7 +307,7 @@ public class MessageInterpreter {
             GameLogic.getInstance().getPlayer(name).setBalance(money);
         }
         if (changedMoney > 0) UIUpdater.getInstance().setMessage(name + " 's money increased by " + changedMoney);
-        else UIUpdater.getInstance().setMessage(name + " 's money decreased by " + changedMoney);
+        else UIUpdater.getInstance().setMessage(name + " 's money decreased by " + (-changedMoney));
     }
 
     private void interpretMove(String message) {
@@ -386,7 +381,7 @@ public class MessageInterpreter {
             e.printStackTrace();
         }
 
-        GameLogic.getInstance().getPlayer(name).getToken().setLocation(location);
+//        GameLogic.getInstance().getPlayer(name).getToken().setLocation(location);
 
         UIUpdater.getInstance().setMessage(name + " rolled " + faceValues[0] + " " + faceValues[1] + " " + faceValues[2]); //TODO Mrmonopoly
     }
