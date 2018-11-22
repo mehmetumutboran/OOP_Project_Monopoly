@@ -14,6 +14,7 @@ import java.util.Arrays;
  */
 public class Server implements Runnable {
     private ServerSocket ss;
+    private boolean isMulti;
 
     private static final int maxClientsCount = 12;
 
@@ -21,9 +22,10 @@ public class Server implements Runnable {
     private volatile static String[] clientNames = new String[maxClientsCount];
 
 
-    public Server(int port) {
+    public Server(int port, boolean isMulti) {
         try {
             ss = new ServerSocket(port);
+            this.isMulti = isMulti;
             System.out.println("server crated with the port: " + port);
             (new Thread(this)).start();
         } catch (IOException e) {
@@ -86,6 +88,7 @@ public class Server implements Runnable {
         while (true) {
             try {
                 Socket clientSocket = this.ss.accept();
+                if(!isMulti && !clientSocket.getInetAddress().getHostAddress().equals("127.0.0.1")) continue;
                 int i = 0;
                 for (; i < maxClientsCount; i++) {
                     if (clientThreads[i] == null) {
