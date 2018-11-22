@@ -65,8 +65,8 @@ public class MessageConverter {
                 lst.add(a);
             }
         }
-        char chr1 = str.charAt(str.length() - 2); // for the last one since we can't
-        char chr2 = str.charAt(str.length() - 1); // detect it with ',' we add it manually
+        char chr1 = str.charAt(str.length() - 3); // for the last one since we can't
+        char chr2 = str.charAt(str.length() - 2); // detect it with ',' we add it manually
         int a;
         if (isNumeric(chr1)) a = (10 * (chr1 - 48)) + (chr2-48);
         else a = chr2 - 48;

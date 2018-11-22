@@ -69,15 +69,15 @@ public class MessageInterpreter {
             case GameLogic.removeFlag:
                 interpretRemove(m.substring(1));
                 break;
-            case GameLogic.specialSquareFlag:
-                interpretSpecial(m.substring(1));
-                break;
+//            case GameLogic.specialSquareFlag:
+//                interpretSpecial(m.substring(1));
+//                break;
 //            case GameLogic.poolFlag:
 //                interpretPool(m.substring(1));
 //                break;
-            case GameLogic.tokenFlag:
-                interpretTokenMovement(m.substring(1));
-                break;
+//            case GameLogic.tokenFlag:
+//                interpretTokenMovement(m.substring(1));
+//                break;
             default:
                 break;
         }
