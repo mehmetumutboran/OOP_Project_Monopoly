@@ -2,6 +2,8 @@ package network.server.serverFacade;
 
 import network.server.Server;
 
+import java.io.IOException;
+
 /**
  * Class that provides network logic to server Host
  */
@@ -37,5 +39,13 @@ public class ServerFacade {
 
     public void kick(String username) {
         server.getClientHandler(username).terminate();
+    }
+
+    public void shutDown(){
+        try {
+            server.getSs().close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

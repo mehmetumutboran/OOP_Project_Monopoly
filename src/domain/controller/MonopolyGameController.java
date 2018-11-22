@@ -88,6 +88,14 @@ public class MonopolyGameController {
         return playerList;
     }
 
+    public Player getPlayerFromList(String name){
+        return playerList.stream().filter(player -> player.getName().equals(name)).findFirst().orElse(null);
+    }
+
+    public Player getMyself(){
+        return playerList.get(0);
+    }
+
 //    public ArrayList<String> getPlayerListAsJSON() {
 //        ObjectMapper mapper = new ObjectMapper();
 //        mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);

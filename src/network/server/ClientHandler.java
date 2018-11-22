@@ -46,11 +46,16 @@ public class ClientHandler implements Runnable {
     public void terminate() {
         try {
             send("You are kicked!");
-            dis.close();
-            dos.close();
-            socket.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }finally {
+            try {
+                dis.close();
+                dos.close();
+                socket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

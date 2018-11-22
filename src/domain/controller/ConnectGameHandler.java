@@ -98,11 +98,17 @@ public class ConnectGameHandler implements ReceivedChangedListener {
             return;
         } else if (message.charAt(0) != '{') {
             if (message.charAt(0) == 'E' &&
-                    !MonopolyGameController.getInstance().getPlayerList().get(0).getReadiness().equals("Host")) {
+                    !MonopolyGameController.getInstance().getMyself().getReadiness().equals("Host")) {
                 ClientFacade.getInstance().terminate();
                 publishPlayerKickedEvent();
             } else if (message.charAt(0) == 'X') {
-                MonopolyGameController.getInstance().removePlayer(message.substring(1));
+                if (MonopolyGameController.getInstance().
+                        getPlayerFromList(message.substring(1)).getReadiness().equals("Host")) {
+                    ClientFacade.getInstance().terminate(); //TODO player is kicked if host exits
+                    publishPlayerKickedEvent();
+                } else {
+                    MonopolyGameController.getInstance().removePlayer(message.substring(1));
+                }
             }
             return;
         }
@@ -117,23 +123,21 @@ public class ConnectGameHandler implements ReceivedChangedListener {
             }
 
             if (!MonopolyGameController.getInstance().getPlayerList().contains(player)) { //New PLayer
-                ClientFacade.getInstance().send(MonopolyGameController.getInstance().getPlayerList().get(0).getName(),
-                        MonopolyGameController.getInstance().getPlayerList().get(0).toJSON());
-                if (MonopolyGameController.getInstance().getPlayerList().get(0).getReadiness().equals("Host")) {
+                ClientFacade.getInstance().send(MonopolyGameController.getInstance().getMyself().getName(),
+                        MonopolyGameController.getInstance().getMyself().toJSON());
+                if (MonopolyGameController.getInstance().getMyself().getReadiness().equals("Host")) {
                     MonopolyGameController.getInstance().getPlayerList().stream().filter(p -> p.getReadiness().equals("Bot"))
                             .forEach(p -> ClientFacade.getInstance().send(p.getName(), p.toJSON()));
                 }
                 MonopolyGameController.getInstance().addPlayer(player);
-            } else if (!MonopolyGameController.getInstance().getPlayerList().get(MonopolyGameController.getInstance(). //Color changed
-                    getPlayerList().indexOf(player)).getToken().getColor().equals(player.getToken().getColor())) {
+            } else if (!MonopolyGameController.getInstance().getPlayerFromList(player.getName()).getToken().getColor().equals(player.getToken().getColor())) {
                 MonopolyGameController.getInstance().changePlayerColor(MonopolyGameController.getInstance().getPlayerList().indexOf(player), player.getToken().getColor());
-            } else if (!MonopolyGameController.getInstance().getPlayerList().get(MonopolyGameController.getInstance().  // Readiness changed
-                    getPlayerList().indexOf(player)).getReadiness().equals(player.getReadiness())) {
+            } else if (!MonopolyGameController.getInstance().getPlayerFromList(player.getName())  // Readiness changed
+                .getReadiness().equals(player.getReadiness())) {
                 MonopolyGameController.getInstance().changePlayerReadiness(MonopolyGameController.getInstance().getPlayerList().indexOf(player));
             } else if (player.isStarted()) {  // Game started
-                MonopolyGameController.getInstance().getPlayerList().get(MonopolyGameController.getInstance().
-                        getPlayerList().indexOf(player)).setStarted(true);
-                if (!MonopolyGameController.getInstance().getPlayerList().get(0).isStarted()) {
+                MonopolyGameController.getInstance().getPlayerFromList(player.getName()).setStarted(true);
+                if (!MonopolyGameController.getInstance().getMyself().isStarted()) {
                     MonopolyGameController.getInstance().checkReadiness();
                 }
                 ClientFacade.getInstance().removeReceivedChangedListener(this);
