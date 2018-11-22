@@ -50,7 +50,8 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener, 
                 MonopolyGameController.getInstance().informClosed();
             }
         });
-
+//        this.setPreferredSize(new Dimension(1415, 1040));
+//        this.pack();
         this.setVisible(true);
     }
 
