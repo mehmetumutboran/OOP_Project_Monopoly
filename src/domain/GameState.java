@@ -132,7 +132,7 @@ public class GameState {
     }
 
     private String generateJailAction(char flag, String name) {
-        return flag + '|' + name;
+        return flag + "|" + name;
     }
 
     private String generatePoolAction(char flag, String name, int changedMoney) {
