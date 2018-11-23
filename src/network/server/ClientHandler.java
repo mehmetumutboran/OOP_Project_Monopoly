@@ -7,18 +7,26 @@ import java.net.Socket;
 
 public class ClientHandler implements Runnable {
     private Socket socket;
-    private DataInputStream dis;
-    private DataOutputStream dos;
+    private volatile DataInputStream dis;
+    private volatile DataOutputStream dos;
+    private boolean isSent;
 
     public ClientHandler(Socket clientSocket) {
+
         this.socket = clientSocket;
+        try {
+            this.dis = new DataInputStream(socket.getInputStream());
+            this.dos = new DataOutputStream(socket.getOutputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
     public void run() {
         try {
-            this.dis = new DataInputStream(socket.getInputStream());
-            this.dos = new DataOutputStream(socket.getOutputStream());
+
             String line = dis.readUTF();
             Server.setClientInfo(line);
 
@@ -41,18 +49,23 @@ public class ClientHandler implements Runnable {
     public synchronized void send(String m) throws IOException {
         dos.writeUTF(m);
         dos.flush();
+        isSent = true;
     }
 
-    public void terminate() {
+    public synchronized void terminate() {
         try {
             send("You are kicked!");
+
         } catch (IOException e) {
             e.printStackTrace();
         }finally {
             try {
-                dis.close();
-                dos.close();
-                socket.close();
+                if(isSent) {
+                    dis.close();
+                    dos.close();
+                    socket.close();
+                    isSent = false;
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }

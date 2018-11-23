@@ -89,18 +89,24 @@ public class Server implements Runnable {
             try {
                 Socket clientSocket = this.ss.accept();
                 int i = 0;
+
                 for (; i < maxClientsCount; i++) {
                     if (clientThreads[i] == null) {
                         clientThreads[i] = new ClientHandler(clientSocket);
-                        (new Thread(clientThreads[i])).start();
                         if (!isMulti && !clientSocket.getInetAddress().getHostAddress().equals("127.0.0.1")) {
+
                             clientThreads[i].terminate();
                             clientThreads[i] = null;
-                            continue;
+                            //                            continue;
+                        } else {
+
+                            (new Thread(clientThreads[i])).start();
                         }
+
                         break;
                     }
                 }
+
                 System.out.println("\n\n ClientThreads: " + Arrays.toString(clientThreads) + "\n\n");
             } catch (IOException e) {
                 e.printStackTrace();
