@@ -149,23 +149,23 @@ public class MonopolyGameController {
         return playerConnectAttributes;
     }
 
-    public void changePlayerColor(int index, String color) {
+    public void changePlayerColor(int index, String color) { //TODO DON'T USE INDEX
         if (color == null) return;
         String oldColor = playerList.get(index).getToken().getColor();
         playerList.get(index).getToken().setColor(color);
         System.out.println("Player's color " + playerList.get(0).getToken().getColor());
         if (playerList.size() > 1) {
-            ConnectGameHandler.getInstance().sendChange(playerList.get(index));
+            ConnectGameHandler.getInstance().sendColorChange(playerList.get(index));
         }
         selectedColors.add(color);
         selectedColors.remove(oldColor);
         publishPlayerListEvent();
     }
 
-    public void changePlayerReadiness(int index) {
+    public void changePlayerReadiness(int index) { // TODO DON'T USE INDEX
         playerList.get(index).setReadiness();
         if (playerList.size() > 1) {
-            ConnectGameHandler.getInstance().sendChange(playerList.get(index));
+            ConnectGameHandler.getInstance().sendReadinessChange(playerList.get(index));
         }
         publishPlayerListEvent();
     }
@@ -189,7 +189,7 @@ public class MonopolyGameController {
 
     private synchronized void startGame() {
         playerList.get(0).setStarted(true);
-        ConnectGameHandler.getInstance().sendChange(playerList.get(0));
+        ConnectGameHandler.getInstance().sendGameStartedChange(playerList.get(0));
         publishGameStartedEvent(getPlayerColorArray());
         GameCommunicationHandler.getInstance();
         UIUpdater.getInstance();
