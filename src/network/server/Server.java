@@ -110,6 +110,7 @@ public class Server implements Runnable {
                 System.out.println("\n\n ClientThreads: " + Arrays.toString(clientThreads) + "\n\n");
             } catch (IOException e) {
                 e.printStackTrace();
+                break;
             }
 
 

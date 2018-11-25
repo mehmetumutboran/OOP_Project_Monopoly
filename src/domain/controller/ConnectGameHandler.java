@@ -102,8 +102,6 @@ public class ConnectGameHandler implements ReceivedChangedListener {
             return;
         }
 
-        if(!message.contains("+")) return;
-
         System.out.println("Message received in cgh: "+message);
         String flag = ConnectGameInterpreter.getInstance().messageHandler(message);
 
