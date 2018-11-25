@@ -27,7 +27,6 @@ public class HostButton extends JButton implements ActionListener, ConnectionFai
         this.portField = portField;
         this.addActionListener(this);
         ClientFacade.getInstance().addConnectionFailedListener(this);
-
     }
 
     /**
@@ -43,8 +42,8 @@ public class HostButton extends JButton implements ActionListener, ConnectionFai
     }
 
     private void checkConnection() {
-        String username = null;
-        int port = 0;
+        String username;
+        int port;
 
         if (InputChecker.getInstance().userNameChecker(IDField.getText())) {
             username = IDField.getText();

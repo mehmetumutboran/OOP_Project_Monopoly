@@ -215,7 +215,7 @@ public class MonopolyGameController {
 
         playerQueue.forEach(x -> GameLogic.getInstance().getPlayers().addLast(x.getName()));
 //        GameLogic.getInstance().setPlayers(playerQueue.stream().map(Player::getName).collect(Collectors.toCollection(LinkedList::new)));
-        GameCommunicationHandler.getInstance().sendAction(GameLogic.queueFlag, "");
+        GameCommunicationHandler.getInstance().sendResponse(GameLogic.queueFlag, "");
     }
 
 

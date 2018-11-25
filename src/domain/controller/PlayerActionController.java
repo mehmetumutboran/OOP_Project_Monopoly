@@ -17,7 +17,7 @@ public class PlayerActionController {
 
 
     public void roll() {
-        GameLogic.getInstance().roll();
+//        GameLogic.getInstance().roll(); //TODO Send to Server request
     }
 
 

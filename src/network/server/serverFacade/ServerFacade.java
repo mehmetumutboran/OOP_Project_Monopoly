@@ -1,5 +1,6 @@
 package network.server.serverFacade;
 
+import domain.RequestInterpreter;
 import network.server.Server;
 
 import java.io.IOException;
@@ -44,6 +45,19 @@ public class ServerFacade {
     public void shutDown(){
         try {
             server.getSs().close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setRequest(String request) {
+        RequestInterpreter.getInstance().interpret(request);
+    }
+
+
+    public void send(String name, String response) {
+        try {
+            Server.sendAll(response);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -21,11 +21,11 @@ public class TheInsidersEdge extends Community {
         int loc[] = GameLogic.getInstance().getCurrentPlayer().getToken().getLocation();
         if (loc[0] == 0) {
             GameLogic.getInstance().getCurrentPlayer().increaseMoney(250);
-            GameCommunicationHandler.getInstance().sendAction(poolFlag, GameLogic.getInstance().getCurrentPlayer().getName(), 250);
+            GameCommunicationHandler.getInstance().sendResponse(poolFlag, GameLogic.getInstance().getCurrentPlayer().getName(), 250);
         } else if (loc[0] == 2) {
 
             GameLogic.getInstance().getCurrentPlayer().decreaseMoney(50);
-            GameCommunicationHandler.getInstance().sendAction(poolFlag, GameLogic.getInstance().getCurrentPlayer().getName(), -50);
+            GameCommunicationHandler.getInstance().sendResponse(poolFlag, GameLogic.getInstance().getCurrentPlayer().getName(), -50);
 
 
         }

@@ -1,16 +1,15 @@
 package network.server;
 
-import domain.controller.ConnectGameHandler;
-import network.client.Client;
+import network.server.serverFacade.ServerFacade;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.Arrays;
 
 /**
  * {@link Server} class that opens a server
- * It will use Observer Pattern to publish new Connected {@link Client} to {@link ConnectGameHandler}  ???? Not possible??
  */
 public class Server implements Runnable {
     private ServerSocket ss;
@@ -58,9 +57,13 @@ public class Server implements Runnable {
                 + "\n---------============-------\n\n");
     }
 
+    public static void interpretRequest(String message) {
+        ServerFacade.getInstance().setRequest(message);
+    }
+
     /**
      * Sets and initialized {@link ClientHandler}
-     * It was needed before since this class used to use Observer Pattern to publish new Connected {@link Client}
+     * It was needed before since this class used to use Observer Pattern to publish new Connected Client
      * But now probably it is not needed.
      *
      * @param i
@@ -80,7 +83,7 @@ public class Server implements Runnable {
 
 
     /**
-     * server thread that accepts new {@link Client} and assigns a {@link ClientHandler} to it.
+     * server thread that accepts new Client and assigns a {@link ClientHandler} to it.
      */
     @Override
     public void run() {
@@ -103,9 +106,8 @@ public class Server implements Runnable {
                 }
                 System.out.println("\n\n ClientThreads: " + Arrays.toString(clientThreads) + "\n\n");
             } catch (IOException e) {
-                e.printStackTrace();
+                break;
             }
-
 
         }
 

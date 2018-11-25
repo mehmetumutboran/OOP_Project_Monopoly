@@ -24,6 +24,7 @@ public class ClientHandler implements Runnable {
 
             while (true) {
                 line = dis.readUTF();
+                Server.interpretRequest(line);
                 Server.sendAll(line);
 
             }

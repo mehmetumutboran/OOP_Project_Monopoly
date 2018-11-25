@@ -4,9 +4,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.GameLogic;
 import domain.GameState;
-import domain.MessageInterpreter;
+import domain.RequestInterpreter;
 import network.client.clientFacade.ClientFacade;
 import network.listeners.ReceivedChangedListener;
+import network.server.serverFacade.ServerFacade;
 
 public class GameCommunicationHandler implements ReceivedChangedListener {
     private static GameCommunicationHandler ourInstance;
@@ -32,24 +33,24 @@ public class GameCommunicationHandler implements ReceivedChangedListener {
         this.message = message;
     }
 
-    public synchronized void sendAction(char flag, String name) {
-        ClientFacade.getInstance().send(GameLogic.getInstance().getCurrentPlayer().getName(),
+    public synchronized void sendResponse(char flag, String name) {
+        ServerFacade.getInstance().send(name,
                 GameState.getInstance().generateCurrentAction(flag, name));
     }
 
-    public synchronized void sendAction(char flag, String name, String buildName) {
-        ClientFacade.getInstance().send(GameLogic.getInstance().getCurrentPlayer().getName(),
+    public synchronized void sendResponse(char flag, String name, String buildName) {
+        ServerFacade.getInstance().send(name,
                 GameState.getInstance().generateCurrentAction(flag, name, buildName));
     }
 
-    public synchronized void sendAction(char flag, String name, int changedMoney) {
-        ClientFacade.getInstance().send(GameLogic.getInstance().getCurrentPlayer().getName(),
+    public synchronized void sendResponse(char flag, String name, int changedMoney) {
+        ServerFacade.getInstance().send(name,
                 GameState.getInstance().generateCurrentAction(flag, name, changedMoney));
     }
 
     @Override
     public void onReceivedChangedEvent() {
-        MessageInterpreter.getInstance().interpret(ClientFacade.getInstance().getMessage());
+        RequestInterpreter.getInstance().interpret(ClientFacade.getInstance().getMessage());
     }
 
 

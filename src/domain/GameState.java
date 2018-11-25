@@ -67,7 +67,7 @@ public class GameState {
             case moneyFlag:
                 return generateMoneyAction(flag, name, changedMoney);
             case poolFlag:
-                return generatePoolAction(flag, name, changedMoney);
+                return generatePoolAction(flag, changedMoney);
         }
         return generateQueueAction(queueFlag);
     }
@@ -133,8 +133,8 @@ public class GameState {
         return flag + "|" + name;
     }
 
-    private String generatePoolAction(char flag, String name, int changedMoney) {
-        return flag + "|" + Integer.toString(changedMoney);
+    private String generatePoolAction(char flag, int changedMoney) {
+        return flag + "|" + changedMoney;
     }
 
 }

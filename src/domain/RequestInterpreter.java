@@ -7,12 +7,12 @@ import java.util.HashMap;
 /**
  * Planned as a Class that interprets received Message then updates game state
  */
-public class MessageInterpreter {
-    private static MessageInterpreter instance;
+public class RequestInterpreter {
+    private static RequestInterpreter instance;
 
     private HashMap<Character, Interpreter> interpreterMap;
 
-    private MessageInterpreter() {
+    private RequestInterpreter() {
         Interpreter moveInterpreter = new MoveInterpreter();
         Interpreter moneyChangeInterpreter = new MoneyChangeInterpreter();
         Interpreter buyInterpreter = new BuyInterpreter();
@@ -39,9 +39,9 @@ public class MessageInterpreter {
         interpreterMap.put(GameLogic.goOutJailFlag,jailInterpreter);
     }
 
-    public static MessageInterpreter getInstance() {
+    public static RequestInterpreter getInstance() {
         if (instance == null)
-            instance = new MessageInterpreter();
+            instance = new RequestInterpreter();
         return instance;
     }
 

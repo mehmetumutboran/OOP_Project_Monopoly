@@ -16,7 +16,7 @@ public class RandomPlayer extends Player {
 
 
     private void playTurn() {
-        GameLogic.getInstance().roll();
+        GameLogic.getInstance().roll(this.getName());
 
         GameLogic.getInstance().payRent();
 

@@ -3,7 +3,7 @@ package domain.controller;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import domain.MessageInterpreter;
+import domain.RequestInterpreter;
 import domain.RandomPlayer;
 import domain.listeners.PlayerKickedListener;
 import domain.player.Player;
@@ -80,7 +80,7 @@ public class ConnectGameHandler implements ReceivedChangedListener {
     }
 
     /**
-     * Normally it would transfer received message to the {@link MessageInterpreter}
+     * Normally it would transfer received message to the {@link RequestInterpreter}
      * Right now it assumes Received message is new {@link Player} and adds it to the {@link MonopolyGameController#getPlayerList()}
      */
     @Override
