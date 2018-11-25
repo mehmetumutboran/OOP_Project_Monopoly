@@ -1,5 +1,6 @@
 package gui.baseFrame.panels;
 
+import gui.baseFrame.buttons.initialScreenButons.CreditsButton;
 import gui.baseFrame.buttons.initialScreenButons.ExitButton;
 import gui.baseFrame.buttons.initialScreenButons.MultiplayerButton;
 import gui.baseFrame.buttons.initialScreenButons.SinglePlayerButton;
@@ -15,6 +16,7 @@ public class InitialScreenPanel extends JPanel {
     private SinglePlayerButton singlePlayerButton;
     private MultiplayerButton multiPlayerButton;
     private ExitButton exitButton;
+    private CreditsButton creditsButton;
 
     private int width;
     private int height;
@@ -22,14 +24,13 @@ public class InitialScreenPanel extends JPanel {
     private BufferedImage image1;
     private BufferedImage image2;
     private JLabel logoLabel;
-    private JLabel versionLabel;
     private JLabel backgroundLabel;
 
     private final int BUTTON_WIDTH = 300;
     private final int BUTTON_HEIGHT = 50;
 
 
-    public InitialScreenPanel(String CURRENT_VERSION, int width, int height) {
+    public InitialScreenPanel(int width, int height) {
         this.width = width;
         this.height = height;
 
@@ -53,16 +54,6 @@ public class InitialScreenPanel extends JPanel {
         logoLabel.setBounds(0, 0, width, 200);
         logoLabel.setOpaque(true);
 
-
-        versionLabel = new JLabel(CURRENT_VERSION);
-        versionLabel.setHorizontalAlignment(JLabel.CENTER);
-        versionLabel.setVerticalAlignment(JLabel.CENTER);
-        versionLabel.setFont(new Font("Serif", Font.BOLD, 20));
-        this.add(versionLabel);
-        versionLabel.setBounds((this.width - BUTTON_WIDTH) / 2,
-                (this.height - (-11) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
-        versionLabel.setOpaque(false);
-
         initButtons();
 
         backgroundLabel = new JLabel(new ImageIcon(image2));
@@ -77,25 +68,31 @@ public class InitialScreenPanel extends JPanel {
         singlePlayerButton = new SinglePlayerButton("Single Player");
         multiPlayerButton = new MultiplayerButton("Multiplayer");
         exitButton = new ExitButton("Exit");
+        creditsButton = new CreditsButton("Credits");
 
         singlePlayerButton.setBounds((this.width - BUTTON_WIDTH) / 2,
                 (this.height - 4 * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
         multiPlayerButton.setBounds((this.width - BUTTON_WIDTH) / 2,
                 (this.height - BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
-        exitButton.setBounds((this.width - BUTTON_WIDTH) / 2,
+        creditsButton.setBounds((this.width - BUTTON_WIDTH) / 2,
                 (this.height - (-2) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
+        exitButton.setBounds((this.width - BUTTON_WIDTH) / 2,
+                (this.height - (-5) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
 
         singlePlayerButton.setBackground(Color.lightGray);
         multiPlayerButton.setBackground(Color.lightGray);
         exitButton.setBackground(Color.lightGray);
+        creditsButton.setBackground(Color.lightGray);
 
         singlePlayerButton.setBorderPainted(false);
         multiPlayerButton.setBorderPainted(false);
         exitButton.setBorderPainted(false);
+        creditsButton.setBorderPainted(false);
 
         this.add(singlePlayerButton);
         this.add(multiPlayerButton);
         this.add(exitButton);
+        this.add(creditsButton);
     }
 
 

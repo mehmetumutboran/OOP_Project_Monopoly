@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.GameLogic;
 import domain.GameState;
 import domain.MessageInterpreter;
-import domain.board.DeedSquare;
 import network.client.clientFacade.ClientFacade;
 import network.listeners.ReceivedChangedListener;
 
@@ -33,19 +32,19 @@ public class GameCommunicationHandler implements ReceivedChangedListener {
         this.message = message;
     }
 
-    public synchronized void sendAction(char flag) {
+    public synchronized void sendAction(char flag, String name) {
         ClientFacade.getInstance().send(GameLogic.getInstance().getCurrentPlayer().getName(),
-                GameState.getInstance().generateCurrentAction(flag));
+                GameState.getInstance().generateCurrentAction(flag, name));
     }
 
-    public synchronized void sendPoolAction(char flag, int money) {
+    public synchronized void sendAction(char flag, String name, String buildName) {
         ClientFacade.getInstance().send(GameLogic.getInstance().getCurrentPlayer().getName(),
-                GameState.getInstance().generatePoolAction(flag, money));
+                GameState.getInstance().generateCurrentAction(flag, name, buildName));
     }
 
-    public void sendupdowngradeAction(char flag, DeedSquare square) {
-        ClientFacade.getInstance().send(GameLogic.getInstance().getCurrentPlayer().getName(), GameState.getInstance().generateupdownGradeAction(flag, square));
-
+    public synchronized void sendAction(char flag, String name, int changedMoney) {
+        ClientFacade.getInstance().send(GameLogic.getInstance().getCurrentPlayer().getName(),
+                GameState.getInstance().generateCurrentAction(flag, name, changedMoney));
     }
 
     @Override
@@ -66,7 +65,4 @@ public class GameCommunicationHandler implements ReceivedChangedListener {
         ClientFacade.getInstance().send(GameLogic.getInstance().getCurrentPlayer().getName(), GameLogic.queueFlag + s);
     }
 
-    public void sendMoneyAction(int amount, String name) {
-        ClientFacade.getInstance().send(name, GameState.getInstance().generateMoneyChangeAction(amount, name));
-    }
 }

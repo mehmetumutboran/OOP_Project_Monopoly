@@ -162,6 +162,10 @@ public class Player implements Comparable {
         return this.doubleCounter = 0;
     }
 
+    public int getDoubleCounter() {
+        return doubleCounter;
+    }
+
     public void incrementDoubleCounter() {
         this.doubleCounter += 1;
     }
@@ -175,8 +179,8 @@ public class Player implements Comparable {
     }
 
     public void rollDice() {
-//        String locName = Board.getInstance().getSq(this.token.getLocation()).getName();
-        String locName = "Go";
+        String locName = Board.getInstance().getSquare(this.token.getLocation()[0],this.token.getLocation()[1]).getName();
+        // String locName = "Go";
         DiceCup.getInstance().rollDice(locName);
         this.faceValues = DiceCup.getInstance().getFaceValues();
     } // Player gives command to roll dice to the controller.
@@ -219,9 +223,7 @@ public class Player implements Comparable {
         Square square = Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]];
 
 
-        boolean buyable = (square instanceof Property ||
-                square instanceof Railroad ||
-                square instanceof Utility);
+        boolean buyable = (square instanceof DeedSquare);
 
         System.out.println("buyable checked");
         /*
@@ -292,5 +294,14 @@ public class Player implements Comparable {
         return false;
     }
 
+    public void addDeed(Square square) {
+        if (square instanceof Property) {
+            ownedProperties.add((Property) square);
+        } else if (square instanceof Railroad) {
+            ownedRailroads.add((Railroad) square);
+        } else if (square instanceof Utility) {
+            ownedUtilities.add((Utility) square);
+        }
+    }
 
 }

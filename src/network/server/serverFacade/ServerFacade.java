@@ -2,6 +2,8 @@ package network.server.serverFacade;
 
 import network.server.Server;
 
+import java.io.IOException;
+
 /**
  * Class that provides network logic to server Host
  */
@@ -25,8 +27,8 @@ public class ServerFacade {
      * @param port server socket port
      * @return Whether server successfully created
      */
-    public boolean createServer(int port) {
-        server = new Server(port);
+    public boolean createServer(int port, boolean isMulti) {
+        server = new Server(port, isMulti);
         //noinspection ConstantConditions
         return server != null;
     }
@@ -37,5 +39,13 @@ public class ServerFacade {
 
     public void kick(String username) {
         server.getClientHandler(username).terminate();
+    }
+
+    public void shutDown(){
+        try {
+            server.getSs().close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

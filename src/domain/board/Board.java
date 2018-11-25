@@ -401,10 +401,11 @@ public class Board {
     }
 
     public Square getNameGivenSquare(String name) {
+//        return Arrays.stream(squareList).forEach(x -> Arrays.stream(x).filter(y -> y.getName().equals(name)).collect(Collectors.toList()).get(0));
         for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 56; y++) {
-                if (squareList[x][y].equals(null)) continue;
-                if (name.equals(squareList[x][y]))
+                if (squareList[x][y] == null) continue;
+                if (name.equals(squareList[x][y].getName()))
                     return squareList[x][y];
             }
         }

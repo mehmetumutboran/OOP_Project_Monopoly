@@ -88,6 +88,14 @@ public class MonopolyGameController {
         return playerList;
     }
 
+    public Player getPlayerFromList(String name){
+        return playerList.stream().filter(player -> player.getName().equals(name)).findFirst().orElse(null);
+    }
+
+    public Player getMyself(){
+        return playerList.get(0);
+    }
+
 //    public ArrayList<String> getPlayerListAsJSON() {
 //        ObjectMapper mapper = new ObjectMapper();
 //        mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
@@ -141,23 +149,23 @@ public class MonopolyGameController {
         return playerConnectAttributes;
     }
 
-    public void changePlayerColor(int index, String color) {
+    public void changePlayerColor(int index, String color) { //TODO DON'T USE INDEX
         if (color == null) return;
         String oldColor = playerList.get(index).getToken().getColor();
         playerList.get(index).getToken().setColor(color);
         System.out.println("Player's color " + playerList.get(0).getToken().getColor());
         if (playerList.size() > 1) {
-            ConnectGameHandler.getInstance().sendChange(playerList.get(index));
+            ConnectGameHandler.getInstance().sendColorChange(playerList.get(index));
         }
         selectedColors.add(color);
         selectedColors.remove(oldColor);
         publishPlayerListEvent();
     }
 
-    public void changePlayerReadiness(int index) {
+    public void changePlayerReadiness(int index) { // TODO DON'T USE INDEX
         playerList.get(index).setReadiness();
         if (playerList.size() > 1) {
-            ConnectGameHandler.getInstance().sendChange(playerList.get(index));
+            ConnectGameHandler.getInstance().sendReadinessChange(playerList.get(index));
         }
         publishPlayerListEvent();
     }
@@ -181,7 +189,7 @@ public class MonopolyGameController {
 
     private synchronized void startGame() {
         playerList.get(0).setStarted(true);
-        ConnectGameHandler.getInstance().sendChange(playerList.get(0));
+        ConnectGameHandler.getInstance().sendGameStartedChange(playerList.get(0));
         publishGameStartedEvent(getPlayerColorArray());
         GameCommunicationHandler.getInstance();
         UIUpdater.getInstance();
@@ -207,7 +215,7 @@ public class MonopolyGameController {
 
         playerQueue.forEach(x -> GameLogic.getInstance().getPlayers().addLast(x.getName()));
 //        GameLogic.getInstance().setPlayers(playerQueue.stream().map(Player::getName).collect(Collectors.toCollection(LinkedList::new)));
-        GameCommunicationHandler.getInstance().sendQueue();
+        GameCommunicationHandler.getInstance().sendAction(GameLogic.queueFlag, "");
     }
 
 

@@ -1,5 +1,6 @@
 package gui.controlDisplay.panels;
 
+import domain.board.Board;
 import domain.controller.MonopolyGameController;
 
 import javax.swing.*;
@@ -59,6 +60,9 @@ public class PlayerInfoPanel extends JPanel implements MouseListener {
 
                 .append("<br/><span style=\"color:red\">Name: </span>")
                 .append(MonopolyGameController.getInstance().getPlayerList().get(i).getName())
+
+                .append("<br/><span style=\"color:red\">Location: </span>")
+                .append(Board.getInstance().getSquare(MonopolyGameController.getInstance().getPlayerList().get(i).getToken().getLocation()[0], MonopolyGameController.getInstance().getPlayerList().get(i).getToken().getLocation()[1]))
 
                 .append("<br/><span style=\"color:red\">Money: </span>")
                 .append(MonopolyGameController.getInstance().getPlayerList().get(i).getBalance())

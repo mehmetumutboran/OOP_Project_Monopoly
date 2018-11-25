@@ -138,8 +138,8 @@ public class ClientFacade {
     public void terminate() {
         try {
             MonopolyGameController.getInstance().reset();
-            hostClient.getDis().close();
             hostClient.getDos().close();
+            hostClient.getDis().close();
             hostClient.getSocket().close();
         } catch (IOException e) {
             e.printStackTrace();

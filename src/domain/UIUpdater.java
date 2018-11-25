@@ -78,7 +78,7 @@ public class UIUpdater {
         publishMessageChangedEvent();
     }
 
-    void turnUpdate() {
+    public void turnUpdate() {
         publishTurnChangedEvent(GameLogic.getInstance().getCurrentPlayer()
                 .equals(GameLogic.getInstance().getPlayerList().get(0)));
 
@@ -103,7 +103,7 @@ public class UIUpdater {
         }
     }
 
-    void setTokenLocation(String name, int x, int y) {
+    public void setTokenLocation(String name, int x, int y) {
         this.publishTokenMovementEvent(name, x, y);
     }
 }

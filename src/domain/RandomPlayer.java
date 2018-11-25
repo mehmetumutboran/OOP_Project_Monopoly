@@ -49,7 +49,7 @@ public class RandomPlayer extends Player {
         }
     }
 
-    synchronized boolean checkTurn() {
+    public synchronized boolean checkTurn() {
         if (GameLogic.getInstance().getCurrentPlayer().equals(this)) {
             playTurn();
             return true;

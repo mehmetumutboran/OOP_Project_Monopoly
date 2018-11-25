@@ -45,7 +45,6 @@ public class MessagePanel extends JPanel implements MessageChangedListener {
     public void onMessageChangedEvent() {
         String s = UIUpdater.getInstance().getMessage();
         message.insert(OFFSET, LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")) + " - " + s + "<br>");
-        System.out.println(message.toString());
         messageLabel.setText(message.toString());
     }
 }

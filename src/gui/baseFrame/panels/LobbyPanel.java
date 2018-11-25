@@ -61,7 +61,6 @@ public class LobbyPanel extends JPanel implements GameStartedListener {
         initPanels();
         this.add(buttonPanel);
 
-        System.out.println("aslkdfjsa;lkfdjasl;kfdj : :: " + isHost);
 
         validate();
         repaint();
