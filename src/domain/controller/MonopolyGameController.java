@@ -1,5 +1,7 @@
 package domain.controller;
 
+import domain.Flags;
+import domain.GameInfo;
 import domain.GameLogic;
 import domain.UIUpdater;
 import domain.die.DiceCup;
@@ -43,10 +45,11 @@ public class MonopolyGameController {
 
     public boolean addPlayer(Player player) {
 //        return playerList.add(player);
-        playerList.add(player);
-        System.out.println("\n\nAdded Player" + player + "\n\n");
-        System.out.println(playerList + "\n\n");
-        publishPlayerListEvent();
+        GameInfo.getInstance().addPlayer(player);
+//        System.out.println("\n\nAdded Player" + player + "\n\n");
+//        System.out.println(playerList + "\n\n");
+//        publishPlayerListEvent();
+        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("AddPlayer"), player.getName());
         return true;
     }
 
@@ -172,18 +175,18 @@ public class MonopolyGameController {
 
 
     public int checkReadiness() {
-        if (playerList.size() == 1) return -1;
-        if ((playerList.get(0).getReadiness().equals("Bot")) || (playerList.get(0).getReadiness().equals("Ready") &&
-                !playerList.get(0).getReadiness().equals("Host"))) {
-            startGame();
-            return 0; //  Can't return 1 since we return number of players not ready.
-        }
+//        if (playerList.size() == 1) return -1;
+//        if ((playerList.get(0).getReadiness().equals("Bot")) || (playerList.get(0).getReadiness().equals("Ready") &&
+//                !playerList.get(0).getReadiness().equals("Host"))) {
+//            startGame();
+//            return 0; //  Can't return 1 since we return number of players not ready.
+//        }
         int notReady = 0;
         for (int i = 1; i < playerList.size(); i++) {
             if (playerList.get(i).getReadiness().equals("Not Ready")) notReady++;
         }
         if (notReady != 0) return notReady;
-        startGame();
+//        startGame();
         return 0;
     }
 
@@ -191,7 +194,7 @@ public class MonopolyGameController {
         playerList.get(0).setStarted(true);
         ConnectGameHandler.getInstance().sendChange(playerList.get(0));
         publishGameStartedEvent(getPlayerColorArray());
-        GameCommunicationHandler.getInstance();
+        ServerCommunicationHandler.getInstance();
         UIUpdater.getInstance();
         GameLogic.getInstance().setPlayerList(playerList);
         if (playerList.get(0).getReadiness().equals("Host")) {
@@ -215,7 +218,7 @@ public class MonopolyGameController {
 
         playerQueue.forEach(x -> GameLogic.getInstance().getPlayers().addLast(x.getName()));
 //        GameLogic.getInstance().setPlayers(playerQueue.stream().map(Player::getName).collect(Collectors.toCollection(LinkedList::new)));
-        GameCommunicationHandler.getInstance().sendResponse(GameLogic.queueFlag, "");
+        ServerCommunicationHandler.getInstance().sendResponse(GameLogic.queueFlag, "");
     }
 
 

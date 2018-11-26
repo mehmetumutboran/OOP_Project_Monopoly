@@ -1,6 +1,9 @@
 package domain.controller;
 
+import domain.Flags;
 import domain.GameLogic;
+import network.client.Client;
+import network.client.clientFacade.ClientFacade;
 
 public class PlayerActionController {
     private static PlayerActionController ourInstance;
@@ -17,7 +20,7 @@ public class PlayerActionController {
 
 
     public void roll() {
-//        GameLogic.getInstance().roll(); //TODO Send to Server request
+        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Roll"), ClientFacade.getInstance().getUsername());
     }
 
 
@@ -38,5 +41,9 @@ public class PlayerActionController {
         System.out.println("in player action controller");
         return (GameLogic.getInstance().payRent());
 
+    }
+
+    public void startGame() {
+        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Start"), ClientFacade.getInstance().getUsername());
     }
 }

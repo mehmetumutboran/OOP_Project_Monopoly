@@ -5,7 +5,6 @@ import network.server.serverFacade.ServerFacade;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
 import java.util.Arrays;
 
 /**
@@ -58,6 +57,7 @@ public class Server implements Runnable {
     }
 
     public static void interpretRequest(String message) {
+        System.out.println("\n\nServer: interpretREquest\n\n");
         ServerFacade.getInstance().setRequest(message);
     }
 

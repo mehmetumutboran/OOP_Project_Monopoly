@@ -1,7 +1,7 @@
 package domain;
 
 /**
- * There should be only UI Adapter inside it.
+ * There should be only UI Updater inside it.
  *
  */
 public class ResponseInterpreter {

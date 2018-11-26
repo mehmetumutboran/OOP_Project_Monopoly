@@ -23,6 +23,7 @@ public class RequestInterpreter {
         Interpreter rollInterpreter = new RollInterpreter();
         Interpreter specialSquareInterpreter = new SpecialSquareInterpreter();
         Interpreter jailInterpreter = new JailInterpreter();
+        Interpreter startInterpreter = new StartInterpreter();
 
         interpreterMap = new HashMap<>();
         interpreterMap.put(GameLogic.moveFlag, moveInterpreter);
@@ -37,6 +38,7 @@ public class RequestInterpreter {
         interpreterMap.put(GameLogic.specialSquareFlag, specialSquareInterpreter);
         interpreterMap.put(GameLogic.jailFlag, jailInterpreter);
         interpreterMap.put(GameLogic.goOutJailFlag,jailInterpreter);
+        interpreterMap.put(Flags.getFlag("Start"), startInterpreter);
     }
 
     public static RequestInterpreter getInstance() {
@@ -47,24 +49,25 @@ public class RequestInterpreter {
 
 
     public synchronized void interpret(String m) {
+        System.out.println("\n\nREqInterpreter: interpret\n\n");
         char flag = m.charAt(0);
 
         if (interpreterMap.keySet().contains(flag))
             interpreterMap.get(flag).interpret(m.split("[|]"));
-
-        switch (flag) {
-            case GameLogic.finishTurnFlag:
-                interpretFinishTurn();
-                break;
-            case GameLogic.closeFlag:
-                interpretClose();
-                break;
-            case GameLogic.removeFlag:
-                interpretRemove(m.substring(1));
-                break;
-            default:
-                break;
-        }
+//
+//        switch (flag) {
+//            case GameLogic.finishTurnFlag:
+//                interpretFinishTurn();
+//                break;
+//            case GameLogic.closeFlag:
+//                interpretClose();
+//                break;
+//            case GameLogic.removeFlag:
+//                interpretRemove(m.substring(1));
+//                break;
+//            default:
+//                break;
+//        }
     }
 
     private void interpretRemove(String name) {

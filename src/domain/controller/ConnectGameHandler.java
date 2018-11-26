@@ -3,8 +3,8 @@ package domain.controller;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import domain.RequestInterpreter;
 import domain.RandomPlayer;
+import domain.RequestInterpreter;
 import domain.listeners.PlayerKickedListener;
 import domain.player.Player;
 import network.client.clientFacade.ClientFacade;
@@ -133,7 +133,7 @@ public class ConnectGameHandler implements ReceivedChangedListener {
             } else if (!MonopolyGameController.getInstance().getPlayerFromList(player.getName()).getToken().getColor().equals(player.getToken().getColor())) {
                 MonopolyGameController.getInstance().changePlayerColor(MonopolyGameController.getInstance().getPlayerList().indexOf(player), player.getToken().getColor());
             } else if (!MonopolyGameController.getInstance().getPlayerFromList(player.getName())  // Readiness changed
-                .getReadiness().equals(player.getReadiness())) {
+                    .getReadiness().equals(player.getReadiness())) {
                 MonopolyGameController.getInstance().changePlayerReadiness(MonopolyGameController.getInstance().getPlayerList().indexOf(player));
             } else if (player.isStarted()) {  // Game started
                 MonopolyGameController.getInstance().getPlayerFromList(player.getName()).setStarted(true);

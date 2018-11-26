@@ -150,5 +150,9 @@ public class ClientFacade {
         return message;
     }
 
+    public String getUsername(){
+        return hostClient.getUsername();
+    }
+
 
 }

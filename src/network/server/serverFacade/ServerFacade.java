@@ -51,6 +51,7 @@ public class ServerFacade {
     }
 
     public void setRequest(String request) {
+        System.out.println("\n\nServerFacade: setREquest\n\n");
         RequestInterpreter.getInstance().interpret(request);
     }
 
