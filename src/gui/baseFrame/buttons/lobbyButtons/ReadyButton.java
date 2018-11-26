@@ -1,6 +1,6 @@
 package gui.baseFrame.buttons.lobbyButtons;
 
-import domain.controller.MonopolyGameController;
+import domain.server.controller.MonopolyGameController;
 import gui.baseFrame.ColorBox;
 import gui.baseFrame.buttons.multiplayerButtons.BackButton;
 

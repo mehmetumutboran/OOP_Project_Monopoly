@@ -1,6 +1,6 @@
 package gui.baseFrame.panels;
 
-import domain.controller.ConnectGameHandler;
+import domain.server.controller.ConnectGameHandler;
 
 import javax.swing.*;
 import java.awt.*;

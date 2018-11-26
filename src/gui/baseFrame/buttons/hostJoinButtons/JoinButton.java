@@ -1,6 +1,6 @@
 package gui.baseFrame.buttons.hostJoinButtons;
 
-import domain.controller.ConnectGameHandler;
+import domain.server.controller.ConnectGameHandler;
 import gui.InputChecker;
 import gui.baseFrame.BaseFrame;
 import network.listeners.ConnectionFailedListener;

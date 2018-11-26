@@ -1,7 +1,7 @@
 package gui.baseFrame.panels;
 
-import domain.controller.MonopolyGameController;
-import domain.listeners.GameStartedListener;
+import domain.server.controller.MonopolyGameController;
+import domain.server.listeners.GameStartedListener;
 import gui.baseFrame.BaseFrame;
 import gui.baseFrame.ColorBox;
 import gui.baseFrame.buttons.lobbyButtons.AddBotButton;

@@ -1,8 +1,5 @@
 package gui.baseFrame.buttons.lobbyButtons;
 
-import domain.controller.MonopolyGameController;
-import domain.controller.PlayerActionController;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

@@ -1,6 +1,6 @@
 package network.server.serverFacade;
 
-import domain.RequestInterpreter;
+import domain.server.RequestInterpreter;
 import network.server.Server;
 
 import java.io.IOException;

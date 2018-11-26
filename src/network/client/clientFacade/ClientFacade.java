@@ -1,7 +1,7 @@
 package network.client.clientFacade;
 
 
-import domain.controller.MonopolyGameController;
+import domain.server.controller.MonopolyGameController;
 import network.client.Client;
 import network.listeners.ConnectionFailedListener;
 import network.listeners.ReceivedChangedListener;

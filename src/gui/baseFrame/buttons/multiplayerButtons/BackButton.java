@@ -1,6 +1,6 @@
 package gui.baseFrame.buttons.multiplayerButtons;
 
-import domain.controller.MonopolyGameController;
+import domain.server.controller.MonopolyGameController;
 import gui.baseFrame.BaseFrame;
 import network.client.clientFacade.ClientFacade;
 import network.server.serverFacade.ServerFacade;

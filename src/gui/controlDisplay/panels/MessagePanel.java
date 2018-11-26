@@ -1,7 +1,7 @@
 package gui.controlDisplay.panels;
 
-import domain.UIUpdater;
-import domain.listeners.MessageChangedListener;
+import domain.client.UIUpdater;
+import domain.server.listeners.MessageChangedListener;
 
 import javax.swing.*;
 import java.awt.*;

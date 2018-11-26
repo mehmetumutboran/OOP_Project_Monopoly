@@ -1,10 +1,10 @@
 package gui.baseFrame;
 
-import domain.UIUpdater;
-import domain.controller.ConnectGameHandler;
-import domain.controller.MonopolyGameController;
-import domain.listeners.CloseButtonListener;
-import domain.listeners.PlayerKickedListener;
+import domain.client.UIUpdater;
+import domain.server.controller.ConnectGameHandler;
+import domain.server.controller.MonopolyGameController;
+import domain.server.listeners.CloseButtonListener;
+import domain.server.listeners.PlayerKickedListener;
 import gui.baseFrame.panels.*;
 import gui.controlDisplay.ControlFrame;
 

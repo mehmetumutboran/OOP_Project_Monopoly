@@ -1,6 +1,6 @@
 package gui.baseFrame.buttons.lobbyButtons;
 
-import domain.controller.ConnectGameHandler;
+import domain.server.controller.ConnectGameHandler;
 import gui.baseFrame.ColorBox;
 
 import javax.swing.*;

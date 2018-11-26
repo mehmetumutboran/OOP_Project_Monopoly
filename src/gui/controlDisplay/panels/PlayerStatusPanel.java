@@ -1,12 +1,12 @@
 package gui.controlDisplay.panels;
 
-import domain.controller.MonopolyGameController;
+import domain.server.controller.MonopolyGameController;
 
 import javax.swing.*;
 import java.awt.*;
 
 /**
- * Panel which has {@link domain.player.Player}s' name on it.
+ * Panel which has {@link domain.server.player.Player}s' name on it.
  * Allows user to click on Player Labels and see that player's assets.
  */
 public class PlayerStatusPanel extends JPanel {

@@ -1,9 +1,9 @@
 package gui.controlDisplay.panels;
 
-import domain.UIUpdater;
-import domain.controller.MonopolyGameController;
-import domain.listeners.GameStartedListener;
-import domain.listeners.PlayerQuitEventListener;
+import domain.client.UIUpdater;
+import domain.server.controller.MonopolyGameController;
+import domain.server.listeners.GameStartedListener;
+import domain.server.listeners.PlayerQuitEventListener;
 import gui.ColorConverter;
 import gui.controlDisplay.PlayerLabel;
 

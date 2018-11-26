@@ -1,7 +1,7 @@
 package gui.controlDisplay.panels;
 
-import domain.board.Board;
-import domain.controller.MonopolyGameController;
+import domain.server.board.Board;
+import domain.server.controller.MonopolyGameController;
 
 import javax.swing.*;
 import java.awt.*;

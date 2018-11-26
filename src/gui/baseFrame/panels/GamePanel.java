@@ -1,17 +1,15 @@
 package gui.baseFrame.panels;
 
-import domain.UIUpdater;
-import domain.controller.MonopolyGameController;
-import domain.listeners.GameStartedListener;
-import domain.listeners.TokenMovementListener;
+import domain.client.UIUpdater;
+import domain.server.controller.MonopolyGameController;
+import domain.server.listeners.GameStartedListener;
+import domain.server.listeners.TokenMovementListener;
 import gui.baseFrame.TokenFactory;
 import gui.baseFrame.TokenLabel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;

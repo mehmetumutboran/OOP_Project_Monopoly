@@ -1,7 +1,7 @@
 package gui.controlDisplay.butons;
 
-import domain.UIUpdater;
-import domain.listeners.TurnChangedListener;
+import domain.client.UIUpdater;
+import domain.server.listeners.TurnChangedListener;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
