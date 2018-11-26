@@ -8,7 +8,7 @@ public class StartInterpreter implements Interpreter {
         String name = message[1];
 
 
-        ServerCommunicationHandler.getInstance().sendResponse(name, );
+//        ServerCommunicationHandler.getInstance().sendResponse(name, );
 
     }
 }

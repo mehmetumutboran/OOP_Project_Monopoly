@@ -1,8 +1,5 @@
 package domain.controller;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.RandomPlayer;
 import domain.RequestInterpreter;
 import domain.listeners.PlayerKickedListener;
@@ -11,7 +8,6 @@ import network.client.clientFacade.ClientFacade;
 import network.listeners.ReceivedChangedListener;
 import network.server.serverFacade.ServerFacade;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -62,12 +58,11 @@ public class ConnectGameHandler implements ReceivedChangedListener {
             MonopolyGameController.getInstance().addPlayer(player);
             System.out.println("\n\n");
             sendClientInfo(username);
-            sendChange(player);
+            sendPlayerAddChange(player);
             return "Successful";
         } else {
             return "Failed";
         }
-
     }
 
     private void sendClientInfo(String username) {
@@ -75,8 +70,20 @@ public class ConnectGameHandler implements ReceivedChangedListener {
                 .send(username, username);
     }
 
-    public void sendChange(Player p) {
-        ClientFacade.getInstance().send(p.getName(), p.toJSON());
+    public void sendPlayerAddChange(Player p) {
+        ClientFacade.getInstance().send(p.getName(), "P+"+p.getName()+"+"+p.getReadiness()+"+"+p.getToken().getColor());
+    }
+
+    public void sendGameStartedChange(Player p){
+        ClientFacade.getInstance().send(p.getName(), "S+"+p.getName());
+    }
+
+    public void sendColorChange(Player p){
+        ClientFacade.getInstance().send(p.getName(), "C+"+p.getName()+"+"+p.getToken().getColor());
+    }
+
+    public void sendReadinessChange(Player p){
+        ClientFacade.getInstance().send(p.getName(), "R+"+p.getName()+"+"+p.getReadiness());
     }
 
     /**
@@ -85,66 +92,33 @@ public class ConnectGameHandler implements ReceivedChangedListener {
      */
     @Override
     public synchronized void onReceivedChangedEvent() {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
         String message = ClientFacade.getInstance().getMessage();
 
-        if (message == null) {
-            System.out.println("\nMessage Null");
-            return;
-        } else if (message.equals("You are kicked!")) {
+        if(message==null || message.isEmpty()) return;
+
+        if (message.equals("You are kicked!")) {
             ClientFacade.getInstance().terminate();
             publishPlayerKickedEvent();
             return;
-        } else if (message.charAt(0) != '{') {
-            if (message.charAt(0) == 'E' &&
-                    !MonopolyGameController.getInstance().getMyself().getReadiness().equals("Host")) {
-                ClientFacade.getInstance().terminate();
-                publishPlayerKickedEvent();
-            } else if (message.charAt(0) == 'X') {
-                if (MonopolyGameController.getInstance().
-                        getPlayerFromList(message.substring(1)).getReadiness().equals("Host")) {
-                    ClientFacade.getInstance().terminate(); //TODO player is kicked if host exits
-                    publishPlayerKickedEvent();
-                } else {
-                    MonopolyGameController.getInstance().removePlayer(message.substring(1));
-                }
-            }
-            return;
         }
 
-        try {
-            Player player;
-            if (mapper.readValue(message, Player.class).getReadiness().equals("Bot")) {
-                player = mapper.readValue(message, RandomPlayer.class); // If player is Bot initialize it as RandomPlayer
-                // To prevent ClassCastException
-            } else {
-                player = mapper.readValue(message, Player.class);
-            }
 
-            if (!MonopolyGameController.getInstance().getPlayerList().contains(player)) { //New PLayer
-                ClientFacade.getInstance().send(MonopolyGameController.getInstance().getMyself().getName(),
-                        MonopolyGameController.getInstance().getMyself().toJSON());
-                if (MonopolyGameController.getInstance().getMyself().getReadiness().equals("Host")) {
-                    MonopolyGameController.getInstance().getPlayerList().stream().filter(p -> p.getReadiness().equals("Bot"))
-                            .forEach(p -> ClientFacade.getInstance().send(p.getName(), p.toJSON()));
-                }
-                MonopolyGameController.getInstance().addPlayer(player);
-            } else if (!MonopolyGameController.getInstance().getPlayerFromList(player.getName()).getToken().getColor().equals(player.getToken().getColor())) {
-                MonopolyGameController.getInstance().changePlayerColor(MonopolyGameController.getInstance().getPlayerList().indexOf(player), player.getToken().getColor());
-            } else if (!MonopolyGameController.getInstance().getPlayerFromList(player.getName())  // Readiness changed
-                    .getReadiness().equals(player.getReadiness())) {
-                MonopolyGameController.getInstance().changePlayerReadiness(MonopolyGameController.getInstance().getPlayerList().indexOf(player));
-            } else if (player.isStarted()) {  // Game started
-                MonopolyGameController.getInstance().getPlayerFromList(player.getName()).setStarted(true);
-                if (!MonopolyGameController.getInstance().getMyself().isStarted()) {
-                    MonopolyGameController.getInstance().checkReadiness();
-                }
-                ClientFacade.getInstance().removeReceivedChangedListener(this);
-                ClientFacade.getInstance().removeAllConnectionFailedListeners();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        System.out.println("Message received in cgh: "+message);
+        String flag = ConnectGameInterpreter.getInstance().messageHandler(message);
+
+        if(flag == null) return;
+
+        if ("E".equals(flag)) {
+            ClientFacade.getInstance().terminate();
+            publishPlayerKickedEvent();
+        } else if ("XH".equals(flag)) {
+            ClientFacade.getInstance().terminate(); //TODO player is kicked if host exits
+            publishPlayerKickedEvent();
+        } else if ("XC".equals(flag)) {
+            MonopolyGameController.getInstance().removePlayer(message.substring(1));
+        } else if ("S".equals(flag)) {
+            ClientFacade.getInstance().removeReceivedChangedListener(this);
+            ClientFacade.getInstance().removeAllConnectionFailedListeners();
         }
     }
 
@@ -159,7 +133,7 @@ public class ConnectGameHandler implements ReceivedChangedListener {
     }
 
     public void sendChange(Player player, char e) {
-        ClientFacade.getInstance().send(player.getName(), e + player.toJSON());
+        ClientFacade.getInstance().send(player.getName(), e + player.getName());
     }
 
     public void connectBot(String s, String color) {
@@ -170,7 +144,7 @@ public class ConnectGameHandler implements ReceivedChangedListener {
         if (ClientFacade.getInstance().createBotClient(s, "localhost", ServerFacade.getInstance().getServer().getSs().getLocalPort())) {
             MonopolyGameController.getInstance().addPlayer(randomPlayer);
             sendClientInfo(s);
-            sendChange(randomPlayer);
+            sendPlayerAddChange(randomPlayer);
         }
     }
 

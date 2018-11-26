@@ -18,7 +18,7 @@ public class GameLogic {
 
     static final char buyFlag = 'B';
     static final char rollFlag = 'R';
-    static final char moneyFlag = 'S';
+    static final char moneyFlag = 'L';
     static final char payRentFlag = 'P';
     static final char drawCardFlag = 'C';
     static final char payDayFlag = 'Y';

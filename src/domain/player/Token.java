@@ -1,5 +1,7 @@
 package domain.player;
 
+import java.util.Arrays;
+
 public class Token {
     private int[] location;
     private String color;
@@ -34,4 +36,11 @@ public class Token {
         this.color = color;
     }
 
+    @Override
+    public String toString() {
+        return "Token{" +
+                "location=" + Arrays.toString(location) +
+                ", color='" + color + '\'' +
+                '}';
+    }
 }
