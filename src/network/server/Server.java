@@ -47,11 +47,15 @@ public class Server implements Runnable {
 
     public static void setClientInfo(String line) {
         for (int i = 0; i < maxClientsCount; i++) {
-            if (clientNames[i] == null) {
+            if(line.equals(clientNames[i])){
+                clientThreads[i].terminate();
+                break;
+            }else if (clientNames[i] == null) {
                 clientNames[i] = line;
                 break;
             }
         }
+
         System.out.println("\n\n---------============-------\n" + Arrays.toString(clientNames)
                 + "\n---------============-------\n\n");
     }
@@ -95,11 +99,12 @@ public class Server implements Runnable {
                 for (; i < maxClientsCount; i++) {
                     if (clientThreads[i] == null) {
                         clientThreads[i] = new ClientHandler(clientSocket);
-                        (new Thread(clientThreads[i])).start();
                         if (!isMulti && !clientSocket.getInetAddress().getHostAddress().equals("127.0.0.1")) {
                             clientThreads[i].terminate();
                             clientThreads[i] = null;
-                            continue;
+                        }
+                        else{
+                            (new Thread(clientThreads[i])).start();
                         }
                         break;
                     }
