@@ -55,6 +55,10 @@ public class GameState {
         return flag + "|" + name + "|" + message;
     }
 
+    public String generateCurrentAction(char flag, int count, String message) {
+        return flag + "|" + count + "|" + message;
+    }
+
 //    public String generateCurrentAction(char flag, String name, String buildNameOrLoc) {
 //        if (flag == upgradeFlag) {
 //            return generateUpgradeAction(flag, name, buildNameOrLoc);

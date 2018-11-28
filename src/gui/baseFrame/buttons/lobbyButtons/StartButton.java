@@ -1,5 +1,7 @@
 package gui.baseFrame.buttons.lobbyButtons;
 
+import domain.client.PlayerActionController;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,7 +16,7 @@ public class StartButton extends JButton implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-//        PlayerActionController.getInstance().startGame();
+        PlayerActionController.getInstance().startGame();
 //        int startStatus = MonopolyGameController.getInstance().checkReadiness();
 //        if (startStatus == -1) {
 //            JOptionPane.showMessageDialog(null, "Cannot start with only 1 player",

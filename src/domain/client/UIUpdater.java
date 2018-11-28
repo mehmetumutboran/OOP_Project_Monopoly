@@ -1,6 +1,5 @@
 package domain.client;
 
-import domain.server.GameLogic;
 import domain.server.listeners.*;
 import gui.UIFacade;
 
@@ -113,7 +112,11 @@ public class UIUpdater {
         UIFacade.getInstance().generatePrompt(flag);
     }
 
-    public void changePanel() { // Changes the panel to lobby for now
-        UIFacade.getInstance().changePanel();
+    public void showPrompt(char flag, int count) {
+        UIFacade.getInstance().generatePrompt(flag, count);
+    }
+
+    public void changePanel(String panel) { // Changes the panel to lobby for now
+        UIFacade.getInstance().changePanel(panel);
     }
 }

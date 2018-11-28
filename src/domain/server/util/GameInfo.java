@@ -133,4 +133,12 @@ public class GameInfo {
         getPlayer(username).setReadiness();
         publishPlayerListEvent();
     }
+
+    public int checkReadiness() {
+        int count = 0;
+        for (Player player : playerList){
+            if(player.getReadiness().equals("Not Ready")) count++;
+        }
+        return count;
+    }
 }

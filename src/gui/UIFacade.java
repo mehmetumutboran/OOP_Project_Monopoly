@@ -19,7 +19,12 @@ public class UIFacade {
         PromptFactory.getInstance().getPromptStrategy(flag).show();
     }
 
-    public void changePanel() {
-        BaseFrame.setStatus("Lobby");
+    public void generatePrompt(char flag, int count) {
+        PromptFactory.getInstance().getPromptStrategy(flag, count).show();
     }
+
+    public void changePanel(String panel) {
+        BaseFrame.setStatus(panel);
+    }
+
 }

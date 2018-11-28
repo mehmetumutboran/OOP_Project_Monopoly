@@ -6,7 +6,7 @@ import domain.server.util.GameInfo;
 public class AddPlayerResponseInterpreter implements ResponseInterpretable {
     @Override
     public void interpret(String[] message) {
-        UIUpdater.getInstance().changePanel();
+        UIUpdater.getInstance().changePanel("Lobby");
         GameInfo.getInstance().addPlayer(message[1]);
     }
 }

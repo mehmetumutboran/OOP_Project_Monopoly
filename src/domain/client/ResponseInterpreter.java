@@ -32,6 +32,7 @@ public class ResponseInterpreter {
         ResponseInterpretable specialSquareResponseInterpreter = new SpecialSquareResponseInterpreter();
         ResponseInterpretable jailResponseInterpreter = new JailResponseInterpreter();
         ResponseInterpretable startResponseInterpreter = new StartResponseInterpreter();
+        ResponseInterpretable dontStartResponseInterpreter = new DontStartResponseInterpreter();
         ResponseInterpretable kickResponseInterpreter = new KickResponseInterpreter();
         ResponseInterpretable closeResponseInterpreter = new CloseResponseInterpreter();
         ResponseInterpretable addPlayerResponseInterpreter = new AddPlayerResponseInterpreter();
@@ -55,6 +56,7 @@ public class ResponseInterpreter {
         interpreterMap.put(Flags.getFlag("Start"), jailResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), jailResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), startResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("DontStart"), dontStartResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Kick"), kickResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Close"), closeResponseInterpreter);
         interpreterMap.put(Flags.getFlag("AddPlayer"), addPlayerResponseInterpreter);

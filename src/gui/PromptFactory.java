@@ -3,6 +3,7 @@ package gui;
 import domain.util.Flags;
 import gui.promptStrategy.ClosePromptStrategy;
 import gui.promptStrategy.DontChangeColorPromptStrategy;
+import gui.promptStrategy.DontStartPromptStrategy;
 import gui.promptStrategy.PromptStrategy;
 
 public class PromptFactory {
@@ -25,5 +26,12 @@ public class PromptFactory {
             return new DontChangeColorPromptStrategy();
         }
         return null;
+    }
+
+
+    public PromptStrategy getPromptStrategy(char flag, int count) {
+        if(flag == Flags.getFlag("DontStart"))
+            return new DontStartPromptStrategy(count);
+        else return null;
     }
 }
