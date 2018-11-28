@@ -1,8 +1,7 @@
 package gui.baseFrame.buttons.hostJoinButtons;
 
-import domain.server.controller.ConnectGameHandler;
+import domain.client.PlayerActionController;
 import gui.InputChecker;
-import gui.baseFrame.BaseFrame;
 import network.listeners.ConnectionFailedListener;
 
 import javax.swing.*;
@@ -45,11 +44,9 @@ public class JoinButton extends JButton implements ActionListener, ConnectionFai
             ip = IPField.getText();
         } else return;
 
-        String status = ConnectGameHandler.getInstance().connectClient(username, ip,
-                port, false);
-        if (status.equals("Successful")) {
-            BaseFrame.setStatus("Lobby");
-        }
+        PlayerActionController.getInstance().join(username, ip, port);
+        //ConnectGameHandler.getInstance().connectClient(username, ip,
+//                port, false);
         //else if(status.equals("Failed"))
     }
 

@@ -60,22 +60,8 @@ public class Server implements Runnable {
                 + "\n---------============-------\n\n");
     }
 
-    public static void interpretRequest(String message) {
-        System.out.println("\n\nServer: interpretREquest\n\n");
-        ServerFacade.getInstance().setRequest(message);
-    }
 
-    /**
-     * Sets and initialized {@link ClientHandler}
-     * It was needed before since this class used to use Observer Pattern to publish new Connected Client
-     * But now probably it is not needed.
-     *
-     * @param i
-     * @param clientSocket
-     */
-    private synchronized void setClientThread(int i, Socket clientSocket) { //TODO delete
-        clientThreads[i] = new ClientHandler(clientSocket);
-    }
+
 
     public ClientHandler getClientHandler(String username) {
         for (int i = 0; i < clientNames.length; i++) {
@@ -98,7 +84,7 @@ public class Server implements Runnable {
                 int i = 0;
                 for (; i < maxClientsCount; i++) {
                     if (clientThreads[i] == null) {
-                        clientThreads[i] = new ClientHandler(clientSocket);
+                        clientThreads[i] = new ClientHandler(clientSocket, i);
                         if (!isMulti && !clientSocket.getInetAddress().getHostAddress().equals("127.0.0.1")) {
                             clientThreads[i].terminate();
                             clientThreads[i] = null;
@@ -127,6 +113,10 @@ public class Server implements Runnable {
             if (clientThread == null) continue;
             clientThread.send(m);
         }
+    }
+
+    public synchronized static void sendToOne(int index, String response) throws IOException {
+        clientThreads[index].send(response);
     }
 
 }

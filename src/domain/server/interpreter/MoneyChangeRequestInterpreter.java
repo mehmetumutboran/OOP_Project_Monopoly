@@ -6,7 +6,7 @@ import domain.server.player.Player;
 
 public class MoneyChangeRequestInterpreter implements RequestInterpretable {
     @Override
-    public void interpret(String[] message) {
+    public void interpret(String[] message, int index) {
         String name = message[1];
         int changedMoney = Integer.parseInt(message[2]);
 

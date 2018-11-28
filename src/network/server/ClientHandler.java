@@ -1,5 +1,7 @@
 package network.server;
 
+import network.server.serverFacade.ServerFacade;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -9,9 +11,11 @@ public class ClientHandler implements Runnable {
     private Socket socket;
     private DataInputStream dis;
     private DataOutputStream dos;
+    private int index;
 
-    public ClientHandler(Socket clientSocket) {
+    public ClientHandler(Socket clientSocket, int index) {
         this.socket = clientSocket;
+        this.index = index;
     }
 
     @Override
@@ -25,7 +29,7 @@ public class ClientHandler implements Runnable {
             while (true) {
                 line = dis.readUTF();
                 System.out.println("\n\nCLientHandler\n"+line + "\n\n");
-                Server.interpretRequest(line);
+                ServerFacade.getInstance().interpretRequest(line, index);
 //                Server.sendAll(line);
 
             }

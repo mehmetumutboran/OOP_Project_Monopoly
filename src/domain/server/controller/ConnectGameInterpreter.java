@@ -74,11 +74,11 @@ public class ConnectGameInterpreter {
         String myReadiness = MonopolyGameController.getInstance().getMyself().getReadiness();
         String myColor = MonopolyGameController.getInstance().getMyself().getToken().getColor();
         if (MonopolyGameController.getInstance().getPlayerFromList(text[1])==null) { // If the player didn't existed in the list
-            ClientFacade.getInstance().send(myPlayerName,"P+"+myPlayerName+"+"+myReadiness+"+"+myColor);
+            ClientFacade.getInstance().send("P+"+myPlayerName+"+"+myReadiness+"+"+myColor);
             if (MonopolyGameController.getInstance().getMyself().getReadiness().equals("Host")) { // If the checker is the Host
                 MonopolyGameController.getInstance().getPlayerList().stream().filter(p -> p.getReadiness().equals("Bot"))
                         .forEach(p -> ClientFacade.getInstance()
-                                .send(p.getName(),"P+"+p.getName()+"+"+p.getReadiness()+"+"+p.getToken().getColor())); // Send bot info
+                                .send("P+"+p.getName()+"+"+p.getReadiness()+"+"+p.getToken().getColor())); // Send bot info
             }
             Player newPlayer = new Player(text[1]); // Add the joining player
             newPlayer.setReadiness(text[2]);

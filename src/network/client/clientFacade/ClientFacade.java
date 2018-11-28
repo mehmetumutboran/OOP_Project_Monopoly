@@ -1,6 +1,7 @@
 package network.client.clientFacade;
 
 
+import domain.client.ResponseInterpreter;
 import domain.server.controller.MonopolyGameController;
 import network.client.Client;
 import network.listeners.ConnectionFailedListener;
@@ -8,17 +9,16 @@ import network.listeners.ReceivedChangedListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 /**
- * Class that provides network logic to hostClient Player
+ * Class that provides network logic to client Player
  * Uses observer pattern to publish Received message (~Game state)
  */
 public class ClientFacade {
     private static ClientFacade clientFacade;
 
-    private Client hostClient;
-    private ArrayList<Client> bots;
+    private Client client;
+    //    private ArrayList<Client> bots;
     private String message;
 
     /**
@@ -30,7 +30,6 @@ public class ClientFacade {
     private ClientFacade() {
         receivedChangedListeners = new ArrayList<>();
         connectionFailedListeners = new ArrayList<>();
-        bots = new ArrayList<>();
     }
 
     public static ClientFacade getInstance() {
@@ -42,15 +41,15 @@ public class ClientFacade {
 
 
     /**
-     * Creates new hostClient object and stores it
+     * Creates new client object and stores it
      *
      * @param ip   server ip
      * @param port server socket port
-     * @return Whether hostClient successfully created
+     * @return Whether client successfully created
      */
     public boolean createClient(String username, String ip, int port) {
         try {
-            hostClient = new Client(username, ip, port);
+            client = new Client(username, ip, port);
         } catch (IOException e) {
             createClientError();
             return false;
@@ -58,15 +57,6 @@ public class ClientFacade {
         return true;
     }
 
-    public boolean createBotClient(String username, String ip, int localPort) {
-        try {
-            bots.add(new Client(username, ip, localPort));
-        } catch (IOException e) {
-            createClientError();
-            return false;
-        }
-        return true;
-    }
 
     private void createClientError() {
         publishConnectionFailedAction();
@@ -75,19 +65,14 @@ public class ClientFacade {
     /**
      * Sends Message to the server
      *
-     * @param name    Name of the player who performed action
      * @param message Formatted as JSON String
      */
-    public synchronized void send(String name, String message) {
-        if (name.contains("Bot")) {
-            bots.stream().filter(x -> x.getUsername().equals(name))
-                    .collect(Collectors.toList()).get(0).send(message);
-        } else
-            hostClient.send(message);
+    public synchronized void send(String message) {
+        client.send(message);
     }
 
     /**
-     * Called by hostClient when a message received
+     * Called by client when a message received
      * Also calls publish method to notify listeners
      *
      * @param m Received Message Formatted as JSON
@@ -95,7 +80,7 @@ public class ClientFacade {
     public synchronized void sendReceivedMessage(String m) {
         this.message = m;
 //        System.out.println(m);
-        publishReceivedChangedAction();
+        ResponseInterpreter.getInstance().interpret(m);
     }
 
     @SuppressWarnings("unchecked")
@@ -138,9 +123,9 @@ public class ClientFacade {
     public void terminate() {
         try {
             MonopolyGameController.getInstance().reset();
-            hostClient.getDos().close();
-            hostClient.getDis().close();
-            hostClient.getSocket().close();
+            client.getDos().close();
+            client.getDis().close();
+            client.getSocket().close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -150,8 +135,8 @@ public class ClientFacade {
         return message;
     }
 
-    public String getUsername(){
-        return hostClient.getUsername();
+    public String getUsername() {
+        return client.getUsername();
     }
 
 

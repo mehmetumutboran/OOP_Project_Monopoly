@@ -8,7 +8,7 @@ import domain.server.player.Player;
 
 public class QueueRequestInterpreter implements RequestInterpretable {
     @Override
-    public void interpret(String[] message) {
+    public void interpret(String[] message, int index) {
         GameLogic.getInstance().setPlayers(MessageConverter.convertStringToDeque(message[1]));
 
         //Bots play on only host's program

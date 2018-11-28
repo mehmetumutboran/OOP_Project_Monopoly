@@ -7,7 +7,7 @@ import domain.server.board.Board;
 public class JailRequestInterpreter implements RequestInterpretable {
 
     @Override
-    public void interpret(String[] message) {
+    public void interpret(String[] message, int index) {
         if(message[0].charAt(0) == GameLogic.jailFlag){
             GameLogic.getInstance().getPlayer(message[1]).setInJail(true);
             GameLogic.getInstance().getPlayer(message[1]).getToken().setLocation(Board.getInstance().getNameGivenSquare("Jail").getLocation());

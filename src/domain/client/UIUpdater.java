@@ -2,6 +2,7 @@ package domain.client;
 
 import domain.server.GameLogic;
 import domain.server.listeners.*;
+import gui.UIFacade;
 
 import java.util.ArrayList;
 
@@ -106,5 +107,9 @@ public class UIUpdater {
 
     public void setTokenLocation(String name, int x, int y) {
         this.publishTokenMovementEvent(name, x, y);
+    }
+
+    public void showPrompt(char flag) {
+        UIFacade.getInstance().generatePrompt(flag);
     }
 }

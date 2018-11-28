@@ -2,7 +2,7 @@ package domain.server.interpreter;
 
 public class StartRequestInterpreter implements RequestInterpretable {
     @Override
-    public void interpret(String[] message) {
+    public void interpret(String[] message, int index) {
         String name = message[1];
 
 

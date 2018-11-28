@@ -8,7 +8,7 @@ import domain.server.player.Player;
 
 public class PayRentRequestInterpreter implements RequestInterpretable {
     @Override
-    public void interpret(String[] message) {
+    public void interpret(String[] message, int index) {
         String name = message[1];
         String sqName = message[2];
 

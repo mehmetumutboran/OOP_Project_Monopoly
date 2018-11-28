@@ -27,18 +27,23 @@ public class ServerCommunicationHandler {
     }
 
     public synchronized void sendResponse(char flag, String name) {
-        ServerFacade.getInstance().send(name,
-                GameState.getInstance().generateCurrentAction(flag, name));
+        ServerFacade.getInstance()
+                .send(GameState.getInstance().generateCurrentAction(flag, name));
+    }
+
+    public synchronized void sendResponse(char flag, int index, String name) {
+        ServerFacade.getInstance()
+                .send(index, GameState.getInstance().generateCurrentAction(flag, name));
     }
 
     public synchronized void sendResponse(char flag, String name, String buildName) {
-        ServerFacade.getInstance().send(name,
-                GameState.getInstance().generateCurrentAction(flag, name, buildName));
+        ServerFacade.getInstance()
+                .send(GameState.getInstance().generateCurrentAction(flag, name, buildName));
     }
 
     public synchronized void sendResponse(char flag, String name, int changedMoney) {
-        ServerFacade.getInstance().send(name,
-                GameState.getInstance().generateCurrentAction(flag, name, changedMoney));
+        ServerFacade.getInstance()
+                .send(GameState.getInstance().generateCurrentAction(flag, name, changedMoney));
     }
 
 

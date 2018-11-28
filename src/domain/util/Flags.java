@@ -18,7 +18,7 @@ public class Flags {
     private static final char upgradeFlag = 'U';
     private static final char downgradeFlag = 'Z';
     private static final char moveFlag = 'M';
-    private static final char removeFlag = 'X';
+    private static final char kickFlag = 'X';
     private static final char specialSquareFlag = 'A';
     private static final char poolFlag = 'H';
     private static final char tokenFlag = 'T';
@@ -33,6 +33,8 @@ public class Flags {
         flagMap.put("Roll", rollFlag);
         flagMap.put("Start", startFlag);
         flagMap.put("AddPlayer", addPlayerFlag);
+        flagMap.put("Kick", kickFlag);
+        flagMap.put("Close", closeFlag);
     }
 
     public static char getFlag(String action){

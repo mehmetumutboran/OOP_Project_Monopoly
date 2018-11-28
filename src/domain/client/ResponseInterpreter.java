@@ -32,6 +32,8 @@ public class ResponseInterpreter {
         ResponseInterpretable specialSquareResponseInterpreter = new SpecialSquareResponseInterpreter();
         ResponseInterpretable jailResponseInterpreter = new JailResponseInterpreter();
         ResponseInterpretable startResponseInterpreter = new StartResponseInterpreter();
+        ResponseInterpretable kickResponseInterpreter = new KickResponseInterpreter();
+        ResponseInterpretable closeResponseInterpreter = new CloseResponseInterpreter();
 
         interpreterMap = new HashMap<>();
         interpreterMap.put(Flags.getFlag("Start"), moveResponseInterpreter);
@@ -47,6 +49,8 @@ public class ResponseInterpreter {
         interpreterMap.put(Flags.getFlag("Start"), jailResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), jailResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), startResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("Kick"), kickResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("Close"), closeResponseInterpreter);
     }
 
     public void interpret(String message){

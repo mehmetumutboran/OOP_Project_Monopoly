@@ -50,17 +50,26 @@ public class ServerFacade {
         }
     }
 
-    public void setRequest(String request) {
+    public void interpretRequest(String request, int index) {
         System.out.println("\n\nServerFacade: setREquest\n\n");
-        RequestInterpreter.getInstance().interpret(request);
+        RequestInterpreter.getInstance().interpret(request, index);
     }
 
 
-    public void send(String name, String response) {
+    public void send(String response) {
         try {
             Server.sendAll(response);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    public void send(int index, String response) {
+        try {
+            Server.sendToOne(index, response);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

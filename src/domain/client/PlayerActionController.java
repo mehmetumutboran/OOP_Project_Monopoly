@@ -1,5 +1,6 @@
 package domain.client;
 
+import domain.server.controller.ConnectGameHandler;
 import domain.util.Flags;
 import network.client.clientFacade.ClientFacade;
 
@@ -43,5 +44,10 @@ public class PlayerActionController {
 
     public void startGame() {
         ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Start"), ClientFacade.getInstance().getUsername());
+    }
+
+    public void join(String username, String ip, int port) {
+        if(ConnectGameHandler.getInstance().connectClient(username, ip, port))
+            ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("AddPlayer"), ClientFacade.getInstance().getUsername());
     }
 }

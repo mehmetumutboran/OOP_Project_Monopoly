@@ -18,10 +18,9 @@ public class Client {
         socket = new Socket(ip, port);
         dis = new DataInputStream(socket.getInputStream());
         dos = new DataOutputStream(socket.getOutputStream());
-        if (!username.contains("Bot")) {
-            clientReceiver = new ClientReceiver(dis, socket);
-            clientReceiver.start();
-        }
+        clientReceiver = new ClientReceiver(dis, socket);
+        clientReceiver.start();
+
     }
 
     public Socket getSocket() {

@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 public class MoveRequestInterpreter implements RequestInterpretable {
     @Override
-    public void interpret(String[] message) {
+    public void interpret(String[] message, int index) {
         String name = message[1];
         int[] location = MessageConverter.convertStringToIntArray(message[2]);
 

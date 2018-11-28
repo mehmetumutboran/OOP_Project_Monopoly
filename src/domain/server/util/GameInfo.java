@@ -28,6 +28,10 @@ public class GameInfo {
         return playerList.stream().filter(player -> player.getName().equals(name)).findFirst().orElse(null);
     }
 
+    public boolean hasPlayer(String name){
+        return playerList.stream().filter(player -> player.getName().equals(name)).findFirst().isEmpty();
+    }
+
     public void addPlayer(Player player) {
         playerList.add(player);
     }

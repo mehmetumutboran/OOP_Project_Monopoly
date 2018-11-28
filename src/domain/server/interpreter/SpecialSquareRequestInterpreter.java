@@ -8,7 +8,7 @@ import domain.server.board.specialSquares.CommunityChest;
 
 public class SpecialSquareRequestInterpreter implements RequestInterpretable {
     @Override
-    public void interpret(String[] message) {
+    public void interpret(String[] message, int index) {
         String name = message[1];
 
         int[] loc = GameLogic.getInstance().getPlayer(name).getToken().getLocation();

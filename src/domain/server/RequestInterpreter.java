@@ -25,6 +25,7 @@ public class RequestInterpreter {
         RequestInterpretable specialSquareRequestInterpreter = new SpecialSquareRequestInterpreter();
         RequestInterpretable jailRequestInterpreter = new JailRequestInterpreter();
         RequestInterpretable startRequestInterpreter = new StartRequestInterpreter();
+        RequestInterpretable addPlayerRequestInterpreter = new AddPlayerRequestInterpreter();
 
         interpreterMap = new HashMap<>();
         interpreterMap.put(GameLogic.moveFlag, moveRequestInterpreter);
@@ -40,6 +41,7 @@ public class RequestInterpreter {
         interpreterMap.put(GameLogic.jailFlag, jailRequestInterpreter);
         interpreterMap.put(GameLogic.goOutJailFlag, jailRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), startRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("AddPlayer"), addPlayerRequestInterpreter);
     }
 
     public static RequestInterpreter getInstance() {
@@ -49,12 +51,12 @@ public class RequestInterpreter {
     }
 
 
-    public synchronized void interpret(String m) {
+    public synchronized void interpret(String m, int index) {
         System.out.println("\n\nREqInterpreter: interpret\n\n");
         char flag = m.charAt(0);
 
         if (interpreterMap.keySet().contains(flag))
-            interpreterMap.get(flag).interpret(m.split("[|]"));
+            interpreterMap.get(flag).interpret(m.split("[|]"), index);
 //
 //        switch (flag) {
 //            case GameLogic.finishTurnFlag:

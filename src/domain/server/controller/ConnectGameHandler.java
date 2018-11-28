@@ -37,7 +37,7 @@ public class ConnectGameHandler implements ReceivedChangedListener {
      */
     public String connectHost(String username, int port, boolean isMulti) {
         if (ServerFacade.getInstance().createServer(port, isMulti)) {
-            connectClient(username, "localhost", port, true); // Connects the host as a client after it creates server
+            connectClient(username, "localhost", port); // Connects the host as a client after it creates server
         } else {
             return "Server cannot be created!!";
         }
@@ -49,41 +49,29 @@ public class ConnectGameHandler implements ReceivedChangedListener {
      * @param ip       IP for server connection
      * @param port     for server Connection
      */
-    public String connectClient(String username, String ip, int port, boolean isHost) {
-        Player player = new Player(username);
-        if (isHost) player.setReadiness("Host");
-
-        if (ClientFacade.getInstance().createClient(username, ip, port)) {
-            System.out.println("\n\n Added via Connect Client");
-            MonopolyGameController.getInstance().addPlayer(player);
-            System.out.println("\n\n");
-            sendClientInfo(username);
-            sendPlayerAddChange(player);
-            return "Successful";
-        } else {
-            return "Failed";
-        }
+    public boolean connectClient(String username, String ip, int port) {
+        return ClientFacade.getInstance().createClient(username, ip, port);
     }
 
     private void sendClientInfo(String username) {
         ClientFacade.getInstance()
-                .send(username, username);
+                .send(username);
     }
 
     public void sendPlayerAddChange(Player p) {
-        ClientFacade.getInstance().send(p.getName(), "P+"+p.getName()+"+"+p.getReadiness()+"+"+p.getToken().getColor());
+        ClientFacade.getInstance().send("P+"+p.getName()+"+"+p.getReadiness()+"+"+p.getToken().getColor());
     }
 
     public void sendGameStartedChange(Player p){
-        ClientFacade.getInstance().send(p.getName(), "S+"+p.getName());
+        ClientFacade.getInstance().send("S+"+p.getName());
     }
 
     public void sendColorChange(Player p){
-        ClientFacade.getInstance().send(p.getName(), "C+"+p.getName()+"+"+p.getToken().getColor());
+        ClientFacade.getInstance().send("C+"+p.getName()+"+"+p.getToken().getColor());
     }
 
     public void sendReadinessChange(Player p){
-        ClientFacade.getInstance().send(p.getName(), "R+"+p.getName()+"+"+p.getReadiness());
+        ClientFacade.getInstance().send("R+"+p.getName()+"+"+p.getReadiness());
     }
 
     /**
@@ -133,7 +121,7 @@ public class ConnectGameHandler implements ReceivedChangedListener {
     }
 
     public void sendChange(Player player, char e) {
-        ClientFacade.getInstance().send(player.getName(), e + player.getName());
+        ClientFacade.getInstance().send(e + player.getName());
     }
 
     public void connectBot(String s, String color) {
@@ -141,11 +129,10 @@ public class ConnectGameHandler implements ReceivedChangedListener {
         randomPlayer.setReadiness("Bot");
         randomPlayer.getToken().setColor(color);
 
-        if (ClientFacade.getInstance().createBotClient(s, "localhost", ServerFacade.getInstance().getServer().getSs().getLocalPort())) {
-            MonopolyGameController.getInstance().addPlayer(randomPlayer);
-            sendClientInfo(s);
-            sendPlayerAddChange(randomPlayer);
-        }
+        MonopolyGameController.getInstance().addPlayer(randomPlayer);
+        sendClientInfo(s);
+//        sendPlayerAddChange(randomPlayer);
+
     }
 
     public void kickPlayer(String username) {
