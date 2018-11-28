@@ -52,7 +52,12 @@ public class GameInfo {
     }
 
     public void addPlayer(String playerName) {
-        playerList.add(new Player(playerName));
+        Player player = new Player(playerName);
+        if(playerList.isEmpty()){
+            player.setReadiness("Host");
+            selectedColors.add("White"); // TODO initial White check isn't correct
+        }
+        playerList.add(player);
         publishPlayerListEvent();
         System.out.println(playerList);
     }
@@ -122,5 +127,10 @@ public class GameInfo {
             playerConnectAttributes.add(temp);
         }
         return playerConnectAttributes;
+    }
+
+    public void setReadiness(String username) {
+        getPlayer(username).setReadiness();
+        publishPlayerListEvent();
     }
 }

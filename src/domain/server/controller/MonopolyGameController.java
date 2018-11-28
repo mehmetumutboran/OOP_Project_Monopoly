@@ -147,14 +147,6 @@ public class MonopolyGameController {
         publishPlayerListEvent();
     }
 
-    public void changePlayerReadiness(int index) { // TODO DON'T USE INDEX
-        playerList.get(index).setReadiness();
-        if (playerList.size() > 1) {
-            ConnectGameHandler.getInstance().sendReadinessChange(playerList.get(index));
-        }
-        publishPlayerListEvent();
-    }
-
 
     public int checkReadiness() {
 //        if (playerList.size() == 1) return -1;

@@ -59,4 +59,16 @@ public class PlayerActionController {
     public void changePlayerColor(String color) {
         ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Color"), ClientFacade.getInstance().getUsername(), color);
     }
+
+//    public void changePlayerReadiness(int index) { // TODO DON'T USE INDEX
+//        playerList.get(index).setReadiness();
+//        if (playerList.size() > 1) {
+//            ConnectGameHandler.getInstance().sendReadinessChange(playerList.get(index));
+//        }
+//        publishPlayerListEvent();
+//    }
+
+    public void changePlayerReadiness() {
+        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Readiness"), ClientFacade.getInstance().getUsername());
+    }
 }

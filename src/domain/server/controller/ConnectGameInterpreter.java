@@ -34,8 +34,6 @@ public class ConnectGameInterpreter {
                 return checkNewColor(info);
             case 'P':
                 return checkNewPlayer(info);
-            case 'R':
-                return checkNewReadiness(info);
             case 'S':
                 if(!this.isStarted) {
                     this.isStarted = true;
@@ -90,17 +88,17 @@ public class ConnectGameInterpreter {
         return null;
     }
 
-    private String checkNewReadiness(String[] text){
-        // text[0] flag, text[1] player name, text[2] new readiness
-        if (!MonopolyGameController.getInstance().getPlayerFromList(text[1])  // Readiness changed
-                .getReadiness().equals(text[2])) {
-            MonopolyGameController.getInstance()
-                    .changePlayerReadiness(MonopolyGameController.getInstance().getPlayerList()
-                            .indexOf(MonopolyGameController.getInstance().getPlayerFromList(text[1])));
-            return "R";
-        }
-        return null;
-    }
+//    private String checkNewReadiness(String[] text){
+//        // text[0] flag, text[1] player name, text[2] new readiness
+//        if (!MonopolyGameController.getInstance().getPlayerFromList(text[1])  // Readiness changed
+//                .getReadiness().equals(text[2])) {
+//            MonopolyGameController.getInstance()
+//                    .changePlayerReadiness(MonopolyGameController.getInstance().getPlayerList()
+//                            .indexOf(MonopolyGameController.getInstance().getPlayerFromList(text[1])));
+//            return "R";
+//        }
+//        return null;
+//    }
 
 
 }
