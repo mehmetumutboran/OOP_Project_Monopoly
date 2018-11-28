@@ -55,4 +55,8 @@ public class PlayerActionController {
         if(ConnectGameHandler.getInstance().connectHost(port, isMulti))
             join(username, "localhost", port);
     }
+
+    public void changePlayerColor(String color) {
+        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Color"), ClientFacade.getInstance().getUsername(), color);
+    }
 }

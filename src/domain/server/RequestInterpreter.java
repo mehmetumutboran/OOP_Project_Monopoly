@@ -26,6 +26,7 @@ public class RequestInterpreter {
         RequestInterpretable jailRequestInterpreter = new JailRequestInterpreter();
         RequestInterpretable startRequestInterpreter = new StartRequestInterpreter();
         RequestInterpretable addPlayerRequestInterpreter = new AddPlayerRequestInterpreter();
+        RequestInterpretable colorChangeRequestInterpreter = new ColorChangeRequestInterpreter();
 
         interpreterMap = new HashMap<>();
         interpreterMap.put(Flags.getFlag("Start"), moveRequestInterpreter);
@@ -42,6 +43,7 @@ public class RequestInterpreter {
         interpreterMap.put(Flags.getFlag("Start"), jailRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), startRequestInterpreter);
         interpreterMap.put(Flags.getFlag("AddPlayer"), addPlayerRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Color"), colorChangeRequestInterpreter);
     }
 
     public static RequestInterpreter getInstance() {

@@ -27,6 +27,8 @@ public class Flags {
     private static final char addPlayerFlag = 'U';
     private static final char addPlayerListFlag = 'V';
     private static final char addBotFlag = 'W';
+    private static final char colorFlag = 'X';
+    private static final char dontChangeColorFlag = 'Y';
 
     private static HashMap<String, Character> flagMap;
     static
@@ -39,6 +41,8 @@ public class Flags {
         flagMap.put("Close", closeFlag);
         flagMap.put("AddPlayerList", addPlayerListFlag);
         flagMap.put("AddBot", addBotFlag);
+        flagMap.put("Color", colorFlag);
+        flagMap.put("DontChangeColor", dontChangeColorFlag);
     }
 
     public static char getFlag(String action){

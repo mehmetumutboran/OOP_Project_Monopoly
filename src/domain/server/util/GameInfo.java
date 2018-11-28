@@ -60,13 +60,36 @@ public class GameInfo {
     public void addPlayer(String name, String color, String readiness) {
         playerList.add(new Player(name, color, readiness));
         //publishPlayerListEvent();
+        selectedColors.add(color);
         System.out.println(playerList);
     }
 
     public void addPlayer(Player player) {
         playerList.add(player);
         publishPlayerListEvent();
+        selectedColors.add(player.tokenColor());
         System.out.println(playerList);
+    }
+
+    public boolean hasColor(String color){
+        System.out.println(color);
+        System.out.println(selectedColors);
+        for (String clr : selectedColors){
+            if(clr.equals(color))
+            {
+                System.out.println(clr);
+                return true;
+            }
+        }
+        System.out.println("Not found!");
+        return false;
+    }
+
+    public void setPlayerColor(String name, String color){
+        selectedColors.remove(getPlayer(name).tokenColor());
+        getPlayer(name).getToken().setColor(color);
+        selectedColors.add(color);
+        publishPlayerListEvent();
     }
 
     public String getPlayersAsString() {

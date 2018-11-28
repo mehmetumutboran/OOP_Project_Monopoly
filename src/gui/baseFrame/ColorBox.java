@@ -1,5 +1,6 @@
 package gui.baseFrame;
 
+import domain.client.PlayerActionController;
 import domain.server.controller.MonopolyGameController;
 import domain.server.listeners.PlayerListChangedListener;
 import domain.server.util.GameInfo;
@@ -46,7 +47,7 @@ public class ColorBox extends JComboBox implements ActionListener, PlayerListCha
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         this.selectedItem = (String) this.getSelectedItem();
-        MonopolyGameController.getInstance().changePlayerColor(0, (String) this.getSelectedItem());
+        PlayerActionController.getInstance().changePlayerColor((String) this.getSelectedItem());
     }
 
 

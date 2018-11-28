@@ -2,6 +2,7 @@ package gui;
 
 import domain.util.Flags;
 import gui.promptStrategy.ClosePromptStrategy;
+import gui.promptStrategy.DontChangeColorPromptStrategy;
 import gui.promptStrategy.PromptStrategy;
 
 public class PromptFactory {
@@ -20,6 +21,8 @@ public class PromptFactory {
     public PromptStrategy getPromptStrategy(char flag) {
         if(flag == Flags.getFlag("Close")){
             return new ClosePromptStrategy();
+        }else if(flag == Flags.getFlag("DontChangeColor")){
+            return new DontChangeColorPromptStrategy();
         }
         return null;
     }

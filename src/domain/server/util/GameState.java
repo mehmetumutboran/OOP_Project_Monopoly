@@ -51,6 +51,10 @@ public class GameState {
 //        return generateQueueAction(queueFlag); // TODO This is for writing return it does not changes anything.
     }
 
+    public String generateCurrentAction(char flag, String name, String message) {
+        return flag + "|" + name + "|" + message;
+    }
+
 //    public String generateCurrentAction(char flag, String name, String buildNameOrLoc) {
 //        if (flag == upgradeFlag) {
 //            return generateUpgradeAction(flag, name, buildNameOrLoc);

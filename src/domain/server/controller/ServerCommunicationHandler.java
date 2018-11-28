@@ -36,6 +36,11 @@ public class ServerCommunicationHandler {
                 .send(index, GameState.getInstance().generateCurrentAction(flag, message));
     }
 
+    public synchronized void sendResponse(char flag, String name, String color) {
+        ServerFacade.getInstance()
+                .send(GameState.getInstance().generateCurrentAction(flag, name, color));
+    }
+
 //    public synchronized void sendResponse(char flag, String name, String buildName) {
 //        ServerFacade.getInstance()
 //                .send(GameState.getInstance().generateCurrentAction(flag, name, buildName));

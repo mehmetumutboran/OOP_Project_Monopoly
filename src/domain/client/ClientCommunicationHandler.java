@@ -18,4 +18,8 @@ public class ClientCommunicationHandler {
     public void sendRequest(char flag, String username) {
         ClientFacade.getInstance().send(flag + "|" + username);
     }
+
+    public void sendRequest(char flag, String username, String color){
+        ClientFacade.getInstance().send(flag + "|" + username + "|"+ color);
+    }
 }
