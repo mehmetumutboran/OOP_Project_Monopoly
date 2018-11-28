@@ -5,7 +5,7 @@ import java.util.HashMap;
 public class Flags {
 
     private static final char buyFlag = 'A';
-    public static final char rollFlag = 'B';
+    private static final char rollFlag = 'B';
     private static final char moneyFlag = 'C';
     private static final char payRentFlag = 'D';
     private static final char drawCardFlag = 'E';
@@ -13,7 +13,7 @@ public class Flags {
     private static final char bonusFlag = 'G';
     private static final char jailFlag = 'H';
     private static final char finishTurnFlag = 'I';
-    public static final char queueFlag = 'J';
+    private static final char queueFlag = 'J';
     private static final char closeFlag = 'K';
     private static final char upgradeFlag = 'L';
     private static final char downgradeFlag = 'M';
@@ -31,7 +31,7 @@ public class Flags {
     private static final char dontChangeColorFlag = 'Y';
     private static final char readinessFlag = 'Z';
     private static final char dontStartFlag = 'a';
-    public static final char initQueueFlag = 'b';
+    private static final char initQueueFlag = 'b';
 
     private static HashMap<String, Character> flagMap;
     static

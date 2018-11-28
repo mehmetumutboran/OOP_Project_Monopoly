@@ -29,8 +29,8 @@ public class GameState {
 //            return flag + name;
 //        }
 
-        if (flag == Flags.rollFlag) {
-            return generateRollAction(Flags.rollFlag, name);
+        if (flag == Flags.getFlag("Roll")) {
+            return generateRollAction(Flags.getFlag("Roll"), name);
         }
         //else if (flag == buyFlag) {
 //            return generateBuyAction(buyFlag, name);
@@ -63,8 +63,8 @@ public class GameState {
     }
 
     public String generateCurrentAction(char flag, String name, String message) {
-        if (flag == Flags.initQueueFlag) {
-            return generateInitQueueAction(Flags.initQueueFlag, message);
+        if (flag == Flags.getFlag("InitQueue")) {
+            return generateInitQueueAction(Flags.getFlag("InitQueue"), message);
         }
         return flag + "|" + name + "|" + message;
     }

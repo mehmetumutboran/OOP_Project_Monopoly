@@ -71,7 +71,7 @@ public class GameLogic {
         System.out.println("\n\nGAmrLogic: roll\n\n");
 
         GameInfo.getInstance().getPlayer(name).rollDice();
-        ServerCommunicationHandler.getInstance().sendResponse(Flags.rollFlag, name);
+        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Roll"), name);
 
 //        if (checkThirdDouble()) {
 //            sendToJail();

@@ -22,6 +22,11 @@ public class StartRequestInterpreter implements RequestInterpretable {
 
         ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Start"), name);
 
+        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("InitQueue"), name, MessageConverter.convertQueueToString(playerOrder()));
+    }
+
+    private Deque<String> playerOrder(){
+
         for (Player p : GameInfo.getInstance().getPlayerList()) {
             p.setFaceValues(DiceCup.getInstance().rollDice("Init"));
             System.out.println(p.getName() + " " + Arrays.toString(p.getFaceValues()));
@@ -36,6 +41,6 @@ public class StartRequestInterpreter implements RequestInterpretable {
             pQueue.add(p.getName());
         }
 
-        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("InitQueue"), name, pQueue);
+        return pQueue;
     }
 }
