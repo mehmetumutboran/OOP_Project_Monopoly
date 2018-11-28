@@ -26,25 +26,25 @@ public class ServerCommunicationHandler {
         this.message = message;
     }
 
-    public synchronized void sendResponse(char flag, String name) {
+    public synchronized void sendResponse(char flag, String message) {
         ServerFacade.getInstance()
-                .send(GameState.getInstance().generateCurrentAction(flag, name));
+                .send(GameState.getInstance().generateCurrentAction(flag, message));
     }
 
-    public synchronized void sendResponse(char flag, int index, String name) {
+    public synchronized void sendResponse(char flag, int index, String message) {
         ServerFacade.getInstance()
-                .send(index, GameState.getInstance().generateCurrentAction(flag, name));
+                .send(index, GameState.getInstance().generateCurrentAction(flag, message));
     }
 
-    public synchronized void sendResponse(char flag, String name, String buildName) {
-        ServerFacade.getInstance()
-                .send(GameState.getInstance().generateCurrentAction(flag, name, buildName));
-    }
-
-    public synchronized void sendResponse(char flag, String name, int changedMoney) {
-        ServerFacade.getInstance()
-                .send(GameState.getInstance().generateCurrentAction(flag, name, changedMoney));
-    }
+//    public synchronized void sendResponse(char flag, String name, String buildName) {
+//        ServerFacade.getInstance()
+//                .send(GameState.getInstance().generateCurrentAction(flag, name, buildName));
+//    }
+//
+//    public synchronized void sendResponse(char flag, String name, int changedMoney) {
+//        ServerFacade.getInstance()
+//                .send(GameState.getInstance().generateCurrentAction(flag, name, changedMoney));
+//    }
 
 
 }

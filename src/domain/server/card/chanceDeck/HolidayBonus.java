@@ -11,7 +11,7 @@ public class HolidayBonus extends ChanceCard {
 
     @Override
     public boolean doAction() {
-        GameLogic.getInstance().getCurrentPlayer().increaseMoney(100);
+//        GameLogic.getInstance().getCurrentPlayer().increaseMoney(100);
         return true;
     }
 }

@@ -1,5 +1,6 @@
 package gui.baseFrame.buttons.singlePlayerButtons;
 
+import domain.client.PlayerActionController;
 import domain.server.controller.ConnectGameHandler;
 import gui.InputChecker;
 import gui.baseFrame.BaseFrame;
@@ -21,7 +22,7 @@ public class EnterButton extends JButton implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         System.out.println("Enter Button Pressed");
         if(InputChecker.getInstance().userNameChecker(userNameField.getText())) {
-            ConnectGameHandler.getInstance().connectHost(userNameField.getText(), 2222, false);
+            PlayerActionController.getInstance().host(userNameField.getText(), 2222, false);
             BaseFrame.setStatus("Lobby");
         }
     }

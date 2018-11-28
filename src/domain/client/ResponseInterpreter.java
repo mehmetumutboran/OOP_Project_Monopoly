@@ -34,6 +34,9 @@ public class ResponseInterpreter {
         ResponseInterpretable startResponseInterpreter = new StartResponseInterpreter();
         ResponseInterpretable kickResponseInterpreter = new KickResponseInterpreter();
         ResponseInterpretable closeResponseInterpreter = new CloseResponseInterpreter();
+        ResponseInterpretable addPlayerResponseInterpreter = new AddPlayerResponseInterpreter();
+        ResponseInterpretable addPlayerListResponseInterpreter = new AddPlayerListResponseInterpreter();
+        ResponseInterpretable addBotResponseInterpreter = new AddBotResponseInterpreter();
 
         interpreterMap = new HashMap<>();
         interpreterMap.put(Flags.getFlag("Start"), moveResponseInterpreter);
@@ -51,6 +54,9 @@ public class ResponseInterpreter {
         interpreterMap.put(Flags.getFlag("Start"), startResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Kick"), kickResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Close"), closeResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("AddPlayer"), addPlayerResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("AddPlayerList"), addPlayerListResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("AddBot"), addBotResponseInterpreter);
     }
 
     public void interpret(String message){

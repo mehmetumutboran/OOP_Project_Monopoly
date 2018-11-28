@@ -1,6 +1,7 @@
 package domain.server.controller;
 
 import domain.server.player.Player;
+import domain.server.util.GameInfo;
 import network.client.clientFacade.ClientFacade;
 
 public class ConnectGameInterpreter {
@@ -38,7 +39,7 @@ public class ConnectGameInterpreter {
             case 'S':
                 if(!this.isStarted) {
                     this.isStarted = true;
-                    if(!MonopolyGameController.getInstance().getMyself().getReadiness().equals("Host"))
+                    if(!GameInfo.getInstance().isMyselfHost())
                         MonopolyGameController.getInstance().checkReadiness();
                     return "S";
                 }
@@ -49,7 +50,7 @@ public class ConnectGameInterpreter {
     }
 
     private boolean isCurrentPlayerHost(){
-        return MonopolyGameController.getInstance().getMyself().getReadiness().equals("Host");
+        return GameInfo.getInstance().isMyselfHost();
     }
 
     private boolean isMessageHost(String message){
@@ -70,12 +71,12 @@ public class ConnectGameInterpreter {
 
     private String checkNewPlayer(String[] text){
         // text[0] flag, text[1] sent player name text[2] player readiness text[3] player color
-        String myPlayerName = MonopolyGameController.getInstance().getMyself().getName();
-        String myReadiness = MonopolyGameController.getInstance().getMyself().getReadiness();
-        String myColor = MonopolyGameController.getInstance().getMyself().getToken().getColor();
+        String myPlayerName = GameInfo.getInstance().getMyself().getName();
+        String myReadiness = GameInfo.getInstance().getMyself().getReadiness();
+        String myColor = GameInfo.getInstance().getMyself().getToken().getColor();
         if (MonopolyGameController.getInstance().getPlayerFromList(text[1])==null) { // If the player didn't existed in the list
             ClientFacade.getInstance().send("P+"+myPlayerName+"+"+myReadiness+"+"+myColor);
-            if (MonopolyGameController.getInstance().getMyself().getReadiness().equals("Host")) { // If the checker is the Host
+            if (GameInfo.getInstance().getMyself().getReadiness().equals("Host")) { // If the checker is the Host
                 MonopolyGameController.getInstance().getPlayerList().stream().filter(p -> p.getReadiness().equals("Bot"))
                         .forEach(p -> ClientFacade.getInstance()
                                 .send("P+"+p.getName()+"+"+p.getReadiness()+"+"+p.getToken().getColor())); // Send bot info

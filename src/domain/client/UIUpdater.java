@@ -80,11 +80,11 @@ public class UIUpdater {
         publishMessageChangedEvent();
     }
 
-    public void turnUpdate() {
-        publishTurnChangedEvent(GameLogic.getInstance().getCurrentPlayer()
-                .equals(GameLogic.getInstance().getPlayerList().get(0)));
-
-    }
+//    public void turnUpdate() {
+//        publishTurnChangedEvent(GameLogic.getInstance().getCurrentPlayer()
+//                .equals(GameLogic.getInstance().getPlayerList().get(0)));
+//
+//    }
 
     void close() {
         publishCloseButtonEvent();
@@ -111,5 +111,9 @@ public class UIUpdater {
 
     public void showPrompt(char flag) {
         UIFacade.getInstance().generatePrompt(flag);
+    }
+
+    public void changePanel() { // Changes the panel to lobby for now
+        UIFacade.getInstance().changePanel();
     }
 }

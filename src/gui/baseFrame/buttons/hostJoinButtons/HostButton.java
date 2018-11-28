@@ -1,5 +1,6 @@
 package gui.baseFrame.buttons.hostJoinButtons;
 
+import domain.client.PlayerActionController;
 import domain.server.controller.ConnectGameHandler;
 import gui.InputChecker;
 import gui.baseFrame.BaseFrame;
@@ -53,10 +54,8 @@ public class HostButton extends JButton implements ActionListener, ConnectionFai
             port = Integer.parseInt(portField.getText());
         } else return;
 
-        String status = ConnectGameHandler.getInstance().connectHost(username, port, true);
-        if (status.equals("Successful")) {
-            BaseFrame.setStatus("Lobby");
-        }
+        PlayerActionController.getInstance().host(username, port, true);
+
     }
 
     @Override

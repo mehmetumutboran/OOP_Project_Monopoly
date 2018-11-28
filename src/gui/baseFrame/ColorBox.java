@@ -2,6 +2,7 @@ package gui.baseFrame;
 
 import domain.server.controller.MonopolyGameController;
 import domain.server.listeners.PlayerListChangedListener;
+import domain.server.util.GameInfo;
 import gui.ColorBoxRenderer;
 
 import javax.swing.*;
@@ -23,7 +24,7 @@ public class ColorBox extends JComboBox implements ActionListener, PlayerListCha
             this.insertItemAt(colorList.get(i), i);
         }
         this.setRenderer(ColorBoxRenderer.getInstance());
-        MonopolyGameController.getInstance().addPlayerListChangedListener(this);
+        GameInfo.getInstance().addPlayerListChangedListener(this);
         this.addActionListener(this);
     }
 

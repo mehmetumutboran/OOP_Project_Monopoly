@@ -90,6 +90,7 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener, 
     }
 
     public static void setStatus(String status) {
+        if(BaseFrame.status.equals(status)) return;
         BaseFrame.status = status;
         System.out.println(status);
         changed = true;

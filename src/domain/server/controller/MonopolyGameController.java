@@ -45,7 +45,7 @@ public class MonopolyGameController {
 
     public boolean addPlayer(Player player) {
 //        return playerList.add(player);
-        GameInfo.getInstance().addPlayer(player);
+//        GameInfo.getInstance().addPlayer(player);
 //        System.out.println("\n\nAdded Player" + player + "\n\n");
 //        System.out.println(playerList + "\n\n");
 //        publishPlayerListEvent();
@@ -95,10 +95,6 @@ public class MonopolyGameController {
         return playerList.stream().filter(player -> player.getName().equals(name)).findFirst().orElse(null);
     }
 
-    public Player getMyself(){
-        return playerList.get(0);
-    }
-
 //    public ArrayList<String> getPlayerListAsJSON() {
 //        ObjectMapper mapper = new ObjectMapper();
 //        mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
@@ -136,20 +132,6 @@ public class MonopolyGameController {
             pca.add(i, pList.get(i) + "@" + cList.get(i));
         }
         return pca;
-    }
-
-    public ArrayList<ArrayList<String>> getPlayerConnectAttributes() {
-        ArrayList<ArrayList<String>> playerConnectAttributes = new ArrayList<>();
-        for (Player player : playerList) {
-            System.out.println("\n\n Get Player Connect Attr. " + player + "\n\n\n");
-            ArrayList<String> temp = new ArrayList<>();
-            temp.add(player.getName());
-            temp.add(player.getToken().getColor());
-            temp.add(player.getReadiness());
-            playerConnectAttributes.add(temp);
-        }
-        //System.out.println("Player list is" + playerList.isEmpty());
-        return playerConnectAttributes;
     }
 
     public void changePlayerColor(int index, String color) { //TODO DON'T USE INDEX
@@ -190,36 +172,36 @@ public class MonopolyGameController {
         return 0;
     }
 
-    private synchronized void startGame() {
-        playerList.get(0).setStarted(true);
-        ConnectGameHandler.getInstance().sendGameStartedChange(playerList.get(0));
-        publishGameStartedEvent(getPlayerColorArray());
-        ServerCommunicationHandler.getInstance();
-        UIUpdater.getInstance();
-        GameLogic.getInstance().setPlayerList(playerList);
-        if (playerList.get(0).getReadiness().equals("Host")) {
-            initGame();
-        }
-    }
-
-    private void initGame() { // For now in this method players roll dice with initial roll strategy and they put to the queue corresponding to their total face values.
-        for (Player p : playerList) {
-            DiceCup.getInstance().rollDice("Init");
-            p.setFaceValues(DiceCup.getInstance().getFaceValues());
-            System.out.println(Arrays.toString(DiceCup.getInstance().getFaceValues()));
-        }
-        playerSortList.addAll(playerList);
-        Collections.sort(playerSortList);
-        playerQueue.addAll(playerSortList);
-        System.out.println("/////Player Queue//////");
-        for (Player p : playerQueue) {
-            System.out.println(p);
-        }
-
-        playerQueue.forEach(x -> GameLogic.getInstance().getPlayers().addLast(x.getName()));
-//        GameLogic.getInstance().setPlayers(playerQueue.stream().map(Player::getName).collect(Collectors.toCollection(LinkedList::new)));
-        ServerCommunicationHandler.getInstance().sendResponse(GameLogic.queueFlag, "");
-    }
+//    private synchronized void startGame() {
+//        playerList.get(0).setStarted(true);
+//        ConnectGameHandler.getInstance().sendGameStartedChange(playerList.get(0));
+//        publishGameStartedEvent(getPlayerColorArray());
+//        ServerCommunicationHandler.getInstance();
+//        UIUpdater.getInstance();
+//        GameLogic.getInstance().setPlayerList(playerList);
+//        if (playerList.get(0).getReadiness().equals("Host")) {
+//            initGame();
+//        }
+//    }
+//
+//    private void initGame() { // For now in this method players roll dice with initial roll strategy and they put to the queue corresponding to their total face values.
+//        for (Player p : playerList) {
+//            DiceCup.getInstance().rollDice("Init");
+//            p.setFaceValues(DiceCup.getInstance().getFaceValues());
+//            System.out.println(Arrays.toString(DiceCup.getInstance().getFaceValues()));
+//        }
+//        playerSortList.addAll(playerList);
+//        Collections.sort(playerSortList);
+//        playerQueue.addAll(playerSortList);
+//        System.out.println("/////Player Queue//////");
+//        for (Player p : playerQueue) {
+//            System.out.println(p);
+//        }
+//
+//        playerQueue.forEach(x -> GameLogic.getInstance().getPlayers().addLast(x.getName()));
+////        GameLogic.getInstance().setPlayers(playerQueue.stream().map(Player::getName).collect(Collectors.toCollection(LinkedList::new)));
+//        ServerCommunicationHandler.getInstance().sendResponse(GameLogic.queueFlag, "");
+//    }
 
 
     public void informClosed() {

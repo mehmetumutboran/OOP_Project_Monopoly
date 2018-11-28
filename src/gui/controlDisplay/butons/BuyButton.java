@@ -20,7 +20,7 @@ public class BuyButton extends JButton implements ActionListener, TurnChangedLis
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         System.out.println("buy button  clicked");
-        PlayerActionController.getInstance().buy();
+//        PlayerActionController.getInstance().buy();
 
 
     }

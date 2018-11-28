@@ -19,7 +19,7 @@ public class FinishTurnButton extends JButton implements ActionListener, TurnCha
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        PlayerActionController.getInstance().finishTurn();
+//        PlayerActionController.getInstance().finishTurn();
     }
 
     @Override

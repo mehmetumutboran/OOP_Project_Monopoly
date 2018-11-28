@@ -23,12 +23,10 @@ public class ClientHandler implements Runnable {
         try {
             this.dis = new DataInputStream(socket.getInputStream());
             this.dos = new DataOutputStream(socket.getOutputStream());
-            String line = dis.readUTF();
-            Server.setClientInfo(line);
+            String line;
 
             while (true) {
                 line = dis.readUTF();
-                System.out.println("\n\nCLientHandler\n"+line + "\n\n");
                 ServerFacade.getInstance().interpretRequest(line, index);
 //                Server.sendAll(line);
 

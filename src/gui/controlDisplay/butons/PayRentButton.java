@@ -20,7 +20,7 @@ public class PayRentButton extends JButton implements ActionListener, TurnChange
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         System.out.println("payRent button  clicked");
-        PlayerActionController.getInstance().rent();
+//        PlayerActionController.getInstance().rent();
     }
 
     @Override

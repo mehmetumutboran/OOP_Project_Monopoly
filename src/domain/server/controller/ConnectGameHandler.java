@@ -4,8 +4,11 @@ import domain.server.player.RandomPlayer;
 import domain.server.RequestInterpreter;
 import domain.server.listeners.PlayerKickedListener;
 import domain.server.player.Player;
+import domain.server.util.GameInfo;
+import domain.util.Flags;
 import network.client.clientFacade.ClientFacade;
 import network.listeners.ReceivedChangedListener;
+import network.server.Server;
 import network.server.serverFacade.ServerFacade;
 
 import java.util.ArrayList;
@@ -20,7 +23,7 @@ public class ConnectGameHandler implements ReceivedChangedListener {
     private ArrayList<PlayerKickedListener> playerKickedListeners;
 
     private ConnectGameHandler() {
-        ClientFacade.getInstance().addReceivedChangedListener(this);
+//        ClientFacade.getInstance().addReceivedChangedListener(this);
         playerKickedListeners = new ArrayList<>();
     }
 
@@ -35,13 +38,8 @@ public class ConnectGameHandler implements ReceivedChangedListener {
      * @param username Username from the {@link gui.baseFrame.buttons.hostJoinButtons.HostButton} usernameField
      * @param port     Port number for the server connection from {@link gui.baseFrame.buttons.hostJoinButtons.HostButton}
      */
-    public String connectHost(String username, int port, boolean isMulti) {
-        if (ServerFacade.getInstance().createServer(port, isMulti)) {
-            connectClient(username, "localhost", port); // Connects the host as a client after it creates server
-        } else {
-            return "Server cannot be created!!";
-        }
-        return "Successful";
+    public boolean connectHost(int port, boolean isMulti) {
+        return ServerFacade.getInstance().createServer(port, isMulti);
     }
 
     /**
@@ -124,14 +122,8 @@ public class ConnectGameHandler implements ReceivedChangedListener {
         ClientFacade.getInstance().send(e + player.getName());
     }
 
-    public void connectBot(String s, String color) {
-        RandomPlayer randomPlayer = new RandomPlayer(s);
-        randomPlayer.setReadiness("Bot");
-        randomPlayer.getToken().setColor(color);
-
-        MonopolyGameController.getInstance().addPlayer(randomPlayer);
-        sendClientInfo(s);
-//        sendPlayerAddChange(randomPlayer);
+    public void connectBot(String name, String color) {
+        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("AddBot"), name+","+color);
 
     }
 

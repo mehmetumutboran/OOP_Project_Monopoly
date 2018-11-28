@@ -1,6 +1,7 @@
 package gui.baseFrame.buttons.multiplayerButtons;
 
 import domain.server.controller.MonopolyGameController;
+import domain.server.util.GameInfo;
 import gui.baseFrame.BaseFrame;
 import network.client.clientFacade.ClientFacade;
 import network.server.serverFacade.ServerFacade;
@@ -22,7 +23,7 @@ public class BackButton extends JButton implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         System.out.println("Back Button Pressed");
         if (BaseFrame.getStatus().equals("Lobby")) {
-            if(MonopolyGameController.getInstance().getMyself().getReadiness().equals("Host"))
+            if(GameInfo.getInstance().isMyselfHost())
                 ServerFacade.getInstance().shutDown();
             ClientFacade.getInstance().terminate();
         }

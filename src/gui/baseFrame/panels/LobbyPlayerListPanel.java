@@ -2,6 +2,7 @@ package gui.baseFrame.panels;
 
 import domain.server.controller.MonopolyGameController;
 import domain.server.listeners.PlayerListChangedListener;
+import domain.server.util.GameInfo;
 import gui.ColorConverter;
 
 import javax.swing.*;
@@ -16,7 +17,7 @@ public class LobbyPlayerListPanel extends JPanel implements PlayerListChangedLis
 
     public LobbyPlayerListPanel() {
         playerLabels = new ArrayList<>();
-        MonopolyGameController.getInstance().addPlayerListChangedListener(this);
+        GameInfo.getInstance().addPlayerListChangedListener(this);
 
         this.setVisible(true);
         this.setBackground(Color.black);
@@ -59,7 +60,7 @@ public class LobbyPlayerListPanel extends JPanel implements PlayerListChangedLis
         LobbyPlayerLabel temp = new LobbyPlayerLabel(list.get(0),
                 ColorConverter.getInstance().getColorMap().get(list.get(1)), isHost);
         if (isHost &&
-                temp.getName().equals(MonopolyGameController.getInstance().getPlayerList().get(0).getName()))
+                temp.getName().equals(GameInfo.getInstance().getMyself().getName()))
             temp.removeMouseListener(temp);
         this.playerLabels.add(temp);
         return getPlayer(list, isHost);
@@ -67,8 +68,8 @@ public class LobbyPlayerListPanel extends JPanel implements PlayerListChangedLis
 
     @Override
     public void onPlayerListChangedEvent(ArrayList<String> selectedColors) {
-        setPlayerLabelList(MonopolyGameController.getInstance().getPlayerConnectAttributes(),
-                (MonopolyGameController.getInstance().getPlayerList().get(0).getReadiness().equals("Host")));
+        setPlayerLabelList(GameInfo.getInstance().getPlayerConnectAttributes(),
+                (GameInfo.getInstance().isMyselfHost()));
     }
 
 }

@@ -27,6 +27,11 @@ public class Player implements Comparable {
         this(name, new Token(), 3200, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), "Not Ready");
     }
 
+    public Player(String name, String color, String readiness) {
+        this(name, new Token(), 3200, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), readiness);
+        this.token.setColor(color);
+    }
+
     public Player(String name, Token token, int balance, ArrayList<Property> ownedProperties, ArrayList<Utility> ownedUtilities,
                   ArrayList<Railroad> ownedRailroads, String readiness) {
         this.name = name;
@@ -38,6 +43,7 @@ public class Player implements Comparable {
         this.readiness = readiness;
         this.faceValues = new int[3];
     }
+
 
     /**
      * Maps {@link Player} object to a JSON formatted String
@@ -188,11 +194,7 @@ public class Player implements Comparable {
 
     @Override
     public String toString() { //TODO This toString() is for debugging. It may change.
-        return "Player{" + "name='" + name + '\'' +
-                ", token=" + token +
-                ", balance=" + balance +
-                ", started=" + started +
-                '}';
+        return name + "," + tokenColor() + "," + readiness;
     }
 
     public boolean checkMajority(Property square) {

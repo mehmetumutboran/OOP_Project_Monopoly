@@ -28,18 +28,18 @@ public class RequestInterpreter {
         RequestInterpretable addPlayerRequestInterpreter = new AddPlayerRequestInterpreter();
 
         interpreterMap = new HashMap<>();
-        interpreterMap.put(GameLogic.moveFlag, moveRequestInterpreter);
-        interpreterMap.put(GameLogic.moneyFlag, moneyChangeRequestInterpreter);
-        interpreterMap.put(GameLogic.buyFlag, buyRequestInterpreter);
-        interpreterMap.put(GameLogic.payRentFlag, payRentRequestInterpreter);
-        interpreterMap.put(GameLogic.queueFlag, queueRequestInterpreter);
-        interpreterMap.put(GameLogic.upgradeFlag, upDownRequestInterpreter);
-        interpreterMap.put(GameLogic.downgradeFlag, upDownRequestInterpreter);
-        interpreterMap.put(GameLogic.tokenFlag, tokenMovementRequestInterpreter);
-        interpreterMap.put(GameLogic.rollFlag, rollRequestInterpreter);
-        interpreterMap.put(GameLogic.specialSquareFlag, specialSquareRequestInterpreter);
-        interpreterMap.put(GameLogic.jailFlag, jailRequestInterpreter);
-        interpreterMap.put(GameLogic.goOutJailFlag, jailRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Start"), moveRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Start"), moneyChangeRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Start"), buyRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Start"), payRentRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Start"), queueRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Start"), upDownRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Start"), upDownRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Start"), tokenMovementRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Start"), rollRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Start"), specialSquareRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Start"), jailRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Start"), jailRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), startRequestInterpreter);
         interpreterMap.put(Flags.getFlag("AddPlayer"), addPlayerRequestInterpreter);
     }
@@ -52,7 +52,6 @@ public class RequestInterpreter {
 
 
     public synchronized void interpret(String m, int index) {
-        System.out.println("\n\nREqInterpreter: interpret\n\n");
         char flag = m.charAt(0);
 
         if (interpreterMap.keySet().contains(flag))
