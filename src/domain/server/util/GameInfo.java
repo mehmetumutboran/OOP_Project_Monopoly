@@ -9,6 +9,7 @@ import network.client.clientFacade.ClientFacade;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.stream.Collectors;
 
 public class GameInfo {
     private static GameInfo ourInstance;
@@ -44,7 +45,7 @@ public class GameInfo {
     public boolean isMyselfHost(){ return getPlayer(ClientFacade.getInstance().getUsername()).getReadiness().equals("Host");}
 
     public boolean hasPlayer(String name){
-        return !playerList.stream().filter(player -> player.getName().equals(name)).findFirst().isEmpty();
+        return !playerList.stream().filter(player -> player.getName().equals(name)).collect(Collectors.toCollection(ArrayList::new)).isEmpty();
     }
 
     public boolean isListEmpty() {
