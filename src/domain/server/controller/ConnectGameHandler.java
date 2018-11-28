@@ -1,14 +1,11 @@
 package domain.server.controller;
 
-import domain.server.player.RandomPlayer;
 import domain.server.RequestInterpreter;
 import domain.server.listeners.PlayerKickedListener;
 import domain.server.player.Player;
-import domain.server.util.GameInfo;
 import domain.util.Flags;
 import network.client.clientFacade.ClientFacade;
 import network.listeners.ReceivedChangedListener;
-import network.server.Server;
 import network.server.serverFacade.ServerFacade;
 
 import java.util.ArrayList;

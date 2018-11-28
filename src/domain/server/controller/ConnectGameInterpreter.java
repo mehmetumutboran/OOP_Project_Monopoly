@@ -1,7 +1,7 @@
 package domain.server.controller;
 
 import domain.server.player.Player;
-import domain.server.util.GameInfo;
+import domain.util.GameInfo;
 import network.client.clientFacade.ClientFacade;
 
 public class ConnectGameInterpreter {

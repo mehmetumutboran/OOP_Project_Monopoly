@@ -1,7 +1,10 @@
 package domain.server.controller;
 
 import domain.server.util.GameState;
+import domain.util.MessageConverter;
 import network.server.serverFacade.ServerFacade;
+
+import java.util.Deque;
 
 public class ServerCommunicationHandler {
     private static ServerCommunicationHandler ourInstance;
@@ -44,6 +47,11 @@ public class ServerCommunicationHandler {
     public synchronized void sendResponse(char flag, int index, int count, String name) {
         ServerFacade.getInstance()
                 .send(index, GameState.getInstance().generateCurrentAction(flag, count, name));
+    }
+
+    public void sendResponse(char flag, String name, Deque<String> pQueue) {
+        ServerFacade.getInstance()
+                .send(GameState.getInstance().generateCurrentAction(flag,name, MessageConverter.convertQueueToString(pQueue)));
     }
 
 //    public synchronized void sendResponse(char flag, String name, String buildName) {

@@ -1,7 +1,7 @@
 package domain.server.interpreter;
 
 import domain.server.controller.ServerCommunicationHandler;
-import domain.server.util.GameInfo;
+import domain.util.GameInfo;
 import domain.util.Flags;
 
 public class AddPlayerRequestInterpreter implements RequestInterpretable {

@@ -1,7 +1,7 @@
 package domain.client.interpreter;
 
 import domain.client.UIUpdater;
-import domain.server.util.GameInfo;
+import domain.util.GameInfo;
 
 public class AddPlayerResponseInterpreter implements ResponseInterpretable {
     @Override

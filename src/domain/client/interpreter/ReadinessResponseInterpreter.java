@@ -1,6 +1,6 @@
 package domain.client.interpreter;
 
-import domain.server.util.GameInfo;
+import domain.util.GameInfo;
 
 public class ReadinessResponseInterpreter implements ResponseInterpretable {
     @Override

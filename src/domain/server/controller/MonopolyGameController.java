@@ -1,10 +1,6 @@
 package domain.server.controller;
 
 import domain.util.Flags;
-import domain.server.util.GameInfo;
-import domain.server.GameLogic;
-import domain.client.UIUpdater;
-import domain.server.die.DiceCup;
 import domain.server.listeners.CloseButtonListener;
 import domain.server.listeners.GameStartedListener;
 import domain.server.listeners.PlayerListChangedListener;
@@ -67,12 +63,12 @@ public class MonopolyGameController {
         }
     }
 
-    private void publishGameStartedEvent(ArrayList<String> pcl) {
-        for (GameStartedListener gls : gameStartedListeners) {
-            if (gls == null) continue;
-            gls.onGameStartedEvent(pcl);
-        }
-    }
+//    private void publishGameStartedEvent(ArrayList<String> pcl) {
+//        for (GameStartedListener gls : gameStartedListeners) {
+//            if (gls == null) continue;
+//            gls.onGameStartedEvent();
+//        }
+//    }
 
     public boolean addPlayerListChangedListener(PlayerListChangedListener plc) {
         return playerListChangedListeners.add(plc);

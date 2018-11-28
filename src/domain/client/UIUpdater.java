@@ -1,6 +1,7 @@
 package domain.client;
 
 import domain.server.listeners.*;
+import domain.util.GameInfo;
 import gui.UIFacade;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ public class UIUpdater {
     private ArrayList<CloseButtonListener> closeButtonListeners;
     private ArrayList<PlayerQuitEventListener> playerQuitEventListeners;
     private ArrayList<TokenMovementListener> tokenMovementListeners;
+    private ArrayList<GameStartedListener> gameStartedListeners;
 
     private String message;
 
@@ -28,6 +30,7 @@ public class UIUpdater {
         closeButtonListeners = new ArrayList<>();
         playerQuitEventListeners = new ArrayList<>();
         tokenMovementListeners = new ArrayList<>();
+        gameStartedListeners = new ArrayList<>();
     }
 
     public void addMessageChangedListener(MessageChangedListener mcl) {
@@ -49,6 +52,19 @@ public class UIUpdater {
 
     public void addCloseButtonListener(CloseButtonListener cbl) {
         closeButtonListeners.add(cbl);
+    }
+
+    public void publishGameStartedEvent() {
+        ArrayList<String> playerListName = GameInfo.getInstance().getPlayerListName();
+        ArrayList<String> playerListColor = GameInfo.getInstance().getPlayerListColor();
+        for (GameStartedListener gls : gameStartedListeners) {
+            if (gls == null) continue;
+            gls.onGameStartedEvent(playerListName, playerListColor);
+        }
+    }
+
+    public boolean addGameStartedListener(GameStartedListener gsl) {
+        return gameStartedListeners.add(gsl);
     }
 
 
@@ -119,4 +135,8 @@ public class UIUpdater {
     public void changePanel(String panel) { // Changes the panel to lobby for now
         UIFacade.getInstance().changePanel(panel);
     }
+
+//    public void showList() {
+//        UIFacade.getInstance().generateList(GameInfo.getInstance().getPlayerListName(),GameInfo.getInstance().getPlayerListColor());
+//    }
 }

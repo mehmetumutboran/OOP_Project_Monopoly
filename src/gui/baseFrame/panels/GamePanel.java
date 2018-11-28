@@ -107,9 +107,9 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
 
 
     @Override
-    public void onGameStartedEvent(ArrayList<String> pcl) {
-        for (int i = 0; i < pcl.size(); i++) {
-            String message = pcl.get(i);
+    public void onGameStartedEvent(ArrayList<String> playerListName,ArrayList<String> playerListColor) {
+        for (int i = 0; i < playerListColor.size(); i++) {
+            String message = playerListColor.get(i);
             int sep = message.indexOf('@');
             System.out.println(sep);
             String pName = message.substring(0, sep);

@@ -1,6 +1,9 @@
 package gui;
 
 import gui.baseFrame.BaseFrame;
+import gui.controlDisplay.panels.PlayerLabelsPanel;
+
+import java.util.ArrayList;
 
 public class UIFacade {
     private static UIFacade ourInstance;
@@ -27,4 +30,7 @@ public class UIFacade {
         BaseFrame.setStatus(panel);
     }
 
+//    public void generateList(ArrayList<String> playerListName,ArrayList<String> playerListColor) {
+//        PlayerLabelsPanel.setPlayerLabel(playerListName,playerListColor);
+//    }
 }

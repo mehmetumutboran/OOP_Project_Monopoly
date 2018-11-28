@@ -26,6 +26,7 @@ public class ResponseInterpreter {
         ResponseInterpretable buyResponseInterpreter = new BuyResponseInterpreter();
         ResponseInterpretable payRentResponseInterpreter = new PayRentResponseInterpreter();
         ResponseInterpretable queueResponseInterpreter = new QueueResponseInterpreter();
+        ResponseInterpretable initQueueResponseInterpreter = new InitQueueResponseInterpreter();
         ResponseInterpretable upDownResponseInterpreter = new UpDownResponseInterpreter();
         ResponseInterpretable tokenMovementResponseInterpreter = new TokenMovementResponseInterpreter();
         ResponseInterpretable rollResponseInterpreter = new RollResponseInterpreter();
@@ -48,6 +49,7 @@ public class ResponseInterpreter {
         interpreterMap.put(Flags.getFlag("Start"), buyResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), payRentResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), queueResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("InitQueue"), initQueueResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), upDownResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), upDownResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), tokenMovementResponseInterpreter);

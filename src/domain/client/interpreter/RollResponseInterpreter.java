@@ -1,6 +1,7 @@
 package domain.client.interpreter;
 
 import domain.client.UIUpdater;
+import domain.util.GameInfo;
 import domain.util.MessageConverter;
 
 public class RollResponseInterpreter implements ResponseInterpretable {
@@ -8,6 +9,8 @@ public class RollResponseInterpreter implements ResponseInterpretable {
     public void interpret(String[] message) {
         String name = message[1];
         int[] faceValues = MessageConverter.convertStringToIntArray(message[2]);
+
+        GameInfo.getInstance().getPlayer(name).setFaceValues(faceValues);
 
         switch (faceValues[2]) {
             case 7:

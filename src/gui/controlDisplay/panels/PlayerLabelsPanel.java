@@ -1,7 +1,6 @@
 package gui.controlDisplay.panels;
 
 import domain.client.UIUpdater;
-import domain.server.controller.MonopolyGameController;
 import domain.server.listeners.GameStartedListener;
 import domain.server.listeners.PlayerQuitEventListener;
 import gui.ColorConverter;
@@ -25,7 +24,7 @@ public class PlayerLabelsPanel extends JLabel implements GameStartedListener, Pl
 
         this.setLayout(new GridLayout(2, 6));
         this.setPreferredSize(playerStatusPanel.getSize());
-        MonopolyGameController.getInstance().addGameStartedListener(this);
+        UIUpdater.getInstance().addGameStartedListener(this);
         initGUI();
 
         this.setVisible(true);
@@ -53,11 +52,15 @@ public class PlayerLabelsPanel extends JLabel implements GameStartedListener, Pl
     }
 
     @Override
-    public void onGameStartedEvent(ArrayList<String> pca) {
-        for (int i = 0; i < MonopolyGameController.getInstance().getPlayerListName().size(); i++) {
-            PlayerLabel temp = new PlayerLabel(MonopolyGameController.getInstance().getPlayerListName().get(i), this);
+    public void onGameStartedEvent(ArrayList<String> playerListName,ArrayList<String> playerListColor) {
+       setPlayerLabel(playerListName,playerListColor);
+    }
+
+    public void setPlayerLabel(ArrayList<String> playerListName,ArrayList<String> playerListColor){
+        for (int i = 0; i < playerListName.size(); i++) {
+            PlayerLabel temp = new PlayerLabel(playerListName.get(i),this);
             temp.setBackground(ColorConverter.getInstance().getColor(
-                    MonopolyGameController.getInstance().getPlayerList().get(i).getToken().getColor()));
+                    playerListColor.get(i)));
             playerLabels.add(temp);
         }
     }

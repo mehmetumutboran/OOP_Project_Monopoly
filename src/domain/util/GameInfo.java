@@ -1,9 +1,7 @@
-package domain.server.util;
+package domain.util;
 
 import domain.server.listeners.PlayerListChangedListener;
 import domain.server.player.Player;
-import domain.server.player.RandomPlayer;
-import network.client.Client;
 import network.client.clientFacade.ClientFacade;
 
 import java.util.ArrayList;
@@ -32,6 +30,30 @@ public class GameInfo {
         playerQueue = new LinkedList<>();
         playerListChangedListeners = new ArrayList<>();
         selectedColors = new ArrayList<>();
+    }
+
+    public Deque<String> getPlayerQueue() {
+        return playerQueue;
+    }
+
+    public ArrayList<Player> getPlayerList() {
+        return playerList;
+    }
+
+    public ArrayList<String> getPlayerListName() {
+        return (ArrayList<String>) playerList.stream().map(Player::getName).collect(Collectors.toList());
+    }
+
+    public ArrayList<String> getPlayerListColor() {
+        return (ArrayList<String>) playerList.stream().map(Player::tokenColor).collect(Collectors.toList());
+    }
+
+    public void setPlayerQueue(Deque<String> playerQueue) {
+        this.playerQueue = playerQueue;
+    }
+
+    public void setPlayerList(ArrayList<Player> playerList) {
+        this.playerList = playerList;
     }
 
     public Player getPlayer(String name){

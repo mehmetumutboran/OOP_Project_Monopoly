@@ -1,7 +1,7 @@
 package domain.client.interpreter;
 
 import domain.server.player.RandomPlayer;
-import domain.server.util.GameInfo;
+import domain.util.GameInfo;
 
 public class AddBotResponseInterpreter implements ResponseInterpretable {
     @Override

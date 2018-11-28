@@ -1,9 +1,8 @@
 package gui.baseFrame;
 
 import domain.client.PlayerActionController;
-import domain.server.controller.MonopolyGameController;
 import domain.server.listeners.PlayerListChangedListener;
-import domain.server.util.GameInfo;
+import domain.util.GameInfo;
 import gui.ColorBoxRenderer;
 
 import javax.swing.*;

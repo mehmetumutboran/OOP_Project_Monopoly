@@ -1,6 +1,8 @@
 package domain.server.util;
 
 import domain.util.Flags;
+import domain.util.GameInfo;
+import domain.util.MessageConverter;
 
 public class GameState {
     private static GameState gs;
@@ -26,19 +28,24 @@ public class GameState {
 //        } else if (flag == Flags.getFlag("Close")) {
 //            return flag + name;
 //        }
-        return flag + "|" +name;
-//        if (flag == rollFlag) {
-//            return generateRollAction(rollFlag, name);
-//        } else if (flag == buyFlag) {
+
+        if (flag == Flags.rollFlag) {
+            return generateRollAction(Flags.rollFlag, name);
+        }
+        //else if (flag == buyFlag) {
 //            return generateBuyAction(buyFlag, name);
 //        } else if (flag == payRentFlag) {
 //            return generateRentAction(payRentFlag, name);
 //        } else if (flag == finishTurnFlag) {
 //            return generateFinishTurnAction(finishTurnFlag);
-//        } else if (flag == queueFlag) {
-//            return generateQueueAction(queueFlag);
+// }
+//        else if (flag == Flags.queueFlag) {
+//            return generateQueueAction(Flags.queueFlag);
 //        }
-
+//        else if (flag == Flags.initQueueFlag) {
+//            return generateInitQueueAction(Flags.initQueueFlag);
+//        }
+        return flag + "|" +name;
 //        else if (flag == removeFlag) {
 //            return generateRemoveAction(removeFlag, name);
 //        } else if (flag == specialSquareFlag) {
@@ -51,7 +58,14 @@ public class GameState {
 //        return generateQueueAction(queueFlag); // TODO This is for writing return it does not changes anything.
     }
 
+    private String generateInitQueueAction(char flag,String qString) {
+        return flag + "|" + qString;
+    }
+
     public String generateCurrentAction(char flag, String name, String message) {
+        if (flag == Flags.initQueueFlag) {
+            return generateInitQueueAction(Flags.initQueueFlag, message);
+        }
         return flag + "|" + name + "|" + message;
     }
 
@@ -116,9 +130,9 @@ public class GameState {
 //        return flag + "";
 //    }
 //
-//    private String generateQueueAction(char flag) {
-//        return flag + "|" + MessageConverter.convertQueueToString(GameLogic.getInstance().getPlayers());
-//    }
+    private String generateQueueAction(char flag) {
+        return flag + "|" + MessageConverter.convertQueueToString(GameInfo.getInstance().getPlayerQueue());
+    }
 //
 //    private String generateFinishTurnAction(char flag) {
 //        return flag + "";
@@ -134,10 +148,10 @@ public class GameState {
 //        return flag + "|" + name + "|" + Board.getInstance().getSquare(loc[0], loc[1]);
 //    }
 //
-//    private String generateRollAction(char flag, String name) {
-//        int[] faceVal = GameLogic.getInstance().getPlayer(name).getFaceValues();
-//        return flag + "|" + name + "|" + MessageConverter.convertArrayToString(faceVal);
-//    }
+    private String generateRollAction(char flag, String name) {
+        int[] faceVal = GameInfo.getInstance().getPlayer(name).getFaceValues();
+        return flag + "|" + name + "|" + MessageConverter.convertArrayToString(faceVal);
+    }
 //
 //    private String generateJailAction(char flag, String name) {
 //        return flag + "|" + name;

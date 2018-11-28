@@ -202,7 +202,7 @@ public class LobbyPanel extends JPanel implements GameStartedListener {
 
 
     @Override
-    public void onGameStartedEvent(ArrayList<String> pca) {
+    public void onGameStartedEvent(ArrayList<String> playerListName,ArrayList<String> playerListColor) {
         BaseFrame.setStatus("Game");
     }
 }

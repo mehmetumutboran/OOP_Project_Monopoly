@@ -9,8 +9,8 @@ public class DiceCup {
     private Die[] dice;
     private final int speedDieIndex = 3;
 
-    private int[] faceValues;
-    private int totalFaceValue;
+    //private int[] faceValues;
+    //private int totalFaceValue;
 
     private static DiceCup dc;
 
@@ -23,8 +23,6 @@ public class DiceCup {
             }
             dice[i] = new RegularDie();
         }
-
-        faceValues = new int[3];
 
     }
 
@@ -39,26 +37,8 @@ public class DiceCup {
         return dice;
     }
 
-    public int[] getFaceValues() {
-        return faceValues;
-    }
-
-    public void setTotalFaceValue() {
-        if (7 > this.getFaceValues()[2])
-            this.totalFaceValue = this.getFaceValues()[0] + this.getFaceValues()[1] + this.getFaceValues()[2];
-        else this.totalFaceValue = this.getFaceValues()[0] + this.getFaceValues()[1];
-    }
-
-    public int getTotalFaceValue() {
-        return totalFaceValue;
-    }
-
-    public void setFaceValues(int[] faceValues) {
-        this.faceValues = faceValues;
-    }
-
-    public void rollDice(String locName) {
-        DiceRollFactory.getInstance().chooseDiceRollStrategy(locName).roll(this);
+    public int [] rollDice(String locName) {
+       return DiceRollFactory.getInstance().chooseDiceRollStrategy(locName).roll(this);
     }
 
 //    public static void main(String args[]){

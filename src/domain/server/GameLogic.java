@@ -1,5 +1,7 @@
 package domain.server;
 
+import domain.util.Flags;
+import domain.util.GameInfo;
 import domain.util.MessageConverter;
 import domain.server.player.RandomPlayer;
 import domain.server.board.Board;
@@ -20,9 +22,6 @@ public class GameLogic {
 
     //TODO Add more
 
-    private volatile Deque<String> players;
-    private volatile ArrayList<Player> playerList;
-
     private static final int SECOND_LAYER_SQ = 24;
     private static final int FIRST_LAYER_SQ = 40;
     private static final int ZEROTH_LAYER_SQ = 56;
@@ -36,8 +35,6 @@ public class GameLogic {
     }
 
     private GameLogic() {
-        players = new LinkedList<>();
-        playerList = new ArrayList<>();
 
     }
 
@@ -69,30 +66,30 @@ public class GameLogic {
 //    }
 //
 //
-//    public void roll(String name) {
-//        //TODO check if the player can roll
-//        System.out.println("\n\nGAmrLogic: roll\n\n");
+    public void roll(String name) {
+        //TODO check if the player can roll
+        System.out.println("\n\nGAmrLogic: roll\n\n");
+
+        GameInfo.getInstance().getPlayer(name).rollDice();
+        ServerCommunicationHandler.getInstance().sendResponse(Flags.rollFlag, name);
+
+//        if (checkThirdDouble()) {
+//            sendToJail();
+//        } else if (checkJail()) {
+//            tryToGoOutOfJail();
+//        } else if (checkTriple()) {
+//            selectDestinationSQ();
+//        } else if (checkBus()) {
 //
-//        getPlayer(name).rollDice();
-//        ServerCommunicationHandler.getInstance().sendResponse(rollFlag, name);
-//
-////        if (checkThirdDouble()) {
-////            sendToJail();
-////        } else if (checkJail()) {
-////            tryToGoOutOfJail();
-////        } else if (checkTriple()) {
-////            selectDestinationSQ();
-////        } else if (checkBus()) {
-////
-////        } else {
-////            move(false);
-////        }
-////
-////
-////        checkMrMonopoly();
-////        System.out.println("In the Game Logic Roll Method");
-//
-//    }
+//        } else {
+//            move(false);
+//        }
+
+
+//        checkMrMonopoly();
+        System.out.println("In the Game Logic Roll Method");
+
+    }
 //
 //    private void selectDestinationSQ() {
 //        // TODO Burda UI ile iletisime gecmem lazim gibi duruyo

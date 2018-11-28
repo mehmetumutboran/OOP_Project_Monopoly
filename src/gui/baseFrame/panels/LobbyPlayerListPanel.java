@@ -2,7 +2,7 @@ package gui.baseFrame.panels;
 
 import domain.server.controller.MonopolyGameController;
 import domain.server.listeners.PlayerListChangedListener;
-import domain.server.util.GameInfo;
+import domain.util.GameInfo;
 import gui.ColorConverter;
 
 import javax.swing.*;

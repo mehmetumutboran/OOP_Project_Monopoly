@@ -38,7 +38,7 @@ public class RequestInterpreter {
         interpreterMap.put(Flags.getFlag("Start"), upDownRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), upDownRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), tokenMovementRequestInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), rollRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Roll"), rollRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), specialSquareRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), jailRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), jailRequestInterpreter);
