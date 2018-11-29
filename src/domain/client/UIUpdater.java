@@ -1,7 +1,6 @@
 package domain.client;
 
 import domain.server.listeners.*;
-import domain.util.GameInfo;
 import gui.UIFacade;
 
 import java.util.ArrayList;
@@ -54,9 +53,7 @@ public class UIUpdater {
         closeButtonListeners.add(cbl);
     }
 
-    public void publishGameStartedEvent() {
-        ArrayList<String> playerListName = GameInfo.getInstance().getPlayerListName();
-        ArrayList<String> playerListColor = GameInfo.getInstance().getPlayerListColor();
+    public void publishGameStartedEvent(ArrayList<String>playerListName, ArrayList<String> playerListColor) {
         for (GameStartedListener gls : gameStartedListeners) {
             if (gls == null) continue;
             gls.onGameStartedEvent(playerListName, playerListColor);
@@ -134,6 +131,10 @@ public class UIUpdater {
 
     public void changePanel(String panel) { // Changes the panel to lobby for now
         UIFacade.getInstance().changePanel(panel);
+    }
+
+    public void setupPlayerLabels(ArrayList<String> playerListName, ArrayList<String> playerListColor) {
+        publishGameStartedEvent(playerListName, playerListColor);
     }
 
 //    public void showList() {
