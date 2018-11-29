@@ -3,7 +3,7 @@ package gui.controlDisplay.panels;
 import domain.client.UIUpdater;
 import domain.server.listeners.GameStartedListener;
 import domain.server.listeners.PlayerQuitEventListener;
-import gui.ColorConverter;
+import gui.util.ColorConverter;
 import gui.controlDisplay.PlayerLabel;
 
 import javax.swing.*;

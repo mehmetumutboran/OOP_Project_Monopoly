@@ -1,7 +1,7 @@
 package gui.baseFrame.buttons.hostJoinButtons;
 
 import domain.client.PlayerActionController;
-import gui.InputChecker;
+import gui.util.InputChecker;
 import network.listeners.ConnectionFailedListener;
 
 import javax.swing.*;

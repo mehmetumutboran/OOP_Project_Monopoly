@@ -1,7 +1,7 @@
 package domain.client;
 
 import domain.server.listeners.*;
-import gui.UIFacade;
+import gui.UIFacade.UIFacade;
 
 import java.util.ArrayList;
 

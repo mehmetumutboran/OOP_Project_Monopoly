@@ -1,4 +1,4 @@
-package gui.promptStrategy;
+package gui.prompt.promptStrategy;
 
 import javax.swing.*;
 

@@ -3,7 +3,7 @@ package gui.baseFrame;
 import domain.client.PlayerActionController;
 import domain.server.listeners.PlayerListChangedListener;
 import domain.util.GameInfo;
-import gui.ColorBoxRenderer;
+import gui.util.ColorBoxRenderer;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

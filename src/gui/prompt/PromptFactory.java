@@ -1,10 +1,10 @@
-package gui;
+package gui.prompt;
 
 import domain.util.Flags;
-import gui.promptStrategy.ClosePromptStrategy;
-import gui.promptStrategy.DontChangeColorPromptStrategy;
-import gui.promptStrategy.DontStartPromptStrategy;
-import gui.promptStrategy.PromptStrategy;
+import gui.prompt.promptStrategy.ClosePromptStrategy;
+import gui.prompt.promptStrategy.DontChangeColorPromptStrategy;
+import gui.prompt.promptStrategy.DontStartPromptStrategy;
+import gui.prompt.promptStrategy.PromptStrategy;
 
 public class PromptFactory {
     private static PromptFactory ourInstance;

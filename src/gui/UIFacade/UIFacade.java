@@ -1,9 +1,7 @@
-package gui;
+package gui.UIFacade;
 
 import gui.baseFrame.BaseFrame;
-import gui.controlDisplay.panels.PlayerLabelsPanel;
-
-import java.util.ArrayList;
+import gui.prompt.PromptFactory;
 
 public class UIFacade {
     private static UIFacade ourInstance;

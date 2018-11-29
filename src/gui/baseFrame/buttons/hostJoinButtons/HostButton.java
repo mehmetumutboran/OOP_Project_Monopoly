@@ -1,9 +1,7 @@
 package gui.baseFrame.buttons.hostJoinButtons;
 
 import domain.client.PlayerActionController;
-import domain.server.controller.ConnectGameHandler;
-import gui.InputChecker;
-import gui.baseFrame.BaseFrame;
+import gui.util.InputChecker;
 import network.client.clientFacade.ClientFacade;
 import network.listeners.ConnectionFailedListener;
 

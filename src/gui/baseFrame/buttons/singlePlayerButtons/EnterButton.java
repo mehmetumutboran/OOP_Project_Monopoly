@@ -1,8 +1,7 @@
 package gui.baseFrame.buttons.singlePlayerButtons;
 
 import domain.client.PlayerActionController;
-import domain.server.controller.ConnectGameHandler;
-import gui.InputChecker;
+import gui.util.InputChecker;
 import gui.baseFrame.BaseFrame;
 
 import javax.swing.*;

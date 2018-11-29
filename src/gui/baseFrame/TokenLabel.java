@@ -1,7 +1,7 @@
 package gui.baseFrame;
 
 
-import gui.ColorConverter;
+import gui.util.ColorConverter;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
