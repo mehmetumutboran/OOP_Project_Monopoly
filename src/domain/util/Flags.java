@@ -32,6 +32,10 @@ public class Flags {
     private static final char readinessFlag = 'Z';
     private static final char dontStartFlag = 'a';
     private static final char initQueueFlag = 'b';
+    private static final char saveFlag = 'g';
+    private static final char pauseFlag = 'h';
+    private static final char loadFlag = 'i';
+
 
     private static HashMap<String, Character> flagMap;
     static
@@ -50,6 +54,10 @@ public class Flags {
         flagMap.put("DontStart", dontStartFlag);
         flagMap.put("Queue", queueFlag);
         flagMap.put("InitQueue", initQueueFlag);
+        flagMap.put("Save", saveFlag);
+        flagMap.put("Pause", pauseFlag);
+        flagMap.put("Load", loadFlag);
+
     }
 
     public static char getFlag(String action){

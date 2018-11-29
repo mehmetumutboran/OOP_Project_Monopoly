@@ -42,6 +42,9 @@ public class ResponseInterpreter {
         ResponseInterpretable colorChangeResponseInterpreter = new ColorChangeResponseInterpreter();
         ResponseInterpretable dontchangecolorResponseInterpreter = new DontChangeColorResponseInterpreter();
         ResponseInterpretable readinessResponseInterpreter = new ReadinessResponseInterpreter();
+        ResponseInterpretable saveResponseInterpreter = new SaveResponseInterpreter();
+        ResponseInterpretable pauseResponseInterpreter = new PauseResponseInterpreter();
+        ResponseInterpretable loadResponseInterpreter = new LoadResponseInterpreter();
 
         interpreterMap = new HashMap<>();
         interpreterMap.put(Flags.getFlag("Start"), moveResponseInterpreter);
@@ -67,6 +70,9 @@ public class ResponseInterpreter {
         interpreterMap.put(Flags.getFlag("Color"), colorChangeResponseInterpreter);
         interpreterMap.put(Flags.getFlag("DontChangeColor"), dontchangecolorResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Readiness"), readinessResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("Save"), saveResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("Pause"), pauseResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("Load"), loadResponseInterpreter);
     }
 
     public void interpret(String message){

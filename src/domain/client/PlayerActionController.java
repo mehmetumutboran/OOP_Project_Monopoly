@@ -73,7 +73,7 @@ public class PlayerActionController {
     }
 
     public void save() {
-
+        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Save"), ClientFacade.getInstance().getUsername());
     }
 
     public void pause() {

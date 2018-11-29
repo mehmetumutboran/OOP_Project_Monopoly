@@ -11,7 +11,7 @@ public class PauseButton extends JButton implements ActionListener {
     public PauseButton(String text) {
         super(text);
         this.addActionListener(this);
-        this.setEnabled(false);
+        this.setEnabled(true);
     }
 
     @Override

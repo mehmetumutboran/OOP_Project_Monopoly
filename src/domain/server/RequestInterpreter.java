@@ -28,6 +28,9 @@ public class RequestInterpreter {
         RequestInterpretable addPlayerRequestInterpreter = new AddPlayerRequestInterpreter();
         RequestInterpretable colorChangeRequestInterpreter = new ColorChangeRequestInterpreter();
         RequestInterpretable readinessRequestInterpreter = new ReadinessRequestInterpreter();
+        RequestInterpretable saveRequestInterpreter = new SaveRequestInterpreter();
+        RequestInterpretable pauseRequestInterpreter = new PauseRequestInterpreter();
+        RequestInterpretable loadRequestInterpreter = new LoadRequestInterpreter();
 
         interpreterMap = new HashMap<>();
         interpreterMap.put(Flags.getFlag("Start"), moveRequestInterpreter);
@@ -46,6 +49,9 @@ public class RequestInterpreter {
         interpreterMap.put(Flags.getFlag("AddPlayer"), addPlayerRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Color"), colorChangeRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Readiness"), readinessRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Save"), saveRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Pause"), pauseRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Load"), loadRequestInterpreter);
     }
 
     public static RequestInterpreter getInstance() {
