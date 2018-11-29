@@ -20,8 +20,8 @@ public class LobbyPlayerListPanel extends JPanel implements PlayerListChangedLis
         GameInfo.getInstance().addPlayerListChangedListener(this);
 
         this.setVisible(true);
-        this.setBackground(Color.black);
-        this.setOpaque(true);
+        this.setOpaque(false);
+        //TODO Border
     }
 
     @Override

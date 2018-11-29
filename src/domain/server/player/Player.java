@@ -208,7 +208,7 @@ public class Player implements Comparable, Savable {
                 readiness + "," +
                 started + "," +
                 doubleCounter + "," +
-                inJail + "\n";
+                inJail + "*\n";
     }
 
 

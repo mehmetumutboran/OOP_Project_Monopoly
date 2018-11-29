@@ -159,6 +159,7 @@ public class GameInfo implements Savable {
     }
 
     public int checkReadiness() {
+        if(playerList.size() == 1) return -1;
         int count = 0;
         for (Player player : playerList){
             if(player.getReadiness().equals("Not Ready")) count++;

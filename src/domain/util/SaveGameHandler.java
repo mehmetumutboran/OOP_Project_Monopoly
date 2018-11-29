@@ -57,6 +57,6 @@ public class SaveGameHandler {
         String playerList =
                 GameInfo.getInstance().getPlayerList()
                         .stream().map(Player::generateSaveInfo).collect(Collectors.joining());
-        return "Players:\n" +playerList + "Queue:\n" + queue;
+        return playerList + queue;
     }
 }

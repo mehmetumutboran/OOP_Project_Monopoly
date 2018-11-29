@@ -5,6 +5,7 @@ import domain.server.die.DiceCup;
 import domain.server.player.Player;
 import domain.util.GameInfo;
 import domain.util.Flags;
+import domain.util.LoadGameHandler;
 import domain.util.MessageConverter;
 
 import java.util.*;
@@ -20,9 +21,14 @@ public class StartRequestInterpreter implements RequestInterpretable {
             return;
         }
 
-        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Start"), name);
+        if(LoadGameHandler.getInstance().isNewGame()) {
 
-        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("InitQueue"), name, MessageConverter.convertQueueToString(playerOrder()));
+            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Start"), name);
+
+            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("InitQueue"), name, MessageConverter.convertQueueToString(playerOrder()));
+        }else{
+            LoadGameHandler.getInstance().sendLoad();
+        }
     }
 
     private Deque<String> playerOrder(){
