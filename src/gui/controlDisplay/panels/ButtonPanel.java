@@ -17,6 +17,8 @@ public class ButtonPanel extends JPanel {
     private RollDiceButton rollDiceButton;
     private UpgradeButton upgradeButton;
     private DowngradeButton downgradeButton;
+    private PauseButton pauseButton;
+    private SaveButton saveButton;
 
 
     public ButtonPanel(int width, int height) {
@@ -24,7 +26,7 @@ public class ButtonPanel extends JPanel {
         this.height = height;
 
         this.setPreferredSize(new Dimension(width, height / 5));
-        this.setLayout(new GridLayout(3, 2));
+        this.setLayout(new GridLayout(4, 2));
 
         initGui();
 
@@ -39,6 +41,8 @@ public class ButtonPanel extends JPanel {
         rollDiceButton = new RollDiceButton("Roll Dice");
         upgradeButton = new UpgradeButton("Upgrade");
         downgradeButton = new DowngradeButton("Downgrade");
+        saveButton = new SaveButton("Save Game");
+        pauseButton = new PauseButton("Pause");
 
 
         this.add(buyButton);
@@ -47,8 +51,13 @@ public class ButtonPanel extends JPanel {
         this.add(unmortgageButton);
         this.add(finishTurnButton);
         this.add(rollDiceButton);
-
         this.add(upgradeButton);
         this.add(downgradeButton);
+        this.add(pauseButton);
+        this.add(saveButton);
+    }
+
+    public void setHost(boolean b) {
+        saveButton.setEnabled(b);
     }
 }

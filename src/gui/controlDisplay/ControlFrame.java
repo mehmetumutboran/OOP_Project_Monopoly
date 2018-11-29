@@ -35,4 +35,8 @@ public class ControlFrame extends JDialog {
         add(messagePanel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
     }
+
+    public void setHost(boolean b) {
+        buttonPanel.setHost(b);
+    }
 }

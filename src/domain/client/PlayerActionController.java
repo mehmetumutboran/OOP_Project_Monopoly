@@ -71,4 +71,12 @@ public class PlayerActionController {
     public void changePlayerReadiness() {
         ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Readiness"), ClientFacade.getInstance().getUsername());
     }
+
+    public void save() {
+
+    }
+
+    public void pause() {
+
+    }
 }

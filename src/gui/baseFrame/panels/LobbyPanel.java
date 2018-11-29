@@ -23,8 +23,6 @@ public class LobbyPanel extends JPanel implements GameStartedListener {
     private StartButton startButton;
     private ColorBox colorBox;
     private AddBotButton addBotButton;
-    private boolean isHost;
-
 
     private int width;
     private int height;
@@ -96,9 +94,8 @@ public class LobbyPanel extends JPanel implements GameStartedListener {
                 (this.height - 3 * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
 
         backButton.setBackground(Color.gray);
-//        startButton.setBackground(Color.gray);
-
         backButton.setBorderPainted(false);
+
         this.add(backButton);
         this.add(colorBox);
     }
@@ -162,42 +159,13 @@ public class LobbyPanel extends JPanel implements GameStartedListener {
     }
 
     public synchronized void setHost(boolean b) {
-        isHost = b;
-        System.out.println("\n\n =======---------------==========\n" + "setHost\n\n");
-        if (isHost) {
+        if (b) {
             cardLayout.show(buttonPanel, "Host");
         } else {
             cardLayout.show(buttonPanel, "Client");
         }
-        //if (b) {
-//            readyButton.setVisible(false);
-//            readyButton.setEnabled(false);
-//            startButton.setEnabled(true);
-//            startButton.setVisible(true);
-//
-//            this.add(startButton);
-//            this.add(addBotButton);
-//            this.remove(readyButton);
-//            cardLayout.show(buttonPanel, "Client");
-        //} else {
-//            readyButton.setVisible(true);
-//            readyButton.setEnabled(true);
-//            startButton.setEnabled(false);
-//            startButton.setVisible(false);
-//            readyButton.setVisible(true);
-//            readyButton.setEnabled(true);
-//            this.add(readyButton);
-//            this.remove(addBotButton);
-//            this.remove(startButton);
-//            cardLayout.show(buttonPanel, "Client");
-
-        //}
         validate();
         repaint();
-    }
-
-    public synchronized boolean getHost() {
-        return isHost;
     }
 
 
