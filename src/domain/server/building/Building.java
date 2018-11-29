@@ -1,9 +1,14 @@
 package domain.server.building;
 
-public abstract class Building {
-    private int cost;
+import domain.server.Savable;
 
-    public Building() {
+public abstract class Building implements Savable {
+    protected int cost;
+    protected String name;
+
+    public Building(String name, int cost) {
+        this.name = name;
+        this.cost = cost;
     }
 
     public int getCost() {
@@ -14,5 +19,13 @@ public abstract class Building {
         this.cost = cost;
     }
 
-    public abstract String getName();
+    public String getName(){
+        return name;
+    }
+
+    @Override
+    public String generateSaveInfo() {
+        return name + "@" +
+                cost + ":";
+    }
 }

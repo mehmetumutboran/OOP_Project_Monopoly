@@ -1,12 +1,14 @@
 package domain.server.player;
 
+import domain.server.Savable;
 import domain.server.board.*;
 import domain.server.die.DiceCup;
+import domain.util.MessageConverter;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Player implements Comparable {
+public class Player implements Comparable, Savable {
     private String name;
     private Token token;
     private int balance;
@@ -62,8 +64,6 @@ public class Player implements Comparable {
 //        }
 //        return result;
 //    }
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -177,10 +177,10 @@ public class Player implements Comparable {
     }
 
     public void rollDice() {
-        String locName = Board.getInstance().getSquare(this.token.getLocation()[0],this.token.getLocation()[1]).getName();
+        String locName = Board.getInstance().getSquare(this.token.getLocation()[0], this.token.getLocation()[1]).getName();
         // String locName = "Go";
         DiceCup.getInstance().rollDice(locName);
-       // this.faceValues = DiceCup.getInstance().getFaceValues();
+        // this.faceValues = DiceCup.getInstance().getFaceValues();
     } // Player gives command to roll dice to the controller.
 
 
@@ -196,6 +196,21 @@ public class Player implements Comparable {
     public String toString() { //TODO This toString() is for debugging. It may change.
         return name + "," + tokenColor() + "," + readiness;
     }
+
+    @Override
+    public String generateSaveInfo() {
+        return name + "," +
+                token.generateSaveInfo() + "," +
+                balance + "," +
+                MessageConverter.convertListToString(ownedProperties) + "," +
+                MessageConverter.convertListToString(ownedUtilities) + "," +
+                MessageConverter.convertListToString(ownedRailroads) + "," +
+                readiness + "," +
+                started + "," +
+                doubleCounter + "," +
+                inJail + "\n";
+    }
+
 
     public boolean checkMajority(Property square) {
         return false;
@@ -297,5 +312,4 @@ public class Player implements Comparable {
             ownedUtilities.add((Utility) square);
         }
     }
-
 }

@@ -1,15 +1,15 @@
 package domain.server.board;
 
+import domain.server.Savable;
 import domain.server.player.Player;
 
 /**
  * Class for Buyable Squares.
  */
-public abstract class DeedSquare extends Square {
+public abstract class DeedSquare extends Square implements Savable {
     private int buyValue;
     private int rent;
     private Player owner;
-    private boolean owned;
     private boolean mortgaged;
 
 
@@ -68,4 +68,15 @@ public abstract class DeedSquare extends Square {
 //        return result;
 //    }
 
+
+    @Override
+    public String toString() {
+        return name + ";" +
+                location[0] + ";" +
+                location[1] + ";" +
+                buyValue + ";" +
+                rent + ";" +
+                owner + ";" +
+                mortgaged;
+    }
 }

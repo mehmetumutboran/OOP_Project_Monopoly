@@ -1,6 +1,6 @@
 package domain.client.interpreter;
 
-import domain.client.util.SaveGameHandler;
+import domain.util.SaveGameHandler;
 
 public class SaveResponseInterpreter implements ResponseInterpretable {
     @Override

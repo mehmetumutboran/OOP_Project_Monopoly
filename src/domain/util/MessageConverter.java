@@ -1,9 +1,15 @@
 package domain.util;
 
+import domain.server.Savable;
+import domain.server.board.DeedSquare;
+import domain.server.board.Property;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class MessageConverter {
     private static MessageConverter mr;
@@ -80,5 +86,9 @@ public class MessageConverter {
 
     private static boolean isNumeric(char chr) {
         return chr <= 57 && chr >= 48;
+    }
+
+    public static String convertListToString(ArrayList<? extends Savable> list) {
+        return list.stream().map(Savable::generateSaveInfo).collect(Collectors.joining());
     }
 }

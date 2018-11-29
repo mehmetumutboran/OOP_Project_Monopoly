@@ -1,8 +1,10 @@
 package domain.server.player;
 
+import domain.server.Savable;
+
 import java.util.Arrays;
 
-public class Token {
+public class Token implements Savable {
     private int[] location;
     private String color;
 
@@ -42,5 +44,12 @@ public class Token {
                 "location=" + Arrays.toString(location) +
                 ", color='" + color + '\'' +
                 '}';
+    }
+
+    @Override
+    public String generateSaveInfo() {
+        return location[0] + "," +
+                location[1] + "," +
+                color;
     }
 }

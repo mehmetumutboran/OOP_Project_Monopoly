@@ -1,5 +1,6 @@
 package domain.util;
 
+import domain.server.Savable;
 import domain.server.listeners.PlayerListChangedListener;
 import domain.server.player.Player;
 import network.client.clientFacade.ClientFacade;
@@ -9,7 +10,7 @@ import java.util.Deque;
 import java.util.LinkedList;
 import java.util.stream.Collectors;
 
-public class GameInfo {
+public class GameInfo implements Savable {
     private static GameInfo ourInstance;
 
     private ArrayList<PlayerListChangedListener> playerListChangedListeners;
@@ -163,5 +164,10 @@ public class GameInfo {
             if(player.getReadiness().equals("Not Ready")) count++;
         }
         return count;
+    }
+
+    @Override
+    public String generateSaveInfo() {
+        return MessageConverter.convertQueueToString(playerQueue);
     }
 }

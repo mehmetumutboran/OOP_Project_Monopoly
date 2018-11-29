@@ -25,4 +25,9 @@ public class Railroad extends DeedSquare {
     }
 
 
+    @Override
+    public String generateSaveInfo() {
+        return super.toString() + ";" +
+                hasDepot + "+";
+    }
 }

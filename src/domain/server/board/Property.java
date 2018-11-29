@@ -1,6 +1,7 @@
 package domain.server.board;
 
 import domain.server.building.Building;
+import domain.util.MessageConverter;
 
 import java.util.ArrayList;
 
@@ -86,5 +87,13 @@ public class Property extends DeedSquare {
     public boolean isUpgradable(Property square) {
         //TODO for upgrade downgrade
         return false;
+    }
+
+    @Override
+    public String generateSaveInfo() {
+        return super.toString() + ";" +
+                color + ";" +
+                MessageConverter.convertListToString(buildingList) + ";" +
+                hasUpgrade + "+";
     }
 }

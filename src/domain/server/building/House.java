@@ -1,13 +1,9 @@
 package domain.server.building;
 
 public class House extends Building {
-    public House() {
-
+    public House(int cost) {
+        super("House", cost);
     }
 
-    @Override
 
-    public String getName() {
-        return "House";
-    }
 }
