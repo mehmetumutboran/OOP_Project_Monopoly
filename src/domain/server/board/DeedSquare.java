@@ -70,6 +70,11 @@ public abstract class DeedSquare extends Square implements Savable {
 
     @Override
     public String toString() {
+        return name;
+    }
+
+    @Override
+    public String generateSaveInfo() {
         return name + ";" +
                 location[0] + ";" +
                 location[1] + ";" +
@@ -78,4 +83,5 @@ public abstract class DeedSquare extends Square implements Savable {
                 owner + ";" +
                 mortgaged;
     }
+
 }

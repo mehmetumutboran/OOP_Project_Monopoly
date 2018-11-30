@@ -78,6 +78,7 @@ public class Property extends DeedSquare {
         }
     }
 
+
     /**
      * Checks if all squares in Square's color group are at the same level.
      *
@@ -91,7 +92,7 @@ public class Property extends DeedSquare {
 
     @Override
     public String generateSaveInfo() {
-        return super.toString() + ";" +
+        return super.generateSaveInfo() + ";" +
                 color + ";" +
                 MessageConverter.convertListToString(buildingList) + ";" +
                 hasUpgrade + "+";

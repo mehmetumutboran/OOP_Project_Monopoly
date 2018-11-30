@@ -243,4 +243,8 @@ public class GameInfo implements Savable {
             return getPlayer(username).getReadiness().equals("Bot");
         }else return false; // todo ? handle
     }
+
+    public String getColorFromIndex(int i) {
+        return playerList.get(i).getToken().getColor();
+    }
 }

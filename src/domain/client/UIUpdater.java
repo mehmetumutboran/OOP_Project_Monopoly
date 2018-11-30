@@ -53,10 +53,10 @@ public class UIUpdater {
         closeButtonListeners.add(cbl);
     }
 
-    public void publishGameStartedEvent(ArrayList<String> playerListName, ArrayList<String> playerListColor) {
+    public void publishGameStartedEvent() {
         for (GameStartedListener gls : gameStartedListeners) {
             if (gls == null) continue;
-            gls.onGameStartedEvent(playerListName, playerListColor);
+            gls.onGameStartedEvent();
         }
     }
 
@@ -133,9 +133,14 @@ public class UIUpdater {
         UIFacade.getInstance().changePanel(panel);
     }
 
-    public void setupPlayerLabels(ArrayList<String> playerListName, ArrayList<String> playerListColor) {
-        publishGameStartedEvent(playerListName, playerListColor);
+    public void startGame() {
+        publishGameStartedEvent();
     }
+
+//    public void setupPlayerLabels(ArrayList<String> playerListName, ArrayList<String> playerListColor) {
+//        publishGameStartedEvent(playerListName, playerListColor);
+//    }
+
 
 //    public void showList() {
 //        UIFacade.getInstance().generateList(GameInfo.getInstance().getPlayerListName(),GameInfo.getInstance().getPlayerListColor());

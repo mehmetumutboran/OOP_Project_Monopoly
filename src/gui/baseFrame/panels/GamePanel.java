@@ -107,21 +107,21 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
 
 
     @Override
-    public void onGameStartedEvent(ArrayList<String> playerListName, ArrayList<String> playerListColor) {
-        for (int i = 0; i < playerListColor.size(); i++) {
-            String message = playerListColor.get(i);
-            int sep = message.indexOf('@');
-            System.out.println(sep);
-            String pName = message.substring(0, sep);
-            String cName = message.substring(sep + 1);
-            TokenLabel tl = TokenFactory.getInstance().getNewToken(pName, cName);
-            tl.setOpaque(false);
-            jPanel.add(tl);
-            if (i >= 6) tl.setCoordinates(1070 + (i - 6) * 25, 125);
-            else tl.setCoordinates(1070 + i * 25, 150);
-
-            tokenlist.add(tl);
-        }
+    public void onGameStartedEvent() {
+//        for (int i = 0; i < playerListColor.size(); i++) {
+//            String message = playerListColor.get(i);
+//            int sep = message.indexOf('@');
+//            System.out.println(sep);
+//            String pName = message.substring(0, sep);
+//            String cName = message.substring(sep + 1);
+//            TokenLabel tl = TokenFactory.getInstance().getNewToken(pName, cName);
+//            tl.setOpaque(false);
+//            jPanel.add(tl);
+//            if (i >= 6) tl.setCoordinates(1070 + (i - 6) * 25, 125);
+//            else tl.setCoordinates(1070 + i * 25, 150);
+//
+//            tokenlist.add(tl);
+//        }
     }
 
     @Override
