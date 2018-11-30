@@ -6,7 +6,6 @@ import domain.server.die.DiceCup;
 import domain.util.MessageConverter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 
 public class Player implements Comparable, Savable {
@@ -206,19 +205,7 @@ public class Player implements Comparable, Savable {
 
     @Override
     public String toString() {
-        return "Player{" +
-                "name='" + name + '\'' +
-                ", token=" + token +
-                ", balance=" + balance +
-                ", ownedProperties=" + ownedProperties +
-                ", ownedUtilities=" + ownedUtilities +
-                ", ownedRailroads=" + ownedRailroads +
-                ", readiness='" + readiness + '\'' +
-                ", started=" + started +
-                ", doubleCounter=" + doubleCounter +
-                ", inJail=" + inJail +
-                ", faceValues=" + Arrays.toString(faceValues) +
-                '}';
+        return name + "," + tokenColor() + "," + readiness;
     }
 
     @Override
