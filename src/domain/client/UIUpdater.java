@@ -60,8 +60,8 @@ public class UIUpdater {
         }
     }
 
-    public boolean addGameStartedListener(GameStartedListener gsl) {
-        return gameStartedListeners.add(gsl);
+    public void addGameStartedListener(GameStartedListener gsl) {
+        gameStartedListeners.add(gsl);
     }
 
 
