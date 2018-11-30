@@ -10,6 +10,12 @@ public class AddPlayerRequestInterpreter implements RequestInterpretable {
     public void interpret(String[] message, int index) {
         String name = message[1];
 
+        if(GameInfo.getInstance().isFull()){
+            ServerCommunicationHandler.getInstance()
+                    .sendResponse(Flags.getFlag("Full"), index, name);
+            return;
+        }
+
         if (GameInfo.getInstance().hasPlayer(name)) {
             ServerCommunicationHandler.getInstance()
                     .sendResponse(Flags.getFlag("Close"), index, name);

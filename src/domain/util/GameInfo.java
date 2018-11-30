@@ -247,4 +247,8 @@ public class GameInfo implements Savable {
     public String getColorFromIndex(int i) {
         return playerList.get(i).getToken().getColor();
     }
+
+    public boolean isFull() {
+        return getPlayerListSize() == 12;
+    }
 }

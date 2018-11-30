@@ -45,6 +45,7 @@ public class ResponseInterpreter {
         ResponseInterpretable pauseResponseInterpreter = new PauseResponseInterpreter();
         ResponseInterpretable loadResponseInterpreter = new LoadResponseInterpreter();
         ResponseInterpretable removeResponseInterpreter = new RemoveResponseInterpreter();
+        ResponseInterpretable fullResponseInterpreter = new FullResponseInterpreter();
 
         interpreterMap = new HashMap<>();
         interpreterMap.put(Flags.getFlag("Start"), moveResponseInterpreter);
@@ -74,6 +75,7 @@ public class ResponseInterpreter {
         interpreterMap.put(Flags.getFlag("Pause"), pauseResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Load"), loadResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Remove"), removeResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("Full"), fullResponseInterpreter);
     }
 
     public void interpret(String message) {

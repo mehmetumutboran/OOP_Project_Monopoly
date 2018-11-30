@@ -36,6 +36,7 @@ public class Flags {
     private static final char pauseFlag = 'h';
     private static final char loadFlag = 'i';
     private static final char removeFlag = 'j';
+    private static final char fullFlag = 'k';
 
 
     private static HashMap<String, Character> flagMap;
@@ -59,6 +60,7 @@ public class Flags {
         flagMap.put("Pause", pauseFlag);
         flagMap.put("Load", loadFlag);
         flagMap.put("Remove", removeFlag);
+        flagMap.put("Full", fullFlag);
 
     }
 

@@ -24,8 +24,10 @@ public class PromptFactory {
             return new ClosePromptStrategy();
         } else if (flag == Flags.getFlag("DontChangeColor")) {
             return new DontChangeColorPromptStrategy();
-        }else if (flag == Flags.getFlag("Kick")){
-            return  new KickPromptStrategy();
+        } else if (flag == Flags.getFlag("Kick")) {
+            return new KickPromptStrategy();
+        } else if (flag == Flags.getFlag("Full")) {
+            return new FullPromptStrategy();
         }
         return null;
     }
