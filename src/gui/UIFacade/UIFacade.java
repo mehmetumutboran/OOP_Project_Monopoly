@@ -25,7 +25,12 @@ public class UIFacade {
     }
 
     public void changePanel(String panel) {
-        BaseFrame.setStatus(panel);
+        if (!BaseFrame.getStatus().equals(panel))
+            BaseFrame.setStatus(panel);
+    }
+
+    public void setTitle(String username) {
+        BaseFrame.setFrameTitle(username);
     }
 
 //    public void generateList(ArrayList<String> playerListName,ArrayList<String> playerListColor) {

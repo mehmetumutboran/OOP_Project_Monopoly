@@ -29,6 +29,7 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener, 
     private GamePanel gamePanel;
     private CreditsPanel creditsPanel;
     private ControlFrame controlDisplay;
+    private static String title = null;
 
 
     public BaseFrame() throws HeadlessException {
@@ -40,6 +41,11 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener, 
         (new Thread(this)).start();
         this.add(initialScreenPanel);
         this.setVisible(true);
+    }
+
+    public static void setFrameTitle(String newTitle) {
+        setChanged(true);
+        title = newTitle;
     }
 
     private void initializeFrame() {
@@ -97,9 +103,10 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener, 
                 } else if (getStatus().equals("Host")) {
                     lobbyPanel.setHost(true);
                     controlDisplay.setHost(true);
-                }
-                //else if (getStatus().equals("Init")) lobbyPanel.setHost(false);
-                else if (getStatus().equals("Game")) {
+                } else if (title != null) {
+                    this.setTitle(title);
+                    //else if (getStatus().equals("Init")) lobbyPanel.setHost(false);
+                } else if (getStatus().equals("Game")) {
                     this.setSize(1415, 1040);
                     this.controlDisplay.setVisible(true);
                 }
@@ -108,6 +115,7 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener, 
                 setChanged(false);
             }
         }
+
     }
 
     @Override

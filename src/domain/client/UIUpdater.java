@@ -137,6 +137,10 @@ public class UIUpdater {
         publishGameStartedEvent();
     }
 
+    public void setTitle(String username) {
+        UIFacade.getInstance().setTitle(username);
+    }
+
 //    public void setupPlayerLabels(ArrayList<String> playerListName, ArrayList<String> playerListColor) {
 //        publishGameStartedEvent(playerListName, playerListColor);
 //    }
