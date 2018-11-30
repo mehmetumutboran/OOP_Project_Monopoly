@@ -1,6 +1,7 @@
 package gui.baseFrame.buttons.lobbyButtons;
 
 import domain.server.controller.ConnectGameHandler;
+import domain.util.GameInfo;
 import gui.baseFrame.ColorBox;
 
 import javax.swing.*;
@@ -21,6 +22,11 @@ public class AddBotButton extends JButton implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         count++;
         Random random = new Random();
-        ConnectGameHandler.getInstance().connectBot("Bot " + names[count % 11], ColorBox.colorList.get(random.nextInt(ColorBox.colorList.size())));
+        String color = ColorBox.colorList.get(random.nextInt(ColorBox.colorList.size()));
+        while(GameInfo.getInstance().hasColor(color)){
+            color = ColorBox.colorList.get(random.nextInt(ColorBox.colorList.size()));
+        }
+        ConnectGameHandler.getInstance().connectBot("Bot " + names[count % 11],
+                color);
     }
 }

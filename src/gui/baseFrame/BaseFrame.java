@@ -1,8 +1,6 @@
 package gui.baseFrame;
 
 import domain.client.UIUpdater;
-import domain.server.controller.ConnectGameHandler;
-import domain.server.controller.MonopolyGameController;
 import domain.server.listeners.CloseButtonListener;
 import domain.server.listeners.PlayerKickedListener;
 import gui.baseFrame.panels.*;
@@ -10,14 +8,12 @@ import gui.controlDisplay.ControlFrame;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.HashMap;
 
 public class BaseFrame extends JFrame implements Runnable, CloseButtonListener, PlayerKickedListener {
     private final int FRAME_WIDTH = 1080;
     private final int FRAME_HEIGHT = 720;
-    private final String CURRENT_VERSION = "v1.4.0";
+    private final String CURRENT_VERSION = "v2.0.0";
 
     private HashMap<String, JPanel> panelMap;
     private static boolean changed = false;
