@@ -28,10 +28,10 @@ public class SaveGameHandler {
         try {
             if (System.getProperty("os.name").startsWith("Windows")) {
                 printWriter = new PrintWriter("save\\MonopolySave_" + fileName + ".txt",
-                        StandardCharsets.UTF_8);
+                        String.valueOf(StandardCharsets.UTF_8));
             } else {
                 printWriter = new PrintWriter("save/MonopolySave_" + fileName + ".txt",
-                        StandardCharsets.UTF_8);
+                        String.valueOf(StandardCharsets.UTF_8));
             }
         } catch (IOException e) {
             e.printStackTrace();
