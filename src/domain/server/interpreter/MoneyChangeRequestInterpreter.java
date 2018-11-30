@@ -1,9 +1,5 @@
 package domain.server.interpreter;
 
-import domain.server.GameLogic;
-import domain.client.UIUpdater;
-import domain.server.player.Player;
-
 public class MoneyChangeRequestInterpreter implements RequestInterpretable {
     @Override
     public void interpret(String[] message, int index) {

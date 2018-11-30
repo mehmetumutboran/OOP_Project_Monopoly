@@ -1,8 +1,8 @@
 package domain.server.interpreter;
 
 import domain.server.controller.ServerCommunicationHandler;
-import domain.util.GameInfo;
 import domain.util.Flags;
+import domain.util.GameInfo;
 
 public class ColorChangeRequestInterpreter implements RequestInterpretable {
     @Override

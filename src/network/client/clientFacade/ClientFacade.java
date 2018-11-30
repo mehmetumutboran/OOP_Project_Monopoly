@@ -2,7 +2,7 @@ package network.client.clientFacade;
 
 
 import domain.client.ResponseInterpreter;
-import domain.server.controller.MonopolyGameController;
+import domain.util.GameInfo;
 import network.client.Client;
 import network.listeners.ConnectionFailedListener;
 import network.listeners.ReceivedChangedListener;
@@ -122,7 +122,7 @@ public class ClientFacade {
 
     public void terminate() {
         try {
-            MonopolyGameController.getInstance().reset();
+            GameInfo.getInstance().reset();
             client.getDos().close();
             client.getDis().close();
             client.getSocket().close();

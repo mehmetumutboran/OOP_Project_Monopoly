@@ -1,11 +1,5 @@
 package domain.server.interpreter;
 
-import domain.server.GameLogic;
-import domain.client.UIUpdater;
-import domain.server.board.Board;
-import domain.server.board.specialSquares.Chance;
-import domain.server.board.specialSquares.CommunityChest;
-
 public class SpecialSquareRequestInterpreter implements RequestInterpretable {
     @Override
     public void interpret(String[] message, int index) {

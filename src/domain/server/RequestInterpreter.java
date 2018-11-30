@@ -1,7 +1,7 @@
 package domain.server;
 
-import domain.util.Flags;
 import domain.server.interpreter.*;
+import domain.util.Flags;
 
 import java.util.HashMap;
 
@@ -31,6 +31,7 @@ public class RequestInterpreter {
         RequestInterpretable saveRequestInterpreter = new SaveRequestInterpreter();
         RequestInterpretable pauseRequestInterpreter = new PauseRequestInterpreter();
         RequestInterpretable loadRequestInterpreter = new LoadRequestInterpreter();
+        RequestInterpretable removeRequestInterpreter = new RemoveRequestInterpreter();
 
         interpreterMap = new HashMap<>();
         interpreterMap.put(Flags.getFlag("Start"), moveRequestInterpreter);
@@ -52,6 +53,7 @@ public class RequestInterpreter {
         interpreterMap.put(Flags.getFlag("Save"), saveRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Pause"), pauseRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Load"), loadRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Remove"), removeRequestInterpreter);
     }
 
     public static RequestInterpreter getInstance() {

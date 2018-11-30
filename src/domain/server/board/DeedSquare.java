@@ -1,7 +1,6 @@
 package domain.server.board;
 
 import domain.server.Savable;
-import domain.server.player.Player;
 
 /**
  * Class for Buyable Squares.
@@ -9,7 +8,7 @@ import domain.server.player.Player;
 public abstract class DeedSquare extends Square implements Savable {
     private int buyValue;
     private int rent;
-    private Player owner;
+    private String owner;
     private boolean mortgaged;
 
 
@@ -17,7 +16,7 @@ public abstract class DeedSquare extends Square implements Savable {
         this("", 0, 0, 0, 0, null);
     }
 
-    public DeedSquare(String name, int layer, int index, int buyValue, int rent, Player owner) {
+    public DeedSquare(String name, int layer, int index, int buyValue, int rent, String owner) {
         super(name, layer, index);
         this.buyValue = buyValue;
         this.rent = rent;
@@ -36,11 +35,11 @@ public abstract class DeedSquare extends Square implements Savable {
         this.rent = rent;
     }
 
-    public Player getOwner() {
+    public String getOwner() {
         return owner;
     }
 
-    public void setOwner(Player owner) {
+    public void setOwner(String owner) {
         this.owner = owner;
     }
 

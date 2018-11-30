@@ -45,7 +45,7 @@ public class GameState {
 //        else if (flag == Flags.initQueueFlag) {
 //            return generateInitQueueAction(Flags.initQueueFlag);
 //        }
-        return flag + "|" +name;
+        return flag + "|" + name;
 //        else if (flag == removeFlag) {
 //            return generateRemoveAction(removeFlag, name);
 //        } else if (flag == specialSquareFlag) {
@@ -58,7 +58,7 @@ public class GameState {
 //        return generateQueueAction(queueFlag); // TODO This is for writing return it does not changes anything.
     }
 
-    private String generateInitQueueAction(char flag,String qString) {
+    private String generateInitQueueAction(char flag, String qString) {
         return flag + "|" + qString;
     }
 
@@ -96,7 +96,7 @@ public class GameState {
 //        return generateQueueAction(queueFlag);
 //    }
 
-//    private String generateTokenMovementAction(char flag, String name, String loc) {
+    //    private String generateTokenMovementAction(char flag, String name, String loc) {
 //        return flag + "|" + name + "|" + loc;
 //    }
 //
@@ -133,7 +133,8 @@ public class GameState {
     private String generateQueueAction(char flag) {
         return flag + "|" + MessageConverter.convertQueueToString(GameInfo.getInstance().getPlayerQueue());
     }
-//
+
+    //
 //    private String generateFinishTurnAction(char flag) {
 //        return flag + "";
 //    }

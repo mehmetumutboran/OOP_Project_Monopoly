@@ -1,7 +1,5 @@
 package network.server;
 
-import network.server.serverFacade.ServerFacade;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -34,23 +32,18 @@ public class Server implements Runnable {
     public synchronized static void removeClient(ClientHandler clientHandler) {
         for (int i = 0; i < maxClientsCount; i++) {
             if (clientThreads[i] == clientHandler) {
-                try {
-                    clientThreads[i] = null;
-                    sendAll("X" + clientNames[i]);
-                    clientNames[i] = null;
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                clientThreads[i] = null;
+                clientNames[i] = null;
             }
         }
     }
 
     public static void setClientInfo(String line) {
         for (int i = 0; i < maxClientsCount; i++) {
-            if(line.equals(clientNames[i])){
+            if (line.equals(clientNames[i])) {
                 clientThreads[i].terminate();
                 break;
-            }else if (clientNames[i] == null) {
+            } else if (clientNames[i] == null) {
                 clientNames[i] = line;
                 break;
             }
@@ -59,8 +52,6 @@ public class Server implements Runnable {
         System.out.println("\n\n---------============-------\n" + Arrays.toString(clientNames)
                 + "\n---------============-------\n\n");
     }
-
-
 
 
     public ClientHandler getClientHandler(String username) {
@@ -88,8 +79,7 @@ public class Server implements Runnable {
                         if (!isMulti && !clientSocket.getInetAddress().getHostAddress().equals("127.0.0.1")) {
                             clientThreads[i].terminate();
                             clientThreads[i] = null;
-                        }
-                        else{
+                        } else {
                             (new Thread(clientThreads[i])).start();
                         }
                         break;
@@ -119,4 +109,11 @@ public class Server implements Runnable {
         clientThreads[index].send(response);
     }
 
+    public int getClientIndex(String username) {
+        for (int i = 0; i < clientNames.length; i++) {
+            if (clientNames[i] == null) continue;
+            if (clientNames[i].equals(username)) return i;
+        }
+        return -1;
+    }
 }

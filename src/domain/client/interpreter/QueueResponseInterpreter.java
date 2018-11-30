@@ -1,9 +1,5 @@
 package domain.client.interpreter;
 
-import domain.client.UIUpdater;
-import domain.server.GameLogic;
-import domain.server.player.Player;
-import domain.server.player.RandomPlayer;
 import domain.util.GameInfo;
 import domain.util.MessageConverter;
 

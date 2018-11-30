@@ -1,7 +1,7 @@
 package domain.server.interpreter;
 
-import domain.util.MessageConverter;
 import domain.client.UIUpdater;
+import domain.util.MessageConverter;
 
 public class TokenMovementRequestInterpreter implements RequestInterpretable {
     @Override

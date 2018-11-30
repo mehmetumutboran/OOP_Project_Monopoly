@@ -47,19 +47,13 @@ public class ClientHandler implements Runnable {
         dos.flush();
     }
 
-    public void terminate() {
+    public synchronized void terminate() {
         try {
-            send("You are kicked!");
+            dis.close();
+            dos.close();
+            socket.close();
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
-            try {
-                dis.close();
-                dos.close();
-                socket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 }

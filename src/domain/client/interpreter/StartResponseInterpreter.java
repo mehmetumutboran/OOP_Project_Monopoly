@@ -10,10 +10,10 @@ public class StartResponseInterpreter implements ResponseInterpretable {
     @Override
     public void interpret(String[] message) {
         UIUpdater.getInstance().changePanel("Game");
-//      UIUpdater.getInstance().showList();
+////      UIUpdater.getInstance().showList();
         ArrayList<String> playerListName = GameInfo.getInstance().getPlayerListName();
         ArrayList<String> playerListColor = GameInfo.getInstance().getPlayerListColor();
-        UIUpdater.getInstance().setupPlayerLabels(playerListName,playerListColor);
+        UIUpdater.getInstance().setupPlayerLabels(playerListName, playerListColor);
 
     }
 

@@ -19,7 +19,7 @@ public abstract class Building implements Savable {
         this.cost = cost;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 

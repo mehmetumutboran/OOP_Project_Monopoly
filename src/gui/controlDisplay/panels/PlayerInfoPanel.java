@@ -1,7 +1,7 @@
 package gui.controlDisplay.panels;
 
 import domain.server.board.Board;
-import domain.server.controller.MonopolyGameController;
+import domain.util.GameInfo;
 
 import javax.swing.*;
 import java.awt.*;
@@ -59,26 +59,26 @@ public class PlayerInfoPanel extends JPanel implements MouseListener {
                 .append("<div style=\"text-align:left; font-size:12px;\">")
 
                 .append("<br/><span style=\"color:red\">Name: </span>")
-                .append(MonopolyGameController.getInstance().getPlayerList().get(i).getName())
+                .append(GameInfo.getInstance().getNameFromIndex(i))
 
                 .append("<br/><span style=\"color:red\">Location: </span>")
-                .append(Board.getInstance().getSquare(MonopolyGameController.getInstance().getPlayerList().get(i).getToken().getLocation()[0], MonopolyGameController.getInstance().getPlayerList().get(i).getToken().getLocation()[1]))
+                .append(Board.getInstance().getSquare(GameInfo.getInstance().getLayerFromIndex(i), GameInfo.getInstance().getLocationFromIndex(i)))
 
                 .append("<br/><span style=\"color:red\">Money: </span>")
-                .append(MonopolyGameController.getInstance().getPlayerList().get(i).getBalance())
+                .append(GameInfo.getInstance().getBalanceFromIndex(i))
 
                 .append("<br/><span style=\"color:red\">Owned Properties: </span>")
-                .append(MonopolyGameController.getInstance().getPlayerList().get(i).getOwnedProperties().toString()
+                .append(GameInfo.getInstance().getPropertyFromIndex(i)
                         .replaceAll("\\[", "")
                         .replaceAll("]", ""))
 
                 .append("<br/><span style=\"color:red\">Owned Utilities: </span>")
-                .append(MonopolyGameController.getInstance().getPlayerList().get(i).getOwnedUtilities().toString()
+                .append(GameInfo.getInstance().getUtilityFromIndex(i)
                         .replaceAll("\\[", "")
                         .replaceAll("]", ""))
 
                 .append("<br/><span style=\"color:red\">Owned Railroads: </span>")
-                .append(MonopolyGameController.getInstance().getPlayerList().get(i).getOwnedRailroads().toString()
+                .append(GameInfo.getInstance().getRailRoadFromIndex(i)
                         .replaceAll("\\[", "")
                         .replaceAll("]", ""))
 

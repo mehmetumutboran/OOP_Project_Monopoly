@@ -1,7 +1,5 @@
 package gui.baseFrame.panels;
 
-import domain.server.controller.MonopolyGameController;
-import domain.server.listeners.GameStartedListener;
 import gui.baseFrame.BaseFrame;
 import gui.baseFrame.ColorBox;
 import gui.baseFrame.LoadBox;
@@ -18,7 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class LobbyPanel extends JPanel implements GameStartedListener {
+public class LobbyPanel extends JPanel {
     private ReadyButton readyButton;
     private BackButton backButton;
     private StartButton startButton;
@@ -47,7 +45,7 @@ public class LobbyPanel extends JPanel implements GameStartedListener {
         this.width = width;
         this.height = height;
 
-        MonopolyGameController.getInstance().addGameStartedListener(this);
+        //MonopolyGameController.getInstance().addGameStartedListener(this);
 
         initGUI();
         this.setVisible(true);
@@ -88,7 +86,6 @@ public class LobbyPanel extends JPanel implements GameStartedListener {
     private void initButtons() {
         backButton = new BackButton("Back");
         colorBox = new ColorBox();
-
 
 
         backButton.setBounds((this.width - (-1) * BUTTON_WIDTH) / 2,
@@ -173,12 +170,6 @@ public class LobbyPanel extends JPanel implements GameStartedListener {
         }
         validate();
         repaint();
-    }
-
-
-    @Override
-    public void onGameStartedEvent(ArrayList<String> playerListName,ArrayList<String> playerListColor) {
-        BaseFrame.setStatus("Game");
     }
 }
 

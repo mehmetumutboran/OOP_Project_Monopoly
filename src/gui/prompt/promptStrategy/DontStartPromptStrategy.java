@@ -4,6 +4,7 @@ import javax.swing.*;
 
 public class DontStartPromptStrategy implements PromptStrategy {
     private int count;
+
     public DontStartPromptStrategy(int count) {
         this.count = count;
     }
@@ -11,14 +12,14 @@ public class DontStartPromptStrategy implements PromptStrategy {
 
     @Override
     public void show() {
-        if(count==1)
+        if (count == 1)
             JOptionPane.showMessageDialog(null, "1 Player is not ready!",
-                "Error", JOptionPane.WARNING_MESSAGE);
-        else if(count == -1)
+                    "Error", JOptionPane.WARNING_MESSAGE);
+        else if (count == -1)
             JOptionPane.showMessageDialog(null, "You cannot start with 1 player!",
                     "Error", JOptionPane.WARNING_MESSAGE);
         else
-            JOptionPane.showMessageDialog(null, count+" Players are not ready!",
+            JOptionPane.showMessageDialog(null, count + " Players are not ready!",
                     "Error", JOptionPane.WARNING_MESSAGE);
     }
 }

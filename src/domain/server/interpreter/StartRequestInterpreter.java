@@ -3,8 +3,8 @@ package domain.server.interpreter;
 import domain.server.controller.ServerCommunicationHandler;
 import domain.server.die.DiceCup;
 import domain.server.player.Player;
-import domain.util.GameInfo;
 import domain.util.Flags;
+import domain.util.GameInfo;
 import domain.util.LoadGameHandler;
 import domain.util.MessageConverter;
 
@@ -15,23 +15,23 @@ public class StartRequestInterpreter implements RequestInterpretable {
     public void interpret(String[] message, int index) {
         String name = message[1];
         int count = GameInfo.getInstance().checkReadiness();
-        if(count!=0){
+        if (count != 0) {
             ServerCommunicationHandler.getInstance()
                     .sendResponse(Flags.getFlag("DontStart"), index, count, name);
             return;
         }
 
-        if(LoadGameHandler.getInstance().isNewGame()) {
+        if (LoadGameHandler.getInstance().isNewGame()) {
 
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Start"), name);
 
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("InitQueue"), name, MessageConverter.convertQueueToString(playerOrder()));
-        }else{
+        } else {
             LoadGameHandler.getInstance().sendLoad();
         }
     }
 
-    private Deque<String> playerOrder(){
+    private Deque<String> playerOrder() {
 
         for (Player p : GameInfo.getInstance().getPlayerList()) {
             p.setFaceValues(DiceCup.getInstance().rollDice("Init"));
@@ -43,7 +43,7 @@ public class StartRequestInterpreter implements RequestInterpretable {
 
         Deque<String> pQueue = new LinkedList<>();
 
-        for (Player p:playerSortList) {
+        for (Player p : playerSortList) {
             pQueue.add(p.getName());
         }
 

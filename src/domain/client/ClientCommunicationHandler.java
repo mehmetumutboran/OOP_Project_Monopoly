@@ -6,7 +6,7 @@ public class ClientCommunicationHandler {
     private static ClientCommunicationHandler ourInstance;
 
     public static ClientCommunicationHandler getInstance() {
-        if(ourInstance == null)
+        if (ourInstance == null)
             ourInstance = new ClientCommunicationHandler();
         return ourInstance;
     }
@@ -19,7 +19,7 @@ public class ClientCommunicationHandler {
         ClientFacade.getInstance().send(flag + "|" + username);
     }
 
-    public void sendRequest(char flag, String username, String color){
-        ClientFacade.getInstance().send(flag + "|" + username + "|"+ color);
+    public void sendRequest(char flag, String username, String color) {
+        ClientFacade.getInstance().send(flag + "|" + username + "|" + color);
     }
 }

@@ -1,6 +1,6 @@
 package gui.controlDisplay.panels;
 
-import domain.server.controller.MonopolyGameController;
+import domain.util.GameInfo;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,8 +44,8 @@ public class PlayerStatusPanel extends JPanel {
 
     public void setPlayerInfoPanel(String name) {
 
-        for (int i = 0; i < MonopolyGameController.getInstance().getPlayerList().size(); i++) {
-            if (name.equals(MonopolyGameController.getInstance().getPlayerList().get(i).getName())) {
+        for (int i = 0; i < GameInfo.getInstance().getPlayerListSize(); i++) {
+            if (name.equals(GameInfo.getInstance().getNameFromIndex(i))) {
                 playerInfoPanel.setPlayer(i);
             }
         }

@@ -6,6 +6,7 @@ import domain.server.die.DiceCup;
 import domain.util.MessageConverter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Player implements Comparable, Savable {
@@ -36,14 +37,25 @@ public class Player implements Comparable, Savable {
 
     public Player(String name, Token token, int balance, ArrayList<Property> ownedProperties, ArrayList<Utility> ownedUtilities,
                   ArrayList<Railroad> ownedRailroads, String readiness) {
+        this(name, token, balance, ownedProperties, ownedUtilities, ownedRailroads, readiness, false, 0, false);
+    }
+
+    public Player(String name, Token token, int balance,
+                  ArrayList<Property> propertyList, ArrayList<Utility> utilityList, ArrayList<Railroad> railroadList,
+                  String readiness, boolean isStarted, int doubleCounter, boolean isInJail) {
+
         this.name = name;
         this.token = token;
         this.balance = balance;
-        this.ownedProperties = ownedProperties;
-        this.ownedUtilities = ownedUtilities;
-        this.ownedRailroads = ownedRailroads;
+        this.ownedProperties = propertyList;
+        this.ownedUtilities = utilityList;
+        this.ownedRailroads = railroadList;
         this.readiness = readiness;
         this.faceValues = new int[3];
+        this.started = isStarted;
+        this.doubleCounter = doubleCounter;
+        this.inJail = isInJail;
+
     }
 
 
@@ -193,8 +205,20 @@ public class Player implements Comparable, Savable {
     }
 
     @Override
-    public String toString() { //TODO This toString() is for debugging. It may change.
-        return name + "," + tokenColor() + "," + readiness;
+    public String toString() {
+        return "Player{" +
+                "name='" + name + '\'' +
+                ", token=" + token +
+                ", balance=" + balance +
+                ", ownedProperties=" + ownedProperties +
+                ", ownedUtilities=" + ownedUtilities +
+                ", ownedRailroads=" + ownedRailroads +
+                ", readiness='" + readiness + '\'' +
+                ", started=" + started +
+                ", doubleCounter=" + doubleCounter +
+                ", inJail=" + inJail +
+                ", faceValues=" + Arrays.toString(faceValues) +
+                '}';
     }
 
     @Override

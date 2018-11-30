@@ -4,7 +4,7 @@ package domain.server.board;
  * Abstract parent class for all the squares on the board.
  * It will hold the common elements for all the squares.
  */
-public abstract class Square{
+public abstract class Square {
     protected String name;
 
     protected int[] location;

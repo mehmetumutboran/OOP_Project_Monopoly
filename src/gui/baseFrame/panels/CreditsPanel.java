@@ -27,7 +27,7 @@ public class CreditsPanel extends JPanel {
     private final int BUTTON_WIDTH = 300;
     private final int BUTTON_HEIGHT = 50;
 
-    public CreditsPanel(int width, int height, String version){
+    public CreditsPanel(int width, int height, String version) {
         this.width = width;
         this.height = height;
         this.version = version;
@@ -68,27 +68,27 @@ public class CreditsPanel extends JPanel {
 
 
         contributorsLabel = new JLabel();
-        contributorsLabel.setText("<HTML> Agabey Alioglu"+
-                "<BR> Enes Kosar"+
-                "<BR> Furkan Yakal"+
-                "<BR> Mehmet Taha Bastug"+
+        contributorsLabel.setText("<HTML> Agabey Alioglu" +
+                "<BR> Enes Kosar" +
+                "<BR> Furkan Yakal" +
+                "<BR> Mehmet Taha Bastug" +
                 "<BR> Mehmet Umut Boran </HTML>");
         contributorsLabel.setHorizontalAlignment(JLabel.CENTER);
         contributorsLabel.setVerticalAlignment(JLabel.CENTER);
         contributorsLabel.setFont(new Font("Serif", Font.BOLD, 20));
         contributorsLabel.setBounds((this.width - BUTTON_WIDTH) / 2,
-                (this.height - 10 * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, 3*BUTTON_HEIGHT);
+                (this.height - 10 * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, 3 * BUTTON_HEIGHT);
 
         recentUpdatesLabel = new JLabel("Recent Changes");
         recentUpdatesLabel.setHorizontalAlignment(JLabel.CENTER);
         recentUpdatesLabel.setVerticalAlignment(JLabel.CENTER);
         recentUpdatesLabel.setFont(new Font("Serif", Font.BOLD, 25));
         recentUpdatesLabel.setBounds((this.width - BUTTON_WIDTH) / 2,
-                (this.height - 5 * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, 3*BUTTON_HEIGHT);
+                (this.height - 5 * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, 3 * BUTTON_HEIGHT);
 
         recentUpdates = new RecentUpdatesPanel(width, height);
         recentUpdates.setBounds((this.width - BUTTON_WIDTH) / 2,
-                (this.height - BUTTON_HEIGHT) / 2, BUTTON_WIDTH, 5*BUTTON_HEIGHT);
+                (this.height - BUTTON_HEIGHT) / 2, BUTTON_WIDTH, 5 * BUTTON_HEIGHT);
 
         backButton = new BackButton("Back");
         backButton.setBounds((this.width - BUTTON_WIDTH) / 2,

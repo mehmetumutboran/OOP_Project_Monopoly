@@ -38,11 +38,12 @@ public class ServerFacade {
         return server;
     }
 
-    public void kick(String username) {
+    public synchronized void kick(String username) {
         server.getClientHandler(username).terminate();
+        Server.removeClient(server.getClientHandler(username));
     }
 
-    public void shutDown(){
+    public void shutDown() {
         try {
             server.getSs().close();
         } catch (IOException e) {
@@ -69,6 +70,14 @@ public class ServerFacade {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public int nameToIndex(String username){
+        return server.getClientIndex(username);
+    }
+
+    public void setClientInfo(String username){
+        Server.setClientInfo(username);
     }
 
 }

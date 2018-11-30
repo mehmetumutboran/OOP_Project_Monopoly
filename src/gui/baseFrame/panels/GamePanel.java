@@ -29,9 +29,10 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
     public GamePanel(int width, int height) {
         this.width = width;
         this.height = height;
-        this.setSize(width, height/10);
+        this.setSize(width, height / 10);
         this.setLayout(new BorderLayout());
         this.setBackground(Color.white);
+        UIUpdater.getInstance().addGameStartedListener(this);
         tokenlist = new ArrayList<>();
 
         try {
@@ -44,7 +45,7 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
             ex.printStackTrace();
         }
 
-        MonopolyGameController.getInstance().addGameStartedListener(this);
+//        MonopolyGameController.getInstance().addGameStartedListener(this); //TODO push updates through UIFACADE
         img = new ImageIcon(image).getImage();
 
         jPanel = new JPanel();
@@ -86,7 +87,6 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
 //        jPanel.add(label);
 
 
-
         jPanel.setOpaque(false);
         jPanel.setVisible(true);
         this.add(jPanel);
@@ -107,7 +107,7 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
 
 
     @Override
-    public void onGameStartedEvent(ArrayList<String> playerListName,ArrayList<String> playerListColor) {
+    public void onGameStartedEvent(ArrayList<String> playerListName, ArrayList<String> playerListColor) {
         for (int i = 0; i < playerListColor.size(); i++) {
             String message = playerListColor.get(i);
             int sep = message.indexOf('@');
@@ -126,7 +126,7 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
 
     @Override
     public void onTokenMovement(String pName, int x, int y) {
-        int [] coor = indexToCoor(x,y,pName);
+        int[] coor = indexToCoor(x, y, pName);
         for (TokenLabel t : tokenlist) {
             if (t.getOwner().equals(pName))
                 t.setCoordinates(coor[0], coor[1]);
@@ -136,18 +136,18 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
 
     }
 
-    public int [] indexToCoor(int label,int index, String name){
+    public int[] indexToCoor(int label, int index, String name) {
         int xLoc = 0;
         int yLoc = 0;
         int pIndex = 0;
         int widthZero = this.getWidth();
         int heightZero = this.getHeight();
-        int widthOne = 4*widthZero/5;
-        int heightOne = 3*heightZero/4;
-        int widthTwo = widthZero/2;
-        int heightTwo = heightZero/2;
+        int widthOne = 4 * widthZero / 5;
+        int heightOne = 3 * heightZero / 4;
+        int widthTwo = widthZero / 2;
+        int heightTwo = heightZero / 2;
         for (int i = 0; i < tokenlist.size(); i++) {
-            if(tokenlist.get(i).getOwner().equals(name)){
+            if (tokenlist.get(i).getOwner().equals(name)) {
                 pIndex = i;
                 break;
             }
@@ -156,13 +156,13 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
         if (label == 0) {
             if (index >= 0 && index < 14) {
                 if (pIndex > 6) {
-                    yLoc = heightZero*9/100 + index * heightZero/17 + 15; //59
-                    xLoc = widthZero - 2*widthZero/17 + (pIndex - 6) * 15;
+                    yLoc = heightZero * 9 / 100 + index * heightZero / 17 + 15; //59
+                    xLoc = widthZero - 2 * widthZero / 17 + (pIndex - 6) * 15;
                 } else {
-                    yLoc = heightZero*9/100 + index * heightZero/17;
-                    xLoc = widthZero - 2*widthZero/17 + pIndex * 15;
+                    yLoc = heightZero * 9 / 100 + index * heightZero / 17;
+                    xLoc = widthZero - 2 * widthZero / 17 + pIndex * 15;
                 }
-            } else if (index>= 14 && index < 28) {
+            } else if (index >= 14 && index < 28) {
                 if (pIndex > 6) {
                     yLoc = 905 + (pIndex - 6) * 15;
                     xLoc = (1240 - (index - 14) * 89) + 44 + 15; //14
@@ -190,11 +190,11 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
         } else if (label == 1) {
             if (index >= 0 && index < 10) {
                 if (pIndex > 6) {
-                    yLoc = 210 + index * heightOne/13 + 15; //heightZero*11/100 + heightOne*9/130
-                    xLoc = widthZero - 2*(widthOne/13+widthZero/17) + (pIndex - 6) * 15;
+                    yLoc = 210 + index * heightOne / 13 + 15; //heightZero*11/100 + heightOne*9/130
+                    xLoc = widthZero - 2 * (widthOne / 13 + widthZero / 17) + (pIndex - 6) * 15;
                 } else {
-                    yLoc = heightZero*9/100 + heightOne/13 + index * heightOne/13;
-                    xLoc = widthZero - 2*(widthOne/13+widthZero/17) + pIndex * 15;
+                    yLoc = heightZero * 9 / 100 + heightOne / 13 + index * heightOne / 13;
+                    xLoc = widthZero - 2 * (widthOne / 13 + widthZero / 17) + pIndex * 15;
                 }
             } else if (index >= 10 && index < 20) {
                 if (pIndex > 6) {
@@ -256,7 +256,7 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
                 }
             }
         }
-        int [] coor = new int[2];
+        int[] coor = new int[2];
         coor[0] = xLoc;
         coor[1] = yLoc;
         return coor;

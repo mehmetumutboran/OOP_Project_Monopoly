@@ -3,8 +3,8 @@ package gui.controlDisplay.panels;
 import domain.client.UIUpdater;
 import domain.server.listeners.GameStartedListener;
 import domain.server.listeners.PlayerQuitEventListener;
-import gui.util.ColorConverter;
 import gui.controlDisplay.PlayerLabel;
+import gui.util.ColorConverter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -52,13 +52,13 @@ public class PlayerLabelsPanel extends JLabel implements GameStartedListener, Pl
     }
 
     @Override
-    public void onGameStartedEvent(ArrayList<String> playerListName,ArrayList<String> playerListColor) {
-       setPlayerLabel(playerListName,playerListColor);
+    public void onGameStartedEvent(ArrayList<String> playerListName, ArrayList<String> playerListColor) {
+        setPlayerLabel(playerListName, playerListColor);
     }
 
-    public void setPlayerLabel(ArrayList<String> playerListName,ArrayList<String> playerListColor){
+    public void setPlayerLabel(ArrayList<String> playerListName, ArrayList<String> playerListColor) {
         for (int i = 0; i < playerListName.size(); i++) {
-            PlayerLabel temp = new PlayerLabel(playerListName.get(i),this);
+            PlayerLabel temp = new PlayerLabel(playerListName.get(i), this);
             temp.setBackground(ColorConverter.getInstance().getColor(
                     playerListColor.get(i)));
             playerLabels.add(temp);

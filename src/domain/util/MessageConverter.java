@@ -1,14 +1,19 @@
 package domain.util;
 
 import domain.server.Savable;
-import domain.server.board.DeedSquare;
+import domain.server.board.Board;
 import domain.server.board.Property;
+import domain.server.board.Railroad;
+import domain.server.board.Utility;
+import domain.server.building.Building;
+import domain.server.building.Hotel;
+import domain.server.building.House;
+import domain.server.building.Skyscraper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Deque;
 import java.util.LinkedList;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class MessageConverter {
@@ -89,6 +94,122 @@ public class MessageConverter {
     }
 
     public static String convertListToString(ArrayList<? extends Savable> list) {
+        if (list.isEmpty()) return "null";
         return list.stream().map(Savable::generateSaveInfo).collect(Collectors.joining());
+    }
+
+    public static ArrayList<? extends Savable> convertStringToList(String message, int index) {
+        if (message.equals("null")) return new ArrayList<>(); // TODO check cast
+        String[] arr = message.split("[+]");
+
+        if (index == 5) {
+            return convertStringToPropertyList(arr);
+        } else if (index == 6) {
+            return convertStringToUtilityList(arr);
+        } else if (index == 7) {
+            return convertStringToRailroadList(arr);
+        }
+        return null;
+    }
+
+    private static ArrayList<Property> convertStringToPropertyList(String[] arr) {
+        ArrayList<Property> properties = new ArrayList<>();
+        String[] squareInfo;
+        String name, owner, color;
+        int layer, location, cost, rent;
+        boolean mortgaged, hasUpgrade;
+        ArrayList<Building> buildings;
+        for (String s : arr) {
+            squareInfo = s.split("[;]");
+            name = squareInfo[0];
+            layer = Integer.parseInt(squareInfo[1]);
+            location = Integer.parseInt(squareInfo[2]);
+            cost = Integer.parseInt(squareInfo[3]);
+            rent = Integer.parseInt(squareInfo[4]);
+            owner = squareInfo[5];
+            mortgaged = Boolean.parseBoolean(squareInfo[6]);
+            color = squareInfo[7];
+            buildings = convertStringToBuildingList(squareInfo[8].split("[:]"));
+            hasUpgrade = Boolean.parseBoolean(squareInfo[9]);
+            Property square = (Property) Board.getInstance().getSquare(layer, location);
+            square.setBuildingList(buildings);
+            square.setRent(rent);
+            square.setOwner(owner);
+            square.setMortgaged(mortgaged);
+            square.setUpgraded(hasUpgrade);
+            properties.add(square);
+        }
+
+        return properties;
+    }
+
+    private static ArrayList<Building> convertStringToBuildingList(String[] buildingInfo) {
+        ArrayList<Building> buildings = new ArrayList<>();
+        String[] buildingArr;
+        String name;
+        int cost;
+        for (String s : buildingInfo) {
+            buildingArr = s.split("[@]");
+            name = buildingArr[0];
+            cost = Integer.parseInt(buildingArr[1]);
+//              Building building = (Building) Class.forName("domain.server.building." + name).getDeclaredConstructor().newInstance();
+            Building building;
+            if (name.equals("House")) building = new House(cost);
+            else if (name.equals("Hotel")) building = new Hotel(cost);
+            else building = new Skyscraper(cost);
+
+            building.setCost(cost);
+            buildings.add(building);
+        }
+        return buildings;
+    }
+
+    private static ArrayList<Utility> convertStringToUtilityList(String[] arr) {
+        ArrayList<Utility> utilities = new ArrayList<>();
+        String[] squareInfo;
+        String name, owner;
+        int layer, location, cost, rent;
+        boolean mortgaged;
+        for (String s : arr) {
+            squareInfo = s.split("[;]");
+            name = squareInfo[0];
+            layer = Integer.parseInt(squareInfo[1]);
+            location = Integer.parseInt(squareInfo[2]);
+            cost = Integer.parseInt(squareInfo[3]);
+            rent = Integer.parseInt(squareInfo[4]);
+            owner = squareInfo[5];
+            mortgaged = Boolean.parseBoolean(squareInfo[6]);
+            Utility square = (Utility) Board.getInstance().getSquare(layer, location);
+            square.setRent(rent);
+            square.setOwner(owner);
+            square.setMortgaged(mortgaged);
+            utilities.add(square);
+        }
+        return utilities;
+    }
+
+    private static ArrayList<Railroad> convertStringToRailroadList(String[] arr) {
+        ArrayList<Railroad> railroads = new ArrayList<>();
+        String[] squareInfo;
+        String name, owner;
+        int layer, location, cost, rent;
+        boolean mortgaged, hasDepot;
+        for (String s : arr) {
+            squareInfo = s.split("[;]");
+            name = squareInfo[0];
+            layer = Integer.parseInt(squareInfo[1]);
+            location = Integer.parseInt(squareInfo[2]);
+            cost = Integer.parseInt(squareInfo[3]);
+            rent = Integer.parseInt(squareInfo[4]);
+            owner = squareInfo[5];
+            mortgaged = Boolean.parseBoolean(squareInfo[6]);
+            hasDepot = Boolean.parseBoolean(squareInfo[7]);
+            Railroad square = (Railroad) Board.getInstance().getSquare(layer, location);
+            square.setRent(rent);
+            square.setOwner(owner);
+            square.setMortgaged(mortgaged);
+            railroads.add(square);
+        }
+        return railroads;
     }
 }

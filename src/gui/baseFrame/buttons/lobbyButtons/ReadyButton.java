@@ -1,7 +1,6 @@
 package gui.baseFrame.buttons.lobbyButtons;
 
 import domain.client.PlayerActionController;
-import domain.server.controller.MonopolyGameController;
 import gui.baseFrame.ColorBox;
 import gui.baseFrame.buttons.multiplayerButtons.BackButton;
 
@@ -29,7 +28,8 @@ public class ReadyButton extends JButton implements ActionListener {
         this.backButton = backButton;
         this.colorBox = colorBox;
     }
-        // TODO CHANGE THE (%2) LOGIC IF POSSIBLE SINCE IT DOESN'T HANDLE EVERYTHING
+
+    // TODO CHANGE THE (%2) LOGIC IF POSSIBLE SINCE IT DOESN'T HANDLE EVERYTHING
     @Override
     public void actionPerformed(ActionEvent e) {
         PlayerActionController.getInstance().changePlayerReadiness();

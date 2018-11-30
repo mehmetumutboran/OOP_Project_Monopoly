@@ -20,17 +20,19 @@ public class PromptFactory {
     }
 
     public PromptStrategy getPromptStrategy(char flag) {
-        if(flag == Flags.getFlag("Close")){
+        if (flag == Flags.getFlag("Close")) {
             return new ClosePromptStrategy();
-        }else if(flag == Flags.getFlag("DontChangeColor")){
+        } else if (flag == Flags.getFlag("DontChangeColor")) {
             return new DontChangeColorPromptStrategy();
+        }else if (flag == Flags.getFlag("Kick")){
+            return  new KickPromptStrategy();
         }
         return null;
     }
 
 
     public PromptStrategy getPromptStrategy(char flag, int count) {
-        if(flag == Flags.getFlag("DontStart"))
+        if (flag == Flags.getFlag("DontStart"))
             return new DontStartPromptStrategy(count);
         else return null;
     }

@@ -1,9 +1,5 @@
 package domain.server.interpreter;
 
-import domain.server.GameLogic;
-import domain.client.UIUpdater;
-import domain.server.board.Board;
-
 public class JailRequestInterpreter implements RequestInterpretable {
 
     @Override

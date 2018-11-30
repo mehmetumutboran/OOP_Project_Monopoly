@@ -22,7 +22,7 @@ public class BackButton extends JButton implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         System.out.println("Back Button Pressed");
         if (BaseFrame.getStatus().equals("Lobby")) {
-            if(GameInfo.getInstance().isMyselfHost())
+            if (GameInfo.getInstance().isMyselfHost())
                 ServerFacade.getInstance().shutDown();
             ClientFacade.getInstance().terminate();
         }

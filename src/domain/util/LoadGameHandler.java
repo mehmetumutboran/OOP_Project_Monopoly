@@ -1,11 +1,13 @@
 package domain.util;
 
+import domain.server.Savable;
 import domain.server.controller.ServerCommunicationHandler;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class LoadGameHandler {
@@ -44,11 +46,54 @@ public class LoadGameHandler {
     private String readFile() {
         String load = null;
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader("save" + System.getProperty("file.separator") + loadFile))) {
-            load  = bufferedReader.lines().collect(Collectors.joining());
+            load = bufferedReader.lines().collect(Collectors.joining());
         } catch (IOException e) {
             e.printStackTrace();
         }
         System.out.println(load);
         return load;
+    }
+
+    public void loadGame(String load) {
+        String[] loadElements = load.split("[*]");
+        GameInfo.getInstance().setPlayerQueue(
+                MessageConverter.convertStringToDeque(
+                        loadElements[loadElements.length - 1]));
+        loadPlayers(loadElements);
+        System.out.println(GameInfo.getInstance().getPlayerList());
+        System.out.println(GameInfo.getInstance().getPlayerQueue());
+    }
+
+    private void loadPlayers(String[] loadElements) {
+        GameInfo.getInstance().reset();
+        for (int i = 0; i < loadElements.length - 1; i++) {
+            loadPlayer(loadElements[i]);
+        }
+    }
+
+    private void loadPlayer(String loadElement) {
+        String[] player = loadElement.split("[,]");
+        String name = null, color = null, readiness = null;
+        int layer = 0 , location = 0, balance = 0, doubleCounter = 0;
+        boolean isInJail = false, isStarted = true;
+        ArrayList<? extends Savable> propertyList = new ArrayList<>();
+        ArrayList<? extends Savable> utilityList = new ArrayList<>();
+        ArrayList<? extends Savable> railroadList = new ArrayList<>();
+        for (int i = 0; i < player.length; i++) {
+            name = player[0];
+            layer = Integer.parseInt(player[1]);
+            location = Integer.parseInt(player[2]);
+            color = player[3];
+            balance = Integer.parseInt(player[4]);
+            propertyList = MessageConverter.convertStringToList(player[5], 5);
+            utilityList = MessageConverter.convertStringToList(player[6], 6);
+            railroadList = MessageConverter.convertStringToList(player[7], 7);
+            readiness = player[8];
+            isStarted = Boolean.parseBoolean(player[9]);
+            doubleCounter = Integer.parseInt(player[10]);
+            isInJail = Boolean.parseBoolean(player[11]);
+        }
+        GameInfo.getInstance().loadPlayer(name, layer, location, color,
+                balance, propertyList, utilityList, railroadList, readiness, isStarted, doubleCounter, isInJail);
     }
 }

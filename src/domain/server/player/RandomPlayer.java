@@ -1,9 +1,5 @@
 package domain.server.player;
 
-import domain.server.GameLogic;
-
-import java.util.Random;
-
 public class RandomPlayer extends Player {
 
     public RandomPlayer() {

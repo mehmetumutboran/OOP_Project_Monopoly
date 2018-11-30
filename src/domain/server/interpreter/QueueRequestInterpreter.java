@@ -1,11 +1,5 @@
 package domain.server.interpreter;
 
-import domain.server.GameLogic;
-import domain.util.MessageConverter;
-import domain.server.player.RandomPlayer;
-import domain.client.UIUpdater;
-import domain.server.player.Player;
-
 public class QueueRequestInterpreter implements RequestInterpretable {
     @Override
     public void interpret(String[] message, int index) {

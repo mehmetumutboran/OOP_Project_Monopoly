@@ -8,6 +8,6 @@ public class ReadinessRequestInterpreter implements RequestInterpretable {
     public void interpret(String[] message, int index) {
         String username = message[1];
 
-        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Readiness"),username);
+        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Readiness"), username);
     }
 }

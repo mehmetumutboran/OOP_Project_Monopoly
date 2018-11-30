@@ -37,8 +37,8 @@ public class DiceCup {
         return dice;
     }
 
-    public int [] rollDice(String locName) {
-       return DiceRollFactory.getInstance().chooseDiceRollStrategy(locName).roll(this);
+    public int[] rollDice(String locName) {
+        return DiceRollFactory.getInstance().chooseDiceRollStrategy(locName).roll(this);
     }
 
 //    public static void main(String args[]){

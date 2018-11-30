@@ -1,21 +1,8 @@
 package domain.server;
 
+import domain.server.controller.ServerCommunicationHandler;
 import domain.util.Flags;
 import domain.util.GameInfo;
-import domain.util.MessageConverter;
-import domain.server.player.RandomPlayer;
-import domain.server.board.Board;
-import domain.server.board.SpecialSquareStrategy;
-import domain.server.board.Square;
-import domain.server.board.specialSquares.Chance;
-import domain.server.board.specialSquares.CommunityChest;
-import domain.server.controller.ServerCommunicationHandler;
-import domain.server.player.Player;
-
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.stream.Collectors;
 
 public class GameLogic {
     private static GameLogic ourInstance;
@@ -43,7 +30,7 @@ public class GameLogic {
 //        ServerCommunicationHandler.getInstance().sendResponse(poolFlag, getCurrentPlayer().getName(), money);
 //    }
 
-//    public boolean buy() {
+    //    public boolean buy() {
 //        /* true ??????? */
 //        System.out.println("in  logic buy");
 //

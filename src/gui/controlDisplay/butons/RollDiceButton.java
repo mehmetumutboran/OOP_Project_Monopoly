@@ -1,7 +1,7 @@
 package gui.controlDisplay.butons;
 
-import domain.client.UIUpdater;
 import domain.client.PlayerActionController;
+import domain.client.UIUpdater;
 import domain.server.listeners.TurnChangedListener;
 
 import javax.swing.*;

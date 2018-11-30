@@ -1,6 +1,5 @@
 package gui.baseFrame.panels;
 
-import domain.server.controller.MonopolyGameController;
 import domain.server.listeners.PlayerListChangedListener;
 import domain.util.GameInfo;
 import gui.util.ColorConverter;
@@ -37,8 +36,7 @@ public class LobbyPlayerListPanel extends JPanel implements PlayerListChangedLis
     }
 
     public void setPlayerLabelList(ArrayList<ArrayList<String>> playerAttributes, boolean isHost) {
-        playerLabels.removeIf(p -> !MonopolyGameController.getInstance().getPlayerListName()
-                .contains(p.getName()));
+        playerLabels.removeIf(p -> !GameInfo.getInstance().hasPlayer(p.getName()));
 
         for (ArrayList<String> player : playerAttributes) {
             getPlayer(player, isHost).setText("<HTML>" + player.get(0) + "<BR>" + player.get(2) + "</HTML>");

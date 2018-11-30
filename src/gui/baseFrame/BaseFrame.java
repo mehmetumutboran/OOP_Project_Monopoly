@@ -37,21 +37,12 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener, 
 
     public BaseFrame() throws HeadlessException {
         this.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-        //this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        ConnectGameHandler.getInstance().addPlayerKickedListener(this);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.panelMap = new HashMap<>();
         initializeFrame();
-        MonopolyGameController.getInstance().addCloseButtonListener(this);
         UIUpdater.getInstance().addCloseButtonListener(this);
         (new Thread(this)).start();
         this.add(initialScreenPanel);
-        this.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent we) {
-                MonopolyGameController.getInstance().informClosed();
-            }
-        });
-//        this.setPreferredSize(new Dimension(1415, 1040));
-//        this.pack();
         this.setVisible(true);
     }
 
@@ -90,7 +81,7 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener, 
     }
 
     public static void setStatus(String status) {
-        if(BaseFrame.status.equals(status)) return;
+        if (BaseFrame.status.equals(status)) return;
         BaseFrame.status = status;
         System.out.println(status);
         changed = true;
@@ -107,11 +98,11 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener, 
                     lobbyPanel.setHost(false);
                     lobbyPanel.validate();
                     lobbyPanel.repaint();
-                } else if (getStatus().equals("Host")){
+                } else if (getStatus().equals("Host")) {
                     lobbyPanel.setHost(true);
                     controlDisplay.setHost(true);
                 }
-                    //else if (getStatus().equals("Init")) lobbyPanel.setHost(false);
+                //else if (getStatus().equals("Init")) lobbyPanel.setHost(false);
                 else if (getStatus().equals("Game")) {
                     this.setSize(1415, 1040);
                     this.controlDisplay.setVisible(true);

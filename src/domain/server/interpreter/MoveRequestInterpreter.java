@@ -1,13 +1,5 @@
 package domain.server.interpreter;
 
-import domain.server.GameLogic;
-import domain.util.MessageConverter;
-import domain.client.UIUpdater;
-import domain.server.board.Board;
-import domain.server.player.Player;
-
-import java.util.Arrays;
-
 public class MoveRequestInterpreter implements RequestInterpretable {
     @Override
     public void interpret(String[] message, int index) {

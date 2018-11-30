@@ -7,13 +7,12 @@ import java.util.HashMap;
 
 /**
  * There should be only UI Updater inside it.
- *
  */
 public class ResponseInterpreter {
     private static ResponseInterpreter ourInstance;
 
     public static ResponseInterpreter getInstance() {
-        if(ourInstance == null)
+        if (ourInstance == null)
             ourInstance = new ResponseInterpreter();
         return ourInstance;
     }
@@ -45,6 +44,7 @@ public class ResponseInterpreter {
         ResponseInterpretable saveResponseInterpreter = new SaveResponseInterpreter();
         ResponseInterpretable pauseResponseInterpreter = new PauseResponseInterpreter();
         ResponseInterpretable loadResponseInterpreter = new LoadResponseInterpreter();
+        ResponseInterpretable removeResponseInterpreter = new RemoveResponseInterpreter();
 
         interpreterMap = new HashMap<>();
         interpreterMap.put(Flags.getFlag("Start"), moveResponseInterpreter);
@@ -73,9 +73,10 @@ public class ResponseInterpreter {
         interpreterMap.put(Flags.getFlag("Save"), saveResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Pause"), pauseResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Load"), loadResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("Remove"), removeResponseInterpreter);
     }
 
-    public void interpret(String message){
+    public void interpret(String message) {
         char flag = message.charAt(0);
 
         if (interpreterMap.keySet().contains(flag))

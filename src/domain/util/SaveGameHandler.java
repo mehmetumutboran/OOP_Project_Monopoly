@@ -7,7 +7,6 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class SaveGameHandler {
@@ -44,9 +43,10 @@ public class SaveGameHandler {
     }
 
 
-    /** {@link domain.server.player.Player}
-     *  {@link GameInfo}
-     *  {@link domain.server.board.Board}
+    /**
+     * {@link domain.server.player.Player}
+     * {@link GameInfo}
+     * {@link domain.server.board.Board}
      */
 
     // player : name ,[ location[], color], balance, [] , ,

@@ -17,7 +17,7 @@ public class Token implements Savable {
         this(new int[]{1, 0}, color);
     }
 
-    private Token(int[] location, String color) {
+    public Token(int[] location, String color) {
         this.location = location;
         this.color = color;
     }

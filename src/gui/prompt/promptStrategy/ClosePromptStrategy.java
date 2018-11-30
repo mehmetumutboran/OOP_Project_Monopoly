@@ -6,6 +6,6 @@ public class ClosePromptStrategy implements PromptStrategy {
     @Override
     public void show() {
         JOptionPane.showMessageDialog(null, "Username already exists!",
-                    "Error", JOptionPane.WARNING_MESSAGE);
+                "Error", JOptionPane.WARNING_MESSAGE);
     }
 }

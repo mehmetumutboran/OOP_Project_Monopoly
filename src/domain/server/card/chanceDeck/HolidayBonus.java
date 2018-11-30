@@ -1,6 +1,5 @@
 package domain.server.card.chanceDeck;
 
-import domain.server.GameLogic;
 import domain.server.card.ChanceCard;
 
 public class HolidayBonus extends ChanceCard {

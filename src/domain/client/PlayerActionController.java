@@ -47,12 +47,12 @@ public class PlayerActionController {
     }
 
     public void join(String username, String ip, int port) {
-        if(ConnectGameHandler.getInstance().connectClient(username, ip, port))
+        if (ConnectGameHandler.getInstance().connectClient(username, ip, port))
             ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("AddPlayer"), ClientFacade.getInstance().getUsername());
     }
 
     public void host(String username, int port, boolean isMulti) {
-        if(ConnectGameHandler.getInstance().connectHost(port, isMulti))
+        if (ConnectGameHandler.getInstance().connectHost(port, isMulti))
             join(username, "localhost", port);
     }
 

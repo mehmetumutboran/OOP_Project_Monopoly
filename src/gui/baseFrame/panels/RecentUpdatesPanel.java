@@ -2,7 +2,9 @@ package gui.baseFrame.panels;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class RecentUpdatesPanel extends JPanel {
     private int width;
@@ -12,7 +14,7 @@ public class RecentUpdatesPanel extends JPanel {
     private JLabel updateLabel;
     private JScrollPane scrollPane;
 
-    public RecentUpdatesPanel(int width, int height){
+    public RecentUpdatesPanel(int width, int height) {
         this.width = width;
         this.height = height;
 
@@ -36,7 +38,7 @@ public class RecentUpdatesPanel extends JPanel {
     }
 
     private String readCommits() {
-        StringBuilder sb =new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         sb.append("<HTML>");
         try {
             BufferedReader bufferedReader;

@@ -35,11 +35,12 @@ public class Flags {
     private static final char saveFlag = 'g';
     private static final char pauseFlag = 'h';
     private static final char loadFlag = 'i';
+    private static final char removeFlag = 'j';
 
 
     private static HashMap<String, Character> flagMap;
-    static
-    {
+
+    static {
         flagMap = new HashMap<>();
         flagMap.put("Roll", rollFlag);
         flagMap.put("Start", startFlag);
@@ -57,10 +58,12 @@ public class Flags {
         flagMap.put("Save", saveFlag);
         flagMap.put("Pause", pauseFlag);
         flagMap.put("Load", loadFlag);
+        flagMap.put("Remove", removeFlag);
 
     }
 
-    public static char getFlag(String action){
+    public static char getFlag(String action) {
+        System.out.println(action);
         return flagMap.get(action);
     }
 

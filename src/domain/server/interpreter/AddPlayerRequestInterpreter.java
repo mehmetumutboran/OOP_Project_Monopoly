@@ -1,8 +1,9 @@
 package domain.server.interpreter;
 
 import domain.server.controller.ServerCommunicationHandler;
-import domain.util.GameInfo;
 import domain.util.Flags;
+import domain.util.GameInfo;
+import network.server.serverFacade.ServerFacade;
 
 public class AddPlayerRequestInterpreter implements RequestInterpretable {
     @Override
@@ -21,6 +22,8 @@ public class AddPlayerRequestInterpreter implements RequestInterpretable {
 
         ServerCommunicationHandler.getInstance()
                 .sendResponse(Flags.getFlag("AddPlayer"), name);
+
+        ServerFacade.getInstance().setClientInfo(name);
 
     }
 }
