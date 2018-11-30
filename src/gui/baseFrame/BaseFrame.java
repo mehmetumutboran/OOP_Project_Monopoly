@@ -103,12 +103,14 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener, 
                 } else if (getStatus().equals("Host")) {
                     lobbyPanel.setHost(true);
                     controlDisplay.setHost(true);
-                } else if (title != null) {
-                    this.setTitle(title);
-                    //else if (getStatus().equals("Init")) lobbyPanel.setHost(false);
-                } else if (getStatus().equals("Game")) {
+                }
+                //else if (getStatus().equals("Init")) lobbyPanel.setHost(false);
+                else if (getStatus().equals("Game")) {
                     this.setSize(1415, 1040);
                     this.controlDisplay.setVisible(true);
+                }
+                if (title != null) {
+                    this.setTitle(title);
                 }
                 this.revalidate();
                 this.repaint();
