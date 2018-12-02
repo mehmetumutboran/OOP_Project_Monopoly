@@ -276,19 +276,19 @@ public class Player implements Comparable {
             if (square instanceof Property
                     && ((Property) square).isOwned()
                     && !((Property) square).getOwner().equals(this)
-                    && this.getBalance() > ((Property) square).getRent()) {
+                    && this.getBalance() > ((Property) square).getCurrentRent()) {
                 return true;
             }
             /*others like railroad*/
             else if (square instanceof Railroad
                     && ((Railroad) square).isOwned()
                     && !((Railroad) square).getOwner().equals(this)
-                    && this.getBalance() > ((Railroad) square).getRent()) {
+                    && this.getBalance() > ((Railroad) square).getCurrentRent()) {
                 return true;
             } else return square instanceof Utility
                     && ((Utility) square).isOwned()
                     && !((Utility) square).getOwner().equals(this)
-                    && this.getBalance() > ((Utility) square).getRent();
+                    && this.getBalance() > ((Utility) square).getCurrentRent();
         }
 
         return false;

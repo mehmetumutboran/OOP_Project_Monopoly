@@ -12,35 +12,48 @@ import domain.player.Player;
  */
 public abstract class DeedSquare extends Square {
     private int buyValue;
-    private int rent;
+
+
     @JsonIgnoreProperties({"ownedProperties", "ownedRailroads", "ownedUtilities"})
     private Player owner;
     private boolean owned;
     private boolean mortgaged;
-
+    private int[] rents ;
+    private int currentRent;
 
     public DeedSquare() {
-        this("", 0, 0, 0, 0, null);
+        this("", 0, 0, 0, null,  new int[]{1,1,1,1,1,1,1,1 });
     }
 
-    public DeedSquare(String name, int layer, int index, int buyValue, int rent, Player owner) {
+    public DeedSquare(String name, int layer, int index, int buyValue,  Player owner, int[] rents) {
         super(name, layer, index);
         this.buyValue = buyValue;
-        this.rent = rent;
         this.owner = owner;
+        this.rents=rents.clone();
+        this.currentRent = rents[0];
+
     }
 
-    public int getRent() {
-        return rent;
+    public int[] getRents() {
+        return rents;
+    }
+
+    public void setRents(int[] rents) {
+        this.rents = rents;
+    }
+
+    public int getCurrentRent() {
+        return currentRent;
+    }
+
+    public void setCurrentRent(int currentRent) {
+        this.currentRent = currentRent;
     }
 
     public int getBuyValue() {
         return buyValue;
     }
 
-    public void setRent(int rent) {
-        this.rent = rent;
-    }
 
     public Player getOwner() {
         return owner;
