@@ -20,9 +20,14 @@ public abstract class DeedSquare extends Square {
     private boolean mortgaged;
     private int[] rents ;
     private int currentRent;
+    private int mortgage;
+    private int houseBuildingCost;
+
+
+
 
     public DeedSquare() {
-        this("", 0, 0, 0, null,  new int[]{1,1,1,1,1,1,1,1 });
+        this("", 0, 0, 0, null,  new int[]{1,1,1,1,1,1,1,1,1,1 });
     }
 
     public DeedSquare(String name, int layer, int index, int buyValue,  Player owner, int[] rents) {
@@ -31,7 +36,24 @@ public abstract class DeedSquare extends Square {
         this.owner = owner;
         this.rents=rents.clone();
         this.currentRent = rents[0];
+        this.mortgage = rents[9];
+        this.houseBuildingCost = rents[10];
+    }
 
+    public int getMortgage() {
+        return mortgage;
+    }
+
+    public void setMortgage(int mortgage) {
+        this.mortgage = mortgage;
+    }
+
+    public int getHouseBuildingCost() {
+        return houseBuildingCost;
+    }
+
+    public void setHouseBuildingCost(int houseBuildingCost) {
+        this.houseBuildingCost = houseBuildingCost;
     }
 
     public int[] getRents() {
