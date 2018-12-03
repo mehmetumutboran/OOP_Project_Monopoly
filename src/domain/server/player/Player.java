@@ -187,12 +187,12 @@ public class Player implements Comparable, Savable {
         this.inJail = inJail;
     }
 
-    public void rollDice() {
-        String locName = Board.getInstance().getSquare(this.token.getLocation()[0], this.token.getLocation()[1]).getName();
-        // String locName = "Go";
-        DiceCup.getInstance().rollDice(locName);
-        // this.faceValues = DiceCup.getInstance().getFaceValues();
-    } // Player gives command to roll dice to the controller.
+//    public void rollDice() {
+//        String locName = Board.getInstance().getSquare(this.token.getLocation()[0], this.token.getLocation()[1]).getName();
+//        // String locName = "Go";
+//        DiceCup.getInstance().rollDice(locName);
+//        // this.faceValues = DiceCup.getInstance().getFaceValues();
+//    } // Player gives command to roll dice to the controller.
 
 
     @Override

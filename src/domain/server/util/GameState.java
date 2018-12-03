@@ -28,10 +28,6 @@ public class GameState {
 //        } else if (flag == Flags.getFlag("Close")) {
 //            return flag + name;
 //        }
-
-        if (flag == Flags.getFlag("Roll")) {
-            return generateRollAction(Flags.getFlag("Roll"), name);
-        }
         //else if (flag == buyFlag) {
 //            return generateBuyAction(buyFlag, name);
 //        } else if (flag == payRentFlag) {
@@ -65,6 +61,9 @@ public class GameState {
     public String generateCurrentAction(char flag, String name, String message) {
         if (flag == Flags.getFlag("InitQueue")) {
             return generateInitQueueAction(Flags.getFlag("InitQueue"), message);
+        }
+        if (flag == Flags.getFlag("Roll")) {
+            return generateRollAction(Flags.getFlag("Roll"), name, message);
         }
         return flag + "|" + name + "|" + message;
     }
@@ -149,9 +148,8 @@ public class GameState {
 //        return flag + "|" + name + "|" + Board.getInstance().getSquare(loc[0], loc[1]);
 //    }
 //
-    private String generateRollAction(char flag, String name) {
-        int[] faceVal = GameInfo.getInstance().getPlayer(name).getFaceValues();
-        return flag + "|" + name + "|" + MessageConverter.convertArrayToString(faceVal);
+    private String generateRollAction(char flag, String name, String message) {
+        return flag + "|" + name + "|" + message;
     }
 //
 //    private String generateJailAction(char flag, String name) {

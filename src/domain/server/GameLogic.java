@@ -1,8 +1,12 @@
 package domain.server;
 
+import domain.server.board.Board;
 import domain.server.controller.ServerCommunicationHandler;
+import domain.server.die.DiceCup;
 import domain.util.Flags;
 import domain.util.GameInfo;
+import domain.util.MessageConverter;
+
 
 public class GameLogic {
     private static GameLogic ourInstance;
@@ -53,12 +57,13 @@ public class GameLogic {
 //    }
 //
 //
-    public void roll(String name) {
+    public int [] roll(String name) {
         //TODO check if the player can roll
-        System.out.println("\n\nGAmrLogic: roll\n\n");
+        System.out.println("\n\nGameLogic: roll\n\n");
 
-        GameInfo.getInstance().getPlayer(name).rollDice();
-        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Roll"), name);
+        int [] loc = GameInfo.getInstance().getPlayer(name).getToken().getLocation();
+        String locName = Board.getInstance().getSquare(loc[0], loc[1]).getName();
+        int [] currentDice = DiceCup.getInstance().rollDice(locName);
 
 //        if (checkThirdDouble()) {
 //            sendToJail();
@@ -75,7 +80,7 @@ public class GameLogic {
 
 //        checkMrMonopoly();
         System.out.println("In the Game Logic Roll Method");
-
+        return currentDice;
     }
 //
 //    private void selectDestinationSQ() {
@@ -228,7 +233,7 @@ public class GameLogic {
 //        }
 //        return newLoc;
 //    }
-//
+
 //    private boolean checkDouble() {
 //        return (getCurrentPlayer().getFaceValues()[0] ==
 //                getCurrentPlayer().getFaceValues()[1]);
