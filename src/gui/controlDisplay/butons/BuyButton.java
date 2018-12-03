@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 
 public class BuyButton extends JButton implements ActionListener, TurnChangedListener {
 
+    private final int INDEX = 0;
+
     public BuyButton(String text) {
         super(text);
         this.addActionListener(this);
@@ -25,7 +27,7 @@ public class BuyButton extends JButton implements ActionListener, TurnChangedLis
     }
 
     @Override
-    public void onTurnChangedEvent(boolean isEnabled) {
-        this.setEnabled(isEnabled);
+    public void onTurnChangedEvent(String enable) {
+        this.setEnabled(enable.charAt(INDEX)=='1');
     }
 }

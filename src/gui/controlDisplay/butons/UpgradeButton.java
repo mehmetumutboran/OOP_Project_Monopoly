@@ -8,6 +8,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class UpgradeButton extends JButton implements ActionListener, TurnChangedListener {
+
+    private final int INDEX = 6;
+
     public UpgradeButton(String text) {
         super(text);
         this.addActionListener(this);
@@ -24,7 +27,7 @@ public class UpgradeButton extends JButton implements ActionListener, TurnChange
     }
 
     @Override
-    public void onTurnChangedEvent(boolean isEnabled) {
-        this.setEnabled(isEnabled);
+    public void onTurnChangedEvent(String enable) {
+        this.setEnabled(enable.charAt(INDEX)=='1');
     }
 }

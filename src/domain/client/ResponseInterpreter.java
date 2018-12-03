@@ -46,6 +46,8 @@ public class ResponseInterpreter {
         ResponseInterpretable loadResponseInterpreter = new LoadResponseInterpreter();
         ResponseInterpretable removeResponseInterpreter = new RemoveResponseInterpreter();
         ResponseInterpretable fullResponseInterpreter = new FullResponseInterpreter();
+        ResponseInterpretable finishResponseInterpreter = new FinishResponseInterpreter();
+        ResponseInterpretable buttonResponseInterpreter = new ButtonResponseInterpreter();
 
         interpreterMap = new HashMap<>();
         interpreterMap.put(Flags.getFlag("Start"), moveResponseInterpreter);
@@ -76,6 +78,8 @@ public class ResponseInterpreter {
         interpreterMap.put(Flags.getFlag("Load"), loadResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Remove"), removeResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Full"), fullResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("Finish"), finishResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("Button"), buttonResponseInterpreter);
     }
 
     public void interpret(String message) {
