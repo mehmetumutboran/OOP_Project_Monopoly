@@ -7,6 +7,7 @@ import domain.util.Flags;
 import domain.util.GameInfo;
 import domain.util.LoadGameHandler;
 import domain.util.MessageConverter;
+import network.server.serverFacade.ServerFacade;
 
 import java.util.*;
 
@@ -22,10 +23,17 @@ public class StartRequestInterpreter implements RequestInterpretable {
         }
 
         if (LoadGameHandler.getInstance().isNewGame()) {
+            synchronized (this) {
+                ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Start"), name);
 
-            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Start"), name);
+                ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("InitQueue"), name, MessageConverter.convertQueueToString(playerOrder()));
 
-            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("InitQueue"), name, MessageConverter.convertQueueToString(playerOrder()));
+                ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Finish"), name);
+
+                System.out.println("\n\nCurrPlayer:" + GameInfo.getInstance().getCurrentPlayer() + "\n");
+
+                ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), ServerFacade.getInstance().nameToIndex(GameInfo.getInstance().getCurrentPlayer()), "000001000", name);
+            }
         } else {
             LoadGameHandler.getInstance().sendLoad();
         }
@@ -44,8 +52,10 @@ public class StartRequestInterpreter implements RequestInterpretable {
         Deque<String> pQueue = new LinkedList<>();
 
         for (Player p : playerSortList) {
-            pQueue.add(p.getName());
+            pQueue.addLast(p.getName());
         }
+
+        pQueue.addFirst(pQueue.removeLast()); // Added last player to first place since everyone will first pop the queue
 
         return pQueue;
     }

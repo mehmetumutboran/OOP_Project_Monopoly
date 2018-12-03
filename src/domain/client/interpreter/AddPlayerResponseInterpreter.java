@@ -1,5 +1,6 @@
 package domain.client.interpreter;
 
+import domain.client.ClientCommunicationHandler;
 import domain.client.UIUpdater;
 import domain.util.GameInfo;
 import network.client.clientFacade.ClientFacade;
@@ -12,5 +13,8 @@ public class AddPlayerResponseInterpreter implements ResponseInterpretable {
         if(ClientFacade.getInstance().getUsername().equals(username))
             UIUpdater.getInstance().setTitle(username);
         GameInfo.getInstance().addPlayer(username);
+
+        ClientCommunicationHandler.getInstance().sendReceived();
+
     }
 }

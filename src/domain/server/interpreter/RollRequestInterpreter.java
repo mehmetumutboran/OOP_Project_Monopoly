@@ -1,6 +1,8 @@
 package domain.server.interpreter;
 
 import domain.server.GameLogic;
+import domain.server.controller.ServerCommunicationHandler;
+import domain.util.Flags;
 
 public class RollRequestInterpreter implements RequestInterpretable {
     @Override
@@ -11,5 +13,6 @@ public class RollRequestInterpreter implements RequestInterpretable {
 
         GameLogic.getInstance().roll(name);
 
+        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), "000010000");
     }
 }

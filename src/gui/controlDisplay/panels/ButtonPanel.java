@@ -19,6 +19,7 @@ public class ButtonPanel extends JPanel {
     private DowngradeButton downgradeButton;
     private PauseButton pauseButton;
     private SaveButton saveButton;
+    private DrawCardButton drawCardButton;
 
 
     public ButtonPanel(int width, int height) {
@@ -41,8 +42,10 @@ public class ButtonPanel extends JPanel {
         rollDiceButton = new RollDiceButton("Roll Dice");
         upgradeButton = new UpgradeButton("Upgrade");
         downgradeButton = new DowngradeButton("Downgrade");
+        drawCardButton = new DrawCardButton("Draw Card");
         saveButton = new SaveButton("Save Game");
         pauseButton = new PauseButton("Pause");
+
 
 
         this.add(buyButton);
@@ -53,6 +56,7 @@ public class ButtonPanel extends JPanel {
         this.add(rollDiceButton);
         this.add(upgradeButton);
         this.add(downgradeButton);
+        this.add(drawCardButton);
         this.add(pauseButton);
         this.add(saveButton);
     }

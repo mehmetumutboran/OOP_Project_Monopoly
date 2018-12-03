@@ -6,16 +6,23 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Deque;
+import java.util.LinkedList;
 
 public class ClientHandler implements Runnable {
     private Socket socket;
     private DataInputStream dis;
     private DataOutputStream dos;
     private int index;
+    private Deque<String> messageQueue;
+    private boolean received;
+
 
     public ClientHandler(Socket clientSocket, int index) {
         this.socket = clientSocket;
         this.index = index;
+        this.messageQueue = new LinkedList<>();
+        this.received = true;
     }
 
     @Override
@@ -27,11 +34,14 @@ public class ClientHandler implements Runnable {
 
             while (true) {
                 line = dis.readUTF();
+                System.out.println("\n\nReceived message Server:" + line);
+                if (line.charAt(0) == 'z') { // Received flag
+                    received = true;
+                    continue;
+                }
                 ServerFacade.getInstance().interpretRequest(line, index);
-//                Server.sendAll(line);
 
             }
-
 
         } catch (IOException e) {
             //TODO Handle Player exit
@@ -43,7 +53,12 @@ public class ClientHandler implements Runnable {
 
 
     public synchronized void send(String m) throws IOException {
-        dos.writeUTF(m);
+        messageQueue.addLast(m);
+        while (true) {
+            if (received) break;
+        }
+        received = false;
+        dos.writeUTF(messageQueue.removeFirst());
         dos.flush();
     }
 
