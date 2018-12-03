@@ -1,6 +1,6 @@
 package domain.client.interpreter;
 
-import domain.client.UIUpdater;
+import domain.client.ClientCommunicationHandler;
 import domain.util.GameInfo;
 import domain.util.MessageConverter;
 
@@ -12,5 +12,6 @@ public class InitQueueResponseInterpreter implements ResponseInterpretable {
     public void interpret(String[] message) {
         System.out.println("\n\nInitQResponse" + Arrays.toString(message));
         GameInfo.getInstance().setPlayerQueue(MessageConverter.convertStringToDeque(message[1]));
+        ClientCommunicationHandler.getInstance().sendReceived();
     }
 }

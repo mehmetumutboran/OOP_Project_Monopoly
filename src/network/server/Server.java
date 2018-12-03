@@ -113,7 +113,7 @@ public class Server implements Runnable {
 
     public int getClientIndex(String username) {
         if(GameInfo.getInstance().isBot(username))
-            return 0;
+            return 0; // Bot messages are sent to host
         for (int i = 0; i < clientNames.length; i++) {
             if (clientNames[i] == null) continue;
             if (clientNames[i].equals(username)) return i;

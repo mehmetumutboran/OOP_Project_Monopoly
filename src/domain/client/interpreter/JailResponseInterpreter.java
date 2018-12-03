@@ -1,5 +1,7 @@
 package domain.client.interpreter;
 
+import domain.client.ClientCommunicationHandler;
+
 public class JailResponseInterpreter implements ResponseInterpretable {
 
     @Override
@@ -14,5 +16,7 @@ public class JailResponseInterpreter implements ResponseInterpretable {
 //            GameLogic.getInstance().getCurrentPlayer().setInJail(false);
 //            UIUpdater.getInstance().setMessage(GameLogic.getInstance().getCurrentPlayer().getName() + " is out of jail!!!");
 //        }
+        ClientCommunicationHandler.getInstance().sendReceived();
+
     }
 }

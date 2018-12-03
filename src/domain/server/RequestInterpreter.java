@@ -35,18 +35,17 @@ public class RequestInterpreter {
         RequestInterpretable finishRequestInterpreter = new FinishRequestInterpreter();
 
         interpreterMap = new HashMap<>();
-        interpreterMap.put(Flags.getFlag("Start"), moveRequestInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), moneyChangeRequestInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), buyRequestInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), payRentRequestInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), queueRequestInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), upDownRequestInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), upDownRequestInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), tokenMovementRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Move"), moveRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Money"), moneyChangeRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Buy"), buyRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("PayRent"), payRentRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Queue"), queueRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Upgrade"), upDownRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Downgrade"), upDownRequestInterpreter);// TODO
+        interpreterMap.put(Flags.getFlag("Token"), tokenMovementRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Roll"), rollRequestInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), specialSquareRequestInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), jailRequestInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), jailRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Special"), specialSquareRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Jail"), jailRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), startRequestInterpreter);
         interpreterMap.put(Flags.getFlag("AddPlayer"), addPlayerRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Color"), colorChangeRequestInterpreter);

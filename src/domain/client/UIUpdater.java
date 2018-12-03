@@ -53,7 +53,7 @@ public class UIUpdater {
         closeButtonListeners.add(cbl);
     }
 
-    public void publishGameStartedEvent() {
+    private void publishGameStartedEvent() {
         for (GameStartedListener gls : gameStartedListeners) {
             if (gls == null) continue;
             gls.onGameStartedEvent();

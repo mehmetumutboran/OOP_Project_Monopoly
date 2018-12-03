@@ -50,19 +50,18 @@ public class ResponseInterpreter {
         ResponseInterpretable buttonResponseInterpreter = new ButtonResponseInterpreter();
 
         interpreterMap = new HashMap<>();
-        interpreterMap.put(Flags.getFlag("Start"), moveResponseInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), moneyChangeResponseInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), buyResponseInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), payRentResponseInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), queueResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("Move"), moveResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("Money"), moneyChangeResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("Buy"), buyResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("PayRent"), payRentResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("Queue"), queueResponseInterpreter);
         interpreterMap.put(Flags.getFlag("InitQueue"), initQueueResponseInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), upDownResponseInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), upDownResponseInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), tokenMovementResponseInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), rollResponseInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), specialSquareResponseInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), jailResponseInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), jailResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("Upgrade"), upDownResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("Downgrade"), upDownResponseInterpreter); //TODO
+        interpreterMap.put(Flags.getFlag("Token"), tokenMovementResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("Roll"), rollResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("Special"), specialSquareResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("Jail"), jailResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), startResponseInterpreter);
         interpreterMap.put(Flags.getFlag("DontStart"), dontStartResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Kick"), kickResponseInterpreter);

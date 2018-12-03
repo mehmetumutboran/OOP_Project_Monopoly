@@ -26,6 +26,7 @@ public class ClientReceiver extends Thread {
 //            System.out.println("client receiver :" + received);
             ClientFacade.getInstance().sendReceivedMessage(received);
 
+
         }
     }
 
