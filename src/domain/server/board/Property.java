@@ -9,13 +9,17 @@ public class Property extends DeedSquare {
     private String color;
     private ArrayList<Building> buildingList;
     private boolean hasUpgrade;
+    private int[] rents = new int[7];
+    private int currentRent;
 
     public Property() {
-        this("", 0, 0, 0, 0, "");
+        this("", 0, 0, 0,new int[]{0, 0, 0, 0, 0,0,0}, "");
     }
 
-    public Property(String name, int layer, int index, int buyValue, int rent, String color) {
-        super(name, layer, index, buyValue, rent, null);
+    public Property(String name, int layer, int index, int buyValue, int[] rents, String color) {
+        super(name, layer, index, buyValue,  null,rents);
+       // this.rents = rents.clone();
+      //  this.currentRent = rents[0];
         this.color = color;
         this.buildingList = new ArrayList<>();
         hasUpgrade = false;
@@ -46,7 +50,23 @@ public class Property extends DeedSquare {
         this.buildingList = buildingList;
     }
 
-//    public int getHouseCost() {
+    public int[] getRents() {
+        return rents;
+    }
+
+    public void setRents(int[] rents) {
+        this.rents = rents;
+    }
+
+    public int getCurrentRent() {
+        return currentRent;
+    }
+
+    public void setCurrentRent(int currentRent) {
+        this.currentRent = currentRent;
+    }
+
+    //    public int getHouseCost() {
 //        return 0;
 //    }
 

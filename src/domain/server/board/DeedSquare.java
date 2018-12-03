@@ -2,37 +2,45 @@ package domain.server.board;
 
 import domain.server.Savable;
 
+import java.util.Arrays;
+
 /**
  * Class for Buyable Squares.
  */
 public abstract class DeedSquare extends Square implements Savable {
+    private int currentRent;
+    private int houseBuildingCost;
     private int buyValue;
-    private int rent;
+    private int[] rents;
     private String owner;
     private boolean mortgaged;
+    private int mortgageValue;
 
 
     public DeedSquare() {
-        this("", 0, 0, 0, 0, null);
+        this("", 0, 0, 0, null, new int[10]);
     }
 
-    public DeedSquare(String name, int layer, int index, int buyValue, int rent, String owner) {
+    public DeedSquare(String name, int layer, int index, int buyValue, String owner, int[] rents) {
         super(name, layer, index);
         this.buyValue = buyValue;
-        this.rent = rent;
+        this.rents = rents.clone();
         this.owner = owner;
+        this.currentRent = rents[0];
+        this.mortgageValue = rents[8];
+        this.houseBuildingCost = rents[9];
     }
 
-    public int getRent() {
-        return rent;
+    public int[] getRents() {
+        return rents;
     }
 
     public int getBuyValue() {
         return buyValue;
     }
 
-    public void setRent(int rent) {
-        this.rent = rent;
+    public void setRent(int[] rents) {
+        this.rents = rents;
     }
 
     public String getOwner() {
@@ -55,7 +63,31 @@ public abstract class DeedSquare extends Square implements Savable {
         return !(owner == null);
     }
 
-//    public String toJSON() {
+    public int getCurrentRent() {
+        return currentRent;
+    }
+
+    public int getHouseBuildingCost() {
+        return houseBuildingCost;
+    }
+
+    public int getMortgageValue() {
+        return mortgageValue;
+    }
+
+    public void setBuyValue(int buyValue) {
+        this.buyValue = buyValue;
+    }
+
+    public void setCurrentRent(int rent) {
+        this.currentRent = rent;
+    }
+
+    public void setMortgageValue(int mortgageValue) {
+        this.mortgageValue = mortgageValue;
+    }
+
+    //    public String toJSON() {
 //        ObjectMapper objectMapper = new ObjectMapper();
 //        objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
 //        String result = "";
@@ -79,7 +111,7 @@ public abstract class DeedSquare extends Square implements Savable {
                 location[0] + ";" +
                 location[1] + ";" +
                 buyValue + ";" +
-                rent + ";" +
+                Arrays.toString(rents) + ";" +
                 owner + ";" +
                 mortgaged;
     }
