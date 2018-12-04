@@ -12,30 +12,51 @@ import network.server.serverFacade.ServerFacade;
 import java.util.*;
 
 public class StartRequestInterpreter implements RequestInterpretable {
+    private int newGameStage = 1;
+    private int stage = 1;
+
     @Override
     public void interpret(String[] message, int index) {
         String name = message[1];
-        int count = GameInfo.getInstance().checkReadiness();
-        if (count != 0) {
-            ServerCommunicationHandler.getInstance()
-                    .sendResponse(Flags.getFlag("DontStart"), index, count, name);
-            return;
+        if (stage == 1) {
+            int count = GameInfo.getInstance().checkReadiness();
+            if (count != 0) {
+                ServerCommunicationHandler.getInstance()
+                        .sendResponse(Flags.getFlag("DontStart"), index, count, name);
+                return;
+            }
+            stage++;
         }
+        if (stage == 2) {
+            if (LoadGameHandler.getInstance().isNewGame()) {
+                if (newGameStage == 1) {
+                    ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Start"), name);
+                    newGameStage++;
+                    return;
+                }
 
-        if (LoadGameHandler.getInstance().isNewGame()) {
-            synchronized (this) {
-                ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Start"), name);
+                if (newGameStage == 2) {
+                    ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("InitQueue"), name, MessageConverter.convertQueueToString(playerOrder()));
+                    newGameStage++;
+                    return;
+                }
 
-                ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("InitQueue"), name, MessageConverter.convertQueueToString(playerOrder()));
-
-                ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Finish"), name);
-
+                if (newGameStage == 3) {
+                    ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Finish"), name);
+                    newGameStage++;
+                    return;
+                }
                 System.out.println("\n\nCurrPlayer:" + GameInfo.getInstance().getCurrentPlayer() + "\n");
 
-                ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), ServerFacade.getInstance().nameToIndex(GameInfo.getInstance().getCurrentPlayer()), "000001000", name);
+                if (newGameStage == 4) {
+                    ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), ServerFacade.getInstance().nameToIndex(GameInfo.getInstance().getCurrentPlayer()), "000001000", name);
+                    newGameStage = 1;
+                }
+
+            } else {
+                LoadGameHandler.getInstance().sendLoad();
             }
-        } else {
-            LoadGameHandler.getInstance().sendLoad();
+            stage = 1;
         }
     }
 
