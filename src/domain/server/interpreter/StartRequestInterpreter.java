@@ -12,6 +12,8 @@ import network.server.serverFacade.ServerFacade;
 import java.util.*;
 
 public class StartRequestInterpreter implements RequestInterpretable {
+    public static boolean received = false;
+
     @Override
     public void interpret(String[] message, int index) {
         String name = message[1];
@@ -26,10 +28,20 @@ public class StartRequestInterpreter implements RequestInterpretable {
             synchronized (this) {
                 ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Start"), name);
 
+                while (!received){
+                    continue;
+                }
+
                 ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("InitQueue"), name, MessageConverter.convertQueueToString(playerOrder()));
 
+                while (!received){
+                    continue;
+                }
                 ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Finish"), name);
 
+                while (!received){
+                    continue;
+                }
                 System.out.println("\n\nCurrPlayer:" + GameInfo.getInstance().getCurrentPlayer() + "\n");
 
                 ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), ServerFacade.getInstance().nameToIndex(GameInfo.getInstance().getCurrentPlayer()), "000001000", name);
