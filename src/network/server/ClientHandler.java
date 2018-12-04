@@ -1,7 +1,6 @@
 package network.server;
 
-import domain.server.interpreter.RequestInterpretable;
-import domain.server.interpreter.StartRequestInterpreter;
+import domain.server.ReceivedChecker;
 import network.server.serverFacade.ServerFacade;
 
 import java.io.DataInputStream;
@@ -25,6 +24,7 @@ public class ClientHandler implements Runnable {
         this.index = index;
         this.messageQueue = new LinkedList<>();
         this.received = true;
+
     }
 
     @Override
@@ -32,16 +32,19 @@ public class ClientHandler implements Runnable {
         try {
             this.dis = new DataInputStream(socket.getInputStream());
             this.dos = new DataOutputStream(socket.getOutputStream());
-            String line;
 
             while (true) {
-                line = dis.readUTF();
+                String line = dis.readUTF();
                 System.out.println("\n\nReceived message Server:" + line);
                 if (line.charAt(0) == 'z') { // Received flag
-                    StartRequestInterpreter.received = true;
+                    ReceivedChecker.getInstance().recevied[index] = true;
                     continue;
                 }
-                ServerFacade.getInstance().interpretRequest(line, index);
+
+
+                new Thread(new ClientProcessHandler(line, index)).start();
+
+
 
             }
 
@@ -57,7 +60,7 @@ public class ClientHandler implements Runnable {
     public synchronized void send(String m) throws IOException {
         dos.writeUTF(m);
         dos.flush();
-        StartRequestInterpreter.received = false;
+        ReceivedChecker.getInstance().recevied[index] = false;
     }
 
     public synchronized void terminate() {
