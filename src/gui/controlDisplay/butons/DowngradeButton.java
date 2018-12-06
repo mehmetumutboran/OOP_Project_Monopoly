@@ -1,5 +1,6 @@
 package gui.controlDisplay.butons;
 
+import domain.client.PlayerActionController;
 import domain.client.UIUpdater;
 import domain.server.listeners.TurnChangedListener;
 
@@ -19,7 +20,7 @@ public class DowngradeButton extends JButton implements ActionListener, TurnChan
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         //TODO should call another label for choosing own deeds.
-        //PlayerActionController.getInstance().downgrade();
+        PlayerActionController.getInstance().downgrade();
         System.out.println("Downgrade Button is clicked");
     }
 

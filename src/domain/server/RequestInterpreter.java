@@ -19,7 +19,8 @@ public class RequestInterpreter {
         RequestInterpretable buyRequestInterpreter = new BuyRequestInterpreter();
         RequestInterpretable payRentRequestInterpreter = new PayRentRequestInterpreter();
         RequestInterpretable queueRequestInterpreter = new QueueRequestInterpreter();
-        RequestInterpretable upDownRequestInterpreter = new UpDownRequestInterpreter();
+        RequestInterpretable upgradeRequestInterpreter = new UpgradeRequestInterpreter();
+        RequestInterpretable downgradeRequestInterpreter = new DowngradeRequestInterpreter();
         RequestInterpretable tokenMovementRequestInterpreter = new TokenMovementRequestInterpreter();
         RequestInterpretable rollRequestInterpreter = new RollRequestInterpreter();
         RequestInterpretable specialSquareRequestInterpreter = new SpecialSquareRequestInterpreter();
@@ -39,8 +40,8 @@ public class RequestInterpreter {
         interpreterMap.put(Flags.getFlag("Start"), buyRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), payRentRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), queueRequestInterpreter);
-        interpreterMap.put(Flags.getFlag("Downgrade"), upDownRequestInterpreter);
-        interpreterMap.put(Flags.getFlag("Upgrade"), upDownRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Downgrade"), downgradeRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Upgrade"), upgradeRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), tokenMovementRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Roll"), rollRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), specialSquareRequestInterpreter);

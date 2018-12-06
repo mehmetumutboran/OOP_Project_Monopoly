@@ -79,4 +79,13 @@ public class PlayerActionController {
     public void pause() {
 
     }
+
+    public void upgrade() {
+        System.out.println("In player action controller");
+        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Upgrade"), ClientFacade.getInstance().getUsername());
+    }
+    public void downgrade(){
+        System.out.println("In player action controller");
+        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Downgrade"), ClientFacade.getInstance().getUsername());
+    }
 }

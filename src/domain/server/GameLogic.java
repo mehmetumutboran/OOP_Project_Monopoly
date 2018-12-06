@@ -327,7 +327,6 @@ public class GameLogic {
             }
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Upgrade"), MessageConverter.convertArrayToString(square.getLocation()));
         }
-
         public void applyUpgrade (Square square, Player currentPlayer){
             if(((Property)square).getBuildingList().get(0) instanceof Hotel){
                 if(currentPlayer.checkMonopoly((Property)square)){
@@ -347,7 +346,6 @@ public class GameLogic {
             ((Property) square).setUpgraded(true);
             ((Property) square).updateRent();
         }
-
         public void downgrade (Square square){
         Player currentPlayer = GameInfo.getInstance().getCurrentPlayer();
         if(square instanceof Railroad && !(((Railroad) square).isHasDepot())){
@@ -358,7 +356,6 @@ public class GameLogic {
             applydowngrade(square,currentPlayer);
         }
         ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Downgrade"),MessageConverter.convertArrayToString(square.getLocation()));
-
     }
     public void applydowngrade (Square square, Player currentPlayer){
         int buildingCost = ((Property)square).getBuildingList().get(0).getCost();

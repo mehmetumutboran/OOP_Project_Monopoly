@@ -23,3 +23,4 @@ public class ClientCommunicationHandler {
         ClientFacade.getInstance().send(flag + "|" + username + "|" + color);
     }
 }
+
