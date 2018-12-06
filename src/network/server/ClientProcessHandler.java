@@ -5,14 +5,39 @@ import network.server.serverFacade.ServerFacade;
 public class ClientProcessHandler implements Runnable {
     private String line;
     private int index;
+    private final ClientHandler clientHandler;
 
-    public ClientProcessHandler(String line, int index) {
-        this.line = line;
+    public ClientProcessHandler(ClientHandler clientHandler, int index) {
         this.index = index;
+        this.clientHandler = clientHandler;
     }
 
     @Override
     public void run() {
-        ServerFacade.getInstance().interpretRequest(line, index);
+        while (true) {
+            try {
+                synchronized (this) {
+                    this.wait();
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+
+            ServerFacade.getInstance().interpretRequest(line, index);
+
+            synchronized (clientHandler) {
+                clientHandler.notify();
+            }
+        }
+    }
+
+    public synchronized String getLine() {
+        return line;
+    }
+
+    public synchronized void setLine(String line) {
+        this.line = line;
+        this.notify();
     }
 }

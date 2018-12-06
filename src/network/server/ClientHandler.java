@@ -17,6 +17,8 @@ public class ClientHandler implements Runnable {
     private int index;
     private Deque<String> messageQueue;
     private boolean received;
+    private ClientProcessHandler clientProcessHandler;
+    private final Thread thread;
 
 
     public ClientHandler(Socket clientSocket, int index) {
@@ -24,7 +26,9 @@ public class ClientHandler implements Runnable {
         this.index = index;
         this.messageQueue = new LinkedList<>();
         this.received = true;
-
+        this.clientProcessHandler = new ClientProcessHandler(this, index);
+        this.thread = new Thread(clientProcessHandler, "ClientProcessHandler");
+        this.thread.start();
     }
 
     @Override
@@ -41,11 +45,12 @@ public class ClientHandler implements Runnable {
                     continue;
                 }
 
-
-                new Thread(new ClientProcessHandler(line, index)).start();
-
+                clientProcessHandler.setLine(line);
 
 
+//                synchronized (this){
+//                    this.wait();
+//                }
             }
 
         } catch (IOException e) {
@@ -55,6 +60,8 @@ public class ClientHandler implements Runnable {
         }
 
     }
+
+
 
 
     public synchronized void send(String m) throws IOException {

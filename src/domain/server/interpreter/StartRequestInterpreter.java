@@ -10,6 +10,7 @@ import domain.util.LoadGameHandler;
 import domain.util.MessageConverter;
 import network.server.serverFacade.ServerFacade;
 
+import java.io.IOException;
 import java.util.*;
 
 public class StartRequestInterpreter implements RequestInterpretable {
@@ -28,20 +29,34 @@ public class StartRequestInterpreter implements RequestInterpretable {
             synchronized (this) {
                 ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Start"), name);
 
-                while (!ReceivedChecker.getInstance().recevied[index]){
-                    continue;
+                while (true){
+                    System.out.println("First while" + ReceivedChecker.getInstance().recevied[index]);
+                    if(ReceivedChecker.getInstance().recevied[index]) {
+                        ReceivedChecker.getInstance().recevied[index] = false;
+                        break;
+                    }
                 }
 
                 ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("InitQueue"), name, MessageConverter.convertQueueToString(playerOrder()));
 
-                while (!ReceivedChecker.getInstance().recevied[index]){
-                    continue;
+                while (true){
+                    System.out.println("Second while" + ReceivedChecker.getInstance().recevied[index]);
+                    if(ReceivedChecker.getInstance().recevied[index]) {
+                        ReceivedChecker.getInstance().recevied[index] = false;
+                        break;
+                    }
                 }
+
                 ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Finish"), name);
 
-                while (!ReceivedChecker.getInstance().recevied[index]){
-                    continue;
+                while (true){
+                    System.out.println("Third while" + ReceivedChecker.getInstance().recevied[index]);
+                    if(ReceivedChecker.getInstance().recevied[index]) {
+                        ReceivedChecker.getInstance().recevied[index] = false;
+                        break;
+                    }
                 }
+
                 System.out.println("\n\nCurrPlayer:" + GameInfo.getInstance().getCurrentPlayer() + "\n");
 
                 ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), ServerFacade.getInstance().nameToIndex(GameInfo.getInstance().getCurrentPlayer()), "000001000", name);

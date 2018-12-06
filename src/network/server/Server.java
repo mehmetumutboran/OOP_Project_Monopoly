@@ -82,7 +82,7 @@ public class Server implements Runnable {
                             clientThreads[i].terminate();
                             clientThreads[i] = null;
                         } else {
-                            (new Thread(clientThreads[i])).start();
+                            (new Thread(clientThreads[i], "ClientThread " + i)).start();
                         }
                         break;
                     }
