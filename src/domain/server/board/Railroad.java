@@ -32,10 +32,11 @@ public class Railroad extends DeedSquare {
         this.currentRent = currentRent;
     }
 
-    public void updateRent(int newRent) {
-
-
-        setCurrentRent(newRent);
+    public void updateRentInUpDownGrade(String action) {
+        if(action.equals("UP"))
+            setCurrentRent(getCurrentRent()*2);
+        else if(action.equals("DOWN"))
+            setCurrentRent(getCurrentRent()/2);
     }
 
     public boolean isHasDepot() {

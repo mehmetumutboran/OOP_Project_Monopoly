@@ -320,7 +320,7 @@ public class GameLogic {
             if(square instanceof Railroad && currentPlayer.getBalance()>= ((Railroad) square).getHouseBuildingCost()){
                 currentPlayer.decreaseMoney(((Railroad) square).getHouseBuildingCost());
                 ((Railroad) square).setHasDepot(true);
-                ((Railroad) square).updateRent(((Railroad) square).getCurrentRent()*2);
+                ((Railroad) square).updateRentInUpDownGrade("UP");
             }else if(square instanceof Property && currentPlayer.checkMajority((Property)square)
                     &&((Property) square).isUpgradable((Property)square) && currentPlayer.getBalance()>=((Property) square).getHouseBuildingCost()){
                 applyUpgrade(square,currentPlayer);
@@ -333,7 +333,6 @@ public class GameLogic {
                 if(currentPlayer.checkMonopoly((Property)square)){
                     ((Property)square).getBuildingList().remove(0);
                     ((Property)square).getBuildingList().add(new Skyscraper(((Property) square).getHouseBuildingCost()));
-                    currentPlayer.decreaseMoney(((Property) square).getHouseBuildingCost());
                 }else{
                     return;
                 }
@@ -343,57 +342,18 @@ public class GameLogic {
                 currentPlayer.decreaseMoney(((Property) square).getHouseBuildingCost());
             }else{
                 ((Property) square).getBuildingList().add(new House(((Property) square).getHouseBuildingCost()));
-                currentPlayer.decreaseMoney(((Property) square).getHouseBuildingCost());
             }
+            currentPlayer.decreaseMoney(((Property) square).getHouseBuildingCost());
             ((Property) square).setUpgraded(true);
             ((Property) square).updateRent();
         }
-////    public void upgrade(Square square) {
-////        Player currentPlayer = getCurrentPlayer();
-////        if (square.getClass().getName().equals("RailRoad")) {
-////            if (currentPlayer.getBalance() >= 100) {
-////                ((Railroad) square).setHasDepot(true);
-////                currentPlayer.decreaseMoney(100);
-////                ((Railroad) square).updateRent();
-////                System.out.println(currentPlayer.getName() + " upgraded Railroad ");
-////            } else
-////                System.out.println(currentPlayer.getName() + " does not have enough money to upgrade " + square.getName());
-////        } else if (square.getClass().getName().equals("Property")) {
-////            if (currentPlayer.checkMajority(((Property) square))) {
-////                if (((Property) square).isUpgradable((Property) square)) {
-////                    if (((Property) square).getBuildingList().get(0).getName().equals("Hotel") && currentPlayer.getBalance() >= ((Property) square).getSkyScrapperCost()) {
-////                        ((Property) square).getBuildingList().remove(0);
-////                        ((Property) square).getBuildingList().add(new Skyscraper());
-////                        currentPlayer.decreaseMoney(((Property) square).getSkyScrapperCost());
-////
-////                    } else if ((((Property) square).getBuildingList().size() == 4) && currentPlayer.getBalance() >= ((Property) square).getSkyScrapperCost()) {
-////                        ((Property) square).getBuildingList().clear();
-////                        ((Property) square).getBuildingList().add(new Hotel());
-////                        currentPlayer.decreaseMoney(((Property) square).getHotelCost());
-////
-////                    } else {
-////                        if (currentPlayer.getBalance() >= ((Property) square).getHouseCost()) {
-////                            ((Property) square).getBuildingList().add(new House());
-////                            currentPlayer.decreaseMoney(((Property) square).getHouseCost());
-////                        }
-////                    }
-////                    ((Property) square).updateRent();
-////                    System.out.println(currentPlayer.getName() + " upgraded " + square.getName() + " to " +
-////                            ((Property) square).getBuildingList().get(0));
-////                    ((Property) square).setUpgraded(true);
-////                } else System.out.println("Current square is not a deed square");
-////            }
-////
-////        }
-////        ServerCommunicationHandler.getInstance().sendupdowngradeAction(upgradeFlag, (DeedSquare) square);
-////    }
-//
+
         public void downgrade (Square square){
         Player currentPlayer = GameInfo.getInstance().getCurrentPlayer();
         if(square instanceof Railroad && !(((Railroad) square).isHasDepot())){
             currentPlayer.increaseMoney(((Railroad) square).getHouseBuildingCost()/2);
             ((Railroad) square).setHasDepot(false);
-            ((Railroad) square).updateRent(((Railroad) square).getCurrentRent()/2);
+            ((Railroad) square).updateRentInUpDownGrade("DOWN");
         }else if (square instanceof Property && !(((Property) square).isUpgraded())){
             applydowngrade(square,currentPlayer);
         }
@@ -418,33 +378,6 @@ public class GameLogic {
             ((Property) square).setUpgraded(false);
     }
 
-////    public void downgrade(Square square) {
-////        Player currentPlayer = getCurrentPlayer();
-////        if (square.getClass().getName().equals("Railroad")) {
-////            if (((Railroad) square).isHasDepot()) {
-////                currentPlayer.increaseMoney(50);
-////                ((Railroad) square).setHasDepot(false);
-////                ((Railroad) square).updateRent();
-////                System.out.println(currentPlayer.getName() + " downgraded Railroad");
-////            } else System.out.println(currentPlayer.getName() + " can not downgrade " + square.getName());
-////        } else if (square.getClass().getName().equals("Property")) {
-////            if (((Property) square).isUpgraded()) {
-////                Building building = ((Property) square).getBuildingList().get(0);
-////                ((Property) square).getBuildingList().remove(0);
-////                currentPlayer.increaseMoney(building.getCost() / 2);
-////                if (building.getName().equals("Skyscrapper"))
-////                    ((Property) square).getBuildingList().add(new Hotel());
-////                else if (building.getName().equals("Hotel")) {
-////                    for (int i = 0; i < 4; i++)
-////                        ((Property) square).getBuildingList().add(new House());
-////                }
-////                ((Property) square).updateRent(); //SET RENT according to number of houses in the building list
-////                if (((Property) square).getBuildingList().isEmpty()) ((Property) square).setUpgraded(false);
-////            } else System.out.println(currentPlayer.getName() + " can not downgrade " + square.getName());
-////        } else System.out.println("Current square is not a deed square");
-////        ServerCommunicationHandler.getInstance().sendupdowngradeAction(downgradeFlag, (DeedSquare) square);
-////    }
-//
 //    void removePlayer(String name) {
 //        Player player = playerList.stream().filter(p -> p.getName().equals(name)).collect(Collectors.toList()).get(0);
 //
