@@ -1,5 +1,6 @@
 package domain.client.interpreter;
 
+import domain.client.ClientCommunicationHandler;
 import domain.client.UIUpdater;
 import domain.util.GameInfo;
 
@@ -12,6 +13,8 @@ public class StartResponseInterpreter implements ResponseInterpretable {
         UIUpdater.getInstance().changePanel("Game");
 ////      UIUpdater.getInstance().showList();
         UIUpdater.getInstance().startGame();
+
+        ClientCommunicationHandler.getInstance().sendReceived();
     }
 
 

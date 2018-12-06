@@ -1,5 +1,7 @@
 package network.server;
 
+import domain.util.GameInfo;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -80,7 +82,7 @@ public class Server implements Runnable {
                             clientThreads[i].terminate();
                             clientThreads[i] = null;
                         } else {
-                            (new Thread(clientThreads[i])).start();
+                            (new Thread(clientThreads[i], "ClientThread " + i)).start();
                         }
                         break;
                     }
@@ -110,6 +112,8 @@ public class Server implements Runnable {
     }
 
     public int getClientIndex(String username) {
+        if(GameInfo.getInstance().isBot(username))
+            return 0; // Bot messages are sent to host
         for (int i = 0; i < clientNames.length; i++) {
             if (clientNames[i] == null) continue;
             if (clientNames[i].equals(username)) return i;

@@ -239,6 +239,7 @@ public class GameInfo implements Savable {
     }
 
     public boolean isBot(String username) {
+        System.out.println("\n\nQ: \n" + playerQueue + "\n");
         if(hasPlayer(username)){
             return getPlayer(username).getReadiness().equals("Bot");
         }else return false; // todo ? handle
@@ -250,5 +251,21 @@ public class GameInfo implements Savable {
 
     public boolean isFull() {
         return getPlayerListSize() == 12;
+    }
+
+    public void nextTurn() {
+        playerQueue.addLast(playerQueue.removeFirst());
+    }
+
+    public boolean isPeekBot() {
+        return getPlayer(playerQueue.peekFirst()).getReadiness().equals("Bot");
+    }
+
+    public String getCurrentPlayer() {
+        return playerQueue.peekFirst();
+    }
+
+    public int[] getLocationFromName(String name){
+        return getPlayer(name).getToken().getLocation();
     }
 }

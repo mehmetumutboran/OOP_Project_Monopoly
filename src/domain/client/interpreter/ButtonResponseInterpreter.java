@@ -2,13 +2,14 @@ package domain.client.interpreter;
 
 import domain.client.ClientCommunicationHandler;
 import domain.client.UIUpdater;
-import network.client.clientFacade.ClientFacade;
 
-public class FullResponseInterpreter implements ResponseInterpretable {
+public class ButtonResponseInterpreter implements ResponseInterpretable {
     @Override
     public void interpret(String[] message) {
-        UIUpdater.getInstance().showPrompt(message[0].charAt(0));
-        ClientFacade.getInstance().terminate();
+        String enable = message[1];
+
+        UIUpdater.getInstance().setButtons(enable);
+
         ClientCommunicationHandler.getInstance().sendReceived();
 
     }

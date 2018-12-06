@@ -1,8 +1,10 @@
 package domain.server.interpreter;
 
+import java.io.DataInputStream;
+
 public class MoneyChangeRequestInterpreter implements RequestInterpretable {
     @Override
-    public void interpret(String[] message, int index) {
+    public void interpret(DataInputStream dis, String[] message, int index) {
 //        String name = message[1];
 //        int changedMoney = Integer.parseInt(message[2]);
 //

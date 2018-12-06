@@ -3,6 +3,7 @@ package network.server.serverFacade;
 import domain.server.RequestInterpreter;
 import network.server.Server;
 
+import java.io.DataInputStream;
 import java.io.IOException;
 
 /**
@@ -51,8 +52,8 @@ public class ServerFacade {
         }
     }
 
-    public void interpretRequest(String request, int index) {
-        RequestInterpreter.getInstance().interpret(request, index);
+    public void interpretRequest(DataInputStream dis, String line, int index) {
+        RequestInterpreter.getInstance().interpret(dis, line, index);
     }
 
 

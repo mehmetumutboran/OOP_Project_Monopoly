@@ -1,5 +1,6 @@
 package domain.client.interpreter;
 
+import domain.client.ClientCommunicationHandler;
 import domain.util.GameInfo;
 
 public class AddPlayerListResponseInterpreter implements ResponseInterpretable {
@@ -10,5 +11,8 @@ public class AddPlayerListResponseInterpreter implements ResponseInterpretable {
             arr = message[i].split("[,]");
             GameInfo.getInstance().addPlayer(arr[0], arr[1], arr[2]);
         }
+
+        ClientCommunicationHandler.getInstance().sendReceived();
+
     }
 }

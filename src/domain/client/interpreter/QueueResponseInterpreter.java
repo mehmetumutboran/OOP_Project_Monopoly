@@ -1,5 +1,6 @@
 package domain.client.interpreter;
 
+import domain.client.ClientCommunicationHandler;
 import domain.util.GameInfo;
 import domain.util.MessageConverter;
 
@@ -19,5 +20,7 @@ public class QueueResponseInterpreter implements ResponseInterpretable {
 //            }
 //        }
 //        UIUpdater.getInstance().turnUpdate();
+        ClientCommunicationHandler.getInstance().sendReceived();
+
     }
 }

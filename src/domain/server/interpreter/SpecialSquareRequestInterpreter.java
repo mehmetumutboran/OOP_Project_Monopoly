@@ -1,8 +1,10 @@
 package domain.server.interpreter;
 
+import java.io.DataInputStream;
+
 public class SpecialSquareRequestInterpreter implements RequestInterpretable {
     @Override
-    public void interpret(String[] message, int index) {
+    public void interpret(DataInputStream dis, String[] message, int index) {
 //        String name = message[1];
 //
 //        int[] loc = GameLogic.getInstance().getPlayer(name).getToken().getLocation();

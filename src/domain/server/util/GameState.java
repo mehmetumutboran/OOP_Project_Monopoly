@@ -1,5 +1,7 @@
 package domain.server.util;
 
+import domain.server.board.Board;
+import domain.server.die.DiceCup;
 import domain.util.Flags;
 import domain.util.GameInfo;
 import domain.util.MessageConverter;
@@ -150,7 +152,9 @@ public class GameState {
 //    }
 //
     private String generateRollAction(char flag, String name) {
-        int[] faceVal = GameInfo.getInstance().getPlayer(name).getFaceValues();
+        int[] arr = GameInfo.getInstance().getLocationFromName(name);
+        String locName = Board.getInstance().getSquare(arr[0], arr[1]).getName();
+        int[] faceVal = DiceCup.getInstance().rollDice(locName);
         return flag + "|" + name + "|" + MessageConverter.convertArrayToString(faceVal);
     }
 //

@@ -1,9 +1,11 @@
 package domain.server.interpreter;
 
+import java.io.DataInputStream;
+
 public class PayRentRequestInterpreter implements RequestInterpretable {
     @Override
-    public void interpret(String[] message, int index) {
- //       String name = message[1];
+    public void interpret(DataInputStream dis, String[] message, int index) {
+//        String name = message[1];
 //        String sqName = message[2];
 //
 //        Player player = GameInfo.getInstance().getPlayer(name);

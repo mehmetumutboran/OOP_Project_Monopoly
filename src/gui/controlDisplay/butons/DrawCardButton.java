@@ -7,30 +7,24 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class DowngradeButton extends JButton implements ActionListener, TurnChangedListener {
+public class DrawCardButton extends JButton implements TurnChangedListener, ActionListener {
 
-    private final int INDEX = 7;
+    private final int INDEX = 8;
 
-    public DowngradeButton(String text) {
+    public DrawCardButton(String text) {
         super(text);
         this.addActionListener(this);
         this.setEnabled(false);
         UIUpdater.getInstance().addTurnChangedListener(this);
-
     }
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        //TODO should call another label for choosing own deeds.
-        //PlayerActionController.getInstance().downgrade();
-        System.out.println("Downgrade Button is clicked");
+
     }
 
     @Override
     public void onTurnChangedEvent(String enable) {
-        this.setEnabled(enable.charAt(INDEX)=='1');
+
     }
 }
-
-
-
