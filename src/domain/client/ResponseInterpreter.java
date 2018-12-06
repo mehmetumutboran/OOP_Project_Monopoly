@@ -51,7 +51,7 @@ public class ResponseInterpreter {
         interpreterMap = new HashMap<>();
         interpreterMap.put(Flags.getFlag("Move"), moveResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), moneyChangeResponseInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), buyResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("Buy"), buyResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), payRentResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), queueResponseInterpreter);
         interpreterMap.put(Flags.getFlag("InitQueue"), initQueueResponseInterpreter);

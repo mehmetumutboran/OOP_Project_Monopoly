@@ -36,7 +36,7 @@ public class RequestInterpreter {
         interpreterMap = new HashMap<>();
         interpreterMap.put(Flags.getFlag("Start"), moveRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), moneyChangeRequestInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), buyRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Buy"), buyRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), payRentRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), queueRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), upDownRequestInterpreter);

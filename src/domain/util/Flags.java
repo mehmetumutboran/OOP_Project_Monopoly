@@ -65,6 +65,8 @@ public class Flags {
         flagMap.put("GoToJail", jailFlag);
         flagMap.put("GoOutOfJail", jailFlag);
         flagMap.put("DoubleCounter", doubleCounterFlag);
+        flagMap.put("Buy", buyFlag);
+
     }
 
     public static char getFlag(String action) {

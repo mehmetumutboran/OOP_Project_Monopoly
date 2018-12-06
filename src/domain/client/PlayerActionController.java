@@ -30,11 +30,11 @@ public class PlayerActionController {
 //
 //    //public void downgrade(){ GameLogic.getInstance().downgrade(); }
 //
-//    public boolean buy() {
-//        System.out.println("in player action controller");
-//        return (GameLogic.getInstance().buy());
-//
-//    }
+    public void buy() {
+        System.out.println("in player action controller");
+        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Buy"), ClientFacade.getInstance().getUsername());
+
+    }
 //
 //    public boolean rent() {
 //        System.out.println("in player action controller");

@@ -58,6 +58,10 @@ public class GameState {
         return flag + "|" + qString;
     }
 
+//    private String generateInitQueueAction(char flag, int money , String name) {
+//        return flag + "|" + money + "|" + name ;
+//    }
+
     public String generateCurrentAction(char flag, String name, String message) {
         if (flag == Flags.getFlag("InitQueue")) {
             return generateInitQueueAction(Flags.getFlag("InitQueue"), message);

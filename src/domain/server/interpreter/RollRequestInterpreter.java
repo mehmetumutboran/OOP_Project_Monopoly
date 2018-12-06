@@ -33,7 +33,7 @@ public class RollRequestInterpreter implements RequestInterpretable {
         GameLogic.getInstance().checkMrMonopoly(name);
 
         if(GameLogic.getInstance().checkSecondTurn(name)){
-            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), name, "");
+          //  ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), name, "");
         }
 
     }
