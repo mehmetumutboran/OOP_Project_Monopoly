@@ -8,14 +8,13 @@ public class PayRentRequestInterpreter implements RequestInterpretable {
 //        String name = message[1];
 //        String sqName = message[2];
 //
-//        Player player = GameLogic.getInstance().getPlayer(name);
+//        Player player = GameInfo.getInstance().getPlayer(name);
 //        DeedSquare square = (DeedSquare) Board.getInstance().getNameGivenSquare(sqName);
 //
-//        player.decreaseMoney(square.getRent());
+//        player.decreaseMoney(square.getCurrentRent());
 //
-//        square.getOwner().increaseMoney(square.getRent());
-//        UIUpdater.getInstance().setMessage(name + " paid rent " + square.getRent() + " dollars to " + square.getOwner().getName());
-
+//        GameInfo.getInstance().getPlayer(square.getOwner()).increaseMoney(square.getCurrentRent());
+//        UIUpdater.getInstance().setMessage(name + " paid rent " + square.getCurrentRent() + " dollars to " + square.getOwner());
 
     }
 }

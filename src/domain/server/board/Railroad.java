@@ -2,14 +2,34 @@ package domain.server.board;
 
 public class Railroad extends DeedSquare {
     private boolean hasDepot;
+    private int[] rents = new int[4];
+    private int currentRent;
 
     public Railroad() {
-        this("", 0, 0, 0, 0);
+        this("", 0, 0, 0, new int[]{0, 0, 0, 0, });
     }
 
-    public Railroad(String name, int layer, int index, int buyValue, int rent) {
-        super(name, layer, index, buyValue, rent, null);
+    public Railroad(String name, int layer, int index, int buyValue, int[] rents) {
+        super(name, layer, index, buyValue,  null,rents);
+    //    this.rents = rents.clone();
+     //   this.currentRent = rents[0];
         hasDepot = false;
+    }
+
+    public int[] getRents() {
+        return rents;
+    }
+
+    public void setRents(int[] rents) {
+        this.rents = rents;
+    }
+
+    public int getCurrentRent() {
+        return currentRent;
+    }
+
+    public void setCurrentRent(int currentRent) {
+        this.currentRent = currentRent;
     }
 
     public void updateRent() {

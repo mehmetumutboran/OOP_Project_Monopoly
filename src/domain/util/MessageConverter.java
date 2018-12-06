@@ -133,7 +133,7 @@ public class MessageConverter {
             hasUpgrade = Boolean.parseBoolean(squareInfo[9]);
             Property square = (Property) Board.getInstance().getSquare(layer, location);
             square.setBuildingList(buildings);
-            square.setRent(rent);
+//            square.setRent(rent); TODO
             square.setOwner(owner);
             square.setMortgaged(mortgaged);
             square.setUpgraded(hasUpgrade);
@@ -180,7 +180,7 @@ public class MessageConverter {
             owner = squareInfo[5];
             mortgaged = Boolean.parseBoolean(squareInfo[6]);
             Utility square = (Utility) Board.getInstance().getSquare(layer, location);
-            square.setRent(rent);
+//            square.setRent(rent); TODO
             square.setOwner(owner);
             square.setMortgaged(mortgaged);
             utilities.add(square);
@@ -205,7 +205,7 @@ public class MessageConverter {
             mortgaged = Boolean.parseBoolean(squareInfo[6]);
             hasDepot = Boolean.parseBoolean(squareInfo[7]);
             Railroad square = (Railroad) Board.getInstance().getSquare(layer, location);
-            square.setRent(rent);
+//            square.setRent(rent); TODO
             square.setOwner(owner);
             square.setMortgaged(mortgaged);
             railroads.add(square);
