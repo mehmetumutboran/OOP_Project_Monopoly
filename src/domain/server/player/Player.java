@@ -224,8 +224,35 @@ public class Player implements Comparable, Savable {
 
 
     public boolean checkMajority(Property square) {
-        return false;
-        //TODO for upgrade downgrade
+        int numOfColoredSqBoardHas = Board.getInstance().getSameColoredSquares(square.getColor()).length;
+        int numOfColoredSqPlayerHas = 0;
+        for (Property sq : getOwnedProperties()){
+            if(sq.getColor().equals(square.getColor()))
+                numOfColoredSqPlayerHas++;
+        }
+        if(numOfColoredSqBoardHas > 2 ){
+            if (numOfColoredSqBoardHas-numOfColoredSqPlayerHas == 0 || numOfColoredSqBoardHas-numOfColoredSqPlayerHas == 1)
+                return true;
+            else
+                return false;
+        }else
+            if (numOfColoredSqBoardHas-numOfColoredSqPlayerHas == 0)
+                return true;
+            else
+                return false;
+    }
+    public boolean checkMonopoly (Property square) {
+        int numOfColoredSqBoardHas = Board.getInstance().getSameColoredSquares(square.getColor()).length;
+        int numOfColoredSqPlayerHas = 0;
+        for (Property sq : getOwnedProperties()){
+            if(sq.getColor().equals(square.getColor()))
+                numOfColoredSqPlayerHas++;
+        }
+
+        if(numOfColoredSqBoardHas-numOfColoredSqPlayerHas==0)
+            return true;
+        else
+            return false;
     }
 
     public void increaseMoney(int money) {
