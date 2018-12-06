@@ -1,13 +1,14 @@
 package gui.controlDisplay.butons;
 
 import domain.client.UIUpdater;
+import domain.server.listeners.ButtonChangeListener;
 import domain.server.listeners.TurnChangedListener;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class FinishTurnButton extends JButton implements ActionListener, TurnChangedListener {
+public class FinishTurnButton extends JButton implements ActionListener, TurnChangedListener, ButtonChangeListener {
 
     public FinishTurnButton(String text) {
         super(text);
@@ -24,5 +25,10 @@ public class FinishTurnButton extends JButton implements ActionListener, TurnCha
     @Override
     public void onTurnChangedEvent(boolean isEnabled) {
         this.setEnabled(isEnabled);
+    }
+
+    @Override
+    public void onButtonChangeEvent() {
+
     }
 }

@@ -14,6 +14,7 @@ public class UIUpdater {
     private ArrayList<PlayerQuitEventListener> playerQuitEventListeners;
     private ArrayList<TokenMovementListener> tokenMovementListeners;
     private ArrayList<GameStartedListener> gameStartedListeners;
+    private ArrayList<ButtonChangeListener> buttonChangeListeners;
 
     private String message;
 
@@ -30,6 +31,7 @@ public class UIUpdater {
         playerQuitEventListeners = new ArrayList<>();
         tokenMovementListeners = new ArrayList<>();
         gameStartedListeners = new ArrayList<>();
+        buttonChangeListeners = new ArrayList<>();
     }
 
     public void addMessageChangedListener(MessageChangedListener mcl) {
@@ -53,6 +55,8 @@ public class UIUpdater {
         closeButtonListeners.add(cbl);
     }
 
+    public void addButtonChangeListener(ButtonChangeListener bcl){buttonChangeListeners.add(bcl);}
+
     public void publishGameStartedEvent() {
         for (GameStartedListener gls : gameStartedListeners) {
             if (gls == null) continue;
@@ -74,6 +78,12 @@ public class UIUpdater {
     private void publishTurnChangedEvent(boolean isEnabled) {
         for (TurnChangedListener tcl : turnChangedListeners) {
             tcl.onTurnChangedEvent(isEnabled);
+        }
+    }
+
+    private void publishButtonChangeEvent(){
+        for (ButtonChangeListener bcl:buttonChangeListeners) {
+            bcl.onButtonChangeEvent();
         }
     }
 

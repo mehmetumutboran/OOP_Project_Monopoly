@@ -46,9 +46,10 @@ public class ResponseInterpreter {
         ResponseInterpretable loadResponseInterpreter = new LoadResponseInterpreter();
         ResponseInterpretable removeResponseInterpreter = new RemoveResponseInterpreter();
         ResponseInterpretable fullResponseInterpreter = new FullResponseInterpreter();
+        ResponseInterpretable doubleCounterResponseInterpreter = new DoubleCounterResponseInterpreter();
 
         interpreterMap = new HashMap<>();
-        interpreterMap.put(Flags.getFlag("Start"), moveResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("Move"), moveResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), moneyChangeResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), buyResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), payRentResponseInterpreter);
@@ -57,10 +58,10 @@ public class ResponseInterpreter {
         interpreterMap.put(Flags.getFlag("Start"), upDownResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), upDownResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), tokenMovementResponseInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), rollResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("Roll"), rollResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), specialSquareResponseInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), jailResponseInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), jailResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("GoToJail"), jailResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("GoOutOfJail"), jailResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), startResponseInterpreter);
         interpreterMap.put(Flags.getFlag("DontStart"), dontStartResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Kick"), kickResponseInterpreter);
@@ -76,6 +77,7 @@ public class ResponseInterpreter {
         interpreterMap.put(Flags.getFlag("Load"), loadResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Remove"), removeResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Full"), fullResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("DoubleCounter"), doubleCounterResponseInterpreter);
     }
 
     public void interpret(String message) {

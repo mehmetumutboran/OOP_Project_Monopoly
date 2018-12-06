@@ -3,6 +3,8 @@ package domain.server;
 import domain.server.board.Board;
 import domain.server.controller.ServerCommunicationHandler;
 import domain.server.die.DiceCup;
+import domain.server.move.NormalMove;
+import domain.server.move.UpDownMove;
 import domain.util.Flags;
 import domain.util.GameInfo;
 import domain.util.MessageConverter;
@@ -60,256 +62,156 @@ public class GameLogic {
     public int [] roll(String name) {
         //TODO check if the player can roll
         System.out.println("\n\nGameLogic: roll\n\n");
-
         int [] loc = GameInfo.getInstance().getPlayer(name).getToken().getLocation();
         String locName = Board.getInstance().getSquare(loc[0], loc[1]).getName();
         int [] currentDice = DiceCup.getInstance().rollDice(locName);
-
-//        if (checkThirdDouble()) {
-//            sendToJail();
-//        } else if (checkJail()) {
-//            tryToGoOutOfJail();
-//        } else if (checkTriple()) {
-//            selectDestinationSQ();
-//        } else if (checkBus()) {
-//
-//        } else {
-//            move(false);
-//        }
-
-
-//        checkMrMonopoly();
         System.out.println("In the Game Logic Roll Method");
         return currentDice;
     }
+
 //
 //    private void selectDestinationSQ() {
 //        // TODO Burda UI ile iletisime gecmem lazim gibi duruyo
 //        // UIUptader e squareden dinlemesini soyleyecek, Square den dinlenen square name Player Action controller ile burdaki bi methoda gelcek o da player suraya gitti diye mesaj yollayacak buyuk olasilikla move flag i ile.
 //    }
 //
-//    private void tryToGoOutOfJail() {
-//        if (checkDouble()) {
-//            ServerCommunicationHandler.getInstance().sendResponse(goOutJailFlag, getCurrentPlayer().getName());
-//            //getCurrentPlayer().setInJail(false); // TODO Message Interpret does this
-//            move(true); // TODO Jailden cikarkenki double atma double count u arttirir mi?
-//        } // TODO Burda else yazcak bisey olur mu?
-//    }
-//
-//    private void sendToJail() {
-//        //getCurrentPlayer().setInJail(true); // TODO Message Interpret does this
-//        //getCurrentPlayer().getToken().setLocation(Board.getInstance().getNameGivenSquare("Jail").getLocation()); // TODO Message Interpret does this
-//        ServerCommunicationHandler.getInstance().sendResponse(jailFlag, getCurrentPlayer().getName());
-//        //ServerCommunicationHandler.getInstance().sendResponse(tokenFlag,getCurrentPlayer().getName());
-//    }
-//
-//    private void move(Boolean isFromJail) {
-//        if (checkDouble() && !isFromJail)
-//            getCurrentPlayer().incrementDoubleCounter(); // TODO Burada UI a yada MessageInt. den UI a mesaj yollayip cift degilse roll butonunu kapatmamiz lazim.
-//        int[] lastLoc = getCurrentPlayer().getToken().getLocation();
-//        int[] newLoc;
-//        int totalRoll;
-//        int layerSQNumber = 0;
-//        switch (lastLoc[0]) {
-//            case 0:
-//                layerSQNumber = ZEROTH_LAYER_SQ;
-//                break;
-//            case 1:
-//                layerSQNumber = FIRST_LAYER_SQ;
-//                break;
-//            case 2:
-//                layerSQNumber = SECOND_LAYER_SQ;
-//                break;
-//        }
-//        if (getCurrentPlayer().getFaceValues()[2] <= 3) {
-//            totalRoll = getCurrentPlayer().getFaceValues()[0]
-//                    + getCurrentPlayer().getFaceValues()[1]
-//                    + getCurrentPlayer().getFaceValues()[2];
-//        } else {
-//            totalRoll = getCurrentPlayer().getFaceValues()[0]
-//                    + getCurrentPlayer().getFaceValues()[1];
-//        }
-//        if (Board.getInstance().railRoadFind(lastLoc, totalRoll)[0] != null) {
-//            if (totalRoll % 2 == 1) {
-//                newLoc = normalMove(lastLoc, totalRoll, layerSQNumber);
-//            } else {
-//                newLoc = upDownMove(lastLoc, totalRoll, layerSQNumber);
-//            }
-//        } else {
-//            newLoc = normalMove(lastLoc, totalRoll, layerSQNumber);
-//        }
-//
-//        //getCurrentPlayer().getToken().setLocation(newLoc);
-//
-//        String locStr = MessageConverter.convertArrayToString(newLoc);
-//        System.out.println("In the Game Logic Move Method");
-//
-//        ServerCommunicationHandler.getInstance().sendResponse(moveFlag, getCurrentPlayer().getName(), locStr);
-//        ServerCommunicationHandler.getInstance().sendResponse(tokenFlag, getCurrentPlayer().getName(), locStr);
-//        checkSpecialSquare(newLoc);
-//    }
-//
-//    private int[] upDownMove(int[] lastLoc, int roll, int layerSQNumber) {
-//        int railroad;
-//        if (Board.getInstance().railRoadFind(lastLoc, roll)[0].getLocation()[1] - lastLoc[1] < 0)
-//            railroad = Board.getInstance().railRoadFind(lastLoc, roll)[0].getLocation()[1] - lastLoc[1] + layerSQNumber;
-//        else railroad = Board.getInstance().railRoadFind(lastLoc, roll)[0].getLocation()[1] - lastLoc[1];
-//        roll = roll - railroad;
-//        lastLoc = normalMove(lastLoc, railroad, layerSQNumber);
-//        return upDownMoveRec(lastLoc, roll);
-//    }
-//
-//    private int[] upDownMoveRec(int[] lastLoc, int roll) {
-//        if (Board.getInstance().railRoadFind(lastLoc, roll)[0] != null) {
-//            String sqName = Board.getInstance().railRoadFind(lastLoc, roll)[0].getName();
-//            int[] tryLoc = new int[2];
-//            switch (sqName) {
-//                case "Reading Railroad":
-//                    if (lastLoc[0] == 0) {
-//                        return railRoadHelper(lastLoc, 1, 5, tryLoc, roll, FIRST_LAYER_SQ);
-//                    } else if (lastLoc[0] == 1) {
-//                        return railRoadHelper(lastLoc, 0, 7, tryLoc, roll, ZEROTH_LAYER_SQ);
-//                    }
-//                    break;
-//                case "B.&O. Railroad":
-//                    if (lastLoc[0] == 0) {
-//                        return railRoadHelper(lastLoc, 1, 25, tryLoc, roll, FIRST_LAYER_SQ);
-//                    } else if (lastLoc[0] == 1) {
-//                        return railRoadHelper(lastLoc, 0, 35, tryLoc, roll, ZEROTH_LAYER_SQ);
-//                    }
-//                    break;
-//                case "Pennsylvania Railroad":
-//                    if (lastLoc[0] == 1) {
-//                        return railRoadHelper(lastLoc, 2, 9, tryLoc, roll, SECOND_LAYER_SQ);
-//                    } else if (lastLoc[0] == 2) {
-//                        return railRoadHelper(lastLoc, 1, 15, tryLoc, roll, FIRST_LAYER_SQ);
-//                    }
-//                    break;
-//                case "Short Line Railroad":
-//                    if (lastLoc[0] == 1) {
-//                        return railRoadHelper(lastLoc, 2, 21, tryLoc, roll, SECOND_LAYER_SQ);
-//                    } else if (lastLoc[0] == 2) {
-//                        return railRoadHelper(lastLoc, 1, 35, tryLoc, roll, FIRST_LAYER_SQ);
-//                    }
-//                    break;
-//                default:
-//                    break;
-//            }
-//        }
-//        return lastLoc;
-//    }
-//
-//    private int[] railRoadHelper(int[] lastLoc, int layer, int railSq, int[] tryLoc, int roll, int layerSQNumber) {
-//        lastLoc[0] = layer;
-//        lastLoc[1] = railSq;
-//        tryLoc[0] = lastLoc[0];
-//        tryLoc[1] = lastLoc[1] + 1;
-//        if (Board.getInstance().railRoadFind(tryLoc, roll)[0] == null || Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1] > roll) {
-//            lastLoc = normalMove(lastLoc, roll, layerSQNumber);
-//            return lastLoc;
-//        }
-//        int railroad;
-//        if (Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1] < 0)
-//            railroad = Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1] + layerSQNumber;
-//        else railroad = Board.getInstance().railRoadFind(tryLoc, roll)[0].getLocation()[1] - lastLoc[1];
-//        roll = roll - railroad;
-//        lastLoc = normalMove(lastLoc, railroad, layerSQNumber);
-//        return upDownMoveRec(lastLoc, roll);
-//    }
-//
-//    private int[] normalMove(int[] lastLoc, int roll, int layerSQNumber) {
-//        int[] newLoc = new int[2];
-//        if (lastLoc[1] + roll > layerSQNumber - 1) {
-//            newLoc[0] = lastLoc[0];
-//            newLoc[1] = lastLoc[1] + roll - layerSQNumber;
-//            if (lastLoc[0] == 1) {
-//                // getCurrentPlayer().increaseMoney(GO_COLLECT); // TODO Message Interpret does this
-//                System.out.println("Player passed above Go Square");
-//                ServerCommunicationHandler.getInstance().sendResponse(moneyFlag, getCurrentPlayer().getName(), GO_COLLECT);
-//            }
-//        } else {
-//            newLoc[0] = lastLoc[0];
-//            newLoc[1] = lastLoc[1] + roll;
-//        }
-//        return newLoc;
+
+    public int getTotalRoll(String name){
+        int totalRoll;
+        if (GameInfo.getInstance().getPeek().getFaceValues()[2] <= 3) {
+            totalRoll = GameInfo.getInstance().getPlayer(name).getFaceValues()[0]
+                    + GameInfo.getInstance().getPlayer(name).getFaceValues()[1]
+                    + GameInfo.getInstance().getPlayer(name).getFaceValues()[2];
+        } else {
+            totalRoll = GameInfo.getInstance().getPlayer(name).getFaceValues()[0]
+                    + GameInfo.getInstance().getPlayer(name).getFaceValues()[1];
+        }
+        return totalRoll;
+    }
+
+    private boolean checkDouble(String name) {
+        return (GameInfo.getInstance().getPlayer(name).getFaceValues()[0] ==
+                GameInfo.getInstance().getPlayer(name).getFaceValues()[1]);
+    }
+
+    private boolean checkJail(String name) {
+        return GameInfo.getInstance().getPlayer(name).isInJail();
+    }
+
+    private boolean checkBus(String name) {
+        return false;
+    }
+
+    public boolean checkMrMonopoly(String name) {
+        return false;
+    }
+
+    private boolean checkTriple(String name) {
+        return (GameInfo.getInstance().getPlayer(name).getFaceValues()[0] ==
+                GameInfo.getInstance().getPlayer(name).getFaceValues()[1] && GameInfo.getInstance().getPlayer(name).getFaceValues()[1] ==
+                GameInfo.getInstance().getPlayer(name).getFaceValues()[2]);
+    }
+
+    private boolean checkThirdDouble(String name) {
+        if (GameInfo.getInstance().getPlayer(name).getDoubleCounter() == 2 && checkDouble(name)) {
+            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("DoubleCounter"), name, "0");
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkSecondTurn(String name) {
+        if(!checkDouble(name)) return false;
+        else if(checkJail(name)) return false;
+        else return true;
+    }
+
+    public void uptadeDoubleCounter(String name) {
+        if(checkDouble(name) && !checkJail(name)){
+            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("DoubleCounter"), name, "1");
+        }
+    }
+
+
+    public boolean checkMoveConditions(String name){
+       if (GameLogic.getInstance().checkThirdDouble(name)) {
+           GameLogic.getInstance().sendToJail(name);
+           return false;
+       } else if (GameLogic.getInstance().checkJail(name)) {
+           GameLogic.getInstance().tryToGoOutOfJail(name);
+           return false;
+       } else if (GameLogic.getInstance().checkTriple(name)) {
+           //selectDestinationSQ();
+           return false;
+       } else if (GameLogic.getInstance().checkBus(name)) {
+           //
+           return false;
+       }
+       return true;
+
+   }
+
+    private void tryToGoOutOfJail(String name) {
+        if (checkDouble(name)) {
+            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("GoOutOfJail"), name);
+            move(name);
+        }
+    }
+
+    private void sendToJail(String name) {
+        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("GoToJail"), name);
+        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Move"), name,MessageConverter.convertArrayToString(Board.getInstance().getNameGivenSquare("Jail").getLocation()) + "@" + "Jail");
+    }
+
+    public String move(String name) {
+        int[] lastLoc = GameInfo.getInstance().getPlayer(name).getToken().getLocation();
+        int[] newLoc;
+        int totalRoll;
+        int layerSQNumber = 0;
+        switch (lastLoc[0]) {
+            case 0:
+                layerSQNumber = ZEROTH_LAYER_SQ;
+                break;
+            case 1:
+                layerSQNumber = FIRST_LAYER_SQ;
+                break;
+            case 2:
+                layerSQNumber = SECOND_LAYER_SQ;
+                break;
+        }
+        totalRoll = getTotalRoll(name);
+        if (Board.getInstance().railRoadFind(lastLoc, totalRoll)[0] != null) {
+            if (totalRoll % 2 == 1) {
+                newLoc = NormalMove.getInstance().move(lastLoc, totalRoll, layerSQNumber);
+            } else {
+                newLoc = UpDownMove.getInstance().move(lastLoc, totalRoll, layerSQNumber);
+            }
+        } else {
+            newLoc = NormalMove.getInstance().move(lastLoc, totalRoll, layerSQNumber);
+        }
+
+        String locStr = MessageConverter.convertArrayToString(newLoc);
+        System.out.println("In the Game Logic Move Method");
+
+        return locStr;
+    }
+
+    //    private int[] upDownMove(int[] lastLoc, int roll, int layerSQNumber) {
+//        return null;
 //    }
 
-//    private boolean checkDouble() {
-//        return (getCurrentPlayer().getFaceValues()[0] ==
-//                getCurrentPlayer().getFaceValues()[1]);
+//    private int[] upDownMoveRec(int[] lastLoc, int roll) {
+//        return null;
 //    }
-//
-//
-//    private boolean checkJail() {
-//        return getCurrentPlayer().isInJail();
+
+//    private int[] railRoadHelper(int[] lastLoc, int layer, int railSq, int[] tryLoc, int roll, int layerSQNumber) {
+//        return null;
 //    }
-//
-//    private boolean checkBus() {
-//        return false;
+
+//    private int[] normalMove(int[] lastLoc, int roll, int layerSQNumber) {
 //    }
-//
-//    private boolean checkMrMonopoly() {
-//        return false;
-//    }
-//
-//    private boolean checkTriple() {
-//        return (getCurrentPlayer().getFaceValues()[0] ==
-//                getCurrentPlayer().getFaceValues()[1] && getCurrentPlayer().getFaceValues()[1] ==
-//                getCurrentPlayer().getFaceValues()[2]);
-//    }
-//
-//    private boolean checkThirdDouble() {
-//        if (getCurrentPlayer().getDoubleCounter() == 2 && checkDouble()) {
-//            getCurrentPlayer().resetDoubleCounter();
-//            return true;
-//        }
-//        return false;
-//    }
-//
-//    public ArrayList<Player> getPlayerList() {
-//        return playerList;
-//    }
-//
-//    public void setPlayers(Deque<String> playerQueue) {
-//        this.players = playerQueue;
-//    }
-//
-//
-//    public Deque<String> getPlayers() {
-//        return players;
-//    }
-//
-//    public Player getPlayer(String name) {
-//        return playerList.stream().filter(x -> x.getName().equals(name)).collect(Collectors.toList()).get(0);
-//    }
-//
-//    public Player getMyself() {
-//        return playerList.get(0);
-//    }
-//
-//
-//    public void setPlayerList(ArrayList<Player> playerList) {
-//        this.playerList = playerList;
-//    }
-//
-//    synchronized void switchTurn() {
-//        getCurrentPlayer().resetDoubleCounter();
-//        players.addLast(players.removeFirst());
-//        // Bots will play on only host's program
-//        if (!playerList.get(0).getReadiness().equals("Host")) return;
-//        // Check for bot's turn
-//        for (Player player : playerList) {
-//            if (player.getReadiness().equals("Bot") && ((RandomPlayer) player).checkTurn()) {
-//                break;
-//            }
-//        }
-//        // TODO Burda UI a yada MessageInt. den UI a mesaj yollayip jail de ise adam sadece roll dice ve finish turn buttonlarinin acik olmasi lazim.
-//    }
-//
-//    public void finishTurn() {
-//        ServerCommunicationHandler.getInstance().sendResponse(finishTurnFlag, getCurrentPlayer().getName());
-//    }
-//
+
+
 ////    public void upgrade(Square square) {
 ////        Player currentPlayer = getCurrentPlayer();
 ////        if (square.getClass().getName().equals("RailRoad")) {
@@ -377,35 +279,6 @@ public class GameLogic {
 ////        ServerCommunicationHandler.getInstance().sendupdowngradeAction(downgradeFlag, (DeedSquare) square);
 ////    }
 //
-//    void removePlayer(String name) {
-//        Player player = playerList.stream().filter(p -> p.getName().equals(name)).collect(Collectors.toList()).get(0);
-//
-//        resetPlayer(player);
-//        if (getCurrentPlayer().getName().equals(name))
-//            GameLogic.getInstance().finishTurn();
-//
-//        playerList.removeIf(p -> p.getName().equals(name));
-//        players.remove(player.getName());
-//
-//        System.out.println("\n\n===========================\n" +
-//                playerList + "\n" +
-//                players + "\n");
-//
-//
-//    }
-//
-//
-//    private void resetPlayer(Player player) {
-//        //remove Buildings
-//        player.getOwnedProperties().forEach(x -> x.setBuildingList(new ArrayList<>()));
-//        player.getOwnedRailroads().forEach(x -> x.setHasDepot(false));
-//
-//        //reset owner
-//        player.getOwnedProperties().forEach(x -> x.setOwner(null));
-//        player.getOwnedRailroads().forEach(x -> x.setOwner(null));
-//        player.getOwnedUtilities().forEach(x -> x.setOwner(null));
-//
-//    }
 //
 //    private void checkSpecialSquare(int[] newLoc) { // TODO Buggy Code Burda para degisimi yollanan mesajlar felan ile ilgili sorunlar var.
 //        Square square = Board.getInstance().getSquare(newLoc[0], newLoc[1]);
@@ -438,8 +311,5 @@ public class GameLogic {
 //    }
 //
 //
-//    public Player getCurrentPlayer() {
-//        return getPlayer(players.peekFirst());
-//    }
 
 }
