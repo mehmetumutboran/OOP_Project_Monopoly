@@ -61,6 +61,9 @@ public class GameInfo implements Savable {
         this.playerList = playerList;
     }
 
+    public Player getCurrentPlayer (){
+        return getPlayer(getPlayerQueue().peek());
+    }
     public Player getPlayer(String name) {
         return playerList.stream().filter(player -> player.getName().equals(name)).findFirst().orElse(null);
     }

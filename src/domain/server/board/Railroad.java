@@ -6,7 +6,7 @@ public class Railroad extends DeedSquare {
     private int currentRent;
 
     public Railroad() {
-        this("", 0, 0, 0, new int[]{0, 0, 0, 0, });
+        this("", 0, 0, 0, new int[]{0, 0, 0, 0 });
     }
 
     public Railroad(String name, int layer, int index, int buyValue, int[] rents) {

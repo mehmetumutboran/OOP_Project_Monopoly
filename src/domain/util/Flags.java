@@ -62,6 +62,9 @@ public class Flags {
         flagMap.put("Remove", removeFlag);
         flagMap.put("Full", fullFlag);
 
+        flagMap.put("Upgrade", upgradeFlag);
+        flagMap.put("Downgrade", downgradeFlag);
+
     }
 
     public static char getFlag(String action) {

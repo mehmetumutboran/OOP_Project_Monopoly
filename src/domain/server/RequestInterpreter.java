@@ -39,8 +39,8 @@ public class RequestInterpreter {
         interpreterMap.put(Flags.getFlag("Start"), buyRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), payRentRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), queueRequestInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), upDownRequestInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), upDownRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Downgrade"), upDownRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Upgrade"), upDownRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), tokenMovementRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Roll"), rollRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), specialSquareRequestInterpreter);
