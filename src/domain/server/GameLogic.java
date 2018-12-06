@@ -113,7 +113,7 @@ public class GameLogic {
     }
 
     private boolean checkThirdDouble(String name) {
-        if (GameInfo.getInstance().getPlayer(name).getDoubleCounter() == 2 && checkDouble(name)) {
+        if (GameInfo.getInstance().getPlayer(name).getDoubleCounter() == 3) {
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("DoubleCounter"), name, "0");
             return true;
         }
@@ -154,6 +154,7 @@ public class GameLogic {
     private void tryToGoOutOfJail(String name) {
         if (checkDouble(name)) {
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("GoOutOfJail"), name);
+            //TODO Prompt yollanabilir.
             move(name);
         }
     }
