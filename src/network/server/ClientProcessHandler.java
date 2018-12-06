@@ -24,7 +24,7 @@ public class ClientProcessHandler implements Runnable {
             }
 
 
-            ServerFacade.getInstance().interpretRequest(line, index);
+//            ServerFacade.getInstance().interpretRequest(index, line);
 
             synchronized (clientHandler) {
                 clientHandler.notify();

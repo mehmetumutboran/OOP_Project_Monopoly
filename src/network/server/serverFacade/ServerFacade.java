@@ -52,8 +52,8 @@ public class ServerFacade {
         }
     }
 
-    public void interpretRequest(String line, int index) {
-        RequestInterpreter.getInstance().interpret(line, index);
+    public void interpretRequest(DataInputStream dis, String line, int index) {
+        RequestInterpreter.getInstance().interpret(dis, line, index);
     }
 
 

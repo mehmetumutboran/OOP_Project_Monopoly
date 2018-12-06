@@ -1,9 +1,11 @@
 package domain.server.interpreter;
 
+import java.io.DataInputStream;
+
 public class JailRequestInterpreter implements RequestInterpretable {
 
     @Override
-    public void interpret(String[] message, int index) {
+    public void interpret(DataInputStream dis, String[] message, int index) {
 //        if(message[0].charAt(0) == GameLogic.jailFlag){
 //            GameLogic.getInstance().getPlayer(message[1]).setInJail(true);
 //            GameLogic.getInstance().getPlayer(message[1]).getToken().setLocation(Board.getInstance().getNameGivenSquare("Jail").getLocation());

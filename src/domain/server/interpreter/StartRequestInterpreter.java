@@ -10,13 +10,14 @@ import domain.util.LoadGameHandler;
 import domain.util.MessageConverter;
 import network.server.serverFacade.ServerFacade;
 
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.*;
 
 public class StartRequestInterpreter implements RequestInterpretable {
 
     @Override
-    public void interpret(String[] message, int index) {
+    public void interpret(DataInputStream dis, String[] message, int index) {
         String name = message[1];
         int count = GameInfo.getInstance().checkReadiness();
         if (count != 0) {
@@ -29,31 +30,36 @@ public class StartRequestInterpreter implements RequestInterpretable {
             synchronized (this) {
                 ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Start"), name);
 
+                String line;
+
                 while (true){
-                    System.out.println("First while" + ReceivedChecker.getInstance().recevied[index]);
-                    if(ReceivedChecker.getInstance().recevied[index]) {
-                        ReceivedChecker.getInstance().recevied[index] = false;
-                        break;
+                    try {
+                        line = dis.readUTF();
+                        if(line.charAt(0)=='z') break;
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                 }
 
                 ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("InitQueue"), name, MessageConverter.convertQueueToString(playerOrder()));
 
                 while (true){
-                    System.out.println("Second while" + ReceivedChecker.getInstance().recevied[index]);
-                    if(ReceivedChecker.getInstance().recevied[index]) {
-                        ReceivedChecker.getInstance().recevied[index] = false;
-                        break;
+                    try {
+                        line = dis.readUTF();
+                        if(line.charAt(0)=='z') break;
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                 }
 
                 ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Finish"), name);
 
                 while (true){
-                    System.out.println("Third while" + ReceivedChecker.getInstance().recevied[index]);
-                    if(ReceivedChecker.getInstance().recevied[index]) {
-                        ReceivedChecker.getInstance().recevied[index] = false;
-                        break;
+                    try {
+                        line = dis.readUTF();
+                        if(line.charAt(0)=='z') break;
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                 }
 

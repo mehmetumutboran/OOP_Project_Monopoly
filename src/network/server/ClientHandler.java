@@ -17,8 +17,8 @@ public class ClientHandler implements Runnable {
     private int index;
     private Deque<String> messageQueue;
     private boolean received;
-    private ClientProcessHandler clientProcessHandler;
-    private final Thread thread;
+//    private ClientProcessHandler clientProcessHandler;
+//    private final Thread thread;
 
 
     public ClientHandler(Socket clientSocket, int index) {
@@ -26,9 +26,9 @@ public class ClientHandler implements Runnable {
         this.index = index;
         this.messageQueue = new LinkedList<>();
         this.received = true;
-        this.clientProcessHandler = new ClientProcessHandler(this, index);
-        this.thread = new Thread(clientProcessHandler, "ClientProcessHandler");
-        this.thread.start();
+//        this.clientProcessHandler = new ClientProcessHandler(this, index);
+//        this.thread = new Thread(clientProcessHandler, "ClientProcessHandler");
+//        this.thread.start();
     }
 
     @Override
@@ -45,7 +45,9 @@ public class ClientHandler implements Runnable {
                     continue;
                 }
 
-                clientProcessHandler.setLine(line);
+
+                ServerFacade.getInstance().interpretRequest(dis, line, index);
+//                clientProcessHandler.setLine(line);
 
 
 //                synchronized (this){

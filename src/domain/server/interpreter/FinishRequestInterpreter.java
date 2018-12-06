@@ -5,9 +5,11 @@ import domain.util.Flags;
 import domain.util.GameInfo;
 import network.server.serverFacade.ServerFacade;
 
+import java.io.DataInputStream;
+
 public class FinishRequestInterpreter implements RequestInterpretable {
     @Override
-    public void interpret(String[] message, int index) {
+    public void interpret(DataInputStream dis, String[] message, int index) {
         String name = message[1];
 
         ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Finish"), name);
