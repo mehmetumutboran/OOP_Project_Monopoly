@@ -23,7 +23,9 @@ public class ResponseInterpreter {
         ResponseInterpretable moveResponseInterpreter = new MoveResponseInterpreter();
         ResponseInterpretable moneyChangeResponseInterpreter = new MoneyChangeResponseInterpreter();
         ResponseInterpretable buyResponseInterpreter = new BuyResponseInterpreter();
+        ResponseInterpretable dontBuyResponseInterpreter = new DontBuyResponseInterpreter();
         ResponseInterpretable payRentResponseInterpreter = new PayRentResponseInterpreter();
+        ResponseInterpretable dontPayRentResponseInterpreter = new DontPayRentResponseInterpreter();
         ResponseInterpretable queueResponseInterpreter = new QueueResponseInterpreter();
         ResponseInterpretable initQueueResponseInterpreter = new InitQueueResponseInterpreter();
         ResponseInterpretable upDownResponseInterpreter = new UpDownResponseInterpreter();
@@ -56,6 +58,7 @@ public class ResponseInterpreter {
         interpreterMap.put(Flags.getFlag("Money"), moneyChangeResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Buy"), buyResponseInterpreter);
         interpreterMap.put(Flags.getFlag("PayRent"), payRentResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("DontPayRent"), dontPayRentResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Queue"), queueResponseInterpreter);
         interpreterMap.put(Flags.getFlag("InitQueue"), initQueueResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Upgrade"), upDownResponseInterpreter);
@@ -80,6 +83,7 @@ public class ResponseInterpreter {
         interpreterMap.put(Flags.getFlag("Remove"), removeResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Full"), fullResponseInterpreter);
         interpreterMap.put(Flags.getFlag("DoubleCounter"), doubleCounterResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("DontBuy"), dontBuyResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Finish"), finishResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Button"), buttonResponseInterpreter);
     }

@@ -60,6 +60,14 @@ public class GameState {
         return flag + "|" + qString;
     }
 
+    public String generateCurrentAction(char flag) {
+        return Character.toString(flag) ;
+    }
+
+//    private String generateInitQueueAction(char flag, int money , String name) {
+//        return flag + "|" + money + "|" + name ;
+//    }
+
     public String generateCurrentAction(char flag, String name, String message) {
         if (flag == Flags.getFlag("InitQueue")) {
             return generateInitQueueAction(Flags.getFlag("InitQueue"), message);
@@ -74,6 +82,15 @@ public class GameState {
         return flag + "|" + count + "|" + message;
     }
 
+    public String generateCurrentAction(char flag, String name , int money1, int money2, String squareName) {
+        return flag + "|" + name + "|" + money1 + "|" + money2+ "|" + squareName;
+
+}
+
+    public String generateCurrentAction(char flag, String name , int money , String squareName) {
+        return flag + "|" + name + "|" + money +  "|" + squareName;
+
+    }
 //    public String generateCurrentAction(char flag, String name, String buildNameOrLoc) {
 //        if (flag == upgradeFlag) {
 //            return generateUpgradeAction(flag, name, buildNameOrLoc);

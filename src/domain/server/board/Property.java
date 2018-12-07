@@ -9,11 +9,11 @@ public class Property extends DeedSquare {
     private String color;
     private ArrayList<Building> buildingList;
     private boolean hasUpgrade;
-    private int[] rents = new int[7];
+    private int[] rents = new int[10];
     private int currentRent;
 
     public Property() {
-        this("", 0, 0, 0,new int[]{0, 0, 0, 0, 0,0,0}, "");
+        this("", 0, 0, 0,new int[]{0, 0, 0, 0, 0,0,0,0,0,0}, "");
     }
 
     public Property(String name, int layer, int index, int buyValue, int[] rents, String color) {
