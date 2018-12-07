@@ -1,18 +1,18 @@
 package domain.server.board;
 
 public class Utility extends DeedSquare {
-    private int[] rents = new int[8];
+    private int[] rents = new int[10];
     private int currentRent;
 
     public Utility() {
-        this("", 0, 0, 0,  new int[]{1,1,1,1,1,1,1,1 });
+        this("", 0, 0, 0,  new int[]{0,0,0,0,0,0,0,0,0,0 });
 
     }
 
     public Utility(String name, int layer, int index, int buyValue, int [] rents) {
         super(name, layer, index, buyValue,  null,rents);
-      //  this.rents = rents.clone();
-      //  this.currentRent = rents[0];
+        this.rents = rents.clone();
+        this.currentRent = rents[0];
     }
 
 

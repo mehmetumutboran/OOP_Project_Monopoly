@@ -54,6 +54,10 @@ public class Player implements Comparable, Savable {
         this.started = isStarted;
         this.doubleCounter = doubleCounter;
         this.inJail = isInJail;
+        if(name.equals("Homer"))
+            ((DeedSquare)Board.getInstance().getNameGivenSquare("Esplanada Avenue")).setOwner("Homer");
+
+        token.setLocation(new int[]{0, 8});
 
     }
 

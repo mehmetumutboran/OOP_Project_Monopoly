@@ -24,8 +24,12 @@ public class FinishRequestInterpreter implements RequestInterpretable {
             }
         }
 
+<<<<<<< HEAD
         String nextPlayer = GameInfo.getInstance().getCurrentPlayer();
         if (!GameInfo.getInstance().isBot(nextPlayer))
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), ServerFacade.getInstance().nameToIndex(nextPlayer), "000001000", name);
+=======
+        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), ServerFacade.getInstance().nameToIndex(GameInfo.getInstance().getCurrentPlayer()), "110001000", name);
+>>>>>>> cdc078b780a675f7db5729062c14aab89663a282
     }
 }

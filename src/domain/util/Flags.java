@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 public class Flags {
 
+
     private static final char buyFlag = 'A';
     private static final char rollFlag = 'B';
     private static final char moneyFlag = 'C';
@@ -32,6 +33,8 @@ public class Flags {
     private static final char readinessFlag = 'Z';
     private static final char dontStartFlag = 'a';
     private static final char initQueueFlag = 'b';
+    private static final char dontBuyFlag = 'c';
+    private static final char dontPayRentFlag = 'd';
     private static final char saveFlag = 'g';
     private static final char pauseFlag = 'h';
     private static final char loadFlag = 'i';
@@ -40,7 +43,6 @@ public class Flags {
     private static final char finishFlag = 'l';
     private static final char buttonFlag = 'm';
     private static final char receivedFlag = 'z';
-
 
     private static HashMap<String, Character> flagMap;
 
@@ -68,12 +70,14 @@ public class Flags {
         flagMap.put("GoToJail", jailFlag);
         flagMap.put("GoOutOfJail", jailFlag);
         flagMap.put("DoubleCounter", doubleCounterFlag);
+        flagMap.put("Buy", buyFlag);
+        flagMap.put("DontBuy", dontBuyFlag);
+        flagMap.put("PayRent", payRentFlag);
+        flagMap.put("DontPayRent", dontPayRentFlag);
         flagMap.put("Finish", finishFlag);
         flagMap.put("Button", buttonFlag);
         flagMap.put("Received", receivedFlag);
-        flagMap.put("Buy", buyFlag);
         flagMap.put("Money", moneyFlag);
-        flagMap.put("PayRent", payRentFlag);
         flagMap.put("Upgrade", upgradeFlag);
         flagMap.put("Downgrade", downgradeFlag);
         flagMap.put("Draw", drawCardFlag);
