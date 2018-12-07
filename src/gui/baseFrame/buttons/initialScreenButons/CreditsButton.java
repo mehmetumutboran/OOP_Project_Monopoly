@@ -1,16 +1,16 @@
 package gui.baseFrame.buttons.initialScreenButons;
 
 import gui.baseFrame.BaseFrame;
+import gui.baseFrame.buttons.BaseButton;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class CreditsButton extends JButton implements ActionListener {
+public class CreditsButton extends BaseButton {
 
     public CreditsButton(String text) {
         super(text);
-        this.addActionListener(this);
     }
 
     @Override

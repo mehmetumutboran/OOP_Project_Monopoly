@@ -2,6 +2,7 @@ package gui.baseFrame.buttons.multiplayerButtons;
 
 import domain.util.GameInfo;
 import gui.baseFrame.BaseFrame;
+import gui.baseFrame.buttons.BaseButton;
 import network.client.clientFacade.ClientFacade;
 import network.server.serverFacade.ServerFacade;
 
@@ -12,10 +13,9 @@ import java.awt.event.ActionListener;
 /**
  * Allows player to return previous menu
  */
-public class BackButton extends JButton implements ActionListener {
+public class BackButton extends BaseButton {
     public BackButton(String text) {
         super(text);
-        this.addActionListener(this);
     }
 
     @Override

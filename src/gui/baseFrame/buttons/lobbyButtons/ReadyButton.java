@@ -2,6 +2,7 @@ package gui.baseFrame.buttons.lobbyButtons;
 
 import domain.client.PlayerActionController;
 import gui.baseFrame.ColorBox;
+import gui.baseFrame.buttons.BaseButton;
 import gui.baseFrame.buttons.multiplayerButtons.BackButton;
 
 import javax.swing.*;
@@ -12,7 +13,7 @@ import java.awt.event.ActionListener;
 /**
  * When player presses ReadyButton it changes and becomes unready Button.
  */
-public class ReadyButton extends JButton implements ActionListener {
+public class ReadyButton extends BaseButton {
     private String[] state;
     private Color[] colors;
     private static int counter = 0;
@@ -24,7 +25,6 @@ public class ReadyButton extends JButton implements ActionListener {
         state = new String[]{"Ready", "Unready"};
         colors = new Color[]{Color.GREEN, Color.RED};
         this.setBackground(colors[0]);
-        addActionListener(this);
         this.backButton = backButton;
         this.colorBox = colorBox;
     }

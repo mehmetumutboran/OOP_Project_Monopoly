@@ -2,7 +2,7 @@ package gui.baseFrame.panels;
 
 import gui.baseFrame.buttons.initialScreenButons.CreditsButton;
 import gui.baseFrame.buttons.initialScreenButons.ExitButton;
-import gui.baseFrame.buttons.initialScreenButons.MultiplayerButton;
+import gui.baseFrame.buttons.initialScreenButons.MultiPlayerButton;
 import gui.baseFrame.buttons.initialScreenButons.SinglePlayerButton;
 
 import javax.imageio.ImageIO;
@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class InitialScreenPanel extends JPanel {
     private SinglePlayerButton singlePlayerButton;
-    private MultiplayerButton multiPlayerButton;
+    private MultiPlayerButton multiPlayerButton;
     private ExitButton exitButton;
     private CreditsButton creditsButton;
 
@@ -66,7 +66,7 @@ public class InitialScreenPanel extends JPanel {
 
     private void initButtons() {
         singlePlayerButton = new SinglePlayerButton("Single Player");
-        multiPlayerButton = new MultiplayerButton("Multiplayer");
+        multiPlayerButton = new MultiPlayerButton("Multiplayer");
         exitButton = new ExitButton("Exit");
         creditsButton = new CreditsButton("Credits");
 

@@ -1,6 +1,7 @@
 package gui.baseFrame.buttons.hostJoinButtons;
 
 import domain.client.PlayerActionController;
+import gui.baseFrame.buttons.BaseButton;
 import gui.util.InputChecker;
 import network.client.clientFacade.ClientFacade;
 import network.listeners.ConnectionFailedListener;
@@ -9,7 +10,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class HostButton extends JButton implements ActionListener, ConnectionFailedListener {
+public class HostButton extends BaseButton implements ConnectionFailedListener {
     private JTextField IDField;
     private JTextField portField;
 
@@ -24,7 +25,6 @@ public class HostButton extends JButton implements ActionListener, ConnectionFai
         super(text);
         this.IDField = IDField;
         this.portField = portField;
-        this.addActionListener(this);
         ClientFacade.getInstance().addConnectionFailedListener(this);
     }
 
