@@ -64,9 +64,14 @@ public class ServerCommunicationHandler {
                 .send(index, GameState.getInstance().generateCurrentAction(flag, count, name));
     }
 
-//    public synchronized void sendResponse(char flag, String name, String buildName) {
+    public synchronized void sendResponse(char flag, int index, String message, String name) {
+        ServerFacade.getInstance()
+                .send(index, GameState.getInstance().generateCurrentAction(flag, message, name));
+    }
+
+//    public synchronized void sendResponse(char flag, String message, String name) {
 //        ServerFacade.getInstance()
-//                .send(GameState.getInstance().generateCurrentAction(flag, name, buildName));
+//                .send(GameState.getInstance().generateCurrentAction(flag, name, buildame));
 //    }
 //
 //    public synchronized void sendResponse(char flag, String name, int changedMoney) {

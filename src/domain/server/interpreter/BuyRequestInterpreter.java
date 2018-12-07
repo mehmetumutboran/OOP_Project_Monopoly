@@ -1,5 +1,6 @@
 package domain.server.interpreter;
 
+<<<<<<< src/domain/server/interpreter/BuyRequestInterpreter.java
 import domain.server.board.Board;
 import domain.server.board.DeedSquare;
 import domain.server.board.Square;
@@ -7,11 +8,12 @@ import domain.server.controller.ServerCommunicationHandler;
 import domain.server.player.Player;
 import domain.util.Flags;
 import domain.util.GameInfo;
+import java.io.DataInputStream;
 
 public class BuyRequestInterpreter implements RequestInterpretable {
 
     @Override
-    public void interpret(String[] message, int index) {
+    public void interpret(DataInputStream dis, String[] message, int index) {  
 
         String name = message[1];
 
@@ -36,19 +38,6 @@ public class BuyRequestInterpreter implements RequestInterpretable {
               ServerCommunicationHandler.getInstance()
                       .sendResponse(Flags.getFlag("DontBuy") , index );
           }
-
-//        String name = message[1];
-//        String sqName = message[2];
-//
-//        Player player = GameLogic.getInstance().getPlayer(name);
-//        Square square = Board.getInstance().getNameGivenSquare(sqName);
-//
-//        player.decreaseMoney(((DeedSquare) square).getBuyValue());
-//        player.addDeed(square);
-//
-//        ((DeedSquare) square).setOwner(player);
-//
-//        UIUpdater.getInstance().setMessage(name + " bought " + sqName);
     }
 
 }

@@ -33,14 +33,16 @@ public class Flags {
     private static final char readinessFlag = 'Z';
     private static final char dontStartFlag = 'a';
     private static final char initQueueFlag = 'b';
+    private static final char dontBuyFlag = 'c';
+    private static final char dontPayRentFlag = 'd';
     private static final char saveFlag = 'g';
     private static final char pauseFlag = 'h';
     private static final char loadFlag = 'i';
     private static final char removeFlag = 'j';
     private static final char fullFlag = 'k';
-    private static final char dontBuyFlag = 'l';
-    private static final char dontPayRentFlag = 'm';
-
+    private static final char finishFlag = 'l';
+    private static final char buttonFlag = 'm';
+    private static final char receivedFlag = 'z';
 
     private static HashMap<String, Character> flagMap;
 
@@ -72,6 +74,19 @@ public class Flags {
         flagMap.put("DontBuy", dontBuyFlag);
         flagMap.put("PayRent", payRentFlag);
         flagMap.put("DontPayRent", dontPayRentFlag);
+        flagMap.put("Finish", finishFlag);
+        flagMap.put("Button", buttonFlag);
+        flagMap.put("Received", receivedFlag);
+        flagMap.put("Money", moneyFlag);
+        flagMap.put("Upgrade", upgradeFlag);
+        flagMap.put("Downgrade", downgradeFlag);
+        flagMap.put("Draw", drawCardFlag);
+        flagMap.put("PayDay", payDayFlag);
+        flagMap.put("Bonus", bonusFlag);
+        flagMap.put("Jail", jailFlag);
+        flagMap.put("Special", specialSquareFlag);
+        flagMap.put("Pool", poolFlag);
+        flagMap.put("Token", tokenFlag);
 
     }
 

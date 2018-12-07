@@ -1,7 +1,9 @@
 package domain.client;
 
+import domain.server.GameLogic;
 import domain.server.controller.ConnectGameHandler;
 import domain.util.Flags;
+import network.client.Client;
 import network.client.clientFacade.ClientFacade;
 
 public class PlayerActionController {
@@ -23,9 +25,9 @@ public class PlayerActionController {
     }
 
 
-//    public void finishTurn() {
-//        GameLogic.getInstance().finishTurn();
-//    }
+    public void finishTurn() {
+        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Finish"), ClientFacade.getInstance().getUsername());
+    }
 //    // public void upgrade() {GameLogic.getInstance().upgrade(); }
 //
 //    //public void downgrade(){ GameLogic.getInstance().downgrade(); }

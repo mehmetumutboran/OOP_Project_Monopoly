@@ -11,6 +11,8 @@ import java.awt.event.ActionListener;
 
 public class PayRentButton extends JButton implements ActionListener, TurnChangedListener, ButtonChangeListener {
 
+    private final int INDEX = 1;
+
     public PayRentButton(String text) {
         super(text);
         this.addActionListener(this);
@@ -25,8 +27,8 @@ public class PayRentButton extends JButton implements ActionListener, TurnChange
     }
 
     @Override
-    public void onTurnChangedEvent(boolean isEnabled) {
-        this.setEnabled(isEnabled);
+    public void onTurnChangedEvent(String enable) {
+        this.setEnabled(enable.charAt(INDEX)=='1');
     }
 
     @Override

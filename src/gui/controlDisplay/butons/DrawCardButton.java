@@ -1,18 +1,17 @@
 package gui.controlDisplay.butons;
 
 import domain.client.UIUpdater;
-import domain.server.listeners.ButtonChangeListener;
 import domain.server.listeners.TurnChangedListener;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class UnmortgageButton extends JButton implements ActionListener, TurnChangedListener, ButtonChangeListener{
+public class DrawCardButton extends JButton implements TurnChangedListener, ActionListener {
 
-    private final int INDEX = 3;
+    private final int INDEX = 8;
 
-    public UnmortgageButton(String text) {
+    public DrawCardButton(String text) {
         super(text);
         this.addActionListener(this);
         this.setEnabled(false);
@@ -24,14 +23,8 @@ public class UnmortgageButton extends JButton implements ActionListener, TurnCha
 
     }
 
-
     @Override
     public void onTurnChangedEvent(String enable) {
-        this.setEnabled(enable.charAt(INDEX)=='1');
-    }
-
-    @Override
-    public void onButtonChangeEvent() {
 
     }
 }

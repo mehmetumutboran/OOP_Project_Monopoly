@@ -6,9 +6,12 @@ import domain.server.controller.ServerCommunicationHandler;
 import domain.util.Flags;
 import domain.util.MessageConverter;
 
+import java.io.DataInputStream;
+import java.io.IOException;
+
 public class RollRequestInterpreter implements RequestInterpretable {
     @Override
-    public void interpret(String[] message, int index) {
+    public void interpret(DataInputStream dis, String[] message, int index) {
         System.out.println("\n\nRollResponseInterpreter: interpret\n\n");
 
         String name = message[1];
@@ -16,6 +19,15 @@ public class RollRequestInterpreter implements RequestInterpretable {
         int [] rolled = GameLogic.getInstance().roll(name);
 
         ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Roll"), name, MessageConverter.convertArrayToString(rolled));
+
+        while (true){
+            try {
+                String line = dis.readUTF();
+                if(line.charAt(0)=='z') break;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         GameLogic.getInstance().uptadeDoubleCounter(name);
 
@@ -33,8 +45,9 @@ public class RollRequestInterpreter implements RequestInterpretable {
         GameLogic.getInstance().checkMrMonopoly(name);
 
         if(GameLogic.getInstance().checkSecondTurn(name)){
-          //  ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), name, "");
+            //ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), name, "");
         }
 
+        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), index, "000010000", name);
     }
 }

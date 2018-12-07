@@ -36,6 +36,8 @@ public class BuyResponseInterpreter implements ResponseInterpretable {
 //        ((DeedSquare) square).setOwner(player);
 //
 //        UIUpdater.getInstance().setMessage(name + " bought " + sqName);
+        ClientCommunicationHandler.getInstance().sendReceived();
+
     }
 
 }

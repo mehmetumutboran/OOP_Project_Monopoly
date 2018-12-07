@@ -1,5 +1,7 @@
 package domain.client.interpreter;
 
+import domain.client.ClientCommunicationHandler;
+
 public class MoneyChangeResponseInterpreter implements ResponseInterpretable {
     @Override
     public void interpret(String[] message) {
@@ -12,5 +14,7 @@ public class MoneyChangeResponseInterpreter implements ResponseInterpretable {
 //
 //        if (changedMoney > 0) UIUpdater.getInstance().setMessage(name + " 's money increased by " + changedMoney);
 //        else UIUpdater.getInstance().setMessage(name + " 's money decreased by " + (-changedMoney));
+        ClientCommunicationHandler.getInstance().sendReceived();
+
     }
 }

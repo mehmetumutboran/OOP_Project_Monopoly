@@ -1,5 +1,6 @@
 package gui.controlDisplay.butons;
 
+import domain.client.PlayerActionController;
 import domain.client.UIUpdater;
 import domain.server.listeners.ButtonChangeListener;
 import domain.server.listeners.TurnChangedListener;
@@ -10,6 +11,8 @@ import java.awt.event.ActionListener;
 
 public class FinishTurnButton extends JButton implements ActionListener, TurnChangedListener, ButtonChangeListener {
 
+    private final int INDEX = 4;
+
     public FinishTurnButton(String text) {
         super(text);
         this.addActionListener(this);
@@ -19,12 +22,12 @@ public class FinishTurnButton extends JButton implements ActionListener, TurnCha
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-//        PlayerActionController.getInstance().finishTurn();
+        PlayerActionController.getInstance().finishTurn();
     }
 
     @Override
-    public void onTurnChangedEvent(boolean isEnabled) {
-        this.setEnabled(isEnabled);
+    public void onTurnChangedEvent(String enable) {
+        this.setEnabled(enable.charAt(INDEX)=='1');
     }
 
     @Override

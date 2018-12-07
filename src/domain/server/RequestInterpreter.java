@@ -3,6 +3,7 @@ package domain.server;
 import domain.server.interpreter.*;
 import domain.util.Flags;
 
+import java.io.DataInputStream;
 import java.util.HashMap;
 
 /**
@@ -32,20 +33,20 @@ public class RequestInterpreter {
         RequestInterpretable pauseRequestInterpreter = new PauseRequestInterpreter();
         RequestInterpretable loadRequestInterpreter = new LoadRequestInterpreter();
         RequestInterpretable removeRequestInterpreter = new RemoveRequestInterpreter();
+        RequestInterpretable finishRequestInterpreter = new FinishRequestInterpreter();
 
         interpreterMap = new HashMap<>();
-        interpreterMap.put(Flags.getFlag("Start"), moveRequestInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), moneyChangeRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Move"), moveRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Money"), moneyChangeRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Buy"), buyRequestInterpreter);
         interpreterMap.put(Flags.getFlag("PayRent"), payRentRequestInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), queueRequestInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), upDownRequestInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), upDownRequestInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), tokenMovementRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Queue"), queueRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Upgrade"), upDownRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Downgrade"), upDownRequestInterpreter);// TODO
+        interpreterMap.put(Flags.getFlag("Token"), tokenMovementRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Roll"), rollRequestInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), specialSquareRequestInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), jailRequestInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), jailRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Special"), specialSquareRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Jail"), jailRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), startRequestInterpreter);
         interpreterMap.put(Flags.getFlag("AddPlayer"), addPlayerRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Color"), colorChangeRequestInterpreter);
@@ -54,6 +55,7 @@ public class RequestInterpreter {
         interpreterMap.put(Flags.getFlag("Pause"), pauseRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Load"), loadRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Remove"), removeRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Finish"), finishRequestInterpreter);
     }
 
     public static RequestInterpreter getInstance() {
@@ -63,11 +65,11 @@ public class RequestInterpreter {
     }
 
 
-    public synchronized void interpret(String m, int index) {
+    public synchronized void interpret(DataInputStream dis, String m, int index) {
         char flag = m.charAt(0);
 
         if (interpreterMap.keySet().contains(flag))
-            interpreterMap.get(flag).interpret(m.split("[|]"), index);
+            interpreterMap.get(flag).interpret(dis, m.split("[|]"), index);
 //
 //        switch (flag) {
 //            case GameLogic.finishTurnFlag:
