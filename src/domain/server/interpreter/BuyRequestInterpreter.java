@@ -7,12 +7,11 @@ import domain.server.controller.ServerCommunicationHandler;
 import domain.server.player.Player;
 import domain.util.Flags;
 import domain.util.GameInfo;
-import java.io.DataInputStream;
 
 public class BuyRequestInterpreter implements RequestInterpretable {
 
     @Override
-    public void interpret(DataInputStream dis, String[] message, int index) {  
+    public void interpret(String[] message, int index) {
 
         String name = message[1];
 

@@ -31,7 +31,7 @@ public class Server implements Runnable {
         }
     }
 
-    public synchronized static void removeClient(ClientHandler clientHandler) {
+    public synchronized void removeClient(ClientHandler clientHandler) {
         for (int i = 0; i < maxClientsCount; i++) {
             if (clientThreads[i] == clientHandler) {
                 clientThreads[i] = null;
@@ -100,14 +100,14 @@ public class Server implements Runnable {
         return ss;
     }
 
-    public synchronized static void sendAll(String m) throws IOException {
+    public synchronized void sendAll(String m) throws IOException {
         for (ClientHandler clientThread : clientThreads) {
             if (clientThread == null) continue;
             clientThread.send(m);
         }
     }
 
-    public synchronized static void sendToOne(int index, String response) throws IOException {
+    public synchronized void sendToOne(int index, String response) throws IOException {
         clientThreads[index].send(response);
     }
 
@@ -119,5 +119,13 @@ public class Server implements Runnable {
             if (clientNames[i].equals(username)) return i;
         }
         return -1;
+    }
+
+    public int getTotalNumPlayers() {
+        int count = 0;
+        for (int i = 0; i < clientThreads.length; i++) {
+            if (clientThreads[i]!=null) count++;
+        }
+        return count;
     }
 }

@@ -10,14 +10,13 @@ import domain.util.LoadGameHandler;
 import domain.util.MessageConverter;
 import network.server.serverFacade.ServerFacade;
 
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.*;
 
 public class StartRequestInterpreter implements RequestInterpretable {
 
     @Override
-    public void interpret(DataInputStream dis, String[] message, int index) {
+    public void interpret(String[] message, int index) {
         String name = message[1];
         int count = GameInfo.getInstance().checkReadiness();
         if (count != 0) {
@@ -33,35 +32,49 @@ public class StartRequestInterpreter implements RequestInterpretable {
                 String line;
 
                 while (true){
-                    try {
-                        line = dis.readUTF();
-                        if(line.charAt(0)=='z') break;
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    if(ReceivedChecker.getInstance().checkReceived()) {
+                        ReceivedChecker.getInstance().setReceived();
+                        break;
                     }
                 }
 
                 ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("InitQueue"), name, MessageConverter.convertQueueToString(playerOrder()));
 
+
                 while (true){
-                    try {
-                        line = dis.readUTF();
-                        if(line.charAt(0)=='z') break;
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    if(ReceivedChecker.getInstance().checkReceived()) {
+                        ReceivedChecker.getInstance().setReceived();
+                        break;
                     }
                 }
+
+//                while (true){
+//                    try {
+//                        line = dis.readUTF();
+//                        if(line.charAt(0)=='z') break;
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
 
                 ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Finish"), name);
 
+
                 while (true){
-                    try {
-                        line = dis.readUTF();
-                        if(line.charAt(0)=='z') break;
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    if(ReceivedChecker.getInstance().checkReceived()) {
+                        ReceivedChecker.getInstance().setReceived();
+                        break;
                     }
                 }
+
+//                while (true){
+//                    try {
+//                        line = dis.readUTF();
+//                        if(line.charAt(0)=='z') break;
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
 
                 System.out.println("\n\nCurrPlayer:" + GameInfo.getInstance().getCurrentPlayer() + "\n");
 

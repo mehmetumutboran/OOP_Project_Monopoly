@@ -4,11 +4,9 @@ import domain.server.controller.ServerCommunicationHandler;
 import domain.util.Flags;
 import domain.util.GameInfo;
 
-import java.io.DataInputStream;
-
 public class ColorChangeRequestInterpreter implements RequestInterpretable {
     @Override
-    public void interpret(DataInputStream dis, String[] message, int index) {
+    public void interpret(String[] message, int index) {
         String name = message[1];
         String color = message[2];
         if (GameInfo.getInstance().hasColor(color)) {

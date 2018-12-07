@@ -17,8 +17,8 @@ public class ClientHandler implements Runnable {
     private int index;
     private Deque<String> messageQueue;
     private boolean received;
-//    private ClientProcessHandler clientProcessHandler;
-//    private final Thread thread;
+    private ClientProcessHandler clientProcessHandler;
+    private final Thread thread;
 
 
     public ClientHandler(Socket clientSocket, int index) {
@@ -26,9 +26,9 @@ public class ClientHandler implements Runnable {
         this.index = index;
         this.messageQueue = new LinkedList<>();
         this.received = true;
-//        this.clientProcessHandler = new ClientProcessHandler(this, index);
-//        this.thread = new Thread(clientProcessHandler, "ClientProcessHandler");
-//        this.thread.start();
+        this.clientProcessHandler = new ClientProcessHandler(this, index);
+        this.thread = new Thread(clientProcessHandler, "ClientProcessHandler");
+        this.thread.start();
     }
 
     @Override
@@ -46,8 +46,8 @@ public class ClientHandler implements Runnable {
                 }
 
 
-                ServerFacade.getInstance().interpretRequest(dis, line, index);
-//                clientProcessHandler.setLine(line);
+                //ServerFacade.getInstance().interpretRequest(dis, line, index);
+                clientProcessHandler.setLine(line);
 
 
 //                synchronized (this){
@@ -58,7 +58,7 @@ public class ClientHandler implements Runnable {
         } catch (IOException e) {
             //TODO Handle Player exit
             System.out.println("\n\n Player exited\n\n");
-            Server.removeClient(this);
+            ServerFacade.getInstance().removeClient(this);
         }
 
     }

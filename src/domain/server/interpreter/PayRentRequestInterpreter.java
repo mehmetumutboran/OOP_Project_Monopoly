@@ -8,12 +8,11 @@ import domain.server.player.Player;
 import domain.util.Flags;
 import domain.util.GameInfo;
 
-import java.io.DataInputStream;
 import java.io.IOException;
 
 public class PayRentRequestInterpreter implements RequestInterpretable {
     @Override
-    public void interpret(DataInputStream dis, String[] message, int index) {
+    public void interpret(String[] message, int index) {
 
 
         String name = message[1];
@@ -35,14 +34,14 @@ public class PayRentRequestInterpreter implements RequestInterpretable {
             ServerCommunicationHandler.getInstance()
                     .sendResponse(Flags.getFlag("PayRent"),name , customerFinalMoney ,ownerFinalMoney, square.getName());
 
-            while (true){
-                try {
-                    String line = dis.readUTF();
-                    if(line.charAt(0)=='z') break;
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+//            while (true){
+//                try {
+//                    String line = dis.readUTF();
+//                    if(line.charAt(0)=='z') break;
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
 
             ServerCommunicationHandler.getInstance()
                     .sendResponse(Flags.getFlag("Button"), index, "000010000", name);

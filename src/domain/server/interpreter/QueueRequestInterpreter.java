@@ -1,10 +1,8 @@
 package domain.server.interpreter;
 
-import java.io.DataInputStream;
-
 public class QueueRequestInterpreter implements RequestInterpretable {
     @Override
-    public void interpret(DataInputStream dis, String[] message, int index) {
+    public void interpret(String[] message, int index) {
 //        GameLogic.getInstance().setPlayers(MessageConverter.convertStringToDeque(message[1]));
 //
 //        //Bots play on only host's program

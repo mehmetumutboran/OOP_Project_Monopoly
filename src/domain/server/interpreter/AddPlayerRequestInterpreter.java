@@ -5,11 +5,9 @@ import domain.util.Flags;
 import domain.util.GameInfo;
 import network.server.serverFacade.ServerFacade;
 
-import java.io.DataInputStream;
-
 public class AddPlayerRequestInterpreter implements RequestInterpretable {
     @Override
-    public void interpret(DataInputStream dis, String[] message, int index) {
+    public void interpret(String[] message, int index) {
         String name = message[1];
 
         if(GameInfo.getInstance().isFull()){

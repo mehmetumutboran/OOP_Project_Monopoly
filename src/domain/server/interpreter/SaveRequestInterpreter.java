@@ -10,13 +10,12 @@ import domain.util.Flags;
 import domain.util.GameInfo;
 import domain.util.SaveGameHandler;
 
-import java.io.DataInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class SaveRequestInterpreter implements RequestInterpretable {
     @Override
-    public void interpret(DataInputStream dis, String[] message, int index) {
+    public void interpret(String[] message, int index) {
         //For test purposes
         GameInfo.getInstance().getPlayerList().get(0).addDeed(Board.getInstance().getNameGivenSquare("Wall Street"));
         GameInfo.getInstance().getPlayerList().get(0).addDeed(Board.getInstance().getNameGivenSquare("Fifth Avenue"));

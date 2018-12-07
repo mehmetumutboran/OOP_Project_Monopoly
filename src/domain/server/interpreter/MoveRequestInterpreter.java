@@ -1,10 +1,8 @@
 package domain.server.interpreter;
 
-import java.io.DataInputStream;
-
 public class MoveRequestInterpreter implements RequestInterpretable {
     @Override
-    public void interpret(DataInputStream dis, String[] message, int index) {
+    public void interpret(String[] message, int index) {
 //        String name = message[1];
 //        int[] location = MessageConverter.convertStringToIntArray(message[2]);
 //

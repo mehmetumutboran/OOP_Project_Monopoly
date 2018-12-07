@@ -3,7 +3,6 @@ package domain.server;
 import domain.server.interpreter.*;
 import domain.util.Flags;
 
-import java.io.DataInputStream;
 import java.util.HashMap;
 
 /**
@@ -67,11 +66,11 @@ public class RequestInterpreter {
     }
 
 
-    public synchronized void interpret(DataInputStream dis, String m, int index) {
+    public synchronized void interpret(String m, int index) {
         char flag = m.charAt(0);
 
         if (interpreterMap.keySet().contains(flag))
-            interpreterMap.get(flag).interpret(dis, m.split("[|]"), index);
+            interpreterMap.get(flag).interpret(m.split("[|]"), index);
 //
 //        switch (flag) {
 //            case GameLogic.finishTurnFlag:
