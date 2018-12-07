@@ -65,7 +65,7 @@ public class StartRequestInterpreter implements RequestInterpretable {
 
                 System.out.println("\n\nCurrPlayer:" + GameInfo.getInstance().getCurrentPlayer() + "\n");
 
-                ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), ServerFacade.getInstance().nameToIndex(GameInfo.getInstance().getCurrentPlayer()), "000001000", name);
+                ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), ServerFacade.getInstance().nameToIndex(GameInfo.getInstance().getCurrentPlayer()), "010001000", name); //TODO
             }
         } else {
             LoadGameHandler.getInstance().sendLoad();

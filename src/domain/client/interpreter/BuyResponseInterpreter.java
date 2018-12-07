@@ -1,5 +1,6 @@
 package domain.client.interpreter;
 
+import domain.client.ClientCommunicationHandler;
 import domain.client.UIUpdater;
 import domain.server.board.Board;
 import domain.server.board.DeedSquare;

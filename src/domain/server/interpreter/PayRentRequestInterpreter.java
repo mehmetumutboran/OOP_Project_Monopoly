@@ -8,9 +8,11 @@ import domain.server.player.Player;
 import domain.util.Flags;
 import domain.util.GameInfo;
 
+import java.io.DataInputStream;
+
 public class PayRentRequestInterpreter implements RequestInterpretable {
     @Override
-    public void interpret(String[] message, int index) {
+    public void interpret(DataInputStream dis, String[] message, int index) {
 
 
         String name = message[1];
@@ -19,15 +21,15 @@ public class PayRentRequestInterpreter implements RequestInterpretable {
         int[] loc = player.getToken().getLocation().clone();
         Square square = Board.getInstance().getSquare(loc[0] , loc[1]);
 
-        Boolean paidRent = (player.getBalance() >= ((DeedSquare)square).getCurrentRent() )
-                && ( ((DeedSquare) square).getOwner()!= name)
-                && ( ((DeedSquare) square).getOwner()!= null) ;
+        boolean paidRent = (player.getBalance() >= ((DeedSquare)square).getCurrentRent() )
+                && ( ((DeedSquare) square).getOwner()!= null)
+                && (!((DeedSquare) square).getOwner().equals(name));
 
         if(paidRent){
             int customerCurrentMoney = GameInfo.getInstance().getPlayer(player.getName()).getBalance();
             int ownerCurrentMoney = GameInfo.getInstance().getPlayer(((DeedSquare) square).getOwner()).getBalance();
-            int customerFinalMoney = customerCurrentMoney - ((DeedSquare)square).getCurrentRent();
-            int ownerFinalMoney = ownerCurrentMoney + ((DeedSquare)square).getCurrentRent();
+            int customerFinalMoney = customerCurrentMoney - 50; //((DeedSquare)square).getCurrentRent();
+            int ownerFinalMoney = ownerCurrentMoney + 50;//((DeedSquare)square).getCurrentRent();
 
             ServerCommunicationHandler.getInstance()
                     .sendResponse(Flags.getFlag("PayRent"),name , customerFinalMoney ,ownerFinalMoney, square.getName());

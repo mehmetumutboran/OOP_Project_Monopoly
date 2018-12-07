@@ -17,11 +17,11 @@ public class PayRentResponseInterpreter implements ResponseInterpretable {
 
 
 
-        Square boughtSquare = ((DeedSquare) Board.getInstance().getNameGivenSquare(squareName));
+        DeedSquare boughtSquare = ((DeedSquare) Board.getInstance().getNameGivenSquare(squareName));
         GameInfo.getInstance().getPlayer(name).setBalance(customerFinalMoney);
-        GameInfo.getInstance().getPlayer(name).setBalance(ownerFinalMoney);
-        String ownerName =((DeedSquare)boughtSquare).getOwner();
-        Board.getInstance().getNameGivenSquare(ownerName);
+        GameInfo.getInstance().getPlayer(boughtSquare.getOwner()).setBalance(ownerFinalMoney);
+//        String ownerName = boughtSquare.getOwner();
+//        Board.getInstance().getNameGivenSquare(ownerName);
 
 
         UIUpdater.getInstance().setMessage(name + " paid rent for " + squareName);

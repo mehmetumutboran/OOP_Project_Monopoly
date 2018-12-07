@@ -23,6 +23,7 @@ public class RandomPlayerHandler {
     }
 
     public void roll() {
+        System.out.println("Bot roll");
         ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Roll"), GameInfo.getInstance().getCurrentPlayer());
     }
 

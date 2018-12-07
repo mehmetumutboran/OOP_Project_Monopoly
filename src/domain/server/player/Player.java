@@ -26,7 +26,7 @@ public class Player implements Comparable, Savable {
     }
 
     public Player(String name) {
-        this(name, new Token(), 1, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), "Not Ready");
+        this(name, new Token(), 3200, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), "Not Ready");
     }
 
     public Player(String name, String color, String readiness) {
@@ -54,6 +54,10 @@ public class Player implements Comparable, Savable {
         this.started = isStarted;
         this.doubleCounter = doubleCounter;
         this.inJail = isInJail;
+        if(name.equals("Homer"))
+            ((DeedSquare)Board.getInstance().getNameGivenSquare("Esplanada Avenue")).setOwner("Homer");
+
+        token.setLocation(new int[]{0, 8});
 
     }
 
