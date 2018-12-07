@@ -9,6 +9,7 @@ import domain.util.Flags;
 import domain.util.GameInfo;
 
 import java.io.DataInputStream;
+import java.io.IOException;
 
 public class PayRentRequestInterpreter implements RequestInterpretable {
     @Override
@@ -33,6 +34,19 @@ public class PayRentRequestInterpreter implements RequestInterpretable {
 
             ServerCommunicationHandler.getInstance()
                     .sendResponse(Flags.getFlag("PayRent"),name , customerFinalMoney ,ownerFinalMoney, square.getName());
+
+            while (true){
+                try {
+                    String line = dis.readUTF();
+                    if(line.charAt(0)=='z') break;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            ServerCommunicationHandler.getInstance()
+                    .sendResponse(Flags.getFlag("Button"), index, "000010000", name);
+
         }
         else{
             ServerCommunicationHandler.getInstance()

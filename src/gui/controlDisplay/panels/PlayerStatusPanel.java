@@ -56,7 +56,7 @@ public class PlayerStatusPanel extends JPanel implements TurnUpdateListener {
 
     @Override
     public void onTurnUpdateEvent() {
-        revalidate();
-        repaint();
+//        revalidate();
+//        repaint();
     }
 }

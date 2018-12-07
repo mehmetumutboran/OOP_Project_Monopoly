@@ -64,9 +64,6 @@ public class PlayerLabelsPanel extends JLabel implements GameStartedListener, Pl
         int size = GameInfo.getInstance().getPlayerListSize();
         for (int i = 0; i < size; i++) {
             PlayerLabel temp = new PlayerLabel(GameInfo.getInstance().getNameFromIndex(i), this);
-            if(GameInfo.getInstance().isCurrentPlayerFromIndex(i)) {
-                temp.setText(temp.getText() + "   Current Turn!!");
-            }
             temp.setBackground(ColorConverter.getInstance().getColor(
                     GameInfo.getInstance().getColorFromIndex(i)));
             playerLabels.add(temp);
@@ -86,9 +83,12 @@ public class PlayerLabelsPanel extends JLabel implements GameStartedListener, Pl
 
     @Override
     public void onTurnUpdateEvent() {
-        playerLabels = new ArrayList<>();
-        setPlayerLabel();
-        this.removeAll();
+        for (int i = 0; i < playerLabels.size(); i++) {
+            playerLabels.get(i).setText(playerLabels.get(i).getName());
+            if(GameInfo.getInstance().isCurrentPlayerFromIndex(i)) {
+                playerLabels.get(i).setText(playerLabels.get(i).getName() + "   Current Turn!!");
+            }
+        }
         revalidate();
         repaint();
     }
