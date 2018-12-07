@@ -1,5 +1,7 @@
 package domain.server.util;
 
+import domain.server.board.Board;
+import domain.server.die.DiceCup;
 import domain.util.Flags;
 import domain.util.GameInfo;
 import domain.util.MessageConverter;

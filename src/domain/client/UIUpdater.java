@@ -75,9 +75,9 @@ public class UIUpdater {
         }
     }
 
-    private void publishTurnChangedEvent(boolean isEnabled) {
+    private void publishTurnChangedEvent(String enable) {
         for (TurnChangedListener tcl : turnChangedListeners) {
-            tcl.onTurnChangedEvent(isEnabled);
+            tcl.onTurnChangedEvent(enable);
         }
     }
 
@@ -102,11 +102,10 @@ public class UIUpdater {
         publishMessageChangedEvent();
     }
 
-//    public void turnUpdate() {
-//        publishTurnChangedEvent(GameLogic.getInstance().getCurrentPlayer()
-//                .equals(GameLogic.getInstance().getPlayerList().get(0)));
-//
-//    }
+    public void turnUpdate() {
+        publishTurnChangedEvent("000000000");
+
+    }
 
     void close() {
         publishCloseButtonEvent();
@@ -149,6 +148,10 @@ public class UIUpdater {
 
     public void setTitle(String username) {
         UIFacade.getInstance().setTitle(username);
+    }
+
+    public void setButtons(String enable) {
+        publishTurnChangedEvent(enable);
     }
 
 //    public void setupPlayerLabels(ArrayList<String> playerListName, ArrayList<String> playerListColor) {

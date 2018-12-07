@@ -1,5 +1,6 @@
 package domain.client.interpreter;
 
+import domain.client.ClientCommunicationHandler;
 import domain.server.player.RandomPlayer;
 import domain.util.GameInfo;
 
@@ -11,5 +12,8 @@ public class AddBotResponseInterpreter implements ResponseInterpretable {
         randomPlayer.getToken().setColor(arr[1]);
 
         GameInfo.getInstance().addPlayer(randomPlayer);
+
+        ClientCommunicationHandler.getInstance().sendReceived();
+
     }
 }

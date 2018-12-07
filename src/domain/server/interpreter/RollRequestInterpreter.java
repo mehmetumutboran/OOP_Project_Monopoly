@@ -8,7 +8,7 @@ import domain.util.MessageConverter;
 
 public class RollRequestInterpreter implements RequestInterpretable {
     @Override
-    public void interpret(String[] message, int index) {
+    public void interpret(DataInputStream dis, String[] message, int index) {
         System.out.println("\n\nRollResponseInterpreter: interpret\n\n");
 
         String name = message[1];
@@ -36,5 +36,6 @@ public class RollRequestInterpreter implements RequestInterpretable {
             //ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), name, "");
         }
 
+        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), index, "000010000", name);
     }
 }

@@ -1,5 +1,7 @@
 package domain.client.interpreter;
 
+import domain.client.ClientCommunicationHandler;
+
 public class BuyResponseInterpreter implements ResponseInterpretable {
 
     @Override
@@ -16,6 +18,8 @@ public class BuyResponseInterpreter implements ResponseInterpretable {
 //        ((DeedSquare) square).setOwner(player);
 //
 //        UIUpdater.getInstance().setMessage(name + " bought " + sqName);
+        ClientCommunicationHandler.getInstance().sendReceived();
+
     }
 
 }

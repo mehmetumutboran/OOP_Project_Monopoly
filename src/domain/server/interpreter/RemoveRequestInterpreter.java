@@ -5,9 +5,11 @@ import domain.util.Flags;
 import domain.util.GameInfo;
 import network.server.serverFacade.ServerFacade;
 
+import java.io.DataInputStream;
+
 public class RemoveRequestInterpreter implements RequestInterpretable {
     @Override
-    public void interpret(String[] message, int index) {
+    public void interpret(DataInputStream dis, String[] message, int index) {
         String username = message[1];
 
         if (!GameInfo.getInstance().isBot(username)) {
