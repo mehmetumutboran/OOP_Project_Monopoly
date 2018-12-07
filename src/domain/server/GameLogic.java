@@ -126,7 +126,7 @@ public class GameLogic {
         else return true;
     }
 
-    public void uptadeDoubleCounter(String name) {
+    public void updateDoubleCounter(String name) {
         if(checkDouble(name) && !checkJail(name)){
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("DoubleCounter"), name, "1");
         }

@@ -31,7 +31,7 @@ public class RollRequestInterpreter implements RequestInterpretable {
             }
         }
 
-        GameLogic.getInstance().uptadeDoubleCounter(name);
+        GameLogic.getInstance().updateDoubleCounter(name);
 
         if (GameLogic.getInstance().checkMoveConditions(name)) {
 
