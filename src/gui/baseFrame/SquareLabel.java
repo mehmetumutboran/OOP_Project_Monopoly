@@ -40,6 +40,7 @@ public class SquareLabel extends JLabel implements MouseListener {
 
     }
 
+
     @Override
     public void mousePressed(MouseEvent e) {
 
