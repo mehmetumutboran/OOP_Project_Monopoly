@@ -1,10 +1,9 @@
 package gui.baseFrame.panels;
 
 import domain.client.UIUpdater;
-import domain.server.controller.MonopolyGameController;
 import domain.server.listeners.GameStartedListener;
 import domain.server.listeners.TokenMovementListener;
-import gui.baseFrame.TokenFactory;
+import gui.baseFrame.SquareLabel;
 import gui.baseFrame.TokenLabel;
 
 import javax.imageio.ImageIO;
@@ -25,6 +24,7 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
     private Image img;
     private ArrayList<TokenLabel> tokenlist;
     JPanel jPanel;
+    private ArrayList<SquareLabel> squareLabels = new ArrayList<>();
 
     public GamePanel(int width, int height) {
         this.width = width;
@@ -34,6 +34,7 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
         this.setBackground(Color.white);
         UIUpdater.getInstance().addGameStartedListener(this);
         tokenlist = new ArrayList<>();
+
 
         try {
             if (System.getProperty("os.name").startsWith("Windows")) {
@@ -48,51 +49,46 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
 //        MonopolyGameController.getInstance().addGameStartedListener(this); //TODO push updates through UIFACADE
         img = new ImageIcon(image).getImage();
 
-        jPanel = new JPanel();
-        jPanel.setLayout(null);
+//        jPanel = new JPanel();
+//        jPanel.setLayout(null);
 
+        this.setLayout(null);
 
-//        JLabel label = new JLabel();
-//        label.setBackground(new Color(255, 0, 0, 90));
-//        label.setOpaque(true);
-//        label.setVisible(true);
-//        label.setBounds(50, 50, 1400, 1000);
-//        label.addMouseListener(new MouseListener() {
-//            @Override
-//            public void mouseClicked(MouseEvent e) {
-//                System.out.println("\n\n====================\nFURKAN\n=====================\n\n");
-//            }
-//
-//            @Override
-//            public void mousePressed(MouseEvent e) {
-//
-//            }
-//
-//            @Override
-//            public void mouseReleased(MouseEvent e) {
-//
-//            }
-//
-//            @Override
-//            public void mouseEntered(MouseEvent e) {
-//
-//            }
-//
-//            @Override
-//            public void mouseExited(MouseEvent e) {
-//
-//            }
-//        });
+        initsquareLabels();
+//        SquareLabel label = new SquareLabel();
+//        label.setBounds(1240, 7, this.width / 17, this.height / 17);
 //
 //        jPanel.add(label);
-
-
-        jPanel.setOpaque(false);
-        jPanel.setVisible(true);
-        this.add(jPanel);
+//        jPanel.setOpaque(false);
+//        jPanel.setVisible(true);
+//        this.add(jPanel);
 
 
         UIUpdater.getInstance().addTokenMovementListeners(this);
+    }
+
+    private void initsquareLabels() {
+
+        for (int i = 1; i <= 15; i++) {
+            SquareLabel squareLabel = new SquareLabel((i==1 || i==15) ? 'B' : 'S');
+            squareLabels.add(squareLabel);
+            this.add(squareLabel);
+        }
+
+//        JLabel upRight = new JLabel();
+//        upRight.setBackground(new Color(255, 0, 0, 90));
+//        upRight.setOpaque(true);
+//        upRight.setVisible(true);
+//        upRight.setBounds(1240, 7, 2 * (this.width / 17), 2 * (this.height / 17));
+//        jPanel.add(upRight);
+//
+//        for (int i = 0; i < 13; i++) {
+//            SquareLabel j = new SquareLabel();
+//
+//            j.setBounds(1240, 7 + (2 * (this.height / 17)) + (i * this.height / 17), 2 * (this.width / 17), this.height / 17);
+//            jPanel.add(j);
+//            squareLabels.add(j);
+//        }
     }
 
     @Override
@@ -102,6 +98,10 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
         for (int i = 0; i < tokenlist.size(); i++) {
             TokenLabel token = tokenlist.get(i);
             token.draw(G, i);
+        }
+
+        for (int i = 0; i < squareLabels.size(); i++) {
+            squareLabels.get(i).draw(this.getWidth(), this.getHeight(), i);
         }
     }
 
@@ -262,3 +262,4 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
         return coor;
     }
 }
+
