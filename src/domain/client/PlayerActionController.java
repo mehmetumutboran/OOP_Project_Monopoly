@@ -36,11 +36,12 @@ public class PlayerActionController {
 
     }
 //
-//    public boolean rent() {
-//        System.out.println("in player action controller");
-//        return (GameLogic.getInstance().payRent());
-//
-//    }
+    public void rent() {
+        System.out.println("in player action controller");
+        //      return (GameLogic.getInstance().payRent());
+        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("PayRent"), ClientFacade.getInstance().getUsername());
+
+    }
 
     public void startGame() {
         ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Start"), ClientFacade.getInstance().getUsername());

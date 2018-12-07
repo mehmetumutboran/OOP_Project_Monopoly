@@ -26,7 +26,7 @@ public class Player implements Comparable, Savable {
     }
 
     public Player(String name) {
-        this(name, new Token(), 3200, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), "Not Ready");
+        this(name, new Token(), 1, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), "Not Ready");
     }
 
     public Player(String name, String color, String readiness) {

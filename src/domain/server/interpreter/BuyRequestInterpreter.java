@@ -15,9 +15,6 @@ public class BuyRequestInterpreter implements RequestInterpretable {
 
         String name = message[1];
 
-//        String name = message[1];
-//        String sqName = message[2];
-//
           Player player = GameInfo.getInstance().getPlayer(name);
           int[] loc = player.getToken().getLocation().clone();
           Square square = Board.getInstance().getSquare(loc[0] , loc[1]);
@@ -28,14 +25,21 @@ public class BuyRequestInterpreter implements RequestInterpretable {
 
               int currentMoney = GameInfo.getInstance().getPlayer(player.getName()).getBalance();
               int finalMoney = currentMoney - ((DeedSquare)square).getBuyValue();
-              ServerCommunicationHandler.getInstance()
-                      .sendResponse(Flags.getFlag("Buy"),name , finalMoney);
 
+              ServerCommunicationHandler.getInstance()
+                      .sendResponse(Flags.getFlag("Buy"),name , finalMoney , square.getName());
+
+                // if( all squares for one color bought or trainstations -> change rent )
 
           }
           else{
-
+              ServerCommunicationHandler.getInstance()
+                      .sendResponse(Flags.getFlag("DontBuy") , index );
           }
+
+//        String name = message[1];
+//        String sqName = message[2];
+//
 //        Player player = GameLogic.getInstance().getPlayer(name);
 //        Square square = Board.getInstance().getNameGivenSquare(sqName);
 //

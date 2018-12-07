@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 public class Flags {
 
+
     private static final char buyFlag = 'A';
     private static final char rollFlag = 'B';
     private static final char moneyFlag = 'C';
@@ -37,6 +38,8 @@ public class Flags {
     private static final char loadFlag = 'i';
     private static final char removeFlag = 'j';
     private static final char fullFlag = 'k';
+    private static final char dontBuyFlag = 'l';
+    private static final char dontPayRentFlag = 'm';
 
 
     private static HashMap<String, Character> flagMap;
@@ -66,6 +69,9 @@ public class Flags {
         flagMap.put("GoOutOfJail", jailFlag);
         flagMap.put("DoubleCounter", doubleCounterFlag);
         flagMap.put("Buy", buyFlag);
+        flagMap.put("DontBuy", dontBuyFlag);
+        flagMap.put("PayRent", payRentFlag);
+        flagMap.put("DontPayRent", dontPayRentFlag);
 
     }
 

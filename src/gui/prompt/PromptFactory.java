@@ -1,10 +1,7 @@
 package gui.prompt;
 
 import domain.util.Flags;
-import gui.prompt.promptStrategy.ClosePromptStrategy;
-import gui.prompt.promptStrategy.DontChangeColorPromptStrategy;
-import gui.prompt.promptStrategy.DontStartPromptStrategy;
-import gui.prompt.promptStrategy.PromptStrategy;
+import gui.prompt.promptStrategy.*;
 
 public class PromptFactory {
     private static PromptFactory ourInstance;
@@ -28,6 +25,12 @@ public class PromptFactory {
             return new KickPromptStrategy();
         } else if (flag == Flags.getFlag("Full")) {
             return new FullPromptStrategy();
+        }
+        else if (flag == Flags.getFlag("DontBuy")) {
+            return new DontBuyStrategy();
+        }
+        else if (flag == Flags.getFlag("DontPayRent")) {
+            return new DontPayRentStrategy();
         }
         return null;
     }

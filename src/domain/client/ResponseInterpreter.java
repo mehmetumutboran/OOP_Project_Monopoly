@@ -23,7 +23,9 @@ public class ResponseInterpreter {
         ResponseInterpretable moveResponseInterpreter = new MoveResponseInterpreter();
         ResponseInterpretable moneyChangeResponseInterpreter = new MoneyChangeResponseInterpreter();
         ResponseInterpretable buyResponseInterpreter = new BuyResponseInterpreter();
+        ResponseInterpretable dontBuyResponseInterpreter = new DontBuyResponseInterpreter();
         ResponseInterpretable payRentResponseInterpreter = new PayRentResponseInterpreter();
+        ResponseInterpretable dontPayRentResponseInterpreter = new DontPayRentResponseInterpreter();
         ResponseInterpretable queueResponseInterpreter = new QueueResponseInterpreter();
         ResponseInterpretable initQueueResponseInterpreter = new InitQueueResponseInterpreter();
         ResponseInterpretable upDownResponseInterpreter = new UpDownResponseInterpreter();
@@ -52,7 +54,8 @@ public class ResponseInterpreter {
         interpreterMap.put(Flags.getFlag("Move"), moveResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), moneyChangeResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Buy"), buyResponseInterpreter);
-        interpreterMap.put(Flags.getFlag("Start"), payRentResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("PayRent"), payRentResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("DontPayRent"), dontPayRentResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), queueResponseInterpreter);
         interpreterMap.put(Flags.getFlag("InitQueue"), initQueueResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), upDownResponseInterpreter);
@@ -78,6 +81,7 @@ public class ResponseInterpreter {
         interpreterMap.put(Flags.getFlag("Remove"), removeResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Full"), fullResponseInterpreter);
         interpreterMap.put(Flags.getFlag("DoubleCounter"), doubleCounterResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("DontBuy"), dontBuyResponseInterpreter);
     }
 
     public void interpret(String message) {
