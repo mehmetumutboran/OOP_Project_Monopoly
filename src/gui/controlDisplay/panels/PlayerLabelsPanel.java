@@ -3,6 +3,8 @@ package gui.controlDisplay.panels;
 import domain.client.UIUpdater;
 import domain.server.listeners.GameStartedListener;
 import domain.server.listeners.PlayerQuitEventListener;
+import domain.server.listeners.TurnChangedListener;
+import domain.server.listeners.TurnUpdateListener;
 import domain.util.GameInfo;
 import gui.controlDisplay.PlayerLabel;
 import gui.util.ColorConverter;
@@ -11,7 +13,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class PlayerLabelsPanel extends JLabel implements GameStartedListener, PlayerQuitEventListener {
+public class PlayerLabelsPanel extends JLabel implements GameStartedListener, PlayerQuitEventListener, TurnUpdateListener {
     private final int SQUARE_EDGE = 90;
 
     private ArrayList<PlayerLabel> playerLabels;
@@ -26,6 +28,7 @@ public class PlayerLabelsPanel extends JLabel implements GameStartedListener, Pl
         this.setLayout(new GridLayout(2, 6));
         this.setPreferredSize(playerStatusPanel.getSize());
         UIUpdater.getInstance().addGameStartedListener(this);
+        UIUpdater.getInstance().addTurnUpdateListener(this);
         initGUI();
 
         this.setVisible(true);
@@ -61,6 +64,9 @@ public class PlayerLabelsPanel extends JLabel implements GameStartedListener, Pl
         int size = GameInfo.getInstance().getPlayerListSize();
         for (int i = 0; i < size; i++) {
             PlayerLabel temp = new PlayerLabel(GameInfo.getInstance().getNameFromIndex(i), this);
+            if(GameInfo.getInstance().isCurrentPlayerFromIndex(i)) {
+                temp.setText(temp.getText() + "   Current Turn!!");
+            }
             temp.setBackground(ColorConverter.getInstance().getColor(
                     GameInfo.getInstance().getColorFromIndex(i)));
             playerLabels.add(temp);
@@ -73,6 +79,15 @@ public class PlayerLabelsPanel extends JLabel implements GameStartedListener, Pl
         System.out.println("\n\n ----------------==========-----------======\n" + playerLabels + "\n\n");
 
 //        playerLabels.forEach(this::remove);
+        this.removeAll();
+        revalidate();
+        repaint();
+    }
+
+    @Override
+    public void onTurnUpdateEvent() {
+        playerLabels = new ArrayList<>();
+        setPlayerLabel();
         this.removeAll();
         revalidate();
         repaint();

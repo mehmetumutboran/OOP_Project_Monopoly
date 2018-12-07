@@ -272,4 +272,8 @@ public class GameInfo implements Savable {
     public int[] getLocationFromName(String name){
         return getPlayer(name).getToken().getLocation();
     }
+
+    public boolean isCurrentPlayerFromIndex(int i) {
+        return playerList.get(i).getName().equals(getCurrentPlayer());
+    }
 }

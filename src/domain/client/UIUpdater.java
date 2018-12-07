@@ -10,6 +10,7 @@ public class UIUpdater {
 
     private ArrayList<MessageChangedListener> messageChangedListeners;
     private ArrayList<TurnChangedListener> turnChangedListeners;
+    private ArrayList<TurnUpdateListener> turnUpdateListeners;
     private ArrayList<CloseButtonListener> closeButtonListeners;
     private ArrayList<PlayerQuitEventListener> playerQuitEventListeners;
     private ArrayList<TokenMovementListener> tokenMovementListeners;
@@ -32,6 +33,7 @@ public class UIUpdater {
         tokenMovementListeners = new ArrayList<>();
         gameStartedListeners = new ArrayList<>();
         buttonChangeListeners = new ArrayList<>();
+        turnUpdateListeners = new ArrayList<>();
     }
 
     public void addMessageChangedListener(MessageChangedListener mcl) {
@@ -55,7 +57,13 @@ public class UIUpdater {
         closeButtonListeners.add(cbl);
     }
 
-    public void addButtonChangeListener(ButtonChangeListener bcl){buttonChangeListeners.add(bcl);}
+    public void addButtonChangeListener(ButtonChangeListener bcl) {
+        buttonChangeListeners.add(bcl);
+    }
+
+    public void addTurnUpdateListener(TurnUpdateListener tul){
+        turnUpdateListeners.add(tul);
+    }
 
     public void publishGameStartedEvent() {
         for (GameStartedListener gls : gameStartedListeners) {
@@ -81,8 +89,14 @@ public class UIUpdater {
         }
     }
 
-    private void publishButtonChangeEvent(){
-        for (ButtonChangeListener bcl:buttonChangeListeners) {
+    public void publishTurnUpdateEvent(){
+        for (TurnUpdateListener tul : turnUpdateListeners){
+            tul.onTurnUpdateEvent();
+        }
+    }
+
+    private void publishButtonChangeEvent() {
+        for (ButtonChangeListener bcl : buttonChangeListeners) {
             bcl.onButtonChangeEvent();
         }
     }
@@ -103,8 +117,8 @@ public class UIUpdater {
     }
 
     public void turnUpdate() {
+        publishTurnUpdateEvent();
         publishTurnChangedEvent("000000000");
-
     }
 
     void close() {
