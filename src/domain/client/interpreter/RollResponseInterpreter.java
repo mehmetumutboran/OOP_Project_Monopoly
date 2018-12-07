@@ -1,5 +1,6 @@
 package domain.client.interpreter;
 
+import domain.client.ClientCommunicationHandler;
 import domain.client.UIUpdater;
 import domain.util.GameInfo;
 import domain.util.MessageConverter;
@@ -25,5 +26,7 @@ public class RollResponseInterpreter implements ResponseInterpretable {
                 UIUpdater.getInstance().setMessage(name + " rolled " + faceValues[0] + " " + faceValues[1] + " " + faceValues[2]);
                 break;
         }
+
+        ClientCommunicationHandler.getInstance().sendReceived();
     }
 }

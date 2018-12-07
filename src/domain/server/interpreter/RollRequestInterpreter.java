@@ -6,6 +6,9 @@ import domain.server.controller.ServerCommunicationHandler;
 import domain.util.Flags;
 import domain.util.MessageConverter;
 
+import java.io.DataInputStream;
+import java.io.IOException;
+
 public class RollRequestInterpreter implements RequestInterpretable {
     @Override
     public void interpret(DataInputStream dis, String[] message, int index) {
@@ -16,6 +19,15 @@ public class RollRequestInterpreter implements RequestInterpretable {
         int [] rolled = GameLogic.getInstance().roll(name);
 
         ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Roll"), name, MessageConverter.convertArrayToString(rolled));
+
+        while (true){
+            try {
+                String line = dis.readUTF();
+                if(line.charAt(0)=='z') break;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         GameLogic.getInstance().uptadeDoubleCounter(name);
 

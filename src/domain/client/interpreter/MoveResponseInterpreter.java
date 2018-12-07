@@ -1,5 +1,6 @@
 package domain.client.interpreter;
 
+import domain.client.ClientCommunicationHandler;
 import domain.client.UIUpdater;
 import domain.util.GameInfo;
 import domain.util.MessageConverter;
@@ -18,5 +19,7 @@ public class MoveResponseInterpreter implements ResponseInterpretable {
         GameInfo.getInstance().getPlayer(name).getToken().setLocation(location);
 
         UIUpdater.getInstance().setMessage(name + " moved to " + locName); //TODO Mrmonopoly
+
+        ClientCommunicationHandler.getInstance().sendReceived();
     }
 }
