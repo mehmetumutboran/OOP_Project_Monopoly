@@ -69,6 +69,10 @@ public class GameInfo implements Savable {
         return getPlayer(ClientFacade.getInstance().getUsername());
     }
 
+    public Player getPeek(){
+        return GameInfo.getInstance().getPlayer(GameInfo.getInstance().getPlayerQueue().peekFirst());
+    }
+
     public boolean isMyselfHost() {
         return getPlayer(ClientFacade.getInstance().getUsername()).getReadiness().equals("Host");
     }

@@ -22,7 +22,7 @@ public class Flags {
     private static final char specialSquareFlag = 'P';
     private static final char poolFlag = 'Q';
     private static final char tokenFlag = 'R';
-    private static final char goOutJailFlag = 'S';
+    private static final char doubleCounterFlag = 'S';
     private static final char startFlag = 'T';
     private static final char addPlayerFlag = 'U';
     private static final char addPlayerListFlag = 'V';
@@ -64,6 +64,10 @@ public class Flags {
         flagMap.put("Load", loadFlag);
         flagMap.put("Remove", removeFlag);
         flagMap.put("Full", fullFlag);
+        flagMap.put("Move", moveFlag);
+        flagMap.put("GoToJail", jailFlag);
+        flagMap.put("GoOutOfJail", jailFlag);
+        flagMap.put("DoubleCounter", doubleCounterFlag);
         flagMap.put("Finish", finishFlag);
         flagMap.put("Button", buttonFlag);
         flagMap.put("Received", receivedFlag);
@@ -79,8 +83,6 @@ public class Flags {
         flagMap.put("Special", specialSquareFlag);
         flagMap.put("Pool", poolFlag);
         flagMap.put("Token", tokenFlag);
-        flagMap.put("GoOutOfJail", goOutJailFlag);
-        flagMap.put("Move", moveFlag);
 
     }
 
