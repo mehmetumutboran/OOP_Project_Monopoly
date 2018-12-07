@@ -34,6 +34,7 @@ public class RequestInterpreter {
         RequestInterpretable loadRequestInterpreter = new LoadRequestInterpreter();
         RequestInterpretable removeRequestInterpreter = new RemoveRequestInterpreter();
         RequestInterpretable finishRequestInterpreter = new FinishRequestInterpreter();
+        RequestInterpretable drawCardRequestInterpreter = new DrawCardRequestInterpreter();
 
         interpreterMap = new HashMap<>();
         interpreterMap.put(Flags.getFlag("Move"), moveRequestInterpreter);
@@ -56,6 +57,7 @@ public class RequestInterpreter {
         interpreterMap.put(Flags.getFlag("Load"), loadRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Remove"), removeRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Finish"), finishRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Draw"), drawCardRequestInterpreter);
     }
 
     public static RequestInterpreter getInstance() {

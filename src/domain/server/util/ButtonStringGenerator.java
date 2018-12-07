@@ -10,55 +10,52 @@ public class ButtonStringGenerator {
 
     private static ButtonStringGenerator instance;
 
-    private ButtonStringGenerator(){}
+    private ButtonStringGenerator() {
+    }
 
-    public static ButtonStringGenerator getInstance(){
-        if(instance == null) instance = new ButtonStringGenerator();
+    public static ButtonStringGenerator getInstance() {
+        if (instance == null) instance = new ButtonStringGenerator();
         return instance;
     }
 
-    public String getButtonString(String name){ //buy psyR mort unm finish roll upg downg card
+    public String getButtonString(String name) { //buy psyR mort unm finish roll upg downg card
         Player curP = GameInfo.getInstance().getPlayer(name);
-        Square curSq = Board.getInstance().getSquare(curP.getToken().getLocation()[0],curP.getToken().getLocation()[1]);
+        Square curSq = Board.getInstance().getSquare(curP.getToken().getLocation()[0], curP.getToken().getLocation()[1]);
+        System.out.println("\n\nSq name" + curSq.getName());
         String buttonString = null;
-        if(curSq instanceof DeedSquare){
-            if(curSq instanceof Property){
-                if(((Property) curSq).getOwner().equals(name)){
+        if (curSq instanceof DeedSquare) {
+            if (curSq instanceof Property) {
+                if (!((Property) curSq).isOwned()) {
+                    buttonString = "100010000";
+                } else if (((Property) curSq).getOwner().equals(name)) {
                     buttonString = "100010000"; // Buy is open due to error message
-                }else{
-                    if(!((Property) curSq).isOwned()){
-                        buttonString = "100010000";
-                    }else{
-                        buttonString = "010000000"; // Force pay rent
-                    }
+                } else {
+                    buttonString = "010000000"; // Force pay rent
+
                 }
-            }else if(curSq instanceof Railroad){
-                if(((Railroad) curSq).getOwner().equals(name)){
+            } else if (curSq instanceof Railroad) {
+                if (!((Railroad) curSq).isOwned()) {
                     buttonString = "100010000";
-                }else{
-                    if(!((Railroad) curSq).isOwned()){
-                        buttonString = "100010000";
-                    }else{
-                        buttonString = "010000000"; // Force pay rent
-                    }
+                } else if (((Railroad) curSq).getOwner().equals(name)) {
+                    buttonString = "100010000";
+                } else {
+                    buttonString = "010000000"; // Force pay rent
                 }
-            }else if(curSq instanceof Utility){
-                if(((Utility) curSq).getOwner().equals(name)){
+            } else if (curSq instanceof Utility) {
+                if (!((Utility) curSq).isOwned()) {
                     buttonString = "100010000";
-                }else{
-                    if(!((Utility) curSq).isOwned()){
-                        buttonString = "100010000";
-                    }else{
-                        buttonString = "010000000"; // Force pay rent
-                    }
+                }else if (((Utility) curSq).getOwner().equals(name)) {
+                    buttonString = "100010000";
+                } else {
+                    buttonString = "010000000"; // Force pay rent
                 }
             }
-        }else if(curSq instanceof SpecialSquareStrategy){
-            if(curSq instanceof Chance){
+        } else if (curSq instanceof SpecialSquareStrategy) {
+            if (curSq instanceof Chance) {
                 buttonString = "000000001";
-            }else if(curSq instanceof CommunityChest){
+            } else if (curSq instanceof CommunityChest) {
                 buttonString = "000000001";
-            }else{
+            } else {
                 buttonString = "000010000";
             }
         }

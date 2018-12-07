@@ -3,6 +3,7 @@ package domain.server.interpreter;
 import domain.server.GameLogic;
 import domain.server.board.Board;
 import domain.server.controller.ServerCommunicationHandler;
+import domain.server.util.ButtonStringGenerator;
 import domain.util.Flags;
 import domain.util.GameInfo;
 import domain.util.MessageConverter;
@@ -17,15 +18,15 @@ public class RollRequestInterpreter implements RequestInterpretable {
 
         String name = message[1];
 
-        int [] rolled = GameLogic.getInstance().roll(name);
+        int[] rolled = GameLogic.getInstance().roll(name);
 
         ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Roll"), name, MessageConverter.convertArrayToString(rolled));
 
-        while (true){
+        while (true) {
             try {
                 String line = dis.readUTF();
-                System.out.println("In roll request interpreter "+ line);
-                if(line.charAt(0)=='z') break;
+                System.out.println("In roll request interpreter " + line);
+                if (line.charAt(0) == 'z') break;
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -46,12 +47,22 @@ public class RollRequestInterpreter implements RequestInterpretable {
 
         GameLogic.getInstance().checkMrMonopoly(name);
 
-        if(GameLogic.getInstance().checkSecondTurn(name)){
+        if (GameLogic.getInstance().checkSecondTurn(name)) {
             //ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), name, "");
         }
 
-        String player = GameInfo.getInstance().getCurrentPlayer();
-        if(!GameInfo.getInstance().isBot(player))
-            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), index, "000010000", name);
+        System.out.println(ButtonStringGenerator.getInstance().getButtonString(name));
+
+        while (true) {
+            try {
+                String line = dis.readUTF();
+                if (line.charAt(0) == 'z') break;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (!GameInfo.getInstance().isBot(name))
+            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), index, ButtonStringGenerator.getInstance().getButtonString(name), name);
     }
 }
