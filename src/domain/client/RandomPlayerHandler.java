@@ -3,7 +3,11 @@ package domain.client;
 import domain.util.Flags;
 import domain.util.GameInfo;
 
-public class RandomPlayerHandler {
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
+
+public class RandomPlayerHandler{
     private static RandomPlayerHandler ourInstance;
 
     public static RandomPlayerHandler getInstance() {
@@ -17,9 +21,25 @@ public class RandomPlayerHandler {
     }
 
     public void playBotTurn() {
-        roll();
+        TimerTask timerTaskRoll = new TimerTask() {
+            @Override
+            public void run() {
+                roll();
+            }
+        };
 
-        finishTurn();
+        TimerTask timerTaskFinish = new TimerTask() {
+            @Override
+            public void run() {
+                finishTurn();
+            }
+        };
+
+        Timer timer = new Timer();
+        long delay = 500L;
+
+        timer.schedule(timerTaskRoll,delay);
+        timer.schedule(timerTaskFinish,2*delay);
     }
 
     public void roll() {

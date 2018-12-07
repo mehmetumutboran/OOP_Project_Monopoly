@@ -111,6 +111,7 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener, 
                 }
                 if (title != null) {
                     this.setTitle(title);
+                    this.controlDisplay.setTitle(title);
                 }
                 this.revalidate();
                 this.repaint();

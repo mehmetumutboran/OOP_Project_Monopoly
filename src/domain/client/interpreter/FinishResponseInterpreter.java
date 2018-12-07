@@ -11,11 +11,11 @@ public class FinishResponseInterpreter implements ResponseInterpretable {
         GameInfo.getInstance().nextTurn();
         UIUpdater.getInstance().turnUpdate();
 
-        if(GameInfo.getInstance().isMyselfHost() && GameInfo.getInstance().isPeekBot()){
+        if (GameInfo.getInstance().isMyselfHost() && GameInfo.getInstance().isPeekBot()) {
+            ClientCommunicationHandler.getInstance().sendReceived();
             RandomPlayerHandler.getInstance().playBotTurn();
+        } else {
+            ClientCommunicationHandler.getInstance().sendReceived();
         }
-
-        ClientCommunicationHandler.getInstance().sendReceived();
-
     }
 }

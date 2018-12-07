@@ -4,6 +4,7 @@ import domain.server.GameLogic;
 import domain.server.board.Board;
 import domain.server.controller.ServerCommunicationHandler;
 import domain.util.Flags;
+import domain.util.GameInfo;
 import domain.util.MessageConverter;
 
 import java.io.DataInputStream;
@@ -23,6 +24,7 @@ public class RollRequestInterpreter implements RequestInterpretable {
         while (true){
             try {
                 String line = dis.readUTF();
+                System.out.println("In roll request interpreter "+ line);
                 if(line.charAt(0)=='z') break;
             } catch (IOException e) {
                 e.printStackTrace();
@@ -48,6 +50,8 @@ public class RollRequestInterpreter implements RequestInterpretable {
             //ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), name, "");
         }
 
-        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), index, "000010000", name);
+        String player = GameInfo.getInstance().getCurrentPlayer();
+        if(!GameInfo.getInstance().isBot(player))
+            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), index, "000010000", name);
     }
 }
