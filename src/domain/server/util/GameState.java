@@ -153,6 +153,10 @@ public class GameState {
         int[] faceVal = GameInfo.getInstance().getPlayer(name).getFaceValues();
         return flag + "|" + name + "|" + MessageConverter.convertArrayToString(faceVal);
     }
+
+    public String generateCurrentAction(char flag, String player, String square, String buildingToUporDown) {
+        return flag + "|" + player + "|" + square + "|" +buildingToUporDown;
+    }
 //
 //    private String generateJailAction(char flag, String name) {
 //        return flag + "|" + name;

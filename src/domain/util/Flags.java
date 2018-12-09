@@ -37,7 +37,8 @@ public class Flags {
     private static final char loadFlag = 'i';
     private static final char removeFlag = 'j';
     private static final char fullFlag = 'k';
-    private static final char dontUpgradeFlag = 'z';//z koymamın sebebi masterdaki baska bir flag ile cakısıyor olabilir kontrole et!!!!
+    private static final char dontUpgradeFlag = 'y';//z koymamın sebebi masterdaki baska bir flag ile cakısıyor olabilir kontrole et!!!!
+    private static final char dontDowngradeFlag = 'z'; //yukardakiyle aynı
 
     private static HashMap<String, Character> flagMap;
 
@@ -64,7 +65,9 @@ public class Flags {
 
         flagMap.put("Upgrade", upgradeFlag);
         flagMap.put("Downgrade", downgradeFlag);
+
         flagMap.put("DontUpgrade", dontUpgradeFlag);
+        flagMap.put("DontDowngrade", dontDowngradeFlag);
 
     }
 

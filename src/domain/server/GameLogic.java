@@ -330,38 +330,24 @@ public class GameLogic {
         }
         public void applyRailRoadUpgrade(Square square, Player currentPlayer){
             String typeOfUpgrade = "Railroad";
-            int finalMoney = currentPlayer.getBalance()-((Railroad)square).getHouseBuildingCost();
-            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Upgrade"),square.getName() + "|" +"Railroad");
-            //currentPlayer.decreaseMoney(((Railroad) square).getHouseBuildingCost());
-            ((Railroad) square).setHasDepot(true);
-            ((Railroad) square).updateRentInUpDownGrade("UP");
+            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Upgrade"),currentPlayer.getName(),square.getName(),typeOfUpgrade);
         }
         public void applyPropertyUpgrade (Square square,int index, Player currentPlayer){
-            Building b = null;
-        if(((Property)square).getBuildingList().get(0) instanceof Hotel){
+            String typeOfUpgrade = null;
+            if(((Property)square).getBuildingList().get(0) instanceof Hotel){
                 if(currentPlayer.checkMonopoly((Property)square)){
-                    b = new Skyscraper(((Property)square).getHouseBuildingCost());
-                    //skyscrapper actionunu yap
-                    ((Property)square).getBuildingList().remove(0);
-                    ((Property)square).getBuildingList().add(new Skyscraper(((Property) square).getHouseBuildingCost()));
+                    typeOfUpgrade = "Skyscrapper";
                 }else{
                     ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("DontUpgrade"),index," ");
                 }
             }else if(((Property)square).getBuildingList().size()==4){
-                    //hotel actionunu yap
-                b= new Hotel(((Property) square).getHouseBuildingCost());
-                ((Property) square).getBuildingList().clear();
-                ((Property) square).getBuildingList().add(new Hotel(((Property) square).getHouseBuildingCost()));
-                currentPlayer.decreaseMoney(((Property) square).getHouseBuildingCost());
+                typeOfUpgrade = "Hotel";
             }else{
-                //ev actionunu yap
-                b= new House(((Property) square).getHouseBuildingCost());
-                ((Property) square).getBuildingList().add(new House(((Property) square).getHouseBuildingCost()));
+                typeOfUpgrade = "House";
             }
-            currentPlayer.decreaseMoney(((Property) square).getHouseBuildingCost());
-            ((Property) square).setUpgraded(true);
-            ((Property) square).updateRent();
+            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Upgrade"),currentPlayer.getName(),square.getName(),typeOfUpgrade);
         }
+
         public void downgrade (Square square){
         Player currentPlayer = GameInfo.getInstance().getCurrentPlayer();
         if(square instanceof Railroad && !(((Railroad) square).isHasDepot())){

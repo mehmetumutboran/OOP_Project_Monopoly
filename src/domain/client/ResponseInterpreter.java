@@ -26,7 +26,7 @@ public class ResponseInterpreter {
         ResponseInterpretable payRentResponseInterpreter = new PayRentResponseInterpreter();
         ResponseInterpretable queueResponseInterpreter = new QueueResponseInterpreter();
         ResponseInterpretable initQueueResponseInterpreter = new InitQueueResponseInterpreter();
-        ResponseInterpretable upDownResponseInterpreter = new UpDownResponseInterpreter();
+        ResponseInterpretable upDownResponseInterpreter = new UpgradeResponseInterpreter();
         ResponseInterpretable tokenMovementResponseInterpreter = new TokenMovementResponseInterpreter();
         ResponseInterpretable rollResponseInterpreter = new RollResponseInterpreter();
         ResponseInterpretable specialSquareResponseInterpreter = new SpecialSquareResponseInterpreter();

@@ -18,15 +18,14 @@ public class UpgradeRequestInterpreter implements RequestInterpretable {
         int [] loc = MessageConverter.convertStringToIntArray(message[2]);
         Square square = Board.getInstance().getSquare(loc[0],loc[1]);
 
-        if(square instanceof Railroad && currentPlayer.getBalance()>= ((Railroad) square).getHouseBuildingCost()){
-            GameLogic.getInstance().applyRailRoadUpgrade(square,currentPlayer);
-            //applyRailroadUpgrade
+        if(square instanceof Railroad && !((Railroad) square).isHasDepot() && currentPlayer.getBalance()>= ((Railroad) square).getHouseBuildingCost()){
+                GameLogic.getInstance().applyRailRoadUpgrade(square,currentPlayer);
         }else if(square instanceof Property && currentPlayer.checkMajority((Property)square)
                 &&((Property) square).isUpgradable((Property)square) && currentPlayer.getBalance()>=((Property) square).getHouseBuildingCost()){
                 GameLogic.getInstance().applyPropertyUpgrade(square,index,currentPlayer);
         }else{
+            //fix this later
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("DontUpgrade"), index, " ");
-
         }
 
 
