@@ -80,6 +80,7 @@ public class PlayerActionController {
     }
 
     public void pause() {
+        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Pause"), ClientFacade.getInstance().getUsername());
 
     }
 
