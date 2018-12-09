@@ -323,11 +323,16 @@ public class GameLogic {
                 ((Railroad) square).updateRentInUpDownGrade("UP");
             }else if(square instanceof Property && currentPlayer.checkMajority((Property)square)
                     &&((Property) square).isUpgradable((Property)square) && currentPlayer.getBalance()>=((Property) square).getHouseBuildingCost()){
-                applyUpgrade(square,currentPlayer);
+                applyPropertyUpgrade(square,currentPlayer);
             }
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Upgrade"), MessageConverter.convertArrayToString(square.getLocation()));
         }
-        public void applyUpgrade (Square square, Player currentPlayer){
+        public void applyRailRoadUpgrade(Square square, Player currentPlayer){
+            currentPlayer.decreaseMoney(((Railroad) square).getHouseBuildingCost());
+            ((Railroad) square).setHasDepot(true);
+            ((Railroad) square).updateRentInUpDownGrade("UP");
+        }
+        public void applyPropertyUpgrade (Square square, Player currentPlayer){
             if(((Property)square).getBuildingList().get(0) instanceof Hotel){
                 if(currentPlayer.checkMonopoly((Property)square)){
                     ((Property)square).getBuildingList().remove(0);
