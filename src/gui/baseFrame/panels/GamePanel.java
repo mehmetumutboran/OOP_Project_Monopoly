@@ -25,6 +25,8 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
     private ArrayList<TokenLabel> tokenlist;
     JPanel jPanel;
     private ArrayList<SquareLabel> squareLabels = new ArrayList<>();
+    private JLabel j;
+
 
     public GamePanel(int width, int height) {
         this.width = width;
@@ -52,7 +54,7 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
 //        jPanel = new JPanel();
 //        jPanel.setLayout(null);
 
-        this.setLayout(null);
+        //this.setLayout(null);
 
         initsquareLabels();
 //        SquareLabel label = new SquareLabel();

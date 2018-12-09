@@ -15,7 +15,8 @@ public class SquareLabel extends JLabel implements MouseListener {
     public SquareLabel(char size) {
         this.size = size;
         System.out.println(size + " ");
-        this.setBackground(new Color(255, 0, 0, 41));
+        this.setBackground(new Color(255, 0, 0, 40));
+        this.setSize(0,0);
         this.setOpaque(false);
         this.setVisible(true);
         this.addMouseListener(this);
@@ -23,12 +24,12 @@ public class SquareLabel extends JLabel implements MouseListener {
 
     public void draw(int width, int height, int i){
 //        System.out.println("Boolean" + this.getHeight());
+       // System.out.println(this.getWidth());
         this.setBounds(
                 (int) (width * LR_MARGIN - this.getWidth()),
                 (int) (height * (1 - UD_MARGIN) + ((size=='B' ? 2*i : i) * this.getHeight())),
                 (int) (2 * (width / 17.0)),
-                (int) ((size=='B' ? 2 : 1) * height / 17.0));
-        revalidate();
+                (int) ((size =='B' ? 2 : 1) * height / 17.0));
         repaint();
     }
 
@@ -53,12 +54,14 @@ public class SquareLabel extends JLabel implements MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
+        this.setBackground(new Color(255, 0, 0, 40));
         this.setOpaque(true);
         repaint();
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
+
         this.setOpaque(false);
         repaint();
     }
