@@ -35,14 +35,14 @@ public class Flags {
     private static final char initQueueFlag = 'b';
     private static final char dontBuyFlag = 'c';
     private static final char dontPayRentFlag = 'd';
-    private static final char saveFlag = 'g';
-    private static final char pauseFlag = 'h';
-    private static final char loadFlag = 'i';
-    private static final char resumeFlag = 'i';
-    private static final char removeFlag = 'j';
-    private static final char fullFlag = 'k';
-    private static final char finishFlag = 'l';
-    private static final char buttonFlag = 'm';
+    private static final char saveFlag = 'e';
+    private static final char pauseFlag = 'f';
+    private static final char loadFlag = 'g';
+    private static final char resumeFlag = 'h';
+    private static final char removeFlag = 'i';
+    private static final char fullFlag = 'j';
+    private static final char finishFlag = 'k';
+    private static final char buttonFlag = 'l';
     private static final char receivedFlag = 'z';
 
     private static HashMap<String, Character> flagMap;
