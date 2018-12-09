@@ -5,7 +5,9 @@ import domain.server.board.Board;
 import domain.server.board.Property;
 import domain.server.board.Railroad;
 import domain.server.board.Square;
+import domain.server.controller.ServerCommunicationHandler;
 import domain.server.player.Player;
+import domain.util.Flags;
 import domain.util.GameInfo;
 import domain.util.MessageConverter;
 
@@ -15,16 +17,15 @@ public class UpgradeRequestInterpreter implements RequestInterpretable {
         Player currentPlayer = GameInfo.getInstance().getCurrentPlayer();
         int [] loc = MessageConverter.convertStringToIntArray(message[2]);
         Square square = Board.getInstance().getSquare(loc[0],loc[1]);
-        Boolean success = true;
 
         if(square instanceof Railroad && currentPlayer.getBalance()>= ((Railroad) square).getHouseBuildingCost()){
             GameLogic.getInstance().applyRailRoadUpgrade(square,currentPlayer);
             //applyRailroadUpgrade
         }else if(square instanceof Property && currentPlayer.checkMajority((Property)square)
                 &&((Property) square).isUpgradable((Property)square) && currentPlayer.getBalance()>=((Property) square).getHouseBuildingCost()){
-                GameLogic.getInstance().applyPropertyUpgrade(square,currentPlayer);
+                GameLogic.getInstance().applyPropertyUpgrade(square,index,currentPlayer);
         }else{
-            //Dont upgrade
+            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("DontUpgrade"), index, " ");
 
         }
 
