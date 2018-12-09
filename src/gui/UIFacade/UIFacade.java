@@ -2,9 +2,13 @@ package gui.UIFacade;
 
 import gui.baseFrame.BaseFrame;
 import gui.prompt.PromptFactory;
+import gui.prompt.promptStrategy.PauseStrategy;
+import gui.prompt.promptStrategy.PromptStrategy;
 
 public class UIFacade {
     private static UIFacade ourInstance;
+
+    private PauseStrategy pauseStrategy;
 
     public static UIFacade getInstance() {
         if (ourInstance == null)
@@ -23,6 +27,16 @@ public class UIFacade {
     public void generatePrompt(char flag, int count) {
         PromptFactory.getInstance().getPromptStrategy(flag, count).show();
     }
+
+    public void generatePrompt(char flag, boolean b, String name) {
+        pauseStrategy = (PauseStrategy) PromptFactory.getInstance().getPromptStrategy(flag, b, name);
+        pauseStrategy.show();
+    }
+
+    public void closePrompt(){
+        pauseStrategy.close();
+    }
+
 
     public void changePanel(String panel) {
         if (!BaseFrame.getStatus().equals(panel))

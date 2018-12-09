@@ -73,6 +73,7 @@ public class RequestInterpreter {
 
         if (interpreterMap.keySet().contains(flag))
             interpreterMap.get(flag).interpret(m.split("[|]"), index);
+
 //
 //        switch (flag) {
 //            case GameLogic.finishTurnFlag:

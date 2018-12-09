@@ -41,4 +41,12 @@ public class PromptFactory {
             return new DontStartPromptStrategy(count);
         else return null;
     }
+
+
+    public PromptStrategy getPromptStrategy(char flag, boolean b, String name) {
+        if (flag == Flags.getFlag("Pause")) {
+            return new PauseStrategy(b, name);
+        }else return null;
+    }
+
 }

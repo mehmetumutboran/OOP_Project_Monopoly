@@ -87,4 +87,8 @@ public class PlayerActionController {
     public void drawCard() {
         ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Draw"), ClientFacade.getInstance().getUsername());
     }
+
+    public void resume() {
+        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Resume"), ClientFacade.getInstance().getUsername());
+    }
 }

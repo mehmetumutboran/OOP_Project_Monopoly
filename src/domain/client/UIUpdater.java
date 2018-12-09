@@ -1,6 +1,7 @@
 package domain.client;
 
 import domain.server.listeners.*;
+import domain.util.Flags;
 import gui.UIFacade.UIFacade;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class UIUpdater {
     private ArrayList<ButtonChangeListener> buttonChangeListeners;
 
     private String message;
+    private String buttonLayout;
 
     public static UIUpdater getInstance() {
         if (ourInstance == null)
@@ -121,6 +123,11 @@ public class UIUpdater {
         publishTurnChangedEvent("000000000");
     }
 
+    public void pauseUpdate(boolean b, String name){
+        publishTurnChangedEvent("000000000");
+        UIFacade.getInstance().generatePrompt(Flags.getFlag("Pause"), b, name);
+    }
+
     void close() {
         publishCloseButtonEvent();
     }
@@ -165,7 +172,13 @@ public class UIUpdater {
     }
 
     public void setButtons(String enable) {
+        this.buttonLayout = enable;
         publishTurnChangedEvent(enable);
+    }
+
+    public void resumeUpdate() {
+        UIFacade.getInstance().closePrompt();
+        publishTurnChangedEvent(buttonLayout);
     }
 
 //    public void setupPlayerLabels(ArrayList<String> playerListName, ArrayList<String> playerListColor) {
