@@ -38,6 +38,7 @@ public class Flags {
     private static final char saveFlag = 'g';
     private static final char pauseFlag = 'h';
     private static final char loadFlag = 'i';
+    private static final char resumeFlag = 'i';
     private static final char removeFlag = 'j';
     private static final char fullFlag = 'k';
     private static final char finishFlag = 'l';
@@ -63,6 +64,7 @@ public class Flags {
         flagMap.put("InitQueue", initQueueFlag);
         flagMap.put("Save", saveFlag);
         flagMap.put("Pause", pauseFlag);
+        flagMap.put("Resume", resumeFlag);
         flagMap.put("Load", loadFlag);
         flagMap.put("Remove", removeFlag);
         flagMap.put("Full", fullFlag);
