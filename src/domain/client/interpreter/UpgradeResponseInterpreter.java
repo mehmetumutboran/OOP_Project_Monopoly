@@ -42,5 +42,7 @@ public class UpgradeResponseInterpreter implements ResponseInterpretable {
 
         UIUpdater.getInstance().setMessage(currentPlayer.getName() + " upgraded " +selectedSquareForUpgrade.getName()
                 + " to " + buildingtoUpgrade.getName());
+
+        // ClientCommunicationHandler.getInstance().sendReceived();
     }
 }

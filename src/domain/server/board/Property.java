@@ -143,6 +143,35 @@ public class Property extends DeedSquare {
         }
         return checker;
     }
+    public boolean isDowngradable (Property square) {
+        boolean checker = false;
+        if(square.getBuildingList().isEmpty()) return false;
+        for (DeedSquare sq : Board.getInstance().getSameColoredSquares(square.getColor())) {
+            if (square.getBuildingList().get(0) instanceof Skyscraper &&
+                    (((Property) sq).getBuildingList().get(0) instanceof Skyscraper || ((Property) sq).getBuildingList().get(0) instanceof Hotel)) {
+                checker = true;
+            }else if(square.getBuildingList().get(0) instanceof Hotel &&
+                    (((Property)sq).getBuildingList().get(0) instanceof Hotel || ((Property)sq).getNumberOfBuildings()==4)){
+                checker=true;
+            }else if(square.getNumberOfBuildings()==4 &&
+                (((Property)sq).getNumberOfBuildings()==4 || ((Property)sq).getNumberOfBuildings()==3)){
+            checker = true;
+
+            }else if (square.getNumberOfBuildings()==3 &&
+                (((Property)sq).getNumberOfBuildings()==3 || ((Property)sq).getNumberOfBuildings()==2)){
+            checker = true;
+            }else if (square.getNumberOfBuildings()==2 &&
+                (((Property)sq).getNumberOfBuildings()==2 || ((Property)sq).getNumberOfBuildings()==1)){
+            checker = true;
+            }else if (square.getNumberOfBuildings()==1 &&
+                    (((Property)sq).getNumberOfBuildings()==1 || ((Property)sq).getNumberOfBuildings()==0)){
+                checker = true;
+            }else {
+                return false;
+            }
+        }
+        return checker;
+    }
 
     @Override
     public String generateSaveInfo() {
