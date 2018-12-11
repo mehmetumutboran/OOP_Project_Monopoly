@@ -11,7 +11,7 @@ public class RollResponseInterpreter implements ResponseInterpretable {
     @Override
     public void interpret(String[] message) {
         String name = message[1];
-        int[] faceValues = MessageConverter.convertStringToIntArray(message[2]);
+        int[] faceValues = MessageConverter.convertStringToIntArray(message[2], ',');
         System.out.println("In roll response method: " + Arrays.toString(faceValues));
         GameInfo.getInstance().getPlayer(name).setFaceValues(faceValues);
 

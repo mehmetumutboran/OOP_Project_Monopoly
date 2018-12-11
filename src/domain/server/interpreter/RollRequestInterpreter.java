@@ -33,7 +33,7 @@ public class RollRequestInterpreter implements RequestInterpretable {
 
             String newLoc = GameLogic.getInstance().move(name);
 
-            String locName = Board.getInstance().getSquare(MessageConverter.convertStringToIntArray(newLoc)[0], MessageConverter.convertStringToIntArray(newLoc)[1]).getName();
+            String locName = Board.getInstance().getSquare(MessageConverter.convertStringToIntArray(newLoc, ',')[0], MessageConverter.convertStringToIntArray(newLoc, ',')[1]).getName();
 
             String loc = newLoc + "@" + locName;
 

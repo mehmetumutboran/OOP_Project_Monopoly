@@ -56,10 +56,10 @@ public class LoadGameHandler {
 
     public void loadGame(String load) {
         String[] loadElements = load.split("[*]");
+        loadPlayers(loadElements);
         GameInfo.getInstance().setPlayerQueue(
                 MessageConverter.convertStringToDeque(
                         loadElements[loadElements.length - 1]));
-        loadPlayers(loadElements);
         System.out.println(GameInfo.getInstance().getPlayerList());
         System.out.println(GameInfo.getInstance().getPlayerQueue());
     }

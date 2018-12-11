@@ -1,8 +1,10 @@
 package domain.server.board;
 
 import domain.server.Savable;
+import domain.util.MessageConverter;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  * Class for Buyable Squares.
@@ -111,7 +113,9 @@ public abstract class DeedSquare extends Square implements Savable {
                 location[0] + ";" +
                 location[1] + ";" +
                 buyValue + ";" +
-                Arrays.toString(rents) + ";" +
+                Arrays.stream(rents)
+                        .mapToObj(String::valueOf)
+                        .collect(Collectors.joining("@")) + ";" +
                 owner + ";" +
                 mortgaged;
     }
