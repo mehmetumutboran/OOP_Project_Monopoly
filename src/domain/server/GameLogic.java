@@ -11,6 +11,8 @@ import domain.util.Flags;
 import domain.util.GameInfo;
 import domain.util.MessageConverter;
 
+import java.util.Arrays;
+
 
 public class GameLogic {
     private static GameLogic ourInstance;
@@ -117,27 +119,38 @@ public class GameLogic {
     public boolean checkMrMonopoly(String name) {
 
         /*check if bot*/
+        /*
         if(GameInfo.getInstance().getPlayer(GameInfo.getInstance().getCurrentPlayer()).getReadiness().equals("Bot")){
             setMrMonopolyChecked(false);
         }
+        */
         /*check if mrMonopoly and it is not checked played yet*/
-        if (GameInfo.getInstance().getPlayer(name).getFaceValues()[2] == 7 && !isMrMonopolyChecked()){
-            setMrMonopolyChecked(true);
+   //     if (GameInfo.getInstance().getPlayer(name).getFaceValues()[2] == 7 /*&& !isMrMonopolyChecked()*/){
+            /*setMrMonopolyChecked(true);*/
             /*check if bot*/
+            /*
             if(GameInfo.getInstance().getPlayer(GameInfo.getInstance().getCurrentPlayer()).getReadiness().equals("Bot")){
                 setMrMonopolyChecked(false);
             }
+            */
+        if (GameInfo.getInstance().getPlayer(name).getFaceValues()[2] == 7) {
+
             int[] loc = GameInfo.getInstance().getPlayer(name).getToken().getLocation().clone();
+            System.out.println("!!!!!!!!!!!!" + Arrays.toString(loc));
             loc = findNextUnOwnedSquare(loc);
+            System.out.println("!!!!!!!!!!!!" + Arrays.toString(loc));
+
             //GameInfo.getInstance().getPlayer(name).getToken().setLocation(loc);
 
             String locName = Board.getInstance().getSquare(loc[0], loc[1]).getName();
             String locat = MessageConverter.convertArrayToString(loc) + "@" + locName;
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Move"), name, locat);
+            return true;
 
-            return  true;
         }
-        return false;
+      //      return  true;
+      //  }
+        else return false;
     }
 
     public int[] findNextUnOwnedSquare(int[] loc) {

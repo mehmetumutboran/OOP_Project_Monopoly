@@ -20,6 +20,7 @@ public class ButtonPanel extends JPanel {
     private PauseButton pauseButton;
     private SaveButton saveButton;
     private DrawCardButton drawCardButton;
+    private MrMonopolyButton mrMonopolyButton;
 
 
     public ButtonPanel(int width, int height) {
@@ -45,7 +46,7 @@ public class ButtonPanel extends JPanel {
         drawCardButton = new DrawCardButton("Draw Card");
         saveButton = new SaveButton("Save Game");
         pauseButton = new PauseButton("Pause");
-
+        mrMonopolyButton = new MrMonopolyButton("MrMonopoly");
 
 
         this.add(buyButton);
@@ -59,6 +60,7 @@ public class ButtonPanel extends JPanel {
         this.add(drawCardButton);
         this.add(pauseButton);
         this.add(saveButton);
+        this.add(mrMonopolyButton);
     }
 
     public void setHost(boolean b) {

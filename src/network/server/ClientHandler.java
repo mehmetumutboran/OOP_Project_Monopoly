@@ -32,7 +32,9 @@ public class ClientHandler implements Runnable {
                 String line = dis.readUTF();
                 System.out.println("\n\nReceived message Server:" + line);
                 if (line.charAt(0) == 'z') { // Received flag
-                    ReceivedChecker.getInstance().received[index] = true;
+                    synchronized (this) {
+                        ReceivedChecker.getInstance().received[index] = true;
+                    }
                     continue;
                 }
 
@@ -53,8 +55,6 @@ public class ClientHandler implements Runnable {
         }
 
     }
-
-
 
 
     public synchronized void send(String m) throws IOException {

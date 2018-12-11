@@ -25,15 +25,18 @@ public class PlayerActionController {
         ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Roll"), ClientFacade.getInstance().getUsername());
     }
 
+    public void checkMrMonopoly() {
+        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("MrMonopoly") , ClientFacade.getInstance().getUsername());
 
+    }
     public void finishTurn() {
 
-        String name = GameInfo.getInstance().getCurrentPlayer();
-        if(! (GameLogic.getInstance().checkMrMonopoly(name)
-               && GameLogic.getInstance().isMrMonopolyChecked())) {
+//        String name = GameInfo.getInstance().getCurrentPlayer();
+//        if( !(GameLogic.getInstance().checkMrMonopoly(name)
+//               && GameLogic.getInstance().isMrMonopolyChecked())) {
             ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Finish"), ClientFacade.getInstance().getUsername());
-            GameLogic.getInstance().setMrMonopolyChecked(false);
-        }
+ //           GameLogic.getInstance().setMrMonopolyChecked(false);
+//        }
 
     }
 //    // public void upgrade() {GameLogic.getInstance().upgrade(); }

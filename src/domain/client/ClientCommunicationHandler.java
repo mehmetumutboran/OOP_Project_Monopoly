@@ -16,6 +16,7 @@ public class ClientCommunicationHandler {
     }
 
 
+
     public void sendRequest(char flag, String username) {
         ClientFacade.getInstance().send(flag + "|" + username);
     }
