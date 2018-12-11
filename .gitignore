@@ -3,3 +3,4 @@ out
 .iml
 .project
 save/*.txt
+.attach_pid*

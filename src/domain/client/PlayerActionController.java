@@ -1,7 +1,9 @@
 package domain.client;
 
+import domain.server.GameLogic;
 import domain.server.controller.ConnectGameHandler;
 import domain.util.Flags;
+import network.client.Client;
 import network.client.clientFacade.ClientFacade;
 
 public class PlayerActionController {
@@ -23,24 +25,25 @@ public class PlayerActionController {
     }
 
 
-//    public void finishTurn() {
-//        GameLogic.getInstance().finishTurn();
-//    }
+    public void finishTurn() {
+        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Finish"), ClientFacade.getInstance().getUsername());
+    }
 //    // public void upgrade() {GameLogic.getInstance().upgrade(); }
 //
 //    //public void downgrade(){ GameLogic.getInstance().downgrade(); }
 //
-//    public boolean buy() {
-//        System.out.println("in player action controller");
-//        return (GameLogic.getInstance().buy());
+    public void buy() {
+        System.out.println("in player action controller");
+        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Buy"), ClientFacade.getInstance().getUsername());
+
+    }
 //
-//    }
-//
-//    public boolean rent() {
-//        System.out.println("in player action controller");
-//        return (GameLogic.getInstance().payRent());
-//
-//    }
+    public void rent() {
+        System.out.println("in player action controller");
+        //      return (GameLogic.getInstance().payRent());
+        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("PayRent"), ClientFacade.getInstance().getUsername());
+
+    }
 
     public void startGame() {
         ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Start"), ClientFacade.getInstance().getUsername());
@@ -77,7 +80,16 @@ public class PlayerActionController {
     }
 
     public void pause() {
+        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Pause"), ClientFacade.getInstance().getUsername());
 
+    }
+
+    public void drawCard() {
+        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Draw"), ClientFacade.getInstance().getUsername());
+    }
+
+    public void resume() {
+        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Resume"), ClientFacade.getInstance().getUsername());
     }
 
     public void upgradeLabel(int location[]) {

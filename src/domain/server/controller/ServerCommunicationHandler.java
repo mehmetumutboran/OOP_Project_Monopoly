@@ -1,5 +1,6 @@
 package domain.server.controller;
 
+import domain.server.board.Square;
 import domain.server.util.GameState;
 import network.server.serverFacade.ServerFacade;
 
@@ -37,6 +38,22 @@ public class ServerCommunicationHandler {
                 .send(index, GameState.getInstance().generateCurrentAction(flag, message));
     }
 
+    public synchronized void sendResponse(char flag, int index) {
+        ServerFacade.getInstance()
+                .send(index, GameState.getInstance().generateCurrentAction(flag));
+    }
+
+    public synchronized void sendResponse(char flag, String name , int money, String square) {
+        ServerFacade.getInstance()
+                .send(GameState.getInstance().generateCurrentAction( flag , name , money ,  square));
+    }
+
+    public synchronized void sendResponse(char flag, String name , int money1, int money2 , String square) {
+        ServerFacade.getInstance()
+                .send(GameState.getInstance().generateCurrentAction( flag , name , money1,money2 ,  square));
+    }
+
+
     public synchronized void sendResponse(char flag, String name, String args) {
         ServerFacade.getInstance()
                 .send(GameState.getInstance().generateCurrentAction(flag, name, args));
@@ -49,9 +66,15 @@ public class ServerCommunicationHandler {
     public synchronized void sendResponse(char flag, String player, String square, String buildingToUporDown){
         ServerFacade.getInstance().send(GameState.getInstance().generateCurrentAction(flag,player,square,buildingToUporDown));
     }
-//    public synchronized void sendResponse(char flag, String name, String buildName) {
+
+    public synchronized void sendResponse(char flag, int index, String message, String name) {
+        ServerFacade.getInstance()
+                .send(index, GameState.getInstance().generateCurrentAction(flag, message, name));
+    }
+
+//    public synchronized void sendResponse(char flag, String message, String name) {
 //        ServerFacade.getInstance()
-//                .send(GameState.getInstance().generateCurrentAction(flag, name, buildName));
+//                .send(GameState.getInstance().generateCurrentAction(flag, name, buildame));
 //    }
 //
 //    public synchronized void sendResponse(char flag, String name, int changedMoney) {

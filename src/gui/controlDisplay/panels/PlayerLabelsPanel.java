@@ -3,6 +3,8 @@ package gui.controlDisplay.panels;
 import domain.client.UIUpdater;
 import domain.server.listeners.GameStartedListener;
 import domain.server.listeners.PlayerQuitEventListener;
+import domain.server.listeners.TurnChangedListener;
+import domain.server.listeners.TurnUpdateListener;
 import domain.util.GameInfo;
 import gui.controlDisplay.PlayerLabel;
 import gui.util.ColorConverter;
@@ -11,7 +13,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class PlayerLabelsPanel extends JLabel implements GameStartedListener, PlayerQuitEventListener {
+public class PlayerLabelsPanel extends JLabel implements GameStartedListener, PlayerQuitEventListener, TurnUpdateListener {
     private final int SQUARE_EDGE = 90;
 
     private ArrayList<PlayerLabel> playerLabels;
@@ -26,6 +28,7 @@ public class PlayerLabelsPanel extends JLabel implements GameStartedListener, Pl
         this.setLayout(new GridLayout(2, 6));
         this.setPreferredSize(playerStatusPanel.getSize());
         UIUpdater.getInstance().addGameStartedListener(this);
+        UIUpdater.getInstance().addTurnUpdateListener(this);
         initGUI();
 
         this.setVisible(true);
@@ -74,6 +77,18 @@ public class PlayerLabelsPanel extends JLabel implements GameStartedListener, Pl
 
 //        playerLabels.forEach(this::remove);
         this.removeAll();
+        revalidate();
+        repaint();
+    }
+
+    @Override
+    public void onTurnUpdateEvent() {
+        for (int i = 0; i < playerLabels.size(); i++) {
+            playerLabels.get(i).setText(playerLabels.get(i).getName());
+            if(GameInfo.getInstance().isCurrentPlayerFromIndex(i)) {
+                playerLabels.get(i).setText(playerLabels.get(i).getName() + "   Current Turn!!");
+            }
+        }
         revalidate();
         repaint();
     }

@@ -1,6 +1,7 @@
 package domain.client;
 
 import domain.util.MessageConverter;
+import domain.util.Flags;
 import network.client.clientFacade.ClientFacade;
 
 public class ClientCommunicationHandler {
@@ -23,8 +24,13 @@ public class ClientCommunicationHandler {
     public void sendRequest(char flag, String username, String color) {
         ClientFacade.getInstance().send(flag + "|" + username + "|" + color);
     }
-    public void sendRequest (char flag, String username, int location[]){
+    public void sendRequest (char flag, String username, int location[]) {
         ClientFacade.getInstance().send(flag + "|" + username + "|" + MessageConverter.convertArrayToString(location));
+    }
+
+    public void sendReceived(){
+        ClientFacade.getInstance().send(Flags.getFlag("Received") + "|" + ClientFacade.getInstance().getUsername());
+
     }
 }
 

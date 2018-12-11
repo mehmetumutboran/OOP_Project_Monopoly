@@ -3,12 +3,9 @@ package domain.server.interpreter;
 import domain.server.board.Property;
 import domain.server.board.Railroad;
 import domain.server.board.Square;
-import domain.server.controller.ServerCommunicationHandler;
-import domain.server.player.Player;
 import domain.util.GameInfo;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 public class LabelLighterRequestInterpreter implements RequestInterpretable{

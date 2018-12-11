@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 public class Flags {
 
+
     private static final char buyFlag = 'A';
     private static final char rollFlag = 'B';
     private static final char moneyFlag = 'C';
@@ -22,7 +23,7 @@ public class Flags {
     private static final char specialSquareFlag = 'P';
     private static final char poolFlag = 'Q';
     private static final char tokenFlag = 'R';
-    private static final char goOutJailFlag = 'S';
+    private static final char doubleCounterFlag = 'S';
     private static final char startFlag = 'T';
     private static final char addPlayerFlag = 'U';
     private static final char addPlayerListFlag = 'V';
@@ -32,14 +33,20 @@ public class Flags {
     private static final char readinessFlag = 'Z';
     private static final char dontStartFlag = 'a';
     private static final char initQueueFlag = 'b';
-    private static final char saveFlag = 'g';
-    private static final char pauseFlag = 'h';
-    private static final char loadFlag = 'i';
-    private static final char removeFlag = 'j';
-    private static final char fullFlag = 'k';
-    private static final char dontUpgradeFlag = 'y';//z koymamın sebebi masterdaki baska bir flag ile cakısıyor olabilir kontrole et!!!!
-    private static final char dontDowngradeFlag = 'w'; //yukardakiyle aynı
-    private static final char labellighterFlag = 'v';
+    private static final char dontBuyFlag = 'c';
+    private static final char dontPayRentFlag = 'd';
+    private static final char saveFlag = 'e';
+    private static final char pauseFlag = 'f';
+    private static final char loadFlag = 'g';
+    private static final char resumeFlag = 'h';
+    private static final char removeFlag = 'i';
+    private static final char fullFlag = 'j';
+    private static final char finishFlag = 'k';
+    private static final char buttonFlag = 'l';
+    private static final char dontUpgradeFlag = 'm';
+    private static final char dontDowngradeFlag = 'n';
+    private static final char labellighterFlag = 'o';
+    private static final char receivedFlag = 'z';
 
 
 
@@ -62,9 +69,31 @@ public class Flags {
         flagMap.put("InitQueue", initQueueFlag);
         flagMap.put("Save", saveFlag);
         flagMap.put("Pause", pauseFlag);
+        flagMap.put("Resume", resumeFlag);
         flagMap.put("Load", loadFlag);
         flagMap.put("Remove", removeFlag);
         flagMap.put("Full", fullFlag);
+        flagMap.put("Move", moveFlag);
+        flagMap.put("GoToJail", jailFlag);
+        flagMap.put("GoOutOfJail", jailFlag);
+        flagMap.put("DoubleCounter", doubleCounterFlag);
+        flagMap.put("Buy", buyFlag);
+        flagMap.put("DontBuy", dontBuyFlag);
+        flagMap.put("PayRent", payRentFlag);
+        flagMap.put("DontPayRent", dontPayRentFlag);
+        flagMap.put("Finish", finishFlag);
+        flagMap.put("Button", buttonFlag);
+        flagMap.put("Received", receivedFlag);
+        flagMap.put("Money", moneyFlag);
+        flagMap.put("Upgrade", upgradeFlag);
+        flagMap.put("Downgrade", downgradeFlag);
+        flagMap.put("Draw", drawCardFlag);
+        flagMap.put("PayDay", payDayFlag);
+        flagMap.put("Bonus", bonusFlag);
+        flagMap.put("Jail", jailFlag);
+        flagMap.put("Special", specialSquareFlag);
+        flagMap.put("Pool", poolFlag);
+        flagMap.put("Token", tokenFlag);
 
         flagMap.put("Upgrade", upgradeFlag);
         flagMap.put("Downgrade", downgradeFlag);
@@ -75,7 +104,7 @@ public class Flags {
     }
 
     public static char getFlag(String action) {
-        System.out.println(action);
+//        System.out.println(action);
         return flagMap.get(action);
     }
 

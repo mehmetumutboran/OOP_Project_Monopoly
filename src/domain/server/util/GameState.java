@@ -1,5 +1,7 @@
 package domain.server.util;
 
+import domain.server.board.Board;
+import domain.server.die.DiceCup;
 import domain.util.Flags;
 import domain.util.GameInfo;
 import domain.util.MessageConverter;
@@ -28,10 +30,6 @@ public class GameState {
 //        } else if (flag == Flags.getFlag("Close")) {
 //            return flag + name;
 //        }
-
-        if (flag == Flags.getFlag("Roll")) {
-            return generateRollAction(Flags.getFlag("Roll"), name);
-        }
         //else if (flag == buyFlag) {
 //            return generateBuyAction(buyFlag, name);
 //        } else if (flag == payRentFlag) {
@@ -62,9 +60,20 @@ public class GameState {
         return flag + "|" + qString;
     }
 
+    public String generateCurrentAction(char flag) {
+        return Character.toString(flag) ;
+    }
+
+//    private String generateInitQueueAction(char flag, int money , String name) {
+//        return flag + "|" + money + "|" + name ;
+//    }
+
     public String generateCurrentAction(char flag, String name, String message) {
         if (flag == Flags.getFlag("InitQueue")) {
             return generateInitQueueAction(Flags.getFlag("InitQueue"), message);
+        }
+        if (flag == Flags.getFlag("Roll")) {
+            return generateRollAction(Flags.getFlag("Roll"), name, message);
         }
         return flag + "|" + name + "|" + message;
     }
@@ -73,6 +82,15 @@ public class GameState {
         return flag + "|" + count + "|" + message;
     }
 
+    public String generateCurrentAction(char flag, String name , int money1, int money2, String squareName) {
+        return flag + "|" + name + "|" + money1 + "|" + money2+ "|" + squareName;
+
+}
+
+    public String generateCurrentAction(char flag, String name , int money , String squareName) {
+        return flag + "|" + name + "|" + money +  "|" + squareName;
+
+    }
 //    public String generateCurrentAction(char flag, String name, String buildNameOrLoc) {
 //        if (flag == upgradeFlag) {
 //            return generateUpgradeAction(flag, name, buildNameOrLoc);
@@ -149,9 +167,8 @@ public class GameState {
 //        return flag + "|" + name + "|" + Board.getInstance().getSquare(loc[0], loc[1]);
 //    }
 //
-    private String generateRollAction(char flag, String name) {
-        int[] faceVal = GameInfo.getInstance().getPlayer(name).getFaceValues();
-        return flag + "|" + name + "|" + MessageConverter.convertArrayToString(faceVal);
+    private String generateRollAction(char flag, String name, String message) {
+        return flag + "|" + name + "|" + message;
     }
 
     public String generateCurrentAction(char flag, String player, String square, String buildingToUporDown) {

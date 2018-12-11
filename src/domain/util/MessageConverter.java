@@ -42,8 +42,8 @@ public class MessageConverter {
         return deque.toString();
     }
 
-    public static int[] convertStringToIntArray(String str) {
-        ArrayList<Integer> lst = integerArrayListConverter(str);
+    public static int[] convertStringToIntArray(String str, char delimiter) {
+        ArrayList<Integer> lst = integerArrayListConverter(str, delimiter);
         int[] intArray = new int[lst.size()];
         for (int i = 0; i < lst.size(); i++) {
             intArray[i] = lst.get(i);
@@ -66,10 +66,10 @@ public class MessageConverter {
         return myDeque;
     }
 
-    private static ArrayList<Integer> integerArrayListConverter(String str) {
+    private static ArrayList<Integer> integerArrayListConverter(String str, char delimiter) {
         ArrayList<Integer> lst = new ArrayList<>();
         for (int i = 0; i < str.length(); i++) {
-            if (str.charAt(i) == ',') { // when ',' found
+            if (str.charAt(i) == delimiter) { // when ',' found
                 char chr1 = str.charAt(i - 2);
                 char chr2 = str.charAt(i - 1);
                 int a;
@@ -116,7 +116,8 @@ public class MessageConverter {
         ArrayList<Property> properties = new ArrayList<>();
         String[] squareInfo;
         String name, owner, color;
-        int layer, location, cost, rent;
+        int layer, location, cost;
+        int[] rent;
         boolean mortgaged, hasUpgrade;
         ArrayList<Building> buildings;
         for (String s : arr) {
@@ -125,7 +126,7 @@ public class MessageConverter {
             layer = Integer.parseInt(squareInfo[1]);
             location = Integer.parseInt(squareInfo[2]);
             cost = Integer.parseInt(squareInfo[3]);
-            rent = Integer.parseInt(squareInfo[4]);
+            rent = convertStringToIntArray(squareInfo[4], '@');
             owner = squareInfo[5];
             mortgaged = Boolean.parseBoolean(squareInfo[6]);
             color = squareInfo[7];
@@ -133,7 +134,7 @@ public class MessageConverter {
             hasUpgrade = Boolean.parseBoolean(squareInfo[9]);
             Property square = (Property) Board.getInstance().getSquare(layer, location);
             square.setBuildingList(buildings);
-//            square.setRent(rent); TODO
+            square.setRent(rent);
             square.setOwner(owner);
             square.setMortgaged(mortgaged);
             square.setUpgraded(hasUpgrade);
@@ -168,7 +169,8 @@ public class MessageConverter {
         ArrayList<Utility> utilities = new ArrayList<>();
         String[] squareInfo;
         String name, owner;
-        int layer, location, cost, rent;
+        int layer, location, cost;
+        int[] rent;
         boolean mortgaged;
         for (String s : arr) {
             squareInfo = s.split("[;]");
@@ -176,11 +178,11 @@ public class MessageConverter {
             layer = Integer.parseInt(squareInfo[1]);
             location = Integer.parseInt(squareInfo[2]);
             cost = Integer.parseInt(squareInfo[3]);
-            rent = Integer.parseInt(squareInfo[4]);
+            rent = convertStringToIntArray(squareInfo[4], '@');
             owner = squareInfo[5];
             mortgaged = Boolean.parseBoolean(squareInfo[6]);
             Utility square = (Utility) Board.getInstance().getSquare(layer, location);
-//            square.setRent(rent); TODO
+            square.setRent(rent);
             square.setOwner(owner);
             square.setMortgaged(mortgaged);
             utilities.add(square);
@@ -192,7 +194,8 @@ public class MessageConverter {
         ArrayList<Railroad> railroads = new ArrayList<>();
         String[] squareInfo;
         String name, owner;
-        int layer, location, cost, rent;
+        int layer, location, cost;
+        int[] rent;
         boolean mortgaged, hasDepot;
         for (String s : arr) {
             squareInfo = s.split("[;]");
@@ -200,12 +203,12 @@ public class MessageConverter {
             layer = Integer.parseInt(squareInfo[1]);
             location = Integer.parseInt(squareInfo[2]);
             cost = Integer.parseInt(squareInfo[3]);
-            rent = Integer.parseInt(squareInfo[4]);
+            rent = convertStringToIntArray(squareInfo[4], '@');
             owner = squareInfo[5];
             mortgaged = Boolean.parseBoolean(squareInfo[6]);
             hasDepot = Boolean.parseBoolean(squareInfo[7]);
             Railroad square = (Railroad) Board.getInstance().getSquare(layer, location);
-//            square.setRent(rent); TODO
+            square.setRent(rent);
             square.setOwner(owner);
             square.setMortgaged(mortgaged);
             railroads.add(square);

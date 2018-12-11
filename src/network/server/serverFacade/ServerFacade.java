@@ -1,6 +1,7 @@
 package network.server.serverFacade;
 
 import domain.server.RequestInterpreter;
+import network.server.ClientHandler;
 import network.server.Server;
 
 import java.io.IOException;
@@ -40,7 +41,7 @@ public class ServerFacade {
 
     public synchronized void kick(String username) {
         server.getClientHandler(username).terminate();
-        Server.removeClient(server.getClientHandler(username));
+        server.removeClient(server.getClientHandler(username));
     }
 
     public void shutDown() {
@@ -51,14 +52,14 @@ public class ServerFacade {
         }
     }
 
-    public void interpretRequest(String request, int index) {
-        RequestInterpreter.getInstance().interpret(request, index);
+    public void interpretRequest(String line, int index) {
+        RequestInterpreter.getInstance().interpret(line, index);
     }
 
 
     public void send(String response) {
         try {
-            Server.sendAll(response);
+            server.sendAll(response);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -66,7 +67,7 @@ public class ServerFacade {
 
     public void send(int index, String response) {
         try {
-            Server.sendToOne(index, response);
+            server.sendToOne(index, response);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -80,4 +81,11 @@ public class ServerFacade {
         Server.setClientInfo(username);
     }
 
+    public void removeClient(ClientHandler clientHandler) {
+        server.removeClient(clientHandler);
+    }
+
+    public int getTotalNumPlayers() {
+        return server.getTotalNumPlayers();
+    }
 }

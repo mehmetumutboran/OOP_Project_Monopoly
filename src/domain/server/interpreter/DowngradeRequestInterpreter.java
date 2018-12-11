@@ -5,9 +5,7 @@ import domain.server.board.Board;
 import domain.server.board.Property;
 import domain.server.board.Railroad;
 import domain.server.board.Square;
-import domain.server.controller.ServerCommunicationHandler;
 import domain.server.player.Player;
-import domain.util.Flags;
 import domain.util.GameInfo;
 import domain.util.MessageConverter;
 
@@ -16,7 +14,7 @@ public class DowngradeRequestInterpreter implements RequestInterpretable {
     public void interpret(String[] message, int index) {
 
         Player currentPlayer = GameInfo.getInstance().getCurrentPlayer();
-        int [] loc = MessageConverter.convertStringToIntArray(message[2]);
+        int [] loc = MessageConverter.convertStringToIntArray(message[2], ',');
         Square square = Board.getInstance().getSquare(loc[0],loc[1]);
 
         if(square instanceof Railroad && ((Railroad) square).isHasDepot()){

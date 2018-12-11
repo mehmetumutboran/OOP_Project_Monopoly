@@ -1,6 +1,7 @@
 package domain.client;
 
 import domain.server.listeners.*;
+import domain.util.Flags;
 import gui.UIFacade.UIFacade;
 
 import java.util.ArrayList;
@@ -10,12 +11,15 @@ public class UIUpdater {
 
     private ArrayList<MessageChangedListener> messageChangedListeners;
     private ArrayList<TurnChangedListener> turnChangedListeners;
+    private ArrayList<TurnUpdateListener> turnUpdateListeners;
     private ArrayList<CloseButtonListener> closeButtonListeners;
     private ArrayList<PlayerQuitEventListener> playerQuitEventListeners;
     private ArrayList<TokenMovementListener> tokenMovementListeners;
     private ArrayList<GameStartedListener> gameStartedListeners;
+    private ArrayList<ButtonChangeListener> buttonChangeListeners;
 
     private String message;
+    private String buttonLayout;
 
     public static UIUpdater getInstance() {
         if (ourInstance == null)
@@ -30,6 +34,8 @@ public class UIUpdater {
         playerQuitEventListeners = new ArrayList<>();
         tokenMovementListeners = new ArrayList<>();
         gameStartedListeners = new ArrayList<>();
+        buttonChangeListeners = new ArrayList<>();
+        turnUpdateListeners = new ArrayList<>();
     }
 
     public void addMessageChangedListener(MessageChangedListener mcl) {
@@ -53,6 +59,14 @@ public class UIUpdater {
         closeButtonListeners.add(cbl);
     }
 
+    public void addButtonChangeListener(ButtonChangeListener bcl) {
+        buttonChangeListeners.add(bcl);
+    }
+
+    public void addTurnUpdateListener(TurnUpdateListener tul){
+        turnUpdateListeners.add(tul);
+    }
+
     public void publishGameStartedEvent() {
         for (GameStartedListener gls : gameStartedListeners) {
             if (gls == null) continue;
@@ -71,9 +85,21 @@ public class UIUpdater {
         }
     }
 
-    private void publishTurnChangedEvent(boolean isEnabled) {
+    private void publishTurnChangedEvent(String enable) {
         for (TurnChangedListener tcl : turnChangedListeners) {
-            tcl.onTurnChangedEvent(isEnabled);
+            tcl.onTurnChangedEvent(enable);
+        }
+    }
+
+    public void publishTurnUpdateEvent(){
+        for (TurnUpdateListener tul : turnUpdateListeners){
+            tul.onTurnUpdateEvent();
+        }
+    }
+
+    private void publishButtonChangeEvent() {
+        for (ButtonChangeListener bcl : buttonChangeListeners) {
+            bcl.onButtonChangeEvent();
         }
     }
 
@@ -92,11 +118,15 @@ public class UIUpdater {
         publishMessageChangedEvent();
     }
 
-//    public void turnUpdate() {
-//        publishTurnChangedEvent(GameLogic.getInstance().getCurrentPlayer()
-//                .equals(GameLogic.getInstance().getPlayerList().get(0)));
-//
-//    }
+    public void turnUpdate() {
+        publishTurnUpdateEvent();
+        publishTurnChangedEvent("000000000");
+    }
+
+    public void pauseUpdate(boolean b, String name){
+        publishTurnChangedEvent("000000000");
+        UIFacade.getInstance().generatePrompt(Flags.getFlag("Pause"), b, name);
+    }
 
     void close() {
         publishCloseButtonEvent();
@@ -139,6 +169,16 @@ public class UIUpdater {
 
     public void setTitle(String username) {
         UIFacade.getInstance().setTitle(username);
+    }
+
+    public void setButtons(String enable) {
+        this.buttonLayout = enable;
+        publishTurnChangedEvent(enable);
+    }
+
+    public void resumeUpdate() {
+        UIFacade.getInstance().closePrompt();
+        publishTurnChangedEvent(buttonLayout);
     }
 
 //    public void setupPlayerLabels(ArrayList<String> playerListName, ArrayList<String> playerListColor) {

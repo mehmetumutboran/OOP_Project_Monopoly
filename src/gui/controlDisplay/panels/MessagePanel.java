@@ -12,7 +12,8 @@ public class MessagePanel extends JPanel implements MessageChangedListener {
     private int width;
     private int height;
 
-    private final int OFFSET = 22;
+    private static final int OFFSET = 22;
+    private static final int MAX_LINES = 20;
 
     private static StringBuilder message;
     private JLabel messageLabel;
@@ -42,9 +43,37 @@ public class MessagePanel extends JPanel implements MessageChangedListener {
     }
 
     @Override
-    public void onMessageChangedEvent() {
+    public void onMessageChangedEvent() { // Add Log file
         String s = UIUpdater.getInstance().getMessage();
+        if (getLineCount() >= MAX_LINES) {
+            message.delete(message.lastIndexOf(" - ") - 8, message.lastIndexOf("</div>"));
+        }
         message.insert(OFFSET, LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")) + " - " + s + "<br>");
         messageLabel.setText(message.toString());
     }
+
+
+    private int getLineCount() {
+        return message.toString().split("<br>|<br/>").length - 2;
+    }
+
+
+
+    public static void main(String[] args) {
+        MessagePanel messagePanel = new MessagePanel(10, 10);
+
+        System.out.println(message.toString());
+        for (int i = 0; i < 300; i++) {
+            if (messagePanel.getLineCount() >= MAX_LINES) {
+                message.delete(message.lastIndexOf(" - ") - 8, message.lastIndexOf("</div>"));
+            }
+
+            message.insert(OFFSET, LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")) + " - " + i + "<br>");
+            System.out.println(message.toString());
+            System.out.println(messagePanel.getLineCount());
+        }
+
+
+    }
+
 }

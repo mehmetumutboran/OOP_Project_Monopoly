@@ -1,5 +1,7 @@
 package gui.controlDisplay.panels;
 
+import domain.client.UIUpdater;
+import domain.server.listeners.TurnUpdateListener;
 import domain.util.GameInfo;
 
 import javax.swing.*;
@@ -9,7 +11,7 @@ import java.awt.*;
  * Panel which has {@link domain.server.player.Player}s' name on it.
  * Allows user to click on Player Labels and see that player's assets.
  */
-public class PlayerStatusPanel extends JPanel {
+public class PlayerStatusPanel extends JPanel implements TurnUpdateListener {
     private int width;
     private int height;
 
@@ -26,6 +28,7 @@ public class PlayerStatusPanel extends JPanel {
         this.setPreferredSize(new Dimension(width, 180));
         cardLayout = new CardLayout();
         this.setLayout(cardLayout);
+        UIUpdater.getInstance().addTurnUpdateListener(this);
 
         initGUI();
     }
@@ -49,5 +52,11 @@ public class PlayerStatusPanel extends JPanel {
                 playerInfoPanel.setPlayer(i);
             }
         }
+    }
+
+    @Override
+    public void onTurnUpdateEvent() {
+//        revalidate();
+//        repaint();
     }
 }

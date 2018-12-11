@@ -11,8 +11,8 @@ public class Railroad extends DeedSquare {
 
     public Railroad(String name, int layer, int index, int buyValue, int[] rents) {
         super(name, layer, index, buyValue,  null,rents);
-    //    this.rents = rents.clone();
-     //   this.currentRent = rents[0];
+        this.rents = rents.clone();
+        this.currentRent = rents[0];
         hasDepot = false;
     }
 

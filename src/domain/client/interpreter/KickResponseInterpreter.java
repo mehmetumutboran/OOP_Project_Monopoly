@@ -1,5 +1,6 @@
 package domain.client.interpreter;
 
+import domain.client.ClientCommunicationHandler;
 import domain.client.UIUpdater;
 import domain.util.GameInfo;
 import network.client.clientFacade.ClientFacade;
@@ -11,5 +12,8 @@ public class KickResponseInterpreter implements ResponseInterpretable {
         GameInfo.getInstance().reset();
         UIUpdater.getInstance().changePanel("Join");
         UIUpdater.getInstance().showPrompt(message[0].charAt(0));
+
+        ClientCommunicationHandler.getInstance().sendReceived();
+
     }
 }
