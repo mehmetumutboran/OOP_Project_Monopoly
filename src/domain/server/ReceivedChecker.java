@@ -5,7 +5,7 @@ import network.server.serverFacade.ServerFacade;
 public class ReceivedChecker {
     private static ReceivedChecker ourInstance;
 
-    public volatile boolean[] recevied;
+    public volatile boolean[] received;
 
     public static ReceivedChecker getInstance() {
         if (ourInstance == null) {
@@ -15,21 +15,20 @@ public class ReceivedChecker {
     }
 
     private ReceivedChecker() {
-        recevied = new boolean[12];
-        for (int i = 0; i < recevied.length; i++) {
-            recevied[i] = false;
+        received = new boolean[12];
+        for (int i = 0; i < received.length; i++) {
+            received[i] = false;
         }
     }
 
     public boolean checkReceived(){
         for (int i = 0; i < ServerFacade.getInstance().getTotalNumPlayers(); i++) {
-            if(!recevied[i]) return false;
+            if(!received[i]) return false;
         }
         return true;
     }
 
     public void setReceived() {
-        recevied = new boolean[12];
-        return;
+        received = new boolean[12];
     }
 }
