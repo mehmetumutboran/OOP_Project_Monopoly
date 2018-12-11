@@ -33,32 +33,31 @@ public class SquareLabel extends JLabel implements MouseListener {
     }
 
     public void draw(int width, int height, int i) {
-        if (location[0]==0 && (location[1]>=0 && location[1]<=14)) {
+        if (location[0]==0 && (location[1]>=0 && location[1]<=13)) {
             this.setBounds(
                     (int) (width * LR_MARGIN - this.getWidth()),
                     (int) (height * (1 - UD_MARGIN) + ((size == 'B' ? 2 * i : i) * this.getHeight())),
                     (int) (2 * (width / 17.0)),
                     (int) ((size == 'B' ? 2 : 1) * height / 17.0));
-        }else if(location[0]==0 && (location[1]>=14 && location[1]<28)){
-//            this.setBounds(
-//                    (int) (width * LR_MARGIN - this.getWidth()),
-//                    (int) (height * (1 - UD_MARGIN) + ((size == 'B' ? 2 * i : i) * this.getHeight())),
-//                    (int) (2 * (width / 17.0)),
-//                    (int) ((size == 'B' ? 2 : 1) * height / 17.0));
-        }else if(location[0]==0 && (location[1]>=28 && location[1]<42)){
-           // System.out.println(i);
-            System.out.println( (int) (width * (1-LR_MARGIN) + this.getWidth()));
+        }else if(location[0]==0 && (location[1]>=14 && location[1]<=27)){
+            //System.out.println(i + "-------------------------------------------------------------------------------------------------" +size);
             this.setBounds(
-                    (int) (width * (1-LR_MARGIN) + this.getWidth()),
-                    (int) (height *  UD_MARGIN - ((size == 'B' ? 2 * (i-28) : (i-28)) * this.getHeight())),
+                    (int) (width * LR_MARGIN - this.getWidth()-((size=='B' ? 2 * (i-14) : (i-14)) * this.getWidth())),
+                    (int) (height * UD_MARGIN - this.getHeight()),
+                    (int) ((size == 'B' ? 2 : 1) * (width/17.0)),
+                    (int) (2 * (height / 17.0)));
+        }else if(location[0]==0 && (location[1]>=28 && location[1]<=41)){
+            this.setBounds(
+                    (int) (width * (1-LR_MARGIN)),
+                    (int) (height *  UD_MARGIN -this.getHeight()-((size == 'B' ? 2 * (i-28) : (i-28)) * this.getHeight())),
                     (int) (2 * (width / 17.0)),
                     (int) ((size == 'B' ? 2 : 1) * height / 17.0));
-        }else if(location[0]==0 && (location[1]>=42 && location[1]<55)){
-//            this.setBounds(
-//                    (int) (width * LR_MARGIN - this.getWidth()),
-//                    (int) (height * (1 - UD_MARGIN) + ((size == 'B' ? 2 * i : i) * this.getHeight())),
-//                    (int) (2 * (width / 17.0)),
-//                    (int) ((size == 'B' ? 2 : 1) * height / 17.0));
+        }else if(location[0]==0 && (location[1]>=42 && location[1]<=55)){
+            this.setBounds(
+                    (int) (width * (1-LR_MARGIN) + ((size=='B' ? 2 * (i-42) : (i-42)) * this.getWidth())),
+                    (int) (height * (1 - UD_MARGIN)),
+                    (int) ((size == 'B' ? 2 : 1) * (width/17.0)),
+                    (int) (2 * (height / 17.0)));
         }else if(location[0]==1 && (location[1]>=0 && location[1]<10)){
 //            this.setBounds(
 //                    (int) (width * LR_MARGIN - this.getWidth()),

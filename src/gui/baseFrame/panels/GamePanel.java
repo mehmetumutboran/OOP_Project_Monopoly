@@ -73,7 +73,7 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
 
         for (int i = 0; i < 56; i++) {
             //squares in the 0th layer right side
-            SquareLabel squareLabel = new SquareLabel((i==0 || i==14 || i== 29|| i== 42) ? 'B' : 'S', new int[]{0, i});
+            SquareLabel squareLabel = new SquareLabel((i==0 || i==14 || i == 28||  i == 42) ? 'B' : 'S', new int[]{0, i});
             squareLabels.add(squareLabel);
             this.add(squareLabel);
         }
@@ -102,6 +102,7 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
 //            jPanel.add(j);
 //            squareLabels.add(j);
 //        }
+        System.out.println(squareLabels.size());
     }
 
     @Override
