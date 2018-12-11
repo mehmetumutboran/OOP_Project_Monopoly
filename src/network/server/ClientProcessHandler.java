@@ -5,23 +5,21 @@ import network.server.serverFacade.ServerFacade;
 public class ClientProcessHandler implements Runnable {
     private String line;
     private int index;
-    private final ClientHandler clientHandler;
 
-    public ClientProcessHandler(ClientHandler clientHandler, int index) {
+    public ClientProcessHandler(int index) {
         this.index = index;
-        this.clientHandler = clientHandler;
     }
 
     @Override
     public void run() {
-        while (true) {
-            try {
-                synchronized (this) {
-                    this.wait();
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+//        while (true) {
+//            try {
+//                synchronized (this) {
+//                    this.wait();
+//                }
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
 
 
             ServerFacade.getInstance().interpretRequest(line, index);
@@ -29,15 +27,17 @@ public class ClientProcessHandler implements Runnable {
 //            synchronized (clientHandler) {
 //                clientHandler.notify();
 //            }
-        }
+//        }
     }
 
     public synchronized String getLine() {
         return line;
     }
 
-    public synchronized void setLine(String line) {
+    public void setLine(String line) {
+        System.out.println("\nLine set: " + line + "\n");
         this.line = line;
-        this.notify();
+//        this.notify();
+
     }
 }

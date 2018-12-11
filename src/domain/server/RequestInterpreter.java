@@ -68,7 +68,7 @@ public class RequestInterpreter {
     }
 
 
-    public synchronized void interpret(String m, int index) {
+    public void interpret(String m, int index) {
         char flag = m.charAt(0);
 
         if (interpreterMap.keySet().contains(flag))

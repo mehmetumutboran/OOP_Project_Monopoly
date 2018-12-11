@@ -93,7 +93,7 @@ public class Flags {
     }
 
     public static char getFlag(String action) {
-        System.out.println(action);
+//        System.out.println(action);
         return flagMap.get(action);
     }
 
