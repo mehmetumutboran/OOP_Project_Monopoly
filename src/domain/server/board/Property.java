@@ -114,10 +114,10 @@ public class Property extends DeedSquare {
      * @return
      */
     public boolean isUpgradable(Property square) {
-        if(square.getBuildingList().get(0) instanceof Skyscraper) return false;
+        if(!square.getBuildingList().isEmpty() && square.getBuildingList().get(0) instanceof Skyscraper) return false;
         boolean checker = false;
         for (DeedSquare sq : Board.getInstance().getSameColoredSquares(square.getColor())) {
-            if(square.getBuildingList().get(0) instanceof Hotel &&
+            if(!square.getBuildingList().isEmpty()&& square.getBuildingList().get(0) instanceof Hotel &&
                     (((Property)sq).getBuildingList().get(0) instanceof Hotel || ((Property)sq).getBuildingList().get(0) instanceof Skyscraper)) {
                 checker = true;
             }else if(square.getNumberOfBuildings()==4 &&

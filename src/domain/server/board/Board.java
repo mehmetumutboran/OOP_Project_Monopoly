@@ -221,7 +221,7 @@ public class Board {
         squareList[0][6] = sq7;
         Railroad sq8 = new Railroad("Reading Railroad", 0, 7, 200, railRoadRent);
         squareList[0][7] = sq8;
-        Property sq9 = new Property("Esplanada Avenue", 0, 8, 90, Esplanade, "LIGHTGREEN");
+        Property sq9 = new Property("Esplanade Avenue", 0, 8, 90, Esplanade, "LIGHTGREEN");
         squareList[0][8] = sq9;
         Property sq10 = new Property("Canal Street", 0, 9, 90, CanalSt, "LIGHTGREEN");
         squareList[0][9] = sq10;

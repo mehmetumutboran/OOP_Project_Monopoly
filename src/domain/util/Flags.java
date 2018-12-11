@@ -94,10 +94,6 @@ public class Flags {
         flagMap.put("Special", specialSquareFlag);
         flagMap.put("Pool", poolFlag);
         flagMap.put("Token", tokenFlag);
-
-        flagMap.put("Upgrade", upgradeFlag);
-        flagMap.put("Downgrade", downgradeFlag);
-
         flagMap.put("DontUpgrade", dontUpgradeFlag);
         flagMap.put("DontDowngrade", dontDowngradeFlag);
         flagMap.put("LabelLighter", labellighterFlag);

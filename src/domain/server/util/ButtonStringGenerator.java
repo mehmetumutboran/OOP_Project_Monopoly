@@ -26,37 +26,37 @@ public class ButtonStringGenerator {
         if (curSq instanceof DeedSquare) {
             if (curSq instanceof Property) {
                 if (!((Property) curSq).isOwned()) {
-                    buttonString = "100010000";
+                    buttonString = "100010100";
                 } else if (((Property) curSq).getOwner().equals(name)) {
-                    buttonString = "100010000"; // Buy is open due to error message
+                    buttonString = "100010100"; // Buy is open due to error message
                 } else {
-                    buttonString = "010000000"; // Force pay rent
+                    buttonString = "010000100"; // Force pay rent
 
                 }
             } else if (curSq instanceof Railroad) {
                 if (!((Railroad) curSq).isOwned()) {
-                    buttonString = "100010000";
+                    buttonString = "100010100";
                 } else if (((Railroad) curSq).getOwner().equals(name)) {
-                    buttonString = "100010000";
+                    buttonString = "100010100";
                 } else {
-                    buttonString = "010000000"; // Force pay rent
+                    buttonString = "010000100"; // Force pay rent
                 }
             } else if (curSq instanceof Utility) {
                 if (!((Utility) curSq).isOwned()) {
-                    buttonString = "100010000";
+                    buttonString = "100010100";
                 }else if (((Utility) curSq).getOwner().equals(name)) {
-                    buttonString = "100010000";
+                    buttonString = "100010100";
                 } else {
-                    buttonString = "010000000"; // Force pay rent
+                    buttonString = "010000100"; // Force pay rent
                 }
             }
         } else if (curSq instanceof SpecialSquareStrategy) {
             if (curSq instanceof Chance) {
-                buttonString = "000000001";
+                buttonString = "000000101";
             } else if (curSq instanceof CommunityChest) {
-                buttonString = "000000001";
+                buttonString = "000000101";
             } else {
-                buttonString = "000010000";
+                buttonString = "000010100";
             }
         }
         return buttonString;

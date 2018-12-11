@@ -52,6 +52,7 @@ public class ResponseInterpreter {
         ResponseInterpretable doubleCounterResponseInterpreter = new DoubleCounterResponseInterpreter();
         ResponseInterpretable finishResponseInterpreter = new FinishResponseInterpreter();
         ResponseInterpretable buttonResponseInterpreter = new ButtonResponseInterpreter();
+        ResponseInterpretable labelLighterResponseInterpreter = new LabelLighterResponseInterpreter();
 
 
         interpreterMap = new HashMap<>();
@@ -88,6 +89,7 @@ public class ResponseInterpreter {
         interpreterMap.put(Flags.getFlag("DontBuy"), dontBuyResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Finish"), finishResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Button"), buttonResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("LabelLighter"), labelLighterResponseInterpreter);
     }
 
     public void interpret(String message) {

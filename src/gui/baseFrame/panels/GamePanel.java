@@ -115,7 +115,7 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
         }
 
         for (int i = 0; i < squareLabels.size(); i++) {
-            squareLabels.get(i).draw(this.getWidth(), this.getHeight(), i);
+            squareLabels.get(i).draw(this.getWidth(), this.getHeight());
         }
         repaint();
     }

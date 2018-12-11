@@ -225,7 +225,7 @@ public class GameLogic {
         }
         public void applyPropertyUpgrade (Square square,int index, Player currentPlayer){
             String typeOfUpgrade = null;
-            if(((Property)square).getBuildingList().get(0) instanceof Hotel){
+            if(!((Property)square).getBuildingList().isEmpty() && ((Property)square).getBuildingList().get(0) instanceof Hotel){
                 if(currentPlayer.checkMonopoly((Property)square)){
                     typeOfUpgrade = "Skyscrapper";
                 }else{

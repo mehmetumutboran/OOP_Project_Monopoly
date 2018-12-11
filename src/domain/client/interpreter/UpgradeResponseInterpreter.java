@@ -1,5 +1,6 @@
 package domain.client.interpreter;
 
+import domain.client.ClientCommunicationHandler;
 import domain.client.UIUpdater;
 import domain.server.board.*;
 import domain.server.building.Building;
@@ -43,6 +44,10 @@ public class UpgradeResponseInterpreter implements ResponseInterpretable {
         UIUpdater.getInstance().setMessage(currentPlayer.getName() + " upgraded " +selectedSquareForUpgrade.getName()
                 + " to " + buildingtoUpgrade.getName());
 
-        // ClientCommunicationHandler.getInstance().sendReceived();
+        System.out.println("FUrkannnnnnnnnnnnnnnnnnnnnnnnnnn" + currentPlayer.getOwnedProperties());
+
+         ClientCommunicationHandler.getInstance().sendReceived();
+
+
     }
 }

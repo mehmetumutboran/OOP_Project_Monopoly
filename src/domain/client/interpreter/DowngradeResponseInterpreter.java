@@ -45,7 +45,7 @@ public class DowngradeResponseInterpreter implements ResponseInterpretable {
         UIUpdater.getInstance().setMessage(currentPlayer.getName() + " downgraded " +selectedSquareForDowngrade.getName()
                 + " from " + message[3]);
 
-        // ClientCommunicationHandler.getInstance().sendReceived();
+         ClientCommunicationHandler.getInstance().sendReceived();
     }
 }
 

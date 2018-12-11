@@ -3,7 +3,10 @@ package domain.server.interpreter;
 import domain.server.board.Property;
 import domain.server.board.Railroad;
 import domain.server.board.Square;
+import domain.server.controller.ServerCommunicationHandler;
+import domain.util.Flags;
 import domain.util.GameInfo;
+import domain.util.MessageConverter;
 
 import java.util.ArrayList;
 
@@ -14,18 +17,18 @@ public class LabelLighterRequestInterpreter implements RequestInterpretable{
     public void interpret(String[] message, int index) {
 
         String name = message[1];
-        ArrayList<Square> sq = new ArrayList<>();
+        ArrayList<String> sq = new ArrayList<>();
         for(Square p : GameInfo.getInstance().getPlayer(name).getOwnedProperties()){
             if(GameInfo.getInstance().getCurrentPlayer().checkMajority((Property)p) && ((Property) p).isUpgradable((Property)p)){
-                sq.add(p);
+                sq.add(p.getName());
             }
         }
         for (Square p : GameInfo.getInstance().getPlayer(name).getOwnedRailroads()){
             if(!((Railroad)p).isHasDepot()){
-                sq.add(p);
+                sq.add(p.getName());
             }
         }
-        Square [] squares = sq.toArray(new Square[0]);
-
+        String [] squares = sq.toArray(new String[0]);
+        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("LabelLighter"),index, MessageConverter.convertArrayToString(squares));
     }
 }
