@@ -7,6 +7,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Arrays;
 
 public class ClientHandler implements Runnable {
     private Socket socket;
@@ -32,7 +33,11 @@ public class ClientHandler implements Runnable {
                 String line = dis.readUTF();
                 System.out.println("\n\nReceived message Server:" + line);
                 if (line.charAt(0) == 'z') { // Received flag
-                    ReceivedChecker.getInstance().received[index] = true;
+                    synchronized (this) {
+                        ReceivedChecker.getInstance().received[index] = true;
+                    }
+//                    System.out.println(Arrays.toString(ReceivedChecker.getInstance().received));
+
                     continue;
                 }
 
