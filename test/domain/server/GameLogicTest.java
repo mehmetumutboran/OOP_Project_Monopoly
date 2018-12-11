@@ -2,6 +2,8 @@ package domain.server;
 
 import domain.server.player.Player;
 import domain.util.GameInfo;
+import domain.util.MessageConverter;
+import jdk.jfr.Unsigned;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -75,9 +77,21 @@ class GameLogicTest {
 
     @Test
     void move() {
-        player.setFaceValues(new int[]{5, 5, 1});
-        System.out.println(Arrays.toString(player.getFaceValues()));
-        GameLogic.getInstance().move(player.getName());
-        assertArrayEquals(new int[]{1, 11}, player.getToken().getLocation());
+        GameInfo.getInstance().getPlayer(player.getName()).setFaceValues(new int[]{5, 5, 1});
+        assertArrayEquals(new int[]{1, 11}, MessageConverter.convertStringToIntArray(GameLogic.getInstance().move(player.getName()), ','));
+
+        GameInfo.getInstance().getPlayer(player.getName()).setFaceValues(new int[]{5, 5, 0});
+        assertArrayEquals(new int[]{0, 12}, MessageConverter.convertStringToIntArray(GameLogic.getInstance().move(player.getName()), ','));
+
+        GameInfo.getInstance().getPlayer(player.getName()).setFaceValues(new int[]{5, 1, 7});
+        assertArrayEquals(new int[]{0, 8}, MessageConverter.convertStringToIntArray(GameLogic.getInstance().move(player.getName()), ','));
+
+        GameInfo.getInstance().getPlayer(player.getName()).setFaceValues(new int[]{1, 2, 8});
+        assertArrayEquals(new int[]{1, 3}, MessageConverter.convertStringToIntArray(GameLogic.getInstance().move(player.getName()), ','));
+
+//        GameInfo.getInstance().getPlayer(player.getName()).setFaceValues(new int[]{5, 5, 1});
+//        assertArrayEquals(new int[]{1, 11}, MessageConverter.convertStringToIntArray(GameLogic.getInstance().move(player.getName()), ','));
+
+
     }
 }
