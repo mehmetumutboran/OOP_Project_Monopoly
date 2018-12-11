@@ -3,6 +3,7 @@ package domain.client;
 import domain.server.GameLogic;
 import domain.server.controller.ConnectGameHandler;
 import domain.util.Flags;
+import domain.util.GameInfo;
 import network.client.Client;
 import network.client.clientFacade.ClientFacade;
 
@@ -26,7 +27,14 @@ public class PlayerActionController {
 
 
     public void finishTurn() {
-        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Finish"), ClientFacade.getInstance().getUsername());
+
+        String name = GameInfo.getInstance().getCurrentPlayer();
+        if(! (GameLogic.getInstance().checkMrMonopoly(name)
+               && GameLogic.getInstance().isMrMonopolyChecked())) {
+            ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Finish"), ClientFacade.getInstance().getUsername());
+            GameLogic.getInstance().setMrMonopolyChecked(false);
+        }
+
     }
 //    // public void upgrade() {GameLogic.getInstance().upgrade(); }
 //
