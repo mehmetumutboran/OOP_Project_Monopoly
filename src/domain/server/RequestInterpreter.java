@@ -33,6 +33,8 @@ public class RequestInterpreter {
         RequestInterpretable pauseRequestInterpreter = new PauseRequestInterpreter();
         RequestInterpretable loadRequestInterpreter = new LoadRequestInterpreter();
         RequestInterpretable removeRequestInterpreter = new RemoveRequestInterpreter();
+        RequestInterpretable labelLighterRequestInterpreter = new LabelLighterRequestInterpreter();
+
 
         interpreterMap = new HashMap<>();
         interpreterMap.put(Flags.getFlag("Start"), moveRequestInterpreter);
@@ -55,6 +57,7 @@ public class RequestInterpreter {
         interpreterMap.put(Flags.getFlag("Pause"), pauseRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Load"), loadRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Remove"), removeRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("LabelLighter"), labelLighterRequestInterpreter);
     }
 
     public static RequestInterpreter getInstance() {

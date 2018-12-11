@@ -38,7 +38,10 @@ public class Flags {
     private static final char removeFlag = 'j';
     private static final char fullFlag = 'k';
     private static final char dontUpgradeFlag = 'y';//z koymamın sebebi masterdaki baska bir flag ile cakısıyor olabilir kontrole et!!!!
-    private static final char dontDowngradeFlag = 'z'; //yukardakiyle aynı
+    private static final char dontDowngradeFlag = 'w'; //yukardakiyle aynı
+    private static final char labellighterFlag = 'v';
+
+
 
     private static HashMap<String, Character> flagMap;
 
@@ -68,7 +71,7 @@ public class Flags {
 
         flagMap.put("DontUpgrade", dontUpgradeFlag);
         flagMap.put("DontDowngrade", dontDowngradeFlag);
-
+        flagMap.put("LabelLighter", labellighterFlag);
     }
 
     public static char getFlag(String action) {

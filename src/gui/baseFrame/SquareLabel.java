@@ -120,7 +120,7 @@ public class SquareLabel extends JLabel implements MouseListener {
             setOpaqueOrNot(true);
         }
         this.setOpaque(getOpaqueOrNot());
-        PlayerActionController.getInstance().upgrade();
+        PlayerActionController.getInstance().upgradeLabel(this.location);
     }
 
 

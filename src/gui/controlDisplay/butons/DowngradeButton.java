@@ -20,8 +20,8 @@ public class DowngradeButton extends JButton implements ActionListener, TurnChan
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         //TODO should call another label for choosing own deeds.
-        PlayerActionController.getInstance().downgrade();
-        System.out.println("Downgrade Button is clicked");
+      //  PlayerActionController.getInstance().downgrade();
+       // System.out.println("Downgrade Button is clicked");
     }
 
     @Override
