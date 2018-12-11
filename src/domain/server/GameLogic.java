@@ -115,46 +115,33 @@ public class GameLogic {
     }
 
     public boolean checkMrMonopoly(String name) {
+
+        /*check if bot*/
         if(GameInfo.getInstance().getPlayer(GameInfo.getInstance().getCurrentPlayer()).getReadiness().equals("Bot")){
             setMrMonopolyChecked(false);
         }
+        /*check if mrMonopoly and it is not checked played yet*/
         if (GameInfo.getInstance().getPlayer(name).getFaceValues()[2] == 7 && !isMrMonopolyChecked()){
-
             setMrMonopolyChecked(true);
+            /*check if bot*/
             if(GameInfo.getInstance().getPlayer(GameInfo.getInstance().getCurrentPlayer()).getReadiness().equals("Bot")){
                 setMrMonopolyChecked(false);
             }
             int[] loc = GameInfo.getInstance().getPlayer(name).getToken().getLocation().clone();
             loc = findNextUnOwnedSquare(loc);
-
-            GameInfo.getInstance().getPlayer(name).getToken().setLocation(loc);
-
-            /*write this   3 line of code better*/
-
-            //if (GameLogic.getInstance().checkMoveConditions(name)) {
-
-            //   String newLoc = loc.toString();
-            //GameLogic.getInstance().move(name);
+            //GameInfo.getInstance().getPlayer(name).getToken().setLocation(loc);
 
             String locName = Board.getInstance().getSquare(loc[0], loc[1]).getName();
-
-            String locat =                 MessageConverter.convertArrayToString(loc) + "@" + locName;
-
+            String locat = MessageConverter.convertArrayToString(loc) + "@" + locName;
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Move"), name, locat);
-            // }
-
-
-
 
             return  true;
         }
-
         return false;
     }
 
     public int[] findNextUnOwnedSquare(int[] loc) {
         return scanLayer(loc , loc[0]);
-
     }
 
     public int[] scanLayer(int[] loc ,int layer){
