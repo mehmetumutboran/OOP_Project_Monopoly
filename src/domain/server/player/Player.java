@@ -2,7 +2,6 @@ package domain.server.player;
 
 import domain.server.Savable;
 import domain.server.board.*;
-import domain.server.die.DiceCup;
 import domain.util.MessageConverter;
 
 import java.util.ArrayList;
@@ -15,6 +14,7 @@ public class Player implements Comparable, Savable {
     private ArrayList<Property> ownedProperties;
     private ArrayList<Utility> ownedUtilities;
     private ArrayList<Railroad> ownedRailroads;
+    private ArrayList<DeedSquare> mortgagedSquares;
     private String readiness;
     private boolean started;
     private int doubleCounter; // Constructor
@@ -36,11 +36,12 @@ public class Player implements Comparable, Savable {
 
     public Player(String name, Token token, int balance, ArrayList<Property> ownedProperties, ArrayList<Utility> ownedUtilities,
                   ArrayList<Railroad> ownedRailroads, String readiness) {
-        this(name, token, balance, ownedProperties, ownedUtilities, ownedRailroads, readiness, false, 0, false);
+        this(name, token, balance, ownedProperties, ownedUtilities, ownedRailroads, new ArrayList<>(), readiness, false, 0, false);
     }
 
     public Player(String name, Token token, int balance,
-                  ArrayList<Property> propertyList, ArrayList<Utility> utilityList, ArrayList<Railroad> railroadList,
+                  ArrayList<Property> propertyList, ArrayList<Utility> utilityList,
+                  ArrayList<Railroad> railroadList, ArrayList<DeedSquare> mortgagedSquares,
                   String readiness, boolean isStarted, int doubleCounter, boolean isInJail) {
 
         this.name = name;
@@ -49,12 +50,14 @@ public class Player implements Comparable, Savable {
         this.ownedProperties = propertyList;
         this.ownedUtilities = utilityList;
         this.ownedRailroads = railroadList;
+        this.mortgagedSquares = mortgagedSquares;
         this.readiness = readiness;
         this.faceValues = new int[3];
         this.started = isStarted;
         this.doubleCounter = doubleCounter;
         this.inJail = isInJail;
 
+        //TODO test purposes
         this.ownedProperties.add((Property) Board.getInstance().getNameGivenSquare("Esplanade Avenue"));
         this.ownedProperties.add((Property) Board.getInstance().getNameGivenSquare("Canal Street"));
         this.ownedProperties.add((Property) Board.getInstance().getNameGivenSquare("Magazine Street"));
@@ -66,23 +69,6 @@ public class Player implements Comparable, Savable {
     }
 
 
-    /**
-     * Maps {@link Player} object to a JSON formatted String
-     * Uses {@link com.fasterxml.jackson.annotation.JacksonAnnotation}
-     *
-     * @return JSON representation of {@link Player}
-     */
-//    public String toJSON() {
-//        String result = "";
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
-//        try {
-//            result = objectMapper.writeValueAsString(this);
-//        } catch (JsonProcessingException e) {
-//            e.printStackTrace();
-//        }
-//        return result;
-//    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -175,6 +161,14 @@ public class Player implements Comparable, Savable {
         }
     }
 
+    public ArrayList<DeedSquare> getMortgagedSquares() {
+        return mortgagedSquares;
+    }
+
+    public void setMortgagedSquares(ArrayList<DeedSquare> mortgagedSquares) {
+        this.mortgagedSquares = mortgagedSquares;
+    }
+
     public int resetDoubleCounter() {
         return this.doubleCounter = 0;
     }
@@ -234,33 +228,25 @@ public class Player implements Comparable, Savable {
     public boolean checkMajority(Property square) {
         int numOfColoredSqBoardHas = Board.getInstance().getSameColoredSquares(square.getColor()).length;
         int numOfColoredSqPlayerHas = 0;
-        for (Property sq : getOwnedProperties()){
-            if(sq.getColor().equals(square.getColor()))
+        for (Property sq : getOwnedProperties()) {
+            if (sq.getColor().equals(square.getColor()))
                 numOfColoredSqPlayerHas++;
         }
-        if(numOfColoredSqBoardHas > 2 ){
-            if (numOfColoredSqBoardHas-numOfColoredSqPlayerHas == 0 || numOfColoredSqBoardHas-numOfColoredSqPlayerHas == 1)
-                return true;
-            else
-                return false;
-        }else
-            if (numOfColoredSqBoardHas-numOfColoredSqPlayerHas == 0)
-                return true;
-            else
-                return false;
+        if (numOfColoredSqBoardHas > 2) {
+            return numOfColoredSqBoardHas - numOfColoredSqPlayerHas == 0 || numOfColoredSqBoardHas - numOfColoredSqPlayerHas == 1;
+        } else
+            return numOfColoredSqBoardHas - numOfColoredSqPlayerHas == 0;
     }
-    public boolean checkMonopoly (Property square) {
+
+    public boolean checkMonopoly(Property square) {
         int numOfColoredSqBoardHas = Board.getInstance().getSameColoredSquares(square.getColor()).length;
         int numOfColoredSqPlayerHas = 0;
-        for (Property sq : getOwnedProperties()){
-            if(sq.getColor().equals(square.getColor()))
+        for (Property sq : getOwnedProperties()) {
+            if (sq.getColor().equals(square.getColor()))
                 numOfColoredSqPlayerHas++;
         }
 
-        if(numOfColoredSqBoardHas-numOfColoredSqPlayerHas==0)
-            return true;
-        else
-            return false;
+        return numOfColoredSqBoardHas - numOfColoredSqPlayerHas == 0;
     }
 
     public void increaseMoney(int money) {

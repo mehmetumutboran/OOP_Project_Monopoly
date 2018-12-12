@@ -1,10 +1,7 @@
 package domain.client;
 
-import domain.server.GameLogic;
 import domain.server.controller.ConnectGameHandler;
 import domain.util.Flags;
-import domain.util.GameInfo;
-import network.client.Client;
 import network.client.clientFacade.ClientFacade;
 
 public class PlayerActionController {
@@ -26,20 +23,22 @@ public class PlayerActionController {
     }
 
     public void checkMrMonopoly() {
-        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("MrMonopoly") , ClientFacade.getInstance().getUsername());
+        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("MrMonopoly"), ClientFacade.getInstance().getUsername());
 
     }
+
     public void finishTurn() {
 
 //        String name = GameInfo.getInstance().getCurrentPlayer();
 //        if( !(GameLogic.getInstance().checkMrMonopoly(name)
 //               && GameLogic.getInstance().isMrMonopolyChecked())) {
-            ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Finish"), ClientFacade.getInstance().getUsername());
- //           GameLogic.getInstance().setMrMonopolyChecked(false);
+        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Finish"), ClientFacade.getInstance().getUsername());
+        //           GameLogic.getInstance().setMrMonopolyChecked(false);
 //        }
 
     }
-//    // public void upgrade() {GameLogic.getInstance().upgrade(); }
+
+    //    // public void upgrade() {GameLogic.getInstance().upgrade(); }
 //
 //    //public void downgrade(){ GameLogic.getInstance().downgrade(); }
 //
@@ -48,7 +47,8 @@ public class PlayerActionController {
         ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Buy"), ClientFacade.getInstance().getUsername());
 
     }
-//
+
+    //
     public void rent() {
         System.out.println("in player action controller");
         //      return (GameLogic.getInstance().payRent());
@@ -107,18 +107,27 @@ public class PlayerActionController {
         ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("LabelLighter"), ClientFacade.getInstance().getUsername(), String.valueOf(Flags.getFlag("Mortgage")));
 
     }
+
+    public void unmortgage() {
+        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("LabelLighter"), ClientFacade.getInstance().getUsername(), String.valueOf(Flags.getFlag("Unmortgage")));
+
+    }
+
     public void upgradeLabel(int location[]) {
         System.out.println("In player action controller");
         ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Upgrade"), ClientFacade.getInstance().getUsername(), location);
     }
-    public void downgradeLabel(int location[]){
+
+    public void downgradeLabel(int location[]) {
         System.out.println("In player action controller");
-        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Downgrade"), ClientFacade.getInstance().getUsername(),location);
+        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Downgrade"), ClientFacade.getInstance().getUsername(), location);
     }
-    public void upgrade (){
+
+    public void upgrade() {
         ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("LabelLighter"), ClientFacade.getInstance().getUsername(), "UP");
     }
-    public void downgrade(){
-        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("LabelLighter"), ClientFacade.getInstance().getUsername(),"DOWN");
+
+    public void downgrade() {
+        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("LabelLighter"), ClientFacade.getInstance().getUsername(), "DOWN");
     }
 }

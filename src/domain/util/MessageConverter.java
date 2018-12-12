@@ -1,10 +1,7 @@
 package domain.util;
 
 import domain.server.Savable;
-import domain.server.board.Board;
-import domain.server.board.Property;
-import domain.server.board.Railroad;
-import domain.server.board.Utility;
+import domain.server.board.*;
 import domain.server.building.Building;
 import domain.server.building.Hotel;
 import domain.server.building.House;
@@ -108,8 +105,44 @@ public class MessageConverter {
             return convertStringToUtilityList(arr);
         } else if (index == 7) {
             return convertStringToRailroadList(arr);
+        } else if (index == 8) {
+            return convertStringToMortgagedSquares(arr);
         }
         return null;
+    }
+
+    private static ArrayList<? extends Savable> convertStringToMortgagedSquares(String[] arr) {
+        //TODO
+        return null;
+//        ArrayList<DeedSquare> mortgagedSquares = new ArrayList<>();
+//        String[] squareInfo;
+//        String name, owner, color;
+//        int layer, location, cost;
+//        int[] rent;
+//        boolean mortgaged, hasUpgrade;
+//        ArrayList<Building> buildings;
+//        for (String s : arr) {
+//            squareInfo = s.split("[;]");
+//            name = squareInfo[0];
+//            layer = Integer.parseInt(squareInfo[1]);
+//            location = Integer.parseInt(squareInfo[2]);
+//            cost = Integer.parseInt(squareInfo[3]);
+//            rent = convertStringToIntArray(squareInfo[4], '@');
+//            owner = squareInfo[5];
+//            mortgaged = Boolean.parseBoolean(squareInfo[6]);
+//            color = squareInfo[7];
+//            buildings = convertStringToBuildingList(squareInfo[8].split("[:]"));
+//            hasUpgrade = Boolean.parseBoolean(squareInfo[9]);
+//            Property square = (Property) Board.getInstance().getSquare(layer, location);
+//            square.setBuildingList(buildings);
+//            square.setRent(rent);
+//            square.setOwner(owner);
+//            square.setMortgaged(mortgaged);
+//            square.setUpgraded(hasUpgrade);
+//            mortgagedSquares.add(square);
+//        }
+//
+//        return mortgagedSquares;
     }
 
     private static ArrayList<Property> convertStringToPropertyList(String[] arr) {

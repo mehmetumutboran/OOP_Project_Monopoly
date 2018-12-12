@@ -1,6 +1,7 @@
 package domain.util;
 
 import domain.server.Savable;
+import domain.server.board.DeedSquare;
 import domain.server.board.Property;
 import domain.server.board.Railroad;
 import domain.server.board.Utility;
@@ -9,6 +10,7 @@ import domain.server.player.Player;
 import domain.server.player.Token;
 import network.client.clientFacade.ClientFacade;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
@@ -188,9 +190,9 @@ public class GameInfo implements Savable {
 
     public void loadPlayer(String name, int layer, int location, String color, int balance,
                            ArrayList<? extends Savable> propertyList, ArrayList<? extends Savable> utilityList, ArrayList<? extends Savable> railroadList,
-                           String readiness, boolean isStarted, int doubleCounter, boolean isInJail) {
+                           ArrayList<? extends Savable> mortgagedSquares, String readiness, boolean isStarted, int doubleCounter, boolean isInJail) {
         Player player = new Player(name, new Token(new int[]{layer, location}, color), balance, (ArrayList<Property>) propertyList, (ArrayList<Utility>) utilityList, (ArrayList<Railroad>) railroadList,
-                readiness, isStarted, doubleCounter, isInJail);
+                (ArrayList<DeedSquare>) mortgagedSquares, readiness, isStarted, doubleCounter, isInJail);
         this.playerList.add(player);
     }
 

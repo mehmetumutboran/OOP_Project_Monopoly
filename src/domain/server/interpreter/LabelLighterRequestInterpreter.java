@@ -9,9 +9,10 @@ import domain.util.GameInfo;
 import domain.util.MessageConverter;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 
-public class LabelLighterRequestInterpreter implements RequestInterpretable{
+public class LabelLighterRequestInterpreter implements RequestInterpretable {
 
     @Override
     public void interpret(String[] message, int index) {
@@ -19,30 +20,62 @@ public class LabelLighterRequestInterpreter implements RequestInterpretable{
         String name = message[1];
         String actionType = message[2];
         ArrayList<String> sq = new ArrayList<>();
-        if(actionType.equals("UP")) {
-            for (Square p : GameInfo.getInstance().getPlayer(name).getOwnedProperties()) {
-                if (GameInfo.getInstance().getCurrentPlayer().checkMajority((Property) p) && ((Property) p).isUpgradable((Property) p)) {
-                    sq.add(p.getName());
-                }
-            }
-            for (Square p : GameInfo.getInstance().getPlayer(name).getOwnedRailroads()) {
-                if (!((Railroad) p).isHasDepot()) {
-                    sq.add(p.getName());
-                }
-            }
-        }else if(actionType.equals("DOWN")){
-            for(Square p: GameInfo.getInstance().getPlayer(name).getOwnedProperties()){
-                if(GameInfo.getInstance().getCurrentPlayer().checkMajority((Property)p) && ((Property)p).isDowngradable((Property)p)){
-                    sq.add(p.getName());
-                }
-            }
-            for(Square p : GameInfo.getInstance().getPlayer(name).getOwnedRailroads()){
-                if(((Railroad)p).isHasDepot()){
-                    sq.add(p.getName());
-                }
+        if (actionType.equals("UP")) {
+            sq = upgradeAction(name);
+        } else if (actionType.equals("DOWN")) {
+            sq = downgradeAction(name);
+        } else if (actionType.equals(String.valueOf(Flags.getFlag("Mortgage")))) {
+            sq = mortgageAction(name);
+        } else if (actionType.equals(String.valueOf(Flags.getFlag("Unmortgage")))) {
+            sq = unmortgageAction(name);
+        }
+
+
+        String[] squares = sq.toArray(new String[0]);
+        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("LabelLighter"), index, MessageConverter.convertArrayToString(squares), actionType);
+    }
+
+    private ArrayList<String> mortgageAction(String name) {
+        ArrayList<String> sq = new ArrayList<>();
+        sq.addAll(GameInfo.getInstance().getPlayer(name).getOwnedProperties().stream().map(Square::getName).collect(Collectors.toList()));
+        sq.addAll(GameInfo.getInstance().getPlayer(name).getOwnedUtilities().stream().map(Square::getName).collect(Collectors.toList()));
+        sq.addAll(GameInfo.getInstance().getPlayer(name).getOwnedRailroads().stream().map(Square::getName).collect(Collectors.toList()));
+        return sq;
+    }
+
+    private ArrayList<String> unmortgageAction(String name) {
+        return (ArrayList<String>) GameInfo.getInstance().getPlayer(name).getMortgagedSquares().stream().map(Square::getName).collect(Collectors.toList());
+    }
+
+
+    private ArrayList<String> downgradeAction(String name) {
+        ArrayList<String> sq = new ArrayList<>();
+        for (Square p : GameInfo.getInstance().getPlayer(name).getOwnedProperties()) {
+            if (GameInfo.getInstance().getCurrentPlayer().checkMajority((Property) p) && ((Property) p).isDowngradable((Property) p)) {
+                sq.add(p.getName());
             }
         }
-        String [] squares = sq.toArray(new String[0]);
-        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("LabelLighter"),index, MessageConverter.convertArrayToString(squares),actionType);
+        for (Square p : GameInfo.getInstance().getPlayer(name).getOwnedRailroads()) {
+            if (((Railroad) p).isHasDepot()) {
+                sq.add(p.getName());
+            }
+        }
+        return sq;
+    }
+
+
+    private ArrayList<String> upgradeAction(String name) {
+        ArrayList<String> sq = new ArrayList<>();
+        for (Square p : GameInfo.getInstance().getPlayer(name).getOwnedProperties()) {
+            if (GameInfo.getInstance().getCurrentPlayer().checkMajority((Property) p) && ((Property) p).isUpgradable((Property) p)) {
+                sq.add(p.getName());
+            }
+        }
+        for (Square p : GameInfo.getInstance().getPlayer(name).getOwnedRailroads()) {
+            if (!((Railroad) p).isHasDepot()) {
+                sq.add(p.getName());
+            }
+        }
+        return sq;
     }
 }
