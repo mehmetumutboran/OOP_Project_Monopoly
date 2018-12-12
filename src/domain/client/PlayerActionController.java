@@ -103,4 +103,7 @@ public class PlayerActionController {
     public void upgrade (){
         ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("LabelLighter"), ClientFacade.getInstance().getUsername());
     }
+    public void downgrade(){
+        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("LabelLighter"), ClientFacade.getInstance().getUsername());
+    }
 }

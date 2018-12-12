@@ -41,25 +41,25 @@ public class SquareLabel extends JLabel implements MouseListener, LabelChangeLis
         if (location[0]==0 && (location[1]>=0 && location[1]<=13)) {
             this.setBounds(
                     (int) (width * LR_MARGIN - this.getWidth()),
-                    (int) (height * (1 - UD_MARGIN) + ((size == 'B' ? 2 * location[1] : location[1]) * this.getHeight())),
+                    (int) (height * (1 - UD_MARGIN) + ((size == 'B' ? 2 * location[1] : (location[1]+1)) * this.getHeight())),
                     (int) (2 * (width / 17.0)),
                     (int) ((size == 'B' ? 2 : 1) * height / 17.0));
         }else if(location[0]==0 && (location[1]>=14 && location[1]<=27)){
             //System.out.println(i + "-------------------------------------------------------------------------------------------------" +size);
             this.setBounds(
-                    (int) (width * LR_MARGIN - this.getWidth()-((size=='B' ? 2 * (location[1]-14) : (location[1]-14)) * this.getWidth())),
+                    (int) (width * LR_MARGIN - this.getWidth()-((size=='B' ? 2 * (location[1]-14) : (location[1]-14+1)) * this.getWidth())),
                     (int) (height * UD_MARGIN - this.getHeight()),
                     (int) ((size == 'B' ? 2 : 1) * (width/17.0)),
                     (int) (2 * (height / 17.0)));
         }else if(location[0]==0 && (location[1]>=28 && location[1]<=41)){
             this.setBounds(
                     (int) (width * (1-LR_MARGIN)),
-                    (int) (height *  UD_MARGIN -this.getHeight()-((size == 'B' ? 2 * (location[1]-28) : (location[1]-28)) * this.getHeight())),
+                    (int) (height *  UD_MARGIN -this.getHeight()-((size == 'B' ? 2 * (location[1]-28) : (location[1]-28+1)) * this.getHeight())),
                     (int) (2 * (width / 17.0)),
                     (int) ((size == 'B' ? 2 : 1) * height / 17.0));
         }else if(location[0]==0 && (location[1]>=42 && location[1]<=55)){
             this.setBounds(
-                    (int) (width * (1-LR_MARGIN) + ((size=='B' ? 2 * (location[1]-42) : (location[1]-42)) * this.getWidth())),
+                    (int) (width * (1-LR_MARGIN) + ((size=='B' ? 2 * (location[1]-42) : (location[1]-42+1)) * this.getWidth())),
                     (int) (height * (1 - UD_MARGIN)),
                     (int) ((size == 'B' ? 2 : 1) * (width/17.0)),
                     (int) (2 * (height / 17.0)));
@@ -118,13 +118,13 @@ public class SquareLabel extends JLabel implements MouseListener, LabelChangeLis
     @Override
     public void mouseClicked(MouseEvent e) {
         System.out.println("Label Clicked");
-       // this.setBackground(new Color(255, 0, 0, 40));
-        if(getOpaqueOrNot()){
-            setOpaqueOrNot(false);
-        }else{
-            setOpaqueOrNot(true);
-        }
-        this.setOpaque(getOpaqueOrNot());
+//        if(getOpaqueOrNot()){
+//            setOpaqueOrNot(false);
+//        }else{
+//            setOpaqueOrNot(true);
+//        }
+//        this.setOpaque(getOpaqueOrNot());
+        this.setBackground(new Color(255, 0, 16, 40));
         PlayerActionController.getInstance().upgradeLabel(this.location);
     }
     @Override
@@ -151,6 +151,7 @@ public class SquareLabel extends JLabel implements MouseListener, LabelChangeLis
     public void onLabelChangeEvent(ArrayList<int[]> locationList) {
         for (int[] loc : locationList){
             if(loc[0]==this.location[0] && loc[1]==this.location[1]){
+                this.setBackground(new Color(0, 252, 255, 70));
                 this.setOpaque(true);
             }else {
                 continue;
