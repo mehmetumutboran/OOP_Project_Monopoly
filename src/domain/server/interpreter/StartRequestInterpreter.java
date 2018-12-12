@@ -10,7 +10,6 @@ import domain.util.LoadGameHandler;
 import domain.util.MessageConverter;
 import network.server.serverFacade.ServerFacade;
 
-import java.io.IOException;
 import java.util.*;
 
 public class StartRequestInterpreter implements RequestInterpretable {
@@ -76,10 +75,10 @@ public class StartRequestInterpreter implements RequestInterpretable {
 //                    }
 //                }
 
-                System.out.println("\n\nCurrPlayer:" + GameInfo.getInstance().getCurrentPlayer() + "\n");
+                System.out.println("\n\nCurrPlayer:" + GameInfo.getInstance().getCurrentPlayerName() + "\n");
 
 
-                String nextPlayer = GameInfo.getInstance().getCurrentPlayer();
+                String nextPlayer = GameInfo.getInstance().getCurrentPlayerName();
                 if (!GameInfo.getInstance().isBot(nextPlayer))
                     ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), ServerFacade.getInstance().nameToIndex(nextPlayer), "000001000110", name);
             }

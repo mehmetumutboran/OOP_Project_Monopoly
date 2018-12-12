@@ -43,8 +43,12 @@ public class Flags {
     private static final char fullFlag = 'j';
     private static final char finishFlag = 'k';
     private static final char buttonFlag = 'l';
-    private static final char mrMonopolyFlag = 'm';
-    private static final char mortgageFlag = 'n';
+    private static final char dontUpgradeFlag = 'm';
+    private static final char dontDowngradeFlag = 'n';
+    private static final char labellighterFlag = 'o';
+    private static final char mrMonopolyFlag = 'p';
+    private static final char mortgageFlag = 'r';
+
 
     private static final char receivedFlag = 'z';
 
@@ -94,8 +98,9 @@ public class Flags {
         flagMap.put("Token", tokenFlag);
         flagMap.put("MrMonopoly", mrMonopolyFlag);
         flagMap.put("Mortgage", mortgageFlag);
-
-
+        flagMap.put("DontUpgrade", dontUpgradeFlag);
+        flagMap.put("DontDowngrade", dontDowngradeFlag);
+        flagMap.put("LabelLighter", labellighterFlag);
     }
 
     public static char getFlag(String action) {

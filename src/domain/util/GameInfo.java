@@ -61,6 +61,10 @@ public class GameInfo implements Savable {
         this.playerList = playerList;
     }
 
+    public Player getCurrentPlayer(){
+        return getPlayer(getPlayerQueue().peek());
+    }
+
     public Player getPlayer(String name) {
         return playerList.stream().filter(player -> player.getName().equals(name)).findFirst().orElse(null);
     }
@@ -265,7 +269,7 @@ public class GameInfo implements Savable {
         return getPlayer(playerQueue.peekFirst()).getReadiness().equals("Bot");
     }
 
-    public String getCurrentPlayer() {
+    public String getCurrentPlayerName() {
         return playerQueue.peekFirst();
     }
 
@@ -274,6 +278,6 @@ public class GameInfo implements Savable {
     }
 
     public boolean isCurrentPlayerFromIndex(int i) {
-        return playerList.get(i).getName().equals(getCurrentPlayer());
+        return playerList.get(i).getName().equals(getCurrentPlayerName());
     }
 }

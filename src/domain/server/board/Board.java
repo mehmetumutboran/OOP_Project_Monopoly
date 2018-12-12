@@ -20,6 +20,9 @@ public class Board {
     private Community[] communityDeckList;
     private int pool;
 
+   // private static HashMap<String, Integer> ColorNumber = new HashMap<>();
+
+
     private Board() {
         squareList = new Square[3][56];
         squareMap = new HashMap<>();
@@ -194,7 +197,7 @@ public class Board {
         /*cab rents different ???*/
         int[] utilityRent= {4,10,20,40,80,100,120,150,75,0};
         int[] utilityRentCab= {30,60,120,240,0,0,0,0,150,0};
-        int[] railRoadRent= {3,60,120,240,0,0,0,0,100,0};
+        int[] railRoadRent= {25,50,200,200,0,0,0,0,100,100};
 
 
 
@@ -218,7 +221,7 @@ public class Board {
         squareList[0][6] = sq7;
         Railroad sq8 = new Railroad("Reading Railroad", 0, 7, 200, railRoadRent);
         squareList[0][7] = sq8;
-        Property sq9 = new Property("Esplanada Avenue", 0, 8, 90, Esplanade, "LIGHTGREEN");
+        Property sq9 = new Property("Esplanade Avenue", 0, 8, 90, Esplanade, "LIGHTGREEN");
         squareList[0][8] = sq9;
         Property sq10 = new Property("Canal Street", 0, 9, 90, CanalSt, "LIGHTGREEN");
         squareList[0][9] = sq10;
@@ -487,6 +490,9 @@ public class Board {
         squareMap.put("WHITE", new DeedSquare[]{sq98, sq99, sq120});
     }
 
+//    static{
+//        ColorNumber.put("PINK", )
+//    }
     public Square getNameGivenSquare(String name) {
 //        return Arrays.stream(squareList).forEach(x -> Arrays.stream(x).filter(y -> y.getName().equals(name)).collect(Collectors.toList()).get(0));
         for (int x = 0; x < 3; x++) {

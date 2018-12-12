@@ -105,5 +105,20 @@ public class PlayerActionController {
 
     public void mortgage() {
         ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("LabelLighter"), ClientFacade.getInstance().getUsername(), String.valueOf(Flags.getFlag("Mortgage")));
+
+    }
+    public void upgradeLabel(int location[]) {
+        System.out.println("In player action controller");
+        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Upgrade"), ClientFacade.getInstance().getUsername(), location);
+    }
+    public void downgradeLabel(int location[]){
+        System.out.println("In player action controller");
+        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Downgrade"), ClientFacade.getInstance().getUsername(),location);
+    }
+    public void upgrade (){
+        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("LabelLighter"), ClientFacade.getInstance().getUsername(), "UP");
+    }
+    public void downgrade(){
+        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("LabelLighter"), ClientFacade.getInstance().getUsername(),"DOWN");
     }
 }

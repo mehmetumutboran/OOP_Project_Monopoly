@@ -1,5 +1,6 @@
 package gui.controlDisplay.butons;
 
+import domain.client.PlayerActionController;
 import domain.client.UIUpdater;
 import domain.server.listeners.ButtonChangeListener;
 import domain.server.listeners.TurnChangedListener;
@@ -23,8 +24,8 @@ public class UpgradeButton extends JButton implements ActionListener, TurnChange
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         //TODO should call another label for choosing own deeds.
-        // PlayerActionController.getInstance().upgrade();
-        System.out.println("Upgrade Button is clicked");
+      PlayerActionController.getInstance().upgrade();
+       // System.out.println("Upgrade Button is clicked");
     }
 
     @Override

@@ -1,6 +1,8 @@
 package domain.server.board;
 
 import domain.server.building.Building;
+import domain.server.building.Hotel;
+import domain.server.building.Skyscraper;
 import domain.util.MessageConverter;
 
 import java.util.ArrayList;
@@ -50,6 +52,12 @@ public class Property extends DeedSquare {
         this.buildingList = buildingList;
     }
 
+    public int getNumberOfBuildings () {
+        if(this.buildingList.isEmpty())
+            return 0;
+        else
+            return this.buildingList.size();
+    }
     public int[] getRents() {
         return rents;
     }
@@ -80,20 +88,20 @@ public class Property extends DeedSquare {
 
     public void updateRent() {
         if (this.buildingList.isEmpty()) {
-
+            setCurrentRent(rents[0]);
         } else if (this.buildingList.get(0).getName().equals("Skyscrapper")) {
-
+            setCurrentRent(rents[6]);
         } else if (this.buildingList.get(0).getName().equals("Hotel")) {
-
+            setCurrentRent(rents[5]);
         } else {
             if (this.buildingList.size() == 4) {
-
+                setCurrentRent(rents[4]);
             } else if (this.buildingList.size() == 3) {
-
+                setCurrentRent(rents[3]);
             } else if (this.buildingList.size() == 2) {
-
+                setCurrentRent(rents[2]);
             } else {
-
+                setCurrentRent(rents[1]);
             }
         }
     }
@@ -106,8 +114,63 @@ public class Property extends DeedSquare {
      * @return
      */
     public boolean isUpgradable(Property square) {
-        //TODO for upgrade downgrade
-        return false;
+        if(!square.getBuildingList().isEmpty() && square.getBuildingList().get(0) instanceof Skyscraper) return false;
+        boolean checker = false;
+        for (DeedSquare sq : Board.getInstance().getSameColoredSquares(square.getColor())) {
+            if(!square.getBuildingList().isEmpty()&& square.getBuildingList().get(0) instanceof Hotel &&
+                    (((Property)sq).getBuildingList().get(0) instanceof Hotel || ((Property)sq).getBuildingList().get(0) instanceof Skyscraper)) {
+                checker = true;
+            }else if(square.getNumberOfBuildings()==4 &&
+                    (((Property)sq).getBuildingList().get(0) instanceof Hotel || ((Property)sq).getNumberOfBuildings()==4)){
+                checker = true;
+            }else if(square.getNumberOfBuildings()==3 &&
+                    (((Property)sq).getNumberOfBuildings()==3 || ((Property)sq).getNumberOfBuildings()==4)){
+                checker = true;
+
+            }else if (square.getNumberOfBuildings()==2 &&
+                    (((Property)sq).getNumberOfBuildings()==2 || ((Property)sq).getNumberOfBuildings()==3)){
+                checker = true;
+            }else if (square.getNumberOfBuildings()==1 &&
+                    (((Property)sq).getNumberOfBuildings()==1 || ((Property)sq).getNumberOfBuildings()==2)){
+                checker = true;
+            }else if (square.getNumberOfBuildings()==0&&
+                    (((Property)sq).getNumberOfBuildings()==0 || ((Property)sq).getNumberOfBuildings()==1)){
+                checker =true;
+            }
+            else{
+                return false;
+            }
+        }
+        return checker;
+    }
+    public boolean isDowngradable (Property square) {
+        boolean checker = false;
+        if(square.getBuildingList().isEmpty()) return false;
+        for (DeedSquare sq : Board.getInstance().getSameColoredSquares(square.getColor())) {
+            if (square.getBuildingList().get(0) instanceof Skyscraper &&
+                    (((Property) sq).getBuildingList().get(0) instanceof Skyscraper || ((Property) sq).getBuildingList().get(0) instanceof Hotel)) {
+                checker = true;
+            }else if(square.getBuildingList().get(0) instanceof Hotel &&
+                    (((Property)sq).getBuildingList().get(0) instanceof Hotel || ((Property)sq).getNumberOfBuildings()==4)){
+                checker=true;
+            }else if(square.getNumberOfBuildings()==4 &&
+                (((Property)sq).getNumberOfBuildings()==4 || ((Property)sq).getNumberOfBuildings()==3)){
+            checker = true;
+
+            }else if (square.getNumberOfBuildings()==3 &&
+                (((Property)sq).getNumberOfBuildings()==3 || ((Property)sq).getNumberOfBuildings()==2)){
+            checker = true;
+            }else if (square.getNumberOfBuildings()==2 &&
+                (((Property)sq).getNumberOfBuildings()==2 || ((Property)sq).getNumberOfBuildings()==1)){
+            checker = true;
+            }else if (square.getNumberOfBuildings()==1 &&
+                    (((Property)sq).getNumberOfBuildings()==1 || ((Property)sq).getNumberOfBuildings()==0)){
+                checker = true;
+            }else {
+                return false;
+            }
+        }
+        return checker;
     }
 
     @Override

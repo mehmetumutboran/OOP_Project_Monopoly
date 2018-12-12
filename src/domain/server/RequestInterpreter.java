@@ -19,7 +19,8 @@ public class RequestInterpreter {
         RequestInterpretable buyRequestInterpreter = new BuyRequestInterpreter();
         RequestInterpretable payRentRequestInterpreter = new PayRentRequestInterpreter();
         RequestInterpretable queueRequestInterpreter = new QueueRequestInterpreter();
-        RequestInterpretable upDownRequestInterpreter = new UpDownRequestInterpreter();
+        RequestInterpretable upgradeRequestInterpreter = new UpgradeRequestInterpreter();
+        RequestInterpretable downgradeRequestInterpreter = new DowngradeRequestInterpreter();
         RequestInterpretable tokenMovementRequestInterpreter = new TokenMovementRequestInterpreter();
         RequestInterpretable rollRequestInterpreter = new RollRequestInterpreter();
         RequestInterpretable specialSquareRequestInterpreter = new SpecialSquareRequestInterpreter();
@@ -32,11 +33,13 @@ public class RequestInterpreter {
         RequestInterpretable pauseRequestInterpreter = new PauseRequestInterpreter();
         RequestInterpretable loadRequestInterpreter = new LoadRequestInterpreter();
         RequestInterpretable removeRequestInterpreter = new RemoveRequestInterpreter();
+        RequestInterpretable labelLighterRequestInterpreter = new LabelLighterRequestInterpreter();
         RequestInterpretable finishRequestInterpreter = new FinishRequestInterpreter();
         RequestInterpretable drawCardRequestInterpreter = new DrawCardRequestInterpreter();
         RequestInterpretable resumeRequestInterpreter = new ResumeRequestInterpreter();
         RequestInterpretable mrMonopolyRequestInterpreter = new MrMonopolyRequestInterpreter();
         RequestInterpretable mortgageRequestInterpreter = new MortgageRequestInterpreter();
+
 
         interpreterMap = new HashMap<>();
         interpreterMap.put(Flags.getFlag("Move"), moveRequestInterpreter);
@@ -44,8 +47,8 @@ public class RequestInterpreter {
         interpreterMap.put(Flags.getFlag("Buy"), buyRequestInterpreter);
         interpreterMap.put(Flags.getFlag("PayRent"), payRentRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Queue"), queueRequestInterpreter);
-        interpreterMap.put(Flags.getFlag("Upgrade"), upDownRequestInterpreter);
-        interpreterMap.put(Flags.getFlag("Downgrade"), upDownRequestInterpreter);// TODO
+        interpreterMap.put(Flags.getFlag("Downgrade"), downgradeRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Upgrade"), upgradeRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Token"), tokenMovementRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Roll"), rollRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Special"), specialSquareRequestInterpreter);
@@ -59,6 +62,7 @@ public class RequestInterpreter {
         interpreterMap.put(Flags.getFlag("Resume"), resumeRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Load"), loadRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Remove"), removeRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("LabelLighter"), labelLighterRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Finish"), finishRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Draw"), drawCardRequestInterpreter);
         interpreterMap.put(Flags.getFlag("MrMonopoly"), mrMonopolyRequestInterpreter);

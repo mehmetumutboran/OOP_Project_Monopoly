@@ -28,7 +28,7 @@ public class ResponseInterpreter {
         ResponseInterpretable dontPayRentResponseInterpreter = new DontPayRentResponseInterpreter();
         ResponseInterpretable queueResponseInterpreter = new QueueResponseInterpreter();
         ResponseInterpretable initQueueResponseInterpreter = new InitQueueResponseInterpreter();
-        ResponseInterpretable upDownResponseInterpreter = new UpDownResponseInterpreter();
+        ResponseInterpretable upDownResponseInterpreter = new UpgradeResponseInterpreter();
         ResponseInterpretable tokenMovementResponseInterpreter = new TokenMovementResponseInterpreter();
         ResponseInterpretable rollResponseInterpreter = new RollResponseInterpreter();
         ResponseInterpretable specialSquareResponseInterpreter = new SpecialSquareResponseInterpreter();
@@ -53,7 +53,7 @@ public class ResponseInterpreter {
         ResponseInterpretable finishResponseInterpreter = new FinishResponseInterpreter();
         ResponseInterpretable buttonResponseInterpreter = new ButtonResponseInterpreter();
         ResponseInterpretable mortgageResponseInterpreter = new MortgageResponseInterpreter();
-
+        ResponseInterpretable labelLighterResponseInterpreter = new LabelLighterResponseInterpreter();
 
 
         interpreterMap = new HashMap<>();
@@ -91,6 +91,7 @@ public class ResponseInterpreter {
         interpreterMap.put(Flags.getFlag("Finish"), finishResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Button"), buttonResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Mortgage"), mortgageResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("LabelLighter"), labelLighterResponseInterpreter);
     }
 
     public void interpret(String message) {

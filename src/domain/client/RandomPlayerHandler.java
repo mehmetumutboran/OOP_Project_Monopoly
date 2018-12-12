@@ -5,7 +5,6 @@ import domain.util.GameInfo;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
 
 public class RandomPlayerHandler{
     private static RandomPlayerHandler ourInstance;
@@ -44,12 +43,12 @@ public class RandomPlayerHandler{
 
     public void roll() {
         System.out.println("Bot roll");
-        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Roll"), GameInfo.getInstance().getCurrentPlayer());
+        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Roll"), GameInfo.getInstance().getCurrentPlayerName());
     }
 
 
     public void finishTurn() {
-        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Finish"), GameInfo.getInstance().getCurrentPlayer());
+        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Finish"), GameInfo.getInstance().getCurrentPlayerName());
     }
 //    // public void upgrade() {GameLogic.getInstance().upgrade(); }
 //
