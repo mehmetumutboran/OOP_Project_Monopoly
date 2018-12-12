@@ -102,4 +102,8 @@ public class PlayerActionController {
     public void resume() {
         ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Resume"), ClientFacade.getInstance().getUsername());
     }
+
+    public void mortgage() {
+        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("LabelLighter"), ClientFacade.getInstance().getUsername(), String.valueOf(Flags.getFlag("Mortgage")));
+    }
 }

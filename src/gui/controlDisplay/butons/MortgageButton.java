@@ -1,5 +1,6 @@
 package gui.controlDisplay.butons;
 
+import domain.client.PlayerActionController;
 import domain.client.UIUpdater;
 import domain.server.listeners.ButtonChangeListener;
 import domain.server.listeners.TurnChangedListener;
@@ -21,6 +22,7 @@ public class MortgageButton extends JButton implements ActionListener, TurnChang
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
+        PlayerActionController.getInstance().mortgage();
 
     }
 
