@@ -25,7 +25,7 @@ public class UpgradeRequestInterpreter implements RequestInterpretable {
                 GameLogic.getInstance().applyPropertyUpgrade(square,index,currentPlayer);
         }else{
             //fix this later
-            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("DontUpgrade"), index, " ");
+            //ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("DontUpgrade"), index, " ");
         }
 
 

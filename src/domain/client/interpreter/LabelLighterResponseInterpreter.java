@@ -15,12 +15,13 @@ public class LabelLighterResponseInterpreter implements ResponseInterpretable {
     @Override
     public void interpret(String[] message) {
         //String name = message[1];
+        String actionType = message[2];
         String [] sqnames = message[1].substring(1, message[1].length()-1).split(",\\s");
         ArrayList<int[]> list = new ArrayList<>();
         for (String s : sqnames){
             list.add(Board.getInstance().getNameGivenSquare(s).getLocation());
         }
-        UIUpdater.getInstance().updateLabels(list);
+        UIUpdater.getInstance().updateLabels(list,actionType);
         ClientCommunicationHandler.getInstance().sendReceived();
     }
 

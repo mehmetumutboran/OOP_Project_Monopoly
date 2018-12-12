@@ -113,9 +113,9 @@ public class UIUpdater {
             cbl.onCloseClickedEvent();
         }
     }
-    private void publishLabelChangeEvent(ArrayList<int []> location){
+    private void publishLabelChangeEvent(ArrayList<int []> location, String actionType){
         for (LabelChangeListener lcl: labelChangeListeners){
-            lcl.onLabelChangeEvent(location);
+            lcl.onLabelChangeEvent(location, actionType);
         }
     }
 
@@ -199,8 +199,8 @@ public class UIUpdater {
 //    public void showList() {
 //        UIFacade.getInstance().generateList(GameInfo.getInstance().getPlayerListName(),GameInfo.getInstance().getPlayerListColor());
 //    }
-    public void updateLabels(ArrayList<int[]> locationlst){
-        publishLabelChangeEvent(locationlst);
+    public void updateLabels(ArrayList<int[]> locationlst, String actionType){
+        publishLabelChangeEvent(locationlst, actionType);
     }
 
 }

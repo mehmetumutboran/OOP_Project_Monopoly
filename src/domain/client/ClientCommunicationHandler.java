@@ -23,8 +23,8 @@ public class ClientCommunicationHandler {
 //    public void sendRequest(char flag, String username, String updown) {
 //        ClientFacade.getInstance().send(flag + "|" + username + "|" + updown);
 //    }
-    public void sendRequest(char flag, String username, String color) {
-        ClientFacade.getInstance().send(flag + "|" + username + "|" + color);
+    public void sendRequest(char flag, String username, String args) {
+        ClientFacade.getInstance().send(flag + "|" + username + "|" + args);
     }
     public void sendRequest (char flag, String username, int location[]) {
         ClientFacade.getInstance().send(flag + "|" + username + "|" + MessageConverter.convertArrayToString(location));

@@ -17,18 +17,32 @@ public class LabelLighterRequestInterpreter implements RequestInterpretable{
     public void interpret(String[] message, int index) {
 
         String name = message[1];
+        String actionType = message[2];
         ArrayList<String> sq = new ArrayList<>();
-        for(Square p : GameInfo.getInstance().getPlayer(name).getOwnedProperties()){
-            if(GameInfo.getInstance().getCurrentPlayer().checkMajority((Property)p) && ((Property) p).isUpgradable((Property)p)){
-                sq.add(p.getName());
+        if(actionType.equals("UP")) {
+            for (Square p : GameInfo.getInstance().getPlayer(name).getOwnedProperties()) {
+                if (GameInfo.getInstance().getCurrentPlayer().checkMajority((Property) p) && ((Property) p).isUpgradable((Property) p)) {
+                    sq.add(p.getName());
+                }
             }
-        }
-        for (Square p : GameInfo.getInstance().getPlayer(name).getOwnedRailroads()){
-            if(!((Railroad)p).isHasDepot()){
-                sq.add(p.getName());
+            for (Square p : GameInfo.getInstance().getPlayer(name).getOwnedRailroads()) {
+                if (!((Railroad) p).isHasDepot()) {
+                    sq.add(p.getName());
+                }
+            }
+        }else if(actionType.equals("DOWN")){
+            for(Square p: GameInfo.getInstance().getPlayer(name).getOwnedProperties()){
+                if(GameInfo.getInstance().getCurrentPlayer().checkMajority((Property)p) && ((Property)p).isDowngradable((Property)p)){
+                    sq.add(p.getName());
+                }
+            }
+            for(Square p : GameInfo.getInstance().getPlayer(name).getOwnedRailroads()){
+                if(((Railroad)p).isHasDepot()){
+                    sq.add(p.getName());
+                }
             }
         }
         String [] squares = sq.toArray(new String[0]);
-        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("LabelLighter"),index, MessageConverter.convertArrayToString(squares));
+        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("LabelLighter"),index, MessageConverter.convertArrayToString(squares),actionType);
     }
 }
