@@ -26,7 +26,7 @@ public class SquareLabel extends JLabel implements MouseListener, LabelChangeLis
         this.setBackground(new Color(255, 0, 0, 70));
         this.setSize(0,0);
         this.setOpaque(false);
-        this.setVisible(true);
+        this.setVisible(false);
         this.addMouseListener(this);
         UIUpdater.getInstance().addLabelChangeListener(this);
 
@@ -163,6 +163,7 @@ public class SquareLabel extends JLabel implements MouseListener, LabelChangeLis
         for (int[] loc : locationList){
             if(loc[0]==this.location[0] && loc[1]==this.location[1]){
                 this.setBackground(new Color(0, 252, 255, 70));
+                this.setVisible(true);
                 this.setOpaque(true);
             }else {
                 continue;

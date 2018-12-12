@@ -21,7 +21,7 @@ public class LabelLighterRequestInterpreter implements RequestInterpretable{
         ArrayList<String> sq = new ArrayList<>();
         if(actionType.equals("UP")) {
             for (Square p : GameInfo.getInstance().getPlayer(name).getOwnedProperties()) {
-                if (GameInfo.getInstance().getCurrentPlayer().checkMajority((Property) p) && ((Property) p).isUpgradable((Property) p)) {
+                if (GameInfo.getInstance().getCurrentPlayer().checkMajority((Property) p) && ((Property) p).isUpgradable((Property) p, name)) {
                     sq.add(p.getName());
                 }
             }
