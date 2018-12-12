@@ -123,19 +123,19 @@ public class SquareLabel extends JLabel implements MouseListener, LabelChangeLis
     @Override
     public void mouseClicked(MouseEvent e) {
         System.out.println("Label Clicked");
-        if(getOpaqueOrNot()){
-            setOpaqueOrNot(false);
-        }else{
-            setOpaqueOrNot(true);
-        }
-        this.setOpaque(getOpaqueOrNot());
+//        if(getOpaqueOrNot()){
+//            setOpaqueOrNot(false);
+//        }else{
+//            setOpaqueOrNot(true);
+//        }
+//        this.setOpaque(getOpaqueOrNot());
         this.setBackground(new Color(255, 0, 16, 40));
-//        if(getActionType().equals("UP")){
-//            PlayerActionController.getInstance().upgradeLabel(this.location);
-//        }
-//        else {
-//            PlayerActionController.getInstance().downgradeLabel(this.location);
-//        }
+        if(getActionType().equals("UP")){
+            PlayerActionController.getInstance().upgradeLabel(this.location);
+        }
+        else {
+            PlayerActionController.getInstance().downgradeLabel(this.location);
+        }
     }
     @Override
     public void mousePressed(MouseEvent e) {

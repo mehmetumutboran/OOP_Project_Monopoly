@@ -247,11 +247,11 @@ public class GameLogic {
 
     public void applydowngrade (Square square, Player currentPlayer){
         String buildingtoDownfrom = null;
-        if(((Property) square).getBuildingList().get(0) instanceof Skyscraper){
+        if(!((Property)square).getBuildingList().isEmpty()&&((Property) square).getBuildingList().get(0) instanceof Skyscraper){
             buildingtoDownfrom="Skyscrapper";
-        }else if(((Property) square).getBuildingList().get(0) instanceof Hotel){
+        }else if(!((Property)square).getBuildingList().isEmpty()&&((Property) square).getBuildingList().get(0) instanceof Hotel){
             buildingtoDownfrom = "Hotel";
-        }else if (((Property) square).getBuildingList().size()>0) {
+        }else if (!((Property)square).getBuildingList().isEmpty()&&((Property) square).getBuildingList().size()>0) {
             buildingtoDownfrom = "House";
         }
         ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Downgrade"),currentPlayer.getName(),square.getName(),buildingtoDownfrom);
