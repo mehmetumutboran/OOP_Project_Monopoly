@@ -19,7 +19,7 @@ public class LabelLighterResponseInterpreter implements ResponseInterpretable {
         String [] sqnames = message[1].substring(1, message[1].length()-1).split(",\\s");
         ArrayList<int[]> list = new ArrayList<>();
         for (String s : sqnames){
-            list.add(Board.getInstance().getNameGivenSquare(s).getLocation());
+                list.add(Board.getInstance().getNameGivenSquare(s).getLocation());
         }
         UIUpdater.getInstance().updateLabels(list,actionType);
         ClientCommunicationHandler.getInstance().sendReceived();

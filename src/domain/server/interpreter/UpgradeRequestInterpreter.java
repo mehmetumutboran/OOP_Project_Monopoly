@@ -14,6 +14,7 @@ import domain.util.MessageConverter;
 public class UpgradeRequestInterpreter implements RequestInterpretable {
     @Override
     public void interpret(String[] message, int index) {
+        String name = message[1];
         Player currentPlayer = GameInfo.getInstance().getCurrentPlayer();
         int [] loc = MessageConverter.convertStringToIntArray(message[2], ',');
         Square square = Board.getInstance().getSquare(loc[0],loc[1]);
@@ -21,7 +22,7 @@ public class UpgradeRequestInterpreter implements RequestInterpretable {
         if(square instanceof Railroad && !((Railroad) square).isHasDepot() && currentPlayer.getBalance()>= ((Railroad) square).getHouseBuildingCost()){
                 GameLogic.getInstance().applyRailRoadUpgrade(square,currentPlayer);
         }else if(square instanceof Property && currentPlayer.checkMajority((Property)square)
-                &&((Property) square).isUpgradable((Property)square) && currentPlayer.getBalance()>=((Property) square).getHouseBuildingCost()){
+                &&((Property) square).isUpgradable((Property)square,name) && currentPlayer.getBalance()>=((Property) square).getHouseBuildingCost()){
                 GameLogic.getInstance().applyPropertyUpgrade(square,index,currentPlayer);
         }else{
             //fix this later

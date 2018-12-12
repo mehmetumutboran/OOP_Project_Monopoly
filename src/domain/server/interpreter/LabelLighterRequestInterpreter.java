@@ -20,6 +20,7 @@ public class LabelLighterRequestInterpreter implements RequestInterpretable {
         String name = message[1];
         String actionType = message[2];
         ArrayList<String> sq = new ArrayList<>();
+
         if (actionType.equals("UP")) {
             sq = upgradeAction(name);
         } else if (actionType.equals("DOWN")) {
@@ -67,7 +68,7 @@ public class LabelLighterRequestInterpreter implements RequestInterpretable {
     private ArrayList<String> upgradeAction(String name) {
         ArrayList<String> sq = new ArrayList<>();
         for (Square p : GameInfo.getInstance().getPlayer(name).getOwnedProperties()) {
-            if (GameInfo.getInstance().getCurrentPlayer().checkMajority((Property) p) && ((Property) p).isUpgradable((Property) p)) {
+            if (GameInfo.getInstance().getCurrentPlayer().checkMajority((Property) p) && ((Property) p).isUpgradable((Property) p, name)) {
                 sq.add(p.getName());
             }
         }

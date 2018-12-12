@@ -58,14 +58,19 @@ public class Player implements Comparable, Savable {
         this.inJail = isInJail;
 
         //TODO test purposes
-        this.ownedProperties.add((Property) Board.getInstance().getNameGivenSquare("Esplanade Avenue"));
-        this.ownedProperties.add((Property) Board.getInstance().getNameGivenSquare("Canal Street"));
-        this.ownedProperties.add((Property) Board.getInstance().getNameGivenSquare("Magazine Street"));
 
-        ((Property) Board.getInstance().getNameGivenSquare("Esplanade Avenue")).setOwner(name);
-        ((Property) Board.getInstance().getNameGivenSquare("Canal Street")).setOwner(name);
-        ((Property) Board.getInstance().getNameGivenSquare("Magazine Street")).setOwner(name);
+        if(this.name.equals("Brian")) {
+            this.ownedProperties.add((Property) Board.getInstance().getNameGivenSquare("Esplanade Avenue"));
+            this.ownedProperties.add((Property) Board.getInstance().getNameGivenSquare("Canal Street"));
+            this.ownedProperties.add((Property) Board.getInstance().getNameGivenSquare("Magazine Street"));
 
+            // this.ownedProperties.add((Property) Board.getInstance().getNameGivenSquare("Bourbon Street"));
+
+            ((Property) Board.getInstance().getNameGivenSquare("Esplanade Avenue")).setOwner(name);
+            ((Property) Board.getInstance().getNameGivenSquare("Canal Street")).setOwner(name);
+            ((Property) Board.getInstance().getNameGivenSquare("Magazine Street")).setOwner(name);
+            // ((Property) Board.getInstance().getNameGivenSquare("Bourbon Street")).setOwner(name);
+        }
     }
 
 
