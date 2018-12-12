@@ -19,8 +19,6 @@ public class GameLogic {
     boolean mrMonopolyChecked = false;
 
 
-    //TODO Add more
-
     private static final int SECOND_LAYER_SQ = 24;
     private static final int FIRST_LAYER_SQ = 40;
     private static final int ZEROTH_LAYER_SQ = 56;
@@ -84,7 +82,8 @@ public class GameLogic {
 
     public int getTotalRoll(String name){
         int totalRoll;
-        if (GameInfo.getInstance().getPeek().getFaceValues()[2] <= 3) {
+//        if (GameInfo.getInstance().getPeek().getFaceValues()[2] <= 3) { // TODO Why peek?
+        if (GameInfo.getInstance().getPlayer(name).getFaceValues()[2] <= 3) {
             totalRoll = GameInfo.getInstance().getPlayer(name).getFaceValues()[0]
                     + GameInfo.getInstance().getPlayer(name).getFaceValues()[1]
                     + GameInfo.getInstance().getPlayer(name).getFaceValues()[2];

@@ -7,6 +7,7 @@ import domain.util.GameInfo;
 import network.server.serverFacade.ServerFacade;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class FinishRequestInterpreter implements RequestInterpretable {
     @Override

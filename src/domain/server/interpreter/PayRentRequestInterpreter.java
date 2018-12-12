@@ -1,5 +1,6 @@
 package domain.server.interpreter;
 
+import domain.server.ReceivedChecker;
 import domain.server.board.Board;
 import domain.server.board.DeedSquare;
 import domain.server.board.Square;
@@ -31,6 +32,13 @@ public class PayRentRequestInterpreter implements RequestInterpretable {
             int customerFinalMoney = customerCurrentMoney - 50; //((DeedSquare)square).getCurrentRent();
             int ownerFinalMoney = ownerCurrentMoney + 50;//((DeedSquare)square).getCurrentRent();
 
+            while (true){
+                if(ReceivedChecker.getInstance().checkReceived()) {
+                    ReceivedChecker.getInstance().setReceived();
+                    break;
+                }
+            }
+
             ServerCommunicationHandler.getInstance()
                     .sendResponse(Flags.getFlag("PayRent"),name , customerFinalMoney ,ownerFinalMoney, square.getName());
 
@@ -43,11 +51,26 @@ public class PayRentRequestInterpreter implements RequestInterpretable {
 //                }
 //            }
 
+            while (true){
+                if(ReceivedChecker.getInstance().checkReceived()) {
+                    ReceivedChecker.getInstance().setReceived();
+                    break;
+                }
+            }
+
             ServerCommunicationHandler.getInstance()
                     .sendResponse(Flags.getFlag("Button"), index, "000010000111", name);
 
         }
         else{
+
+            while (true){
+                if(ReceivedChecker.getInstance().checkReceived()) {
+                    ReceivedChecker.getInstance().setReceived();
+                    break;
+                }
+            }
+
             ServerCommunicationHandler.getInstance()
                     .sendResponse(Flags.getFlag("DontPayRent") , index );
 

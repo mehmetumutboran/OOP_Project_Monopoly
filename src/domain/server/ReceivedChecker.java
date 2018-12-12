@@ -22,7 +22,8 @@ public class ReceivedChecker {
     }
 
     public boolean checkReceived(){
-        for (int i = 0; i < ServerFacade.getInstance().getTotalNumPlayers(); i++) {
+        int x = ServerFacade.getInstance().getTotalNumPlayers();
+        for (int i = 0; i < x; i++) {
             if(!received[i]) return false;
         }
         return true;

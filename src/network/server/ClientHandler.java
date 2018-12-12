@@ -7,6 +7,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Arrays;
 
 public class ClientHandler implements Runnable {
     private Socket socket;
@@ -35,6 +36,8 @@ public class ClientHandler implements Runnable {
                     synchronized (this) {
                         ReceivedChecker.getInstance().received[index] = true;
                     }
+//                    System.out.println(Arrays.toString(ReceivedChecker.getInstance().received));
+
                     continue;
                 }
 
