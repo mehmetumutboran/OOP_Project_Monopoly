@@ -1,6 +1,8 @@
 package domain.server;
 
 import domain.server.board.Board;
+import domain.server.board.DeedSquare;
+import domain.server.board.Square;
 import domain.server.controller.ServerCommunicationHandler;
 import domain.server.die.DiceCup;
 import domain.server.move.NormalMove;
@@ -9,9 +11,13 @@ import domain.util.Flags;
 import domain.util.GameInfo;
 import domain.util.MessageConverter;
 
+import java.util.Arrays;
+
 
 public class GameLogic {
     private static GameLogic ourInstance;
+    boolean mrMonopolyChecked = false;
+
 
     private static final int SECOND_LAYER_SQ = 24;
     private static final int FIRST_LAYER_SQ = 40;
@@ -101,9 +107,114 @@ public class GameLogic {
         return false;
     }
 
-    public boolean checkMrMonopoly(String name) {
-        return false;
+    public boolean isMrMonopolyChecked() {
+        return mrMonopolyChecked;
     }
+
+    public void setMrMonopolyChecked(boolean mrMonopolyChecked) {
+        this.mrMonopolyChecked = mrMonopolyChecked;
+    }
+
+    public boolean checkMrMonopoly(String name) {
+
+        /*check if bot*/
+        /*
+        if(GameInfo.getInstance().getPlayer(GameInfo.getInstance().getCurrentPlayer()).getReadiness().equals("Bot")){
+            setMrMonopolyChecked(false);
+        }
+        */
+        /*check if mrMonopoly and it is not checked played yet*/
+   //     if (GameInfo.getInstance().getPlayer(name).getFaceValues()[2] == 7 /*&& !isMrMonopolyChecked()*/){
+            /*setMrMonopolyChecked(true);*/
+            /*check if bot*/
+            /*
+            if(GameInfo.getInstance().getPlayer(GameInfo.getInstance().getCurrentPlayer()).getReadiness().equals("Bot")){
+                setMrMonopolyChecked(false);
+            }
+            */
+        if (GameInfo.getInstance().getPlayer(name).getFaceValues()[2] == 7) {
+
+            int[] loc = GameInfo.getInstance().getPlayer(name).getToken().getLocation().clone();
+            System.out.println("!!!!!!!!!!!!" + Arrays.toString(loc));
+            loc = findNextUnOwnedSquare(loc);
+            System.out.println("!!!!!!!!!!!!" + Arrays.toString(loc));
+
+            //GameInfo.getInstance().getPlayer(name).getToken().setLocation(loc);
+
+            String locName = Board.getInstance().getSquare(loc[0], loc[1]).getName();
+            String locat = MessageConverter.convertArrayToString(loc) + "@" + locName;
+            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Move"), name, locat);
+            return true;
+
+        }
+      //      return  true;
+      //  }
+        else return false;
+    }
+
+    public int[] findNextUnOwnedSquare(int[] loc) {
+        return scanLayer(loc , loc[0]);
+    }
+
+    public int[] scanLayer(int[] loc ,int layer){
+        if(layer==0) {
+            for(int i=1;i<ZEROTH_LAYER_SQ;i++){
+                if(  findNextSquare(loc , i) instanceof DeedSquare
+                        && ((DeedSquare) findNextSquare(loc , i)).getOwner()==null)
+                    return findNextSquare(loc , i).getLocation();
+            }
+        }
+        else if(layer==1) {
+            for(int i=1;i<FIRST_LAYER_SQ;i++){
+                findNextSquare(loc , i);
+                if(  findNextSquare(loc , i) instanceof DeedSquare
+                        && ((DeedSquare) findNextSquare(loc , i)).getOwner()==null)
+                    return findNextSquare(loc , i).getLocation();}
+        }
+        else if(layer==2) {
+            for(int i=1;i<SECOND_LAYER_SQ;i++){
+                findNextSquare(loc , i);
+                if(  findNextSquare(loc , i) instanceof DeedSquare
+                        && ((DeedSquare) findNextSquare(loc , i)).getOwner()==null)
+                    return findNextSquare(loc , i).getLocation();}
+        }
+        return  loc ;      }
+
+    public Square findNextSquare(int[] loc , int i){
+        if(loc[0]==0){
+            int[] searchLoc = {0,loc[1]};
+
+            if((loc[1]+i)>(ZEROTH_LAYER_SQ-1)){
+                searchLoc[1]=loc[1]+i-ZEROTH_LAYER_SQ+1;}
+            else{
+                searchLoc[1]=loc[1]+i;}
+            return Board.getInstance().getSquare(searchLoc[0] , searchLoc[1]);
+        }
+
+        else if(loc[0]==1){
+            int[] searchLoc = {1,loc[1]};
+            if((loc[1]+i)>(FIRST_LAYER_SQ-1)){
+                searchLoc[1]=loc[1]+i-FIRST_LAYER_SQ+1;}
+            else{
+                searchLoc[1]=loc[1]+i;}
+            return Board.getInstance().getSquare(searchLoc[0] , searchLoc[1]);
+
+        }
+
+        else if(loc[0]==2){
+            int[] searchLoc = {2,loc[1]};
+            if((loc[1]+i)>(SECOND_LAYER_SQ-1)){
+                searchLoc[1]=loc[1]+i-SECOND_LAYER_SQ+1;}
+            else{
+                searchLoc[1]=loc[1]+i;}
+            return Board.getInstance().getSquare(searchLoc[0] , searchLoc[1]);
+
+        }
+        else  return Board.getInstance().getSquare(loc[0] , loc[1]);
+
+    }
+
+
 
     private boolean checkTriple(String name) {
         return (GameInfo.getInstance().getPlayer(name).getFaceValues()[0] ==

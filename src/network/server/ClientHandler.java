@@ -60,8 +60,6 @@ public class ClientHandler implements Runnable {
     }
 
 
-
-
     public synchronized void send(String m) throws IOException {
         dos.writeUTF(m);
         dos.flush();

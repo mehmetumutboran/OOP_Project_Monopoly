@@ -1,5 +1,6 @@
 package domain.server.util;
 
+import domain.server.GameLogic;
 import domain.server.board.*;
 import domain.server.board.specialSquares.Chance;
 import domain.server.board.specialSquares.CommunityChest;
@@ -26,39 +27,45 @@ public class ButtonStringGenerator {
         if (curSq instanceof DeedSquare) {
             if (curSq instanceof Property) {
                 if (!((Property) curSq).isOwned()) {
-                    buttonString = "100010000";
+                    buttonString = "100010000110";
                 } else if (((Property) curSq).getOwner().equals(name)) {
-                    buttonString = "100010000"; // Buy is open due to error message
+                    buttonString = "100010000110"; // Buy is open due to error message
                 } else {
-                    buttonString = "010000000"; // Force pay rent
+                    buttonString = "010000000110"; // Force pay rent
 
                 }
             } else if (curSq instanceof Railroad) {
                 if (!((Railroad) curSq).isOwned()) {
-                    buttonString = "100010000";
+                    buttonString = "100010000110";
                 } else if (((Railroad) curSq).getOwner().equals(name)) {
-                    buttonString = "100010000";
+                    buttonString = "100010000110";
                 } else {
-                    buttonString = "010000000"; // Force pay rent
+                    buttonString = "010000000110"; // Force pay rent
                 }
             } else if (curSq instanceof Utility) {
                 if (!((Utility) curSq).isOwned()) {
-                    buttonString = "100010000";
+                    buttonString = "100010000110";
                 }else if (((Utility) curSq).getOwner().equals(name)) {
-                    buttonString = "100010000";
+                    buttonString = "100010000110";
                 } else {
-                    buttonString = "010000000"; // Force pay rent
+                    buttonString = "010000000110"; // Force pay rent
                 }
             }
         } else if (curSq instanceof SpecialSquareStrategy) {
             if (curSq instanceof Chance) {
-                buttonString = "000000001";
+                buttonString = "000000001110";
             } else if (curSq instanceof CommunityChest) {
-                buttonString = "000000001";
+                buttonString = "000000001110";
             } else {
-                buttonString = "000010000";
+                buttonString = "000010000110";
             }
         }
+
+        if(GameInfo.getInstance().getPlayer(name).getFaceValues()[2]==7){
+            char[] buttonString2 = buttonString.toCharArray();
+            buttonString2[11] = '1';
+            buttonString2[4] = '0';
+            buttonString = String.valueOf(buttonString2);}
         return buttonString;
     }
 

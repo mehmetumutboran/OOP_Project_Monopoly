@@ -19,7 +19,8 @@ public class UIUpdater {
     private ArrayList<ButtonChangeListener> buttonChangeListeners;
 
     private String message;
-    private String buttonLayout;
+    private String buttonLayout = "000000000000";
+    private String defaultLayout = "000000000000";
 
     public static UIUpdater getInstance() {
         if (ourInstance == null)
@@ -120,11 +121,11 @@ public class UIUpdater {
 
     public void turnUpdate() {
         publishTurnUpdateEvent();
-        publishTurnChangedEvent("000000000");
+        publishTurnChangedEvent(defaultLayout);
     }
 
     public void pauseUpdate(boolean b, String name){
-        publishTurnChangedEvent("000000000");
+        publishTurnChangedEvent(defaultLayout);
         UIFacade.getInstance().generatePrompt(Flags.getFlag("Pause"), b, name);
     }
 
