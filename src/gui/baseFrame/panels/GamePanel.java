@@ -13,6 +13,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class GamePanel extends JPanel implements GameStartedListener, TokenMovementListener {
 
@@ -65,6 +67,18 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
 //        jPanel.setVisible(true);
 //        this.add(jPanel);
 
+        TimerTask timerTaskPaint = new TimerTask() {
+            @Override
+            public void run() {
+                repaint();
+                //System.out.println("Timer is working!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            }
+        };
+
+        Timer timer = new Timer();
+//        long delay = 500;
+
+        timer.scheduleAtFixedRate(timerTaskPaint, 0, 100);
 
         UIUpdater.getInstance().addTokenMovementListeners(this);
     }
@@ -117,7 +131,7 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
         for (int i = 0; i < squareLabels.size(); i++) {
             squareLabels.get(i).draw(this.getWidth(), this.getHeight());
         }
-        repaint();
+//        repaint();
     }
 
 
