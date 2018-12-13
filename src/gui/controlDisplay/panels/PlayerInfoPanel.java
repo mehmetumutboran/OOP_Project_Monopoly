@@ -82,7 +82,7 @@ public class PlayerInfoPanel extends JPanel implements MouseListener {
                         .replaceAll("\\[", "")
                         .replaceAll("]", ""))
 
-                .append("<br/><span style=\"color:red\">Owned Railroads: </span>")
+                .append("<br/><span style=\"color:red\">Mortgaged Squares: </span>")
                 .append(GameInfo.getInstance().getMortgagedFromIndex(i)
                         .replaceAll("\\[", "")
                         .replaceAll("]", ""))
