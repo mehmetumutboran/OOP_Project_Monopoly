@@ -114,31 +114,34 @@ public class Property extends DeedSquare {
      * @return
      */
     public boolean isUpgradable(Property square,String name) {
+        //if(square.getBuildingList().isEmpty()) return false;
         if(!square.getBuildingList().isEmpty() && square.getBuildingList().get(0) instanceof Skyscraper) return false;
         boolean checker = false;
         for (DeedSquare sq : Board.getInstance().getSameColoredSquares(square.getColor())) {
+          //  if(square.getName().equals(sq.getName()))continue;
             if(sq.getOwner()==null) continue;
-            else
-                if(!sq.getOwner().equals(name)) continue;
-            if(!square.getBuildingList().isEmpty()&& square.getBuildingList().get(0) instanceof Hotel &&
+            else if(!sq.getOwner().equals(square.getOwner())) continue;
+            if(!square.getBuildingList().isEmpty()&& !((Property)sq).getBuildingList().isEmpty()&& square.getBuildingList().get(0) instanceof Hotel &&
                     (((Property)sq).getBuildingList().get(0) instanceof Hotel || ((Property)sq).getBuildingList().get(0) instanceof Skyscraper)) {
                 checker = true;
-            }else if(square.getNumberOfBuildings()==4 &&
+            }else if(!((Property)sq).getBuildingList().isEmpty() && square.getNumberOfBuildings()==4 &&
                     (((Property)sq).getBuildingList().get(0) instanceof Hotel || ((Property)sq).getNumberOfBuildings()==4)){
                 checker = true;
             }else if(square.getNumberOfBuildings()==3 &&
                     (((Property)sq).getNumberOfBuildings()==3 || ((Property)sq).getNumberOfBuildings()==4)){
                 checker = true;
-
             }else if (square.getNumberOfBuildings()==2 &&
                     (((Property)sq).getNumberOfBuildings()==2 || ((Property)sq).getNumberOfBuildings()==3)){
                 checker = true;
             }else if (square.getNumberOfBuildings()==1 &&
                     (((Property)sq).getNumberOfBuildings()==1 || ((Property)sq).getNumberOfBuildings()==2)){
                 checker = true;
-            }else if (square.getNumberOfBuildings()==0&&
+            }else if (square.getNumberOfBuildings()==0 &&
                     (((Property)sq).getNumberOfBuildings()==0 || ((Property)sq).getNumberOfBuildings()==1)){
                 checker =true;
+            }
+            else {
+                return false;
             }
         }
         return checker;
@@ -147,6 +150,8 @@ public class Property extends DeedSquare {
         boolean checker = false;
         if(square.getBuildingList().isEmpty()) return false;
         for (DeedSquare sq : Board.getInstance().getSameColoredSquares(square.getColor())) {
+            if(sq.getOwner()==null)continue;
+            else if (!sq.getOwner().equals(square.getOwner()))continue;
             if (!((Property)sq).getBuildingList().isEmpty() && square.getBuildingList().get(0) instanceof Skyscraper &&
                     (((Property) sq).getBuildingList().get(0) instanceof Skyscraper || ((Property) sq).getBuildingList().get(0) instanceof Hotel)) {
                 checker = true;
@@ -167,6 +172,9 @@ public class Property extends DeedSquare {
             }else if (square.getNumberOfBuildings()==1 &&
                     (((Property)sq).getNumberOfBuildings()==1 || ((Property)sq).getNumberOfBuildings()==0)) {
                 checker = true;
+            }
+            else {
+                return false;
             }
         }
         return checker;

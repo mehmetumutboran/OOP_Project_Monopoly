@@ -229,7 +229,9 @@ public class GameLogic {
                 if(currentPlayer.checkMonopoly((Property)square)){
                     typeOfUpgrade = "Skyscrapper";
                 }else{
-                    ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("DontUpgrade"),index," ");
+                    System.out.println("CANT UPGRADE TO SKYSCRAPPER BECAUSE NOT MONOPOLY");
+                    return;
+                    //ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("DontUpgrade"),index," ");
                 }
             }else if(((Property)square).getBuildingList().size()==4){
                 typeOfUpgrade = "Hotel";
