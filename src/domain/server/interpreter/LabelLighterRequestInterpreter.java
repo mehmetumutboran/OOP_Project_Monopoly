@@ -22,14 +22,15 @@ public class LabelLighterRequestInterpreter implements RequestInterpretable{
         if(actionType.equals("UP")) {
             for (Square p : GameInfo.getInstance().getPlayer(name).getOwnedProperties()) {
                 if (GameInfo.getInstance().getCurrentPlayer().checkMajority((Property) p) && ((Property) p).isUpgradable((Property) p, name)) {
-                    sq.add(p.getName());
+                        sq.add(p.getName());
                 }
             }
             for (Square p : GameInfo.getInstance().getPlayer(name).getOwnedRailroads()) {
                 if (!((Railroad) p).isHasDepot()) {
-                    sq.add(p.getName());
+                        sq.add(p.getName());
                 }
             }
+
         }else if(actionType.equals("DOWN")){
             for(Square p: GameInfo.getInstance().getPlayer(name).getOwnedProperties()){
                 if(GameInfo.getInstance().getCurrentPlayer().checkMajority((Property)p) && ((Property)p).isDowngradable((Property)p)){
@@ -42,7 +43,12 @@ public class LabelLighterRequestInterpreter implements RequestInterpretable{
                 }
             }
         }
+
         String [] squares = sq.toArray(new String[0]);
-        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("LabelLighter"),index, MessageConverter.convertArrayToString(squares),actionType);
+
+        if(sq.isEmpty()){
+            //JOPTION PANE WARN THE PLAYER THAT HE/SHE DOES NOT HAVE ANY PLACE TO PERFORM ACTIONTYPE
+        }else
+            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("LabelLighter"),index, MessageConverter.convertArrayToString(squares),actionType);
     }
 }

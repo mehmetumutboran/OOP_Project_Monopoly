@@ -41,6 +41,8 @@ public class UpgradeResponseInterpreter implements ResponseInterpretable {
         }
         currentPlayer.decreaseMoney(((DeedSquare) selectedSquareForUpgrade).getHouseBuildingCost());
 
+
+        /////Skyscrapper oldugunda hata var
         UIUpdater.getInstance().setMessage(currentPlayer.getName() + " upgraded " +selectedSquareForUpgrade.getName()
                 + " to " + buildingtoUpgrade.getName());
 
