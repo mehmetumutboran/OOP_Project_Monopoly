@@ -2,7 +2,6 @@ package domain.server;
 
 import domain.server.board.Board;
 import domain.server.board.DeedSquare;
-import domain.server.board.Property;
 import domain.server.board.Square;
 import domain.server.building.Hotel;
 import domain.server.building.Skyscraper;
@@ -324,49 +323,49 @@ public class GameLogic {
 //    }
 
 
-    public void applyRailRoadUpgrade(Square square, Player currentPlayer) {
-        String typeOfUpgrade = "Railroad";
-        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Upgrade"), currentPlayer.getName(), square.getName(), typeOfUpgrade);
-    }
-
-    public void applyPropertyUpgrade(Square square, int index, Player currentPlayer) {
-        String typeOfUpgrade = null;
-        if (!((Property) square).getBuildingList().isEmpty() && ((Property) square).getBuildingList().get(0) instanceof Hotel) {
-            if (currentPlayer.checkMonopoly((Property) square)) {
-                typeOfUpgrade = "Skyscrapper";
-            } else {
-                System.out.println("CANT UPGRADE TO SKYSCRAPPER BECAUSE NOT MONOPOLY");
-                return;
-                //ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("DontUpgrade"),index," ");
-            }
-        } else if (((Property) square).getBuildingList().size() == 4) {
-            typeOfUpgrade = "Hotel";
-        } else {
-            typeOfUpgrade = "House";
-        }
-
-        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Upgrade"), currentPlayer.getName(), square.getName(), typeOfUpgrade);
-    }
-
-
+//    public void applyRailRoadUpgrade(Square square, Player currentPlayer) {
+//        String typeOfUpgrade = "Railroad";
+//        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Upgrade"), currentPlayer.getName(), square.getName(), typeOfUpgrade);
+//    }
+//
+//    public void applyPropertyUpgrade(Square square, int index, Player currentPlayer) {
+//        String typeOfUpgrade = null;
+//        if (!((Property) square).getBuildingList().isEmpty() && ((Property) square).getBuildingList().get(0) instanceof Hotel) {
+//            if (currentPlayer.checkMonopoly((Property) square)) {
+//                typeOfUpgrade = "Skyscrapper";
+//            } else {
+//                System.out.println("CANT UPGRADE TO SKYSCRAPPER BECAUSE NOT MONOPOLY");
+//                return;
+//                //ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("DontUpgrade"),index," ");
+//            }
+//        } else if (((Property) square).getBuildingList().size() == 4) {
+//            typeOfUpgrade = "Hotel";
+//        } else {
+//            typeOfUpgrade = "House";
+//        }
+//
+//        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Upgrade"), currentPlayer.getName(), square.getName(), typeOfUpgrade);
+//    }
 
 
-    public void applyRailDowngrade(Square square, Player currentPlayer) {
-        String buildingtoDownFrom = "Railroad";
-        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Downgrade"), currentPlayer.getName(), square.getName(), buildingtoDownFrom);
-    }
 
-    public void applydowngrade(Square square, Player currentPlayer) {
-        String buildingtoDownfrom = null;
-        if (!((Property) square).getBuildingList().isEmpty() && ((Property) square).getBuildingList().get(0) instanceof Skyscraper) {
-            buildingtoDownfrom = "Skyscrapper";
-        } else if (!((Property) square).getBuildingList().isEmpty() && ((Property) square).getBuildingList().get(0) instanceof Hotel) {
-            buildingtoDownfrom = "Hotel";
-        } else if (!((Property) square).getBuildingList().isEmpty() && ((Property) square).getBuildingList().size() > 0) {
-            buildingtoDownfrom = "House";
-        }
-        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Downgrade"), currentPlayer.getName(), square.getName(), buildingtoDownfrom);
-    }
+
+//    public void applyRailDowngrade(Square square, Player currentPlayer) {
+//        String buildingtoDownFrom = "Railroad";
+//        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Downgrade"), currentPlayer.getName(), square.getName(), buildingtoDownFrom);
+//    }
+//
+//    public void applydowngrade(Square square, Player currentPlayer) {
+//        String buildingtoDownfrom = null;
+//        if (!((Property) square).getBuildingList().isEmpty() && ((Property) square).getBuildingList().get(0) instanceof Skyscraper) {
+//            buildingtoDownfrom = "Skyscrapper";
+//        } else if (!((Property) square).getBuildingList().isEmpty() && ((Property) square).getBuildingList().get(0) instanceof Hotel) {
+//            buildingtoDownfrom = "Hotel";
+//        } else if (!((Property) square).getBuildingList().isEmpty() && ((Property) square).getBuildingList().size() > 0) {
+//            buildingtoDownfrom = "House";
+//        }
+//        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Downgrade"), currentPlayer.getName(), square.getName(), buildingtoDownfrom);
+//    }
 
 
 }

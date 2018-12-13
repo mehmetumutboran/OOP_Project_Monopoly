@@ -1,7 +1,6 @@
 package domain.server.board;
 
 import domain.server.Savable;
-import domain.util.MessageConverter;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -11,10 +10,10 @@ import java.util.stream.Collectors;
  */
 public abstract class DeedSquare extends Square implements Savable {
     private int currentRent;
-    private int houseBuildingCost;
+    protected int buildingCost;
     private int buyValue;
     private int[] rents;
-    private String owner;
+    protected String owner;
     private boolean mortgaged;
     private int mortgageValue;
 
@@ -30,7 +29,7 @@ public abstract class DeedSquare extends Square implements Savable {
         this.owner = owner;
         this.currentRent = rents[0];
         this.mortgageValue = rents[8];
-        this.houseBuildingCost = rents[9];
+        this.buildingCost = rents[9];
     }
 
     public int[] getRents() {
@@ -67,10 +66,6 @@ public abstract class DeedSquare extends Square implements Savable {
 
     public int getCurrentRent() {
         return currentRent;
-    }
-
-    public int getHouseBuildingCost() {
-        return houseBuildingCost;
     }
 
     public int getMortgageValue() {

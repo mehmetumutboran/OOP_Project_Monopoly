@@ -9,8 +9,6 @@ import domain.server.player.Player;
 import domain.util.Flags;
 import domain.util.GameInfo;
 
-import java.io.IOException;
-
 public class PayRentRequestInterpreter implements RequestInterpretable {
     @Override
     public void interpret(String[] message, int index) {

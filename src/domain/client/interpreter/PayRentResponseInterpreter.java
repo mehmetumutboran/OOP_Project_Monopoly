@@ -3,7 +3,6 @@ package domain.client.interpreter;
 import domain.client.UIUpdater;
 import domain.server.board.Board;
 import domain.server.board.DeedSquare;
-import domain.server.board.Square;
 import domain.util.GameInfo;
 
 public class PayRentResponseInterpreter implements ResponseInterpretable {

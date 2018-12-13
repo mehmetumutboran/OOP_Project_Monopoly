@@ -40,6 +40,21 @@ public class Railroad extends DeedSquare implements Upgradable{
     }
 
     @Override
+    public boolean isUpgradable() {
+        return false;
+    }
+
+    @Override
+    public boolean isDowngradable() {
+        return false;
+    }
+
+    @Override
+    public void updateRent() {
+
+    }
+
+    @Override
     public boolean isUpgraded() {
         return hasDepot;
     }
@@ -47,6 +62,26 @@ public class Railroad extends DeedSquare implements Upgradable{
     @Override
     public int getBuildingCount() {
         return hasDepot ? 1 : 0;
+    }
+
+    @Override
+    public int getUpgradeLevel() {
+        return 0;
+    }
+
+    @Override
+    public void upgrade() {
+
+    }
+
+    @Override
+    public void downgrade() {
+
+    }
+
+    @Override
+    public int getBuildingCost() {
+        return 0;
     }
 
     public void setHasDepot(boolean hasDepot) {

@@ -56,7 +56,7 @@ public class LabelLighterRequestInterpreter implements RequestInterpretable {
     private ArrayList<String> downgradeAction(String name) {
         ArrayList<String> sq = new ArrayList<>();
         for (Square p : GameInfo.getInstance().getPlayer(name).getOwnedProperties()) {
-            if (GameInfo.getInstance().getCurrentPlayer().checkMajority((Property) p) && ((Property) p).isDowngradable((Property) p)) {
+            if (GameInfo.getInstance().getCurrentPlayer().checkMajority((Property) p) && ((Property) p).isDowngradable()) {
                 sq.add(p.getName());
             }
         }
@@ -72,7 +72,7 @@ public class LabelLighterRequestInterpreter implements RequestInterpretable {
     private ArrayList<String> upgradeAction(String name) {
         ArrayList<String> sq = new ArrayList<>();
         for (Square p : GameInfo.getInstance().getPlayer(name).getOwnedProperties()) {
-            if (GameInfo.getInstance().getCurrentPlayer().checkMajority((Property) p) && ((Property) p).isUpgradable((Property) p, name)) {
+            if (GameInfo.getInstance().getCurrentPlayer().checkMajority((Property) p) && ((Property) p).isUpgradable()) {
                 sq.add(p.getName());
             }
         }
