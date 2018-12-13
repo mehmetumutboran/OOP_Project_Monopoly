@@ -12,7 +12,6 @@ import domain.util.MessageConverter;
 public class DowngradeRequestInterpreter implements RequestInterpretable {
     @Override
     public void interpret(String[] message, int index) {
-
         Player currentPlayer = GameInfo.getInstance().getCurrentPlayer();
         int [] loc = MessageConverter.convertStringToIntArray(message[2], ',');
         Square square = Board.getInstance().getSquare(loc[0],loc[1]);

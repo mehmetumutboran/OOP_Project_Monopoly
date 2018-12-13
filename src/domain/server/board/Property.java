@@ -104,32 +104,34 @@ public class Property extends DeedSquare implements Upgradable {
      * @param square
      * @return
      */
-    public boolean isUpgradable(Property square, String name) {
-        if (!square.getBuildingList().isEmpty() && square.getBuildingList().get(0) instanceof Skyscraper) return false;
+    public boolean isUpgradable(Property square,String name) {
+        //if(square.getBuildingList().isEmpty()) return false;
+        if(!square.getBuildingList().isEmpty() && square.getBuildingList().get(0) instanceof Skyscraper) return false;
         boolean checker = false;
         for (DeedSquare sq : Board.getInstance().getSameColoredSquares(square.getColor())) {
-            if (sq.getOwner() == null) continue;
-            else if (!sq.getOwner().equals(name)) continue;
-            if (!square.getBuildingList().isEmpty() && square.getBuildingList().get(0) instanceof Hotel &&
-                    (((Property) sq).getBuildingList().get(0) instanceof Hotel || ((Property) sq).getBuildingList().get(0) instanceof Skyscraper)) {
+          //  if(square.getName().equals(sq.getName()))continue;
+            if(sq.getOwner()==null) continue;
+            else if(!sq.getOwner().equals(square.getOwner())) continue;
+            if(!square.getBuildingList().isEmpty()&& !((Property)sq).getBuildingList().isEmpty()&& square.getBuildingList().get(0) instanceof Hotel &&
+                    (((Property)sq).getBuildingList().get(0) instanceof Hotel || ((Property)sq).getBuildingList().get(0) instanceof Skyscraper)) {
                 checker = true;
-            } else if (square.getBuildingCount() == 4 &&
-                    (((Property) sq).getBuildingList().get(0) instanceof Hotel || ((Property) sq).getBuildingCount() == 4)) {
+            }else if(!((Property)sq).getBuildingList().isEmpty() && square.getBuildingCount()==4 &&
+                    (((Property)sq).getBuildingList().get(0) instanceof Hotel || ((Property)sq).getBuildingCount()==4)){
                 checker = true;
             } else if (square.getBuildingCount() == 3 &&
                     (((Property) sq).getBuildingCount() == 3 || ((Property) sq).getBuildingCount() == 4)) {
                 checker = true;
-
-            } else if (square.getBuildingCount() == 2 &&
-                    (((Property) sq).getBuildingCount() == 2 || ((Property) sq).getBuildingCount() == 3)) {
+            }else if (square.getBuildingCount()==2 &&
+                    (((Property)sq).getBuildingCount()==2 || ((Property)sq).getBuildingCount()==3)){
                 checker = true;
             } else if (square.getBuildingCount() == 1 &&
                     (((Property) sq).getBuildingCount() == 1 || ((Property) sq).getBuildingCount() == 2)) {
                 checker = true;
-            } else if (square.getBuildingCount() == 0 &&
-                    (((Property) sq).getBuildingCount() == 0 || ((Property) sq).getBuildingCount() == 1)) {
-                checker = true;
-            } else {
+            }else if (square.getBuildingCount()==0 &&
+                    (((Property)sq).getBuildingCount()==0 || ((Property)sq).getBuildingCount()==1)){
+                checker =true;
+            }
+            else {
                 return false;
             }
         }
@@ -140,26 +142,30 @@ public class Property extends DeedSquare implements Upgradable {
         boolean checker = false;
         if (square.getBuildingList().isEmpty()) return false;
         for (DeedSquare sq : Board.getInstance().getSameColoredSquares(square.getColor())) {
-            if (square.getBuildingList().get(0) instanceof Skyscraper &&
+            if(sq.getOwner()==null)continue;
+            else if (!sq.getOwner().equals(square.getOwner()))continue;
+            if (!((Property)sq).getBuildingList().isEmpty() && square.getBuildingList().get(0) instanceof Skyscraper &&
                     (((Property) sq).getBuildingList().get(0) instanceof Skyscraper || ((Property) sq).getBuildingList().get(0) instanceof Hotel)) {
                 checker = true;
-            } else if (square.getBuildingList().get(0) instanceof Hotel &&
-                    (((Property) sq).getBuildingList().get(0) instanceof Hotel || ((Property) sq).getBuildingCount() == 4)) {
-                checker = true;
-            } else if (square.getBuildingCount() == 4 &&
-                    (((Property) sq).getBuildingCount() == 4 || ((Property) sq).getBuildingCount() == 3)) {
-                checker = true;
+            }else if(!((Property)sq).getBuildingList().isEmpty() && square.getBuildingList().get(0) instanceof Hotel &&
+                    (((Property)sq).getBuildingList().get(0) instanceof Hotel
+                            || ((Property)sq).getBuildingCount()==4)){
+                checker=true;
+            }else if(square.getBuildingCount()==4 &&
+                (((Property)sq).getBuildingCount()==4 || ((Property)sq).getBuildingCount()==3)){
+            checker = true;
 
-            } else if (square.getBuildingCount() == 3 &&
-                    (((Property) sq).getBuildingCount() == 3 || ((Property) sq).getBuildingCount() == 2)) {
+            }else if (square.getBuildingCount()==3 &&
+                (((Property)sq).getBuildingCount()==3 || ((Property)sq).getBuildingCount()==2)){
+            checker = true;
+            }else if (square.getBuildingCount()==2 &&
+                (((Property)sq).getBuildingCount()==2 || ((Property)sq).getBuildingCount()==1)){
+            checker = true;
+            }else if (square.getBuildingCount()==1 &&
+                    (((Property)sq).getBuildingCount()==1 || ((Property)sq).getBuildingCount()==0)) {
                 checker = true;
-            } else if (square.getBuildingCount() == 2 &&
-                    (((Property) sq).getBuildingCount() == 2 || ((Property) sq).getBuildingCount() == 1)) {
-                checker = true;
-            } else if (square.getBuildingCount() == 1 &&
-                    (((Property) sq).getBuildingCount() == 1 || ((Property) sq).getBuildingCount() == 0)) {
-                checker = true;
-            } else {
+            }
+            else {
                 return false;
             }
         }

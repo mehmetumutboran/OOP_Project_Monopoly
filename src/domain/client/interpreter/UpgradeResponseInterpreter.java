@@ -10,6 +10,8 @@ import domain.server.building.Skyscraper;
 import domain.server.player.Player;
 import domain.util.GameInfo;
 
+import java.util.ArrayList;
+
 public class UpgradeResponseInterpreter implements ResponseInterpretable {
     @Override
     public void interpret(String[] message) {
@@ -41,9 +43,17 @@ public class UpgradeResponseInterpreter implements ResponseInterpretable {
         }
         currentPlayer.decreaseMoney(((DeedSquare) selectedSquareForUpgrade).getHouseBuildingCost());
 
+        ArrayList<int[]> locationList = new ArrayList<>();
+        for(Square s : currentPlayer.getOwnedProperties()){
+            locationList.add(s.getLocation());
+        }
+
+
+        /////Skyscrapper oldugunda hata var
         UIUpdater.getInstance().setMessage(currentPlayer.getName() + " upgraded " +selectedSquareForUpgrade.getName()
                 + " to " + buildingtoUpgrade.getName());
 
+        UIUpdater.getInstance().updateLabels(locationList, "UP", 0);
         System.out.println("FUrkannnnnnnnnnnnnnnnnnnnnnnnnnn" + currentPlayer.getOwnedProperties());
 
          ClientCommunicationHandler.getInstance().sendReceived();

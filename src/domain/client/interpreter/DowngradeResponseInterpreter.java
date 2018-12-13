@@ -13,7 +13,7 @@ public class DowngradeResponseInterpreter implements ResponseInterpretable {
 
     @Override
     public void interpret(String[] message) {
-
+        System.out.println("!!!!!!!!!!!!!!!!!!!================!!!!!!!!!!!!!!!==================!!!!!!!!!!!!!!!");
         Player currentPlayer = GameInfo.getInstance().getPlayer(message[1]);
         Square selectedSquareForDowngrade = Board.getInstance().getNameGivenSquare(message[2]);
         Building buildingtoDowngrade = null ;

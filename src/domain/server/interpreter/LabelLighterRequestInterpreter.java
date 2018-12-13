@@ -32,8 +32,12 @@ public class LabelLighterRequestInterpreter implements RequestInterpretable {
         }
 
 
-        String[] squares = sq.toArray(new String[0]);
-        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("LabelLighter"), index, MessageConverter.convertArrayToString(squares), actionType);
+        String [] squares = sq.toArray(new String[0]);
+
+        if(sq.isEmpty()){
+            //JOPTION PANE WARN THE PLAYER THAT HE/SHE DOES NOT HAVE ANY PLACE TO PERFORM ACTIONTYPE
+        }else
+            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("LabelLighter"),index, MessageConverter.convertArrayToString(squares),actionType);
     }
 
     private ArrayList<String> mortgageAction(String name) {

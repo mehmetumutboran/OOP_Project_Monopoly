@@ -28,7 +28,8 @@ public class ResponseInterpreter {
         ResponseInterpretable dontPayRentResponseInterpreter = new DontPayRentResponseInterpreter();
         ResponseInterpretable queueResponseInterpreter = new QueueResponseInterpreter();
         ResponseInterpretable initQueueResponseInterpreter = new InitQueueResponseInterpreter();
-        ResponseInterpretable upDownResponseInterpreter = new UpgradeResponseInterpreter();
+        ResponseInterpretable upgradeResponseInterpreter = new UpgradeResponseInterpreter();
+        ResponseInterpretable downgradeResponseInterpreter = new DowngradeResponseInterpreter();
         ResponseInterpretable tokenMovementResponseInterpreter = new TokenMovementResponseInterpreter();
         ResponseInterpretable rollResponseInterpreter = new RollResponseInterpreter();
         ResponseInterpretable specialSquareResponseInterpreter = new SpecialSquareResponseInterpreter();
@@ -67,8 +68,8 @@ public class ResponseInterpreter {
         interpreterMap.put(Flags.getFlag("DontPayRent"), dontPayRentResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Queue"), queueResponseInterpreter);
         interpreterMap.put(Flags.getFlag("InitQueue"), initQueueResponseInterpreter);
-        interpreterMap.put(Flags.getFlag("Upgrade"), upDownResponseInterpreter);
-        interpreterMap.put(Flags.getFlag("Downgrade"), upDownResponseInterpreter); //TODO
+        interpreterMap.put(Flags.getFlag("Upgrade"), upgradeResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("Downgrade"), downgradeResponseInterpreter); //TODO
         interpreterMap.put(Flags.getFlag("Token"), tokenMovementResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Roll"), rollResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Special"), specialSquareResponseInterpreter);
