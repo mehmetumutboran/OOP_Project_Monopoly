@@ -18,10 +18,10 @@ public class DowngradeRequestInterpreter implements RequestInterpretable {
 
         String buildingtoDowngradeFrom;
         if(square.getUpgradeLevel()==7){
-            buildingtoDowngradeFrom="Railroad";
+            buildingtoDowngradeFrom="TrainDepot";
         }
         else if(square.getUpgradeLevel()==6){
-            buildingtoDowngradeFrom="Skyscrapper";
+            buildingtoDowngradeFrom="Skyscraper";
         }else if(square.getUpgradeLevel()==5){
             buildingtoDowngradeFrom="Hotel";
         }else{

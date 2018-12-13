@@ -29,7 +29,7 @@ public class UpgradeRequestInterpreter implements RequestInterpretable {
                 return;
             }
         } else if (square.getUpgradeLevel() == 4) typeOfUpgrade = "Hotel";
-        else if (square.getUpgradeLevel() == 7) typeOfUpgrade = "Railroad";
+        else if (square.getUpgradeLevel() == 7) typeOfUpgrade = "TrainDepot";
         else typeOfUpgrade = "House";
 
         if(currentPlayer.getBalance()>=square.getBuildingCost())
