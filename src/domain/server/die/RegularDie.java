@@ -12,8 +12,12 @@ public class RegularDie extends Die {
         rn = new Random();
     }
 
+    /**
+     * The roll methods that rolls one dice using random class
+     * @param diceCup the dice cup that includes the regular dice.
+     */
     @Override
-    public void roll(DiceCup diceCup, int index) { //TODO Implementation of this method may change
+    public void roll(DiceCup diceCup) { //TODO Implementation of this method may change
         int roll = rn.nextInt(6);
         this.setFaceValue(this.getFaces()[roll]);
         //diceCup.getInstance().getFaceValues()[index] = this.getFaces()[roll];

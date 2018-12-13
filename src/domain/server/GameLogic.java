@@ -65,6 +65,12 @@ public class GameLogic {
 //    }
 //
 //
+
+    /**
+     * This method calls the roll method of {@link DiceCup} to roll the dice for given player.
+     * @param name The name of the player that rolls the dice.
+     * @return int array that includes faces of rolled dice.
+     */
     public int[] roll(String name) {
         //TODO check if the player can roll
         System.out.println("\n\nGameLogic: roll\n\n");
@@ -82,6 +88,11 @@ public class GameLogic {
 //    }
 //
 
+    /**
+     * This method calculates the total face values of the given player.
+     * @param name The name of the player that we want to get total roll of.
+     * @return total of the face values of the given player
+     */
     public int getTotalRoll(String name) {
         int totalRoll;
 //        if (GameInfo.getInstance().getPeek().getFaceValues()[2] <= 3) { // TODO Why peek?
