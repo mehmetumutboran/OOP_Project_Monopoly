@@ -4,3 +4,4 @@ out
 .project
 save/*.txt
 .attach_pid*
+.DS*
