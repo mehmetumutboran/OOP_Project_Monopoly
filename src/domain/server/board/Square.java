@@ -1,10 +1,12 @@
 package domain.server.board;
 
+import java.util.Arrays;
+
 /**
  * Abstract parent class for all the squares on the board.
  * It will hold the common elements for all the squares.
  */
-public abstract class Square {
+public abstract class Square{
     protected String name;
 
     protected int[] location;
@@ -69,5 +71,22 @@ public abstract class Square {
     @Override
     public String toString() {
         return name;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Square)) return false;
+
+        Square square = (Square) o;
+
+        if (!name.equals(square.name)) return false;
+        return Arrays.equals(location, square.location);
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
     }
 }

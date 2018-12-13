@@ -17,7 +17,7 @@ public class UIUpdater {
     private ArrayList<TokenMovementListener> tokenMovementListeners;
     private ArrayList<GameStartedListener> gameStartedListeners;
     private ArrayList<ButtonChangeListener> buttonChangeListeners;
-
+    private ArrayList<LabelChangeListener> labelChangeListeners;
     private String message;
     private String buttonLayout = "000000000000";
     private String defaultLayout = "000000000000";
@@ -37,6 +37,7 @@ public class UIUpdater {
         gameStartedListeners = new ArrayList<>();
         buttonChangeListeners = new ArrayList<>();
         turnUpdateListeners = new ArrayList<>();
+        labelChangeListeners = new ArrayList<>();
     }
 
     public void addMessageChangedListener(MessageChangedListener mcl) {
@@ -66,6 +67,10 @@ public class UIUpdater {
 
     public void addTurnUpdateListener(TurnUpdateListener tul){
         turnUpdateListeners.add(tul);
+    }
+
+    public void addLabelChangeListener (LabelChangeListener lcl){
+        labelChangeListeners.add(lcl);
     }
 
     public void publishGameStartedEvent() {
@@ -107,6 +112,11 @@ public class UIUpdater {
     private void publishCloseButtonEvent() {
         for (CloseButtonListener cbl : closeButtonListeners) {
             cbl.onCloseClickedEvent();
+        }
+    }
+    private void publishLabelChangeEvent(ArrayList<int []> location, String actionType, int i){
+        for (LabelChangeListener lcl: labelChangeListeners){
+            lcl.onLabelChangeEvent(location, actionType, i);
         }
     }
 
@@ -190,4 +200,8 @@ public class UIUpdater {
 //    public void showList() {
 //        UIFacade.getInstance().generateList(GameInfo.getInstance().getPlayerListName(),GameInfo.getInstance().getPlayerListColor());
 //    }
+    public void updateLabels(ArrayList<int[]> locationlst, String actionType, int i){
+        publishLabelChangeEvent(locationlst, actionType, i);
+    }
+
 }

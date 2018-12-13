@@ -1,11 +1,14 @@
 package domain.server.board;
 
 import domain.server.building.Building;
+import domain.server.building.Hotel;
+import domain.server.building.House;
+import domain.server.building.Skyscraper;
 import domain.util.MessageConverter;
 
 import java.util.ArrayList;
 
-public class Property extends DeedSquare {
+public class Property extends DeedSquare implements Upgradable {
     private String color;
     private ArrayList<Building> buildingList;
     private boolean hasUpgrade;
@@ -13,13 +16,13 @@ public class Property extends DeedSquare {
     private int currentRent;
 
     public Property() {
-        this("", 0, 0, 0,new int[]{0, 0, 0, 0, 0,0,0,0,0,0}, "");
+        this("", 0, 0, 0, new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, "");
     }
 
     public Property(String name, int layer, int index, int buyValue, int[] rents, String color) {
-        super(name, layer, index, buyValue,  null,rents);
-       // this.rents = rents.clone();
-      //  this.currentRent = rents[0];
+        super(name, layer, index, buyValue, null, rents);
+        // this.rents = rents.clone();
+        //  this.currentRent = rents[0];
         this.color = color;
         this.buildingList = new ArrayList<>();
         hasUpgrade = false;
@@ -38,9 +41,6 @@ public class Property extends DeedSquare {
         this.hasUpgrade = hasUpgrade;
     }
 
-    public boolean isUpgraded() {
-        return hasUpgrade;
-    }
 
     public ArrayList<Building> getBuildingList() {
         return buildingList;
@@ -66,49 +66,79 @@ public class Property extends DeedSquare {
         this.currentRent = currentRent;
     }
 
-    //    public int getHouseCost() {
-//        return 0;
-//    }
-
-//    public int getHotelCost() {
-//        return 0;
-//    }
-
-//    public int getSkyScrapperCost() {
-//        return 0;
-//    }
-
-    public void updateRent() {
-        if (this.buildingList.isEmpty()) {
-
-        } else if (this.buildingList.get(0).getName().equals("Skyscrapper")) {
-
-        } else if (this.buildingList.get(0).getName().equals("Hotel")) {
-
-        } else {
-            if (this.buildingList.size() == 4) {
-
-            } else if (this.buildingList.size() == 3) {
-
-            } else if (this.buildingList.size() == 2) {
-
-            } else {
-
-            }
-        }
-    }
-
 
     /**
      * Checks if all squares in Square's color group are at the same level.
      *
-     * @param square
+     * @param
      * @return
      */
-    public boolean isUpgradable(Property square) {
-        //TODO for upgrade downgrade
-        return false;
-    }
+//    public boolean isUpgradable(Property square,String name) {
+//        //if(square.getBuildingList().isEmpty()) return false;
+//        if(!square.getBuildingList().isEmpty() && square.getBuildingList().get(0) instanceof Skyscraper) return false;
+//        boolean checker = false;
+//        for (DeedSquare sq : Board.getInstance().getSameColoredSquares(square.getColor())) {
+//          //  if(square.getName().equals(sq.getName()))continue;
+//            if(sq.getOwner()==null) continue;
+//            else if(!sq.getOwner().equals(square.getOwner())) continue;
+//            if(!square.getBuildingList().isEmpty()&& !((Property)sq).getBuildingList().isEmpty()&& square.getBuildingList().get(0) instanceof Hotel &&
+//                    (((Property)sq).getBuildingList().get(0) instanceof Hotel || ((Property)sq).getBuildingList().get(0) instanceof Skyscraper)) {
+//                checker = true;
+//            }else if(!((Property)sq).getBuildingList().isEmpty() && square.getBuildingCount()==4 &&
+//                    (((Property)sq).getBuildingList().get(0) instanceof Hotel || ((Property)sq).getBuildingCount()==4)){
+//                checker = true;
+//            } else if (square.getBuildingCount() == 3 &&
+//                    (((Property) sq).getBuildingCount() == 3 || ((Property) sq).getBuildingCount() == 4)) {
+//                checker = true;
+//            }else if (square.getBuildingCount()==2 &&
+//                    (((Property)sq).getBuildingCount()==2 || ((Property)sq).getBuildingCount()==3)){
+//                checker = true;
+//            } else if (square.getBuildingCount() == 1 &&
+//                    (((Property) sq).getBuildingCount() == 1 || ((Property) sq).getBuildingCount() == 2)) {
+//                checker = true;
+//            }else if (square.getBuildingCount()==0 &&
+//                    (((Property)sq).getBuildingCount()==0 || ((Property)sq).getBuildingCount()==1)){
+//                checker =true;
+//            }
+//            else {
+//                return false;
+//            }
+//        }
+//        return checker;
+//    }
+//    public boolean isDowngradable(Property square) {
+//        boolean checker = false;
+//        if (square.getBuildingList().isEmpty()) return false;
+//        for (DeedSquare sq : Board.getInstance().getSameColoredSquares(square.getColor())) {
+//            if(sq.getOwner()==null)continue;
+//            else if (!sq.getOwner().equals(square.getOwner()))continue;
+//            if (!((Property)sq).getBuildingList().isEmpty() && square.getBuildingList().get(0) instanceof Skyscraper &&
+//                    (((Property) sq).getBuildingList().get(0) instanceof Skyscraper || ((Property) sq).getBuildingList().get(0) instanceof Hotel)) {
+//                checker = true;
+//            }else if(!((Property)sq).getBuildingList().isEmpty() && square.getBuildingList().get(0) instanceof Hotel &&
+//                    (((Property)sq).getBuildingList().get(0) instanceof Hotel
+//                            || ((Property)sq).getBuildingCount()==4)){
+//                checker=true;
+//            }else if(square.getBuildingCount()==4 &&
+//                (((Property)sq).getBuildingCount()==4 || ((Property)sq).getBuildingCount()==3)){
+//            checker = true;
+//
+//            }else if (square.getBuildingCount()==3 &&
+//                (((Property)sq).getBuildingCount()==3 || ((Property)sq).getBuildingCount()==2)){
+//            checker = true;
+//            }else if (square.getBuildingCount()==2 &&
+//                (((Property)sq).getBuildingCount()==2 || ((Property)sq).getBuildingCount()==1)){
+//            checker = true;
+//            }else if (square.getBuildingCount()==1 &&
+//                    (((Property)sq).getBuildingCount()==1 || ((Property)sq).getBuildingCount()==0)) {
+//                checker = true;
+//            }
+//            else {
+//                return false;
+//            }
+//        }
+//        return checker;
+//    }
 
     @Override
     public String generateSaveInfo() {
@@ -117,4 +147,149 @@ public class Property extends DeedSquare {
                 MessageConverter.convertListToString(buildingList) + ";" +
                 hasUpgrade + "+";
     }
+
+    @Override
+    public boolean isUpgraded() {
+        return hasUpgrade;
+    }
+
+    @Override
+    public int getBuildingCount() {
+        return this.buildingList.size();
+    }
+
+    @Override
+    public int getUpgradeLevel() {
+        if(buildingList.isEmpty()) return 0;
+        if(buildingList.get(0) instanceof Skyscraper)
+            return 6;
+        else if(buildingList.get(0) instanceof Hotel){
+            return 5;
+        }
+        return buildingList.size();
+    }
+
+    @Override
+    public void upgrade() {
+        if(getUpgradeLevel()<=3) buildingList.add(new House(buildingCost));
+        else if(getUpgradeLevel()==4){
+            buildingList.clear();
+            buildingList.add(new Hotel(buildingCost));
+        }else {
+            buildingList.clear();
+            buildingList.add(new Skyscraper(buildingCost));
+        }
+        hasUpgrade = true;
+        updateRent();
+    }
+
+    @Override
+    public void downgrade() {
+
+    }
+
+    @Override
+    public int getBuildingCost() {
+        return this.buildingCost;
+    }
+
+    @Override
+    public boolean isUpgradable() {
+        if (!buildingList.isEmpty() && buildingList.get(0) instanceof Skyscraper) return false;
+        boolean checker = false;
+        for (Property sq : Board.getInstance().getSameColoredSquares(color)) {
+            //  if(square.getName().equals(sq.getName()))continue;
+            if (sq.getOwner() == null) continue;
+            else if (!sq.getOwner().equals(owner)) continue;
+            else if (sq.equals(this)) continue;
+
+            int levelDiff = ((Upgradable) sq).getUpgradeLevel() - getUpgradeLevel();
+
+            if (levelDiff == 0 || levelDiff == 1) {
+                checker = true;
+            }
+            else
+                return false;
+
+//            if (!buildingList.isEmpty() && !sq.getBuildingList().isEmpty() && buildingList.get(0) instanceof Hotel &&
+//                    (sq.getBuildingList().get(0) instanceof Hotel || sq.getBuildingList().get(0) instanceof Skyscraper)) {
+//                checker = true;
+//            } else if (!sq.getBuildingList().isEmpty() && getBuildingCount() == 4 &&
+//                    (sq.getBuildingList().get(0) instanceof Hotel || sq.getBuildingCount() == 4)) {
+//                checker = true;
+//            } else if (getBuildingCount() == 3 &&
+//                    (sq.getBuildingCount() == 3 || sq.getBuildingCount() == 4)) {
+//                checker = true;
+//            } else if (getBuildingCount() == 2 &&
+//                    (sq.getBuildingCount() == 2 || sq.getBuildingCount() == 3)) {
+//                checker = true;
+//            } else if (getBuildingCount() == 1 &&
+//                    (sq.getBuildingCount() == 1 || sq.getBuildingCount() == 2)) {
+//                checker = true;
+//            } else if (getBuildingCount() == 0 &&
+//                    (sq.getBuildingCount() == 0 || sq.getBuildingCount() == 1)) {
+//                checker = true;
+//            } else {
+//                return false;
+//            }
+        }
+        return checker;
+    }
+
+    @Override
+    public boolean isDowngradable() {
+//        boolean checker = false;
+//        if (square.getBuildingList().isEmpty()) return false;
+//        for (DeedSquare sq : Board.getInstance().getSameColoredSquares(square.getColor())) {
+//            if (sq.getOwner() == null) continue;
+//            else if (!sq.getOwner().equals(square.getOwner())) continue;
+//            if (!((Property) sq).getBuildingList().isEmpty() && square.getBuildingList().get(0) instanceof Skyscraper &&
+//                    (((Property) sq).getBuildingList().get(0) instanceof Skyscraper || ((Property) sq).getBuildingList().get(0) instanceof Hotel)) {
+//                checker = true;
+//            } else if (!((Property) sq).getBuildingList().isEmpty() && square.getBuildingList().get(0) instanceof Hotel &&
+//                    (((Property) sq).getBuildingList().get(0) instanceof Hotel
+//                            || ((Property) sq).getBuildingCount() == 4)) {
+//                checker = true;
+//            } else if (square.getBuildingCount() == 4 &&
+//                    (((Property) sq).getBuildingCount() == 4 || ((Property) sq).getBuildingCount() == 3)) {
+//                checker = true;
+//
+//            } else if (square.getBuildingCount() == 3 &&
+//                    (((Property) sq).getBuildingCount() == 3 || ((Property) sq).getBuildingCount() == 2)) {
+//                checker = true;
+//            } else if (square.getBuildingCount() == 2 &&
+//                    (((Property) sq).getBuildingCount() == 2 || ((Property) sq).getBuildingCount() == 1)) {
+//                checker = true;
+//            } else if (square.getBuildingCount() == 1 &&
+//                    (((Property) sq).getBuildingCount() == 1 || ((Property) sq).getBuildingCount() == 0)) {
+//                checker = true;
+//            } else {
+//                return false;
+//            }
+//        }
+//        return checker;
+        return false;
+    }
+
+    @Override
+    public void updateRent() {
+        if (this.buildingList.isEmpty()) {
+            setCurrentRent(rents[0]);
+        } else if (this.buildingList.get(0).getName().equals("Skyscrapper")) {
+            setCurrentRent(rents[6]);
+        } else if (this.buildingList.get(0).getName().equals("Hotel")) {
+            setCurrentRent(rents[5]);
+        } else {
+            if (this.buildingList.size() == 4) {
+                setCurrentRent(rents[4]);
+            } else if (this.buildingList.size() == 3) {
+                setCurrentRent(rents[3]);
+            } else if (this.buildingList.size() == 2) {
+                setCurrentRent(rents[2]);
+            } else {
+                setCurrentRent(rents[1]);
+            }
+        }
+    }
+
 }

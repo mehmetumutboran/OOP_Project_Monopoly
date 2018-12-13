@@ -1,6 +1,6 @@
 package domain.client.interpreter;
 
-public class UpDownResponseInterpreter implements ResponseInterpretable {
+public class DontUnmortgageResponseInterpreter implements ResponseInterpretable {
     @Override
     public void interpret(String[] message) {
 

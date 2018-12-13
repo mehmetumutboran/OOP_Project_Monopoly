@@ -6,9 +6,6 @@ import domain.util.Flags;
 import domain.util.GameInfo;
 import network.server.serverFacade.ServerFacade;
 
-import java.io.IOException;
-import java.util.Arrays;
-
 public class FinishRequestInterpreter implements RequestInterpretable {
     @Override
     public void interpret(String[] message, int index) {
@@ -23,8 +20,10 @@ public class FinishRequestInterpreter implements RequestInterpretable {
             }
         }
 
-        String nextPlayer = GameInfo.getInstance().getCurrentPlayer();
+        String nextPlayer = GameInfo.getInstance().getCurrentPlayerName();
         if (!GameInfo.getInstance().isBot(nextPlayer))
-            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), ServerFacade.getInstance().nameToIndex(nextPlayer), "000001000110", name);
+            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), ServerFacade.getInstance().nameToIndex(nextPlayer), "001001100110", name);
+
+        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("DoubleCounter"), name, "0");
     }
 }

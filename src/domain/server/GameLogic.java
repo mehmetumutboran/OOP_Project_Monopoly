@@ -3,16 +3,18 @@ package domain.server;
 import domain.server.board.Board;
 import domain.server.board.DeedSquare;
 import domain.server.board.Square;
+import domain.server.building.Hotel;
+import domain.server.building.Skyscraper;
 import domain.server.controller.ServerCommunicationHandler;
 import domain.server.die.DiceCup;
 import domain.server.move.NormalMove;
 import domain.server.move.UpDownMove;
+import domain.server.player.Player;
 import domain.util.Flags;
 import domain.util.GameInfo;
 import domain.util.MessageConverter;
 
 import java.util.Arrays;
-
 
 public class GameLogic {
     private static GameLogic ourInstance;
@@ -37,16 +39,16 @@ public class GameLogic {
 
 //    void changePool(String money) { // TODO Useless
 //        Board.getInstance().increasePool(Integer.parseInt(money));
-//        ServerCommunicationHandler.getInstance().sendResponse(poolFlag, getCurrentPlayer().getName(), money);
+//        ServerCommunicationHandler.getInstance().sendResponse(poolFlag, getCurrentPlayerName().getName(), money);
 //    }
 
     //    public boolean buy() {
 //        /* true ??????? */
 //        System.out.println("in  logic buy");
 //
-//        if (getCurrentPlayer().buy()) {
+//        if (getCurrentPlayerName().buy()) {
 //            System.out.println("player buy completed, is sending action");
-//            ServerCommunicationHandler.getInstance().sendResponse(buyFlag, getCurrentPlayer().getName());
+//            ServerCommunicationHandler.getInstance().sendResponse(buyFlag, getCurrentPlayerName().getName());
 //            return true;
 //        } else return false;
 //    }
@@ -55,20 +57,20 @@ public class GameLogic {
 //        /* true ??????? */
 //        System.out.println("in  logic buy");
 //
-//        if (getCurrentPlayer().payRent()) {
+//        if (getCurrentPlayerName().payRent()) {
 //            System.out.println("player payRent completed, is sending action");
-//            ServerCommunicationHandler.getInstance().sendResponse(payRentFlag, getCurrentPlayer().getName());
+//            ServerCommunicationHandler.getInstance().sendResponse(payRentFlag, getCurrentPlayerName().getName());
 //            return true;
 //        } else return false;
 //    }
 //
 //
-    public int [] roll(String name) {
+    public int[] roll(String name) {
         //TODO check if the player can roll
         System.out.println("\n\nGameLogic: roll\n\n");
-        int [] loc = GameInfo.getInstance().getPlayer(name).getToken().getLocation();
+        int[] loc = GameInfo.getInstance().getPlayer(name).getToken().getLocation();
         String locName = Board.getInstance().getSquare(loc[0], loc[1]).getName();
-        int [] currentDice = DiceCup.getInstance().rollDice(locName);
+        int[] currentDice = DiceCup.getInstance().rollDice(locName);
         System.out.println("In the Game Logic Roll Method");
         return currentDice;
     }
@@ -80,7 +82,7 @@ public class GameLogic {
 //    }
 //
 
-    public int getTotalRoll(String name){
+    public int getTotalRoll(String name) {
         int totalRoll;
 //        if (GameInfo.getInstance().getPeek().getFaceValues()[2] <= 3) { // TODO Why peek?
         if (GameInfo.getInstance().getPlayer(name).getFaceValues()[2] <= 3) {
@@ -124,9 +126,9 @@ public class GameLogic {
         }
         */
         /*check if mrMonopoly and it is not checked played yet*/
-   //     if (GameInfo.getInstance().getPlayer(name).getFaceValues()[2] == 7 /*&& !isMrMonopolyChecked()*/){
-            /*setMrMonopolyChecked(true);*/
-            /*check if bot*/
+        //     if (GameInfo.getInstance().getPlayer(name).getFaceValues()[2] == 7 /*&& !isMrMonopolyChecked()*/){
+        /*setMrMonopolyChecked(true);*/
+        /*check if bot*/
             /*
             if(GameInfo.getInstance().getPlayer(GameInfo.getInstance().getCurrentPlayer()).getReadiness().equals("Bot")){
                 setMrMonopolyChecked(false);
@@ -147,73 +149,71 @@ public class GameLogic {
             return true;
 
         }
-      //      return  true;
-      //  }
+        //      return  true;
+        //  }
         else return false;
     }
 
     public int[] findNextUnOwnedSquare(int[] loc) {
-        return scanLayer(loc , loc[0]);
+        return scanLayer(loc, loc[0]);
     }
 
-    public int[] scanLayer(int[] loc ,int layer){
-        if(layer==0) {
-            for(int i=1;i<ZEROTH_LAYER_SQ;i++){
-                if(  findNextSquare(loc , i) instanceof DeedSquare
-                        && ((DeedSquare) findNextSquare(loc , i)).getOwner()==null)
-                    return findNextSquare(loc , i).getLocation();
+    public int[] scanLayer(int[] loc, int layer) {
+        if (layer == 0) {
+            for (int i = 1; i < ZEROTH_LAYER_SQ; i++) {
+                if (findNextSquare(loc, i) instanceof DeedSquare
+                        && ((DeedSquare) findNextSquare(loc, i)).getOwner() == null)
+                    return findNextSquare(loc, i).getLocation();
+            }
+        } else if (layer == 1) {
+            for (int i = 1; i < FIRST_LAYER_SQ; i++) {
+                findNextSquare(loc, i);
+                if (findNextSquare(loc, i) instanceof DeedSquare
+                        && ((DeedSquare) findNextSquare(loc, i)).getOwner() == null)
+                    return findNextSquare(loc, i).getLocation();
+            }
+        } else if (layer == 2) {
+            for (int i = 1; i < SECOND_LAYER_SQ; i++) {
+                findNextSquare(loc, i);
+                if (findNextSquare(loc, i) instanceof DeedSquare
+                        && ((DeedSquare) findNextSquare(loc, i)).getOwner() == null)
+                    return findNextSquare(loc, i).getLocation();
             }
         }
-        else if(layer==1) {
-            for(int i=1;i<FIRST_LAYER_SQ;i++){
-                findNextSquare(loc , i);
-                if(  findNextSquare(loc , i) instanceof DeedSquare
-                        && ((DeedSquare) findNextSquare(loc , i)).getOwner()==null)
-                    return findNextSquare(loc , i).getLocation();}
-        }
-        else if(layer==2) {
-            for(int i=1;i<SECOND_LAYER_SQ;i++){
-                findNextSquare(loc , i);
-                if(  findNextSquare(loc , i) instanceof DeedSquare
-                        && ((DeedSquare) findNextSquare(loc , i)).getOwner()==null)
-                    return findNextSquare(loc , i).getLocation();}
-        }
-        return  loc ;      }
-
-    public Square findNextSquare(int[] loc , int i){
-        if(loc[0]==0){
-            int[] searchLoc = {0,loc[1]};
-
-            if((loc[1]+i)>(ZEROTH_LAYER_SQ-1)){
-                searchLoc[1]=loc[1]+i-ZEROTH_LAYER_SQ+1;}
-            else{
-                searchLoc[1]=loc[1]+i;}
-            return Board.getInstance().getSquare(searchLoc[0] , searchLoc[1]);
-        }
-
-        else if(loc[0]==1){
-            int[] searchLoc = {1,loc[1]};
-            if((loc[1]+i)>(FIRST_LAYER_SQ-1)){
-                searchLoc[1]=loc[1]+i-FIRST_LAYER_SQ+1;}
-            else{
-                searchLoc[1]=loc[1]+i;}
-            return Board.getInstance().getSquare(searchLoc[0] , searchLoc[1]);
-
-        }
-
-        else if(loc[0]==2){
-            int[] searchLoc = {2,loc[1]};
-            if((loc[1]+i)>(SECOND_LAYER_SQ-1)){
-                searchLoc[1]=loc[1]+i-SECOND_LAYER_SQ+1;}
-            else{
-                searchLoc[1]=loc[1]+i;}
-            return Board.getInstance().getSquare(searchLoc[0] , searchLoc[1]);
-
-        }
-        else  return Board.getInstance().getSquare(loc[0] , loc[1]);
-
+        return loc;
     }
 
+    public Square findNextSquare(int[] loc, int i) {
+        if (loc[0] == 0) {
+            int[] searchLoc = {0, loc[1]};
+
+            if ((loc[1] + i) > (ZEROTH_LAYER_SQ - 1)) {
+                searchLoc[1] = loc[1] + i - ZEROTH_LAYER_SQ + 1;
+            } else {
+                searchLoc[1] = loc[1] + i;
+            }
+            return Board.getInstance().getSquare(searchLoc[0], searchLoc[1]);
+        } else if (loc[0] == 1) {
+            int[] searchLoc = {1, loc[1]};
+            if ((loc[1] + i) > (FIRST_LAYER_SQ - 1)) {
+                searchLoc[1] = loc[1] + i - FIRST_LAYER_SQ + 1;
+            } else {
+                searchLoc[1] = loc[1] + i;
+            }
+            return Board.getInstance().getSquare(searchLoc[0], searchLoc[1]);
+
+        } else if (loc[0] == 2) {
+            int[] searchLoc = {2, loc[1]};
+            if ((loc[1] + i) > (SECOND_LAYER_SQ - 1)) {
+                searchLoc[1] = loc[1] + i - SECOND_LAYER_SQ + 1;
+            } else {
+                searchLoc[1] = loc[1] + i;
+            }
+            return Board.getInstance().getSquare(searchLoc[0], searchLoc[1]);
+
+        } else return Board.getInstance().getSquare(loc[0], loc[1]);
+
+    }
 
 
     private boolean checkTriple(String name) {
@@ -231,35 +231,35 @@ public class GameLogic {
     }
 
     public boolean checkSecondTurn(String name) {
-        if(!checkDouble(name)) return false;
-        else if(checkJail(name)) return false;
+        if (!checkDouble(name)) return false;
+        else if (checkJail(name)) return false;
         else return true;
     }
 
     public void updateDoubleCounter(String name) {
-        if(checkDouble(name) && !checkJail(name)){
+        if (checkDouble(name) && !checkJail(name)) {
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("DoubleCounter"), name, "1");
         }
     }
 
 
-    public boolean checkMoveConditions(String name){
-       if (GameLogic.getInstance().checkThirdDouble(name)) {
-           GameLogic.getInstance().sendToJail(name);
-           return false;
-       } else if (GameLogic.getInstance().checkJail(name)) {
-           GameLogic.getInstance().tryToGoOutOfJail(name);
-           return false;
-       } else if (GameLogic.getInstance().checkTriple(name)) {
-           //selectDestinationSQ();
-           return false;
-       } else if (GameLogic.getInstance().checkBus(name)) {
-           //
-           return false;
-       }
-       return true;
+    public boolean checkMoveConditions(String name) {
+        if (GameLogic.getInstance().checkThirdDouble(name)) {
+            GameLogic.getInstance().sendToJail(name);
+            return false;
+        } else if (GameLogic.getInstance().checkJail(name)) {
+            GameLogic.getInstance().tryToGoOutOfJail(name);
+            return false;
+        } else if (GameLogic.getInstance().checkTriple(name)) {
+            //selectDestinationSQ();
+            return false;
+        } else if (GameLogic.getInstance().checkBus(name)) {
+            //
+            return false;
+        }
+        return true;
 
-   }
+    }
 
     private void tryToGoOutOfJail(String name) {
         if (checkDouble(name)) {
@@ -271,7 +271,7 @@ public class GameLogic {
 
     private void sendToJail(String name) {
         ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("GoToJail"), name);
-        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Move"), name,MessageConverter.convertArrayToString(Board.getInstance().getNameGivenSquare("Jail").getLocation()) + "@" + "Jail");
+        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Move"), name, MessageConverter.convertArrayToString(Board.getInstance().getNameGivenSquare("Jail").getLocation()) + "@" + "Jail");
     }
 
     public String move(String name) {
@@ -323,104 +323,49 @@ public class GameLogic {
 //    }
 
 
-////    public void upgrade(Square square) {
-////        Player currentPlayer = getCurrentPlayer();
-////        if (square.getClass().getName().equals("RailRoad")) {
-////            if (currentPlayer.getBalance() >= 100) {
-////                ((Railroad) square).setHasDepot(true);
-////                currentPlayer.decreaseMoney(100);
-////                ((Railroad) square).updateRent();
-////                System.out.println(currentPlayer.getName() + " upgraded Railroad ");
-////            } else
-////                System.out.println(currentPlayer.getName() + " does not have enough money to upgrade " + square.getName());
-////        } else if (square.getClass().getName().equals("Property")) {
-////            if (currentPlayer.checkMajority(((Property) square))) {
-////                if (((Property) square).isUpgradable((Property) square)) {
-////                    if (((Property) square).getBuildingList().get(0).getName().equals("Hotel") && currentPlayer.getBalance() >= ((Property) square).getSkyScrapperCost()) {
-////                        ((Property) square).getBuildingList().remove(0);
-////                        ((Property) square).getBuildingList().add(new Skyscraper());
-////                        currentPlayer.decreaseMoney(((Property) square).getSkyScrapperCost());
-////
-////                    } else if ((((Property) square).getBuildingList().size() == 4) && currentPlayer.getBalance() >= ((Property) square).getSkyScrapperCost()) {
-////                        ((Property) square).getBuildingList().clear();
-////                        ((Property) square).getBuildingList().add(new Hotel());
-////                        currentPlayer.decreaseMoney(((Property) square).getHotelCost());
-////
-////                    } else {
-////                        if (currentPlayer.getBalance() >= ((Property) square).getHouseCost()) {
-////                            ((Property) square).getBuildingList().add(new House());
-////                            currentPlayer.decreaseMoney(((Property) square).getHouseCost());
-////                        }
-////                    }
-////                    ((Property) square).updateRent();
-////                    System.out.println(currentPlayer.getName() + " upgraded " + square.getName() + " to " +
-////                            ((Property) square).getBuildingList().get(0));
-////                    ((Property) square).setUpgraded(true);
-////                } else System.out.println("Current square is not a deed square");
-////            }
-////
-////        }
-////        ServerCommunicationHandler.getInstance().sendupdowngradeAction(upgradeFlag, (DeedSquare) square);
-////    }
-//
-////    public void downgrade(Square square) {
-////        Player currentPlayer = getCurrentPlayer();
-////        if (square.getClass().getName().equals("Railroad")) {
-////            if (((Railroad) square).isHasDepot()) {
-////                currentPlayer.increaseMoney(50);
-////                ((Railroad) square).setHasDepot(false);
-////                ((Railroad) square).updateRent();
-////                System.out.println(currentPlayer.getName() + " downgraded Railroad");
-////            } else System.out.println(currentPlayer.getName() + " can not downgrade " + square.getName());
-////        } else if (square.getClass().getName().equals("Property")) {
-////            if (((Property) square).isUpgraded()) {
-////                Building building = ((Property) square).getBuildingList().get(0);
-////                ((Property) square).getBuildingList().remove(0);
-////                currentPlayer.increaseMoney(building.getCost() / 2);
-////                if (building.getName().equals("Skyscrapper"))
-////                    ((Property) square).getBuildingList().add(new Hotel());
-////                else if (building.getName().equals("Hotel")) {
-////                    for (int i = 0; i < 4; i++)
-////                        ((Property) square).getBuildingList().add(new House());
-////                }
-////                ((Property) square).updateRent(); //SET RENT according to number of houses in the building list
-////                if (((Property) square).getBuildingList().isEmpty()) ((Property) square).setUpgraded(false);
-////            } else System.out.println(currentPlayer.getName() + " can not downgrade " + square.getName());
-////        } else System.out.println("Current square is not a deed square");
-////        ServerCommunicationHandler.getInstance().sendupdowngradeAction(downgradeFlag, (DeedSquare) square);
-////    }
-//
-//
-//    private void checkSpecialSquare(int[] newLoc) { // TODO Buggy Code Burda para degisimi yollanan mesajlar felan ile ilgili sorunlar var.
-//        Square square = Board.getInstance().getSquare(newLoc[0], newLoc[1]);
-//        if (square instanceof SpecialSquareStrategy) {
-//            int initMoney = getCurrentPlayer().getBalance();
-//            System.out.println("\n\n================\nInitMoney: " + initMoney + "\n");
-//
-//            ((SpecialSquareStrategy) square).doAction();
-//
-//            int finalMoney = getCurrentPlayer().getBalance();
-//            System.out.println("\n\n================\nFinalMoney: " + finalMoney + "\n");
-//
-//            ServerCommunicationHandler.getInstance().sendResponse(specialSquareFlag, getCurrentPlayer().getName());
-//
-//
-//            /* sendResponse will be handled for many cards
-//             * so far considers only two cards
-//             * interpret should consider other cards as well.
-//             * defined flags not enough*/
-//            if (square instanceof Chance) {
-//                ServerCommunicationHandler.getInstance().sendResponse(moneyFlag, getCurrentPlayer().getName(), finalMoney - initMoney);
-//            } else if (square instanceof CommunityChest) {
-//                int loc[] = getCurrentPlayer().getToken().getLocation();
-//                if (loc[0] != 1)
-//                    ServerCommunicationHandler.getInstance().sendResponse(moneyFlag, getCurrentPlayer().getName(), finalMoney - initMoney);
-//                /*increase money flag handles both increase and decrease*/
-//
-//            }
-//        }
+//    public void applyRailRoadUpgrade(Square square, Player currentPlayer) {
+//        String typeOfUpgrade = "Railroad";
+//        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Upgrade"), currentPlayer.getName(), square.getName(), typeOfUpgrade);
 //    }
 //
+//    public void applyPropertyUpgrade(Square square, int index, Player currentPlayer) {
+//        String typeOfUpgrade = null;
+//        if (!((Property) square).getBuildingList().isEmpty() && ((Property) square).getBuildingList().get(0) instanceof Hotel) {
+//            if (currentPlayer.checkMonopoly((Property) square)) {
+//                typeOfUpgrade = "Skyscrapper";
+//            } else {
+//                System.out.println("CANT UPGRADE TO SKYSCRAPPER BECAUSE NOT MONOPOLY");
+//                return;
+//                //ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("DontUpgrade"),index," ");
+//            }
+//        } else if (((Property) square).getBuildingList().size() == 4) {
+//            typeOfUpgrade = "Hotel";
+//        } else {
+//            typeOfUpgrade = "House";
+//        }
 //
+//        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Upgrade"), currentPlayer.getName(), square.getName(), typeOfUpgrade);
+//    }
+
+
+
+
+//    public void applyRailDowngrade(Square square, Player currentPlayer) {
+//        String buildingtoDownFrom = "Railroad";
+//        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Downgrade"), currentPlayer.getName(), square.getName(), buildingtoDownFrom);
+//    }
+//
+//    public void applydowngrade(Square square, Player currentPlayer) {
+//        String buildingtoDownfrom = null;
+//        if (!((Property) square).getBuildingList().isEmpty() && ((Property) square).getBuildingList().get(0) instanceof Skyscraper) {
+//            buildingtoDownfrom = "Skyscrapper";
+//        } else if (!((Property) square).getBuildingList().isEmpty() && ((Property) square).getBuildingList().get(0) instanceof Hotel) {
+//            buildingtoDownfrom = "Hotel";
+//        } else if (!((Property) square).getBuildingList().isEmpty() && ((Property) square).getBuildingList().size() > 0) {
+//            buildingtoDownfrom = "House";
+//        }
+//        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Downgrade"), currentPlayer.getName(), square.getName(), buildingtoDownfrom);
+//    }
+
 
 }

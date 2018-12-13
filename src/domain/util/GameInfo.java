@@ -1,6 +1,7 @@
 package domain.util;
 
 import domain.server.Savable;
+import domain.server.board.DeedSquare;
 import domain.server.board.Property;
 import domain.server.board.Railroad;
 import domain.server.board.Utility;
@@ -59,6 +60,10 @@ public class GameInfo implements Savable {
 
     public void setPlayerList(ArrayList<Player> playerList) {
         this.playerList = playerList;
+    }
+
+    public Player getCurrentPlayer(){
+        return getPlayer(getPlayerQueue().peek());
     }
 
     public Player getPlayer(String name) {
@@ -184,9 +189,9 @@ public class GameInfo implements Savable {
 
     public void loadPlayer(String name, int layer, int location, String color, int balance,
                            ArrayList<? extends Savable> propertyList, ArrayList<? extends Savable> utilityList, ArrayList<? extends Savable> railroadList,
-                           String readiness, boolean isStarted, int doubleCounter, boolean isInJail) {
+                           ArrayList<? extends Savable> mortgagedSquares, String readiness, boolean isStarted, int doubleCounter, boolean isInJail) {
         Player player = new Player(name, new Token(new int[]{layer, location}, color), balance, (ArrayList<Property>) propertyList, (ArrayList<Utility>) utilityList, (ArrayList<Railroad>) railroadList,
-                readiness, isStarted, doubleCounter, isInJail);
+                (ArrayList<DeedSquare>) mortgagedSquares, readiness, isStarted, doubleCounter, isInJail);
         this.playerList.add(player);
     }
 
@@ -265,7 +270,7 @@ public class GameInfo implements Savable {
         return getPlayer(playerQueue.peekFirst()).getReadiness().equals("Bot");
     }
 
-    public String getCurrentPlayer() {
+    public String getCurrentPlayerName() {
         return playerQueue.peekFirst();
     }
 
@@ -274,6 +279,10 @@ public class GameInfo implements Savable {
     }
 
     public boolean isCurrentPlayerFromIndex(int i) {
-        return playerList.get(i).getName().equals(getCurrentPlayer());
+        return playerList.get(i).getName().equals(getCurrentPlayerName());
+    }
+
+    public String getMortgagedFromIndex(int i) {
+        return playerList.get(i).getMortgagedSquares().toString();
     }
 }

@@ -63,10 +63,13 @@ public class ServerCommunicationHandler {
         ServerFacade.getInstance()
                 .send(index, GameState.getInstance().generateCurrentAction(flag, count, name));
     }
+    public synchronized void sendResponse(char flag, String player, String square, String buildingToUporDown){
+        ServerFacade.getInstance().send(GameState.getInstance().generateCurrentAction(flag,player,square,buildingToUporDown));
+    }
 
-    public synchronized void sendResponse(char flag, int index, String message, String name) {
+    public synchronized void sendResponse(char flag, int index, String message, String args) {
         ServerFacade.getInstance()
-                .send(index, GameState.getInstance().generateCurrentAction(flag, message, name));
+                .send(index, GameState.getInstance().generateCurrentAction(flag, message, args));
     }
 
 //    public synchronized void sendResponse(char flag, String message, String name) {

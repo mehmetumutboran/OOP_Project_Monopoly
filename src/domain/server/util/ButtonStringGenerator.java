@@ -1,6 +1,5 @@
 package domain.server.util;
 
-import domain.server.GameLogic;
 import domain.server.board.*;
 import domain.server.board.specialSquares.Chance;
 import domain.server.board.specialSquares.CommunityChest;

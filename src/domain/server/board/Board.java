@@ -11,7 +11,7 @@ import java.util.HashMap;
 public class Board {
     private static Board instance;
     private Square[][] squareList;
-    private HashMap<String, DeedSquare[]> squareMap;
+    private HashMap<String, Property[]> squareMap;
     private static final int SECONDLAYERSQ = 24;
     private static final int FIRSTLAYERSQ = 40;
     private static final int ZEROTHLAYERSQ = 56;
@@ -19,6 +19,9 @@ public class Board {
     private ChanceCard[] chanceDeckList;
     private Community[] communityDeckList;
     private int pool;
+
+   // private static HashMap<String, Integer> ColorNumber = new HashMap<>();
+
 
     private Board() {
         squareList = new Square[3][56];
@@ -64,7 +67,7 @@ public class Board {
         return squareList[layer][index];
     } //TODO: Change name
 
-    public DeedSquare[] getSameColoredSquares(String color) {
+    public Property[] getSameColoredSquares(String color) {
         return squareMap.get(color);
     }
 
@@ -194,7 +197,7 @@ public class Board {
         /*cab rents different ???*/
         int[] utilityRent= {4,10,20,40,80,100,120,150,75,0};
         int[] utilityRentCab= {30,60,120,240,0,0,0,0,150,0};
-        int[] railRoadRent= {3,60,120,240,0,0,0,0,100,0};
+        int[] railRoadRent= {25,50,200,200,0,0,0,0,100,100};
 
 
 
@@ -210,7 +213,7 @@ public class Board {
         squareList[0][3] = sq4;
         Property sq5 = new Property("Hennepin Avenue", 0, 4, 60, HennepinAve, "PINK");
         squareList[0][4] = sq5;
-        squareMap.put("PINK", new DeedSquare[]{sq2, sq4, sq5});
+        squareMap.put("PINK", new Property[]{sq2, sq4, sq5});
 
         BusTicket sq6 = new BusTicket("Bus Ticket", 0, 5);
         squareList[0][5] = sq6;
@@ -218,7 +221,7 @@ public class Board {
         squareList[0][6] = sq7;
         Railroad sq8 = new Railroad("Reading Railroad", 0, 7, 200, railRoadRent);
         squareList[0][7] = sq8;
-        Property sq9 = new Property("Esplanada Avenue", 0, 8, 90, Esplanade, "LIGHTGREEN");
+        Property sq9 = new Property("Esplanade Avenue", 0, 8, 90, Esplanade, "LIGHTGREEN");
         squareList[0][8] = sq9;
         Property sq10 = new Property("Canal Street", 0, 9, 90, CanalSt, "LIGHTGREEN");
         squareList[0][9] = sq10;
@@ -230,7 +233,7 @@ public class Board {
         squareList[0][12] = sq13;
         Property sq14 = new Property("Bourbon Street", 0, 13, 120, BourbonSt, "LIGHTGREEN");
         squareList[0][13] = sq14;
-        squareMap.put("LIGHTGREEN", new DeedSquare[]{sq9, sq10, sq13, sq14});
+        squareMap.put("LIGHTGREEN", new Property[]{sq9, sq10, sq13, sq14});
 
         HollandTunnel sq15 = new HollandTunnel("Holland Tunnel", 0, 14);
         squareList[0][14] = sq15;
@@ -246,7 +249,7 @@ public class Board {
         squareList[0][19] = sq20;
         Property sq21 = new Property("Cullen Boulevard", 0, 20, 180, CullenBlvd, "LIGHTYELLOW");
         squareList[0][20] = sq21;
-        squareMap.put("LIGHTYELLOW", new DeedSquare[]{sq17, sq18, sq20, sq21});
+        squareMap.put("LIGHTYELLOW", new Property[]{sq17, sq18, sq20, sq21});
 
         Chance sq22 = new Chance("Chance", 0, 21);
         squareList[0][21] = sq22;
@@ -262,7 +265,7 @@ public class Board {
         squareList[0][26] = sq27;
         Property sq28 = new Property("Peachtree Street", 0, 27, 240, PeachtreeSt, "MEDIUMBLUE");
         squareList[0][27] = sq28;
-        squareMap.put("MEDIUMBLUE", new DeedSquare[]{sq24, sq26, sq27, sq28});
+        squareMap.put("MEDIUMBLUE", new Property[]{sq24, sq26, sq27, sq28});
 
         PayDay sq29 = new PayDay("Pay Day", 0, 28);
         squareList[0][28] = sq29;
@@ -276,7 +279,7 @@ public class Board {
         squareList[0][32] = sq33;
         Property sq34 = new Property("Michigan Avenue", 0, 33, 300, MichiganAve, "PURPLE");
         squareList[0][33] = sq34;
-        squareMap.put("PURPLE", new DeedSquare[]{sq30, sq32, sq33, sq34});
+        squareMap.put("PURPLE", new Property[]{sq30, sq32, sq33, sq34});
 
         Utility sq35 = new Utility("Yellow Cab Co.", 0, 34, 300, utilityRentCab);
         squareList[0][34] = sq35;
@@ -294,7 +297,7 @@ public class Board {
         squareList[0][40] = sq41;
         Property sq42 = new Property("Temple Square", 0, 41, 360, TempleSquare, "DARKOLIVEGREEN");
         squareList[0][41] = sq42;
-        squareMap.put("DARKOLIVEGREEN", new DeedSquare[]{sq38, sq39, sq42, sq42});
+        squareMap.put("DARKOLIVEGREEN", new Property[]{sq38, sq39, sq42, sq42});
 
         ////////////////////// new square
         GoToJail sq43 = new GoToJail("Go to Jail", 0, 42);///!!!!!1
@@ -310,7 +313,7 @@ public class Board {
         squareList[0][46] = sq47;
         Property sq48 = new Property("Market Street", 0, 47, 420, MarketSt, "LIGHTPINK");
         squareList[0][47] = sq48;
-        squareMap.put("LIGHTPINK", new DeedSquare[]{sq44, sq45, sq46, sq48});
+        squareMap.put("LIGHTPINK", new Property[]{sq44, sq45, sq46, sq48});
 
         BusTicket sq49 = new BusTicket("Bus Ticket", 0, 48);
         squareList[0][48] = sq49;
@@ -328,7 +331,7 @@ public class Board {
         squareList[0][54] = sq55;
         Property sq56 = new Property("Rodeo Drive", 0, 55, 510, RodeoDr, "BROWN");
         squareList[0][55] = sq56;
-        squareMap.put("BROWN", new DeedSquare[]{sq53, sq54, sq56});
+        squareMap.put("BROWN", new Property[]{sq53, sq54, sq56});
 
         // layer 1
 
@@ -340,7 +343,7 @@ public class Board {
         squareList[1][2] = sq59;
         Property sq60 = new Property("Baltic Avenue", 1, 3, 60, BalticAve, "MEDIUMPURPLE");
         squareList[1][3] = sq60;
-        squareMap.put("MEDIUMPURPLE", new DeedSquare[]{sq58, sq60});
+        squareMap.put("MEDIUMPURPLE", new Property[]{sq58, sq60});
 
         IncomeTax sq61 = new IncomeTax("Income Tax", 1, 4);
         squareList[1][4] = sq61;
@@ -354,7 +357,7 @@ public class Board {
         squareList[1][8] = sq65;
         Property sq66 = new Property("Connecticut Avenue", 1, 9, 120, ConnecticutAve, "LIGHTBLUE");
         squareList[1][9] = sq66;
-        squareMap.put("LIGHTBLUE", new DeedSquare[]{sq63, sq65, sq66});
+        squareMap.put("LIGHTBLUE", new Property[]{sq63, sq65, sq66});
 
         Jail sq67 = new Jail("Jail", 1, 10);
         squareList[1][10] = sq67;
@@ -366,7 +369,7 @@ public class Board {
         squareList[1][13] = sq70;
         Property sq71 = new Property("Virginia Avenue", 1, 14, 160, VirginiaAve, "DEEPPINK");
         squareList[1][14] = sq71;
-        squareMap.put("DEEPPINK", new DeedSquare[]{sq68, sq70, sq71});
+        squareMap.put("DEEPPINK", new Property[]{sq68, sq70, sq71});
 
         Railroad sq72 = new Railroad("Pennsylvania Railroad", 1, 15, 200, railRoadRent);
         squareList[1][15] = sq72;
@@ -378,7 +381,7 @@ public class Board {
         squareList[1][18] = sq75;
         Property sq76 = new Property("New York Avenue", 1, 19, 200, NewYorkAve, "ORANGE");
         squareList[1][19] = sq76;
-        squareMap.put("ORANGE", new DeedSquare[]{sq73, sq75, sq76});
+        squareMap.put("ORANGE", new Property[]{sq73, sq75, sq76});
 
         FreeParkingSquare sq77 = new FreeParkingSquare("Free Parking Square", 1, 20);
         squareList[1][20] = sq77;
@@ -390,7 +393,7 @@ public class Board {
         squareList[1][23] = sq80;
         Property sq81 = new Property("Illinois Avenue", 1, 24, 240, IllinoisAve, "RED");
         squareList[1][24] = sq81;
-        squareMap.put("RED", new DeedSquare[]{sq78, sq80, sq81});
+        squareMap.put("RED", new Property[]{sq78, sq80, sq81});
 
         Railroad sq82 = new Railroad("B.&O. Railroad", 1, 25, 200, railRoadRent);
         squareList[1][25] = sq82;
@@ -402,7 +405,7 @@ public class Board {
         squareList[1][28] = sq85;
         Property sq86 = new Property("Marvin Gardens", 1, 29, 280, MarvinGardens, "YELLOW");
         squareList[1][29] = sq86;
-        squareMap.put("YELLOW", new DeedSquare[]{sq83, sq84, sq86});
+        squareMap.put("YELLOW", new Property[]{sq83, sq84, sq86});
 
         RollThree sq87 = new RollThree("Roll Three", 1, 30);
         squareList[1][30] = sq87;
@@ -414,7 +417,7 @@ public class Board {
         squareList[1][33] = sq90;
         Property sq91 = new Property("Pennsylvania Avenue", 1, 34, 320, PennsylvaniaAve, "GREEN");
         squareList[1][34] = sq91;
-        squareMap.put("GREEN", new DeedSquare[]{sq88, sq89, sq91});
+        squareMap.put("GREEN", new Property[]{sq88, sq89, sq91});
 
         Railroad sq92 = new Railroad("Short Line Railroad", 1, 35, 200, railRoadRent);
         squareList[1][35] = sq92;
@@ -426,7 +429,7 @@ public class Board {
         squareList[1][38] = sq95;
         Property sq96 = new Property("Board Walk", 400, 39, 1, Boardwalk, "BLUE");
         squareList[1][39] = sq96;
-        squareMap.put("BLUE", new DeedSquare[]{sq94, sq96});
+        squareMap.put("BLUE", new Property[]{sq94, sq96});
 
         //layer2
 
@@ -448,7 +451,7 @@ public class Board {
         squareList[2][7] = sq104;
         Property sq105 = new Property("Newbury Street", 2, 8, 380, NewburySt, "BLACK");
         squareList[2][8] = sq105;
-        squareMap.put("BLACK", new DeedSquare[]{sq102, sq104, sq105});
+        squareMap.put("BLACK", new Property[]{sq102, sq104, sq105});
 
         Railroad sq106 = new Railroad("Pennsylvania Railroad", 2, 9, 200, railRoadRent);
         squareList[2][9] = sq106;
@@ -460,7 +463,7 @@ public class Board {
         squareList[2][12] = sq109;
         Property sq110 = new Property("Wall Street", 2, 13, 500, WallSt, "GRAY");
         squareList[2][13] = sq110;
-        squareMap.put("GRAY", new DeedSquare[]{sq107, sq108, sq110});
+        squareMap.put("GRAY", new Property[]{sq107, sq108, sq110});
 
         TaxRefund sq111 = new TaxRefund("Tax Refund", 2, 14);
         squareList[2][14] = sq111;
@@ -476,7 +479,7 @@ public class Board {
         squareList[2][19] = sq116;
         Property sq117 = new Property("Biscayne Street", 2, 20, 150, BiscayneAve, "SANDYBROWN");
         squareList[2][20] = sq117;
-        squareMap.put("SANDYBROWN", new DeedSquare[]{sq114, sq116, sq117});
+        squareMap.put("SANDYBROWN", new Property[]{sq114, sq116, sq117});
 
         Railroad sq118 = new Railroad("Short Line Railroad", 2, 21, 200, railRoadRent);
         squareList[2][21] = sq118;
@@ -484,9 +487,12 @@ public class Board {
         squareList[2][22] = sq119;
         Property sq120 = new Property("Lombard Street", 2, 23, 210, LombardSt, "WHITE");
         squareList[2][23] = sq120;
-        squareMap.put("WHITE", new DeedSquare[]{sq98, sq99, sq120});
+        squareMap.put("WHITE", new Property[]{sq98, sq99, sq120});
     }
 
+//    static{
+//        ColorNumber.put("PINK", )
+//    }
     public Square getNameGivenSquare(String name) {
 //        return Arrays.stream(squareList).forEach(x -> Arrays.stream(x).filter(y -> y.getName().equals(name)).collect(Collectors.toList()).get(0));
         for (int x = 0; x < 3; x++) {

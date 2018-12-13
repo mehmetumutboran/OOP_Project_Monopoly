@@ -79,6 +79,7 @@ public class LoadGameHandler {
         ArrayList<? extends Savable> propertyList = new ArrayList<>();
         ArrayList<? extends Savable> utilityList = new ArrayList<>();
         ArrayList<? extends Savable> railroadList = new ArrayList<>();
+        ArrayList<? extends Savable> mortgagedSquares = new ArrayList<>();
         for (int i = 0; i < player.length; i++) {
             name = player[0];
             layer = Integer.parseInt(player[1]);
@@ -88,12 +89,13 @@ public class LoadGameHandler {
             propertyList = MessageConverter.convertStringToList(player[5], 5);
             utilityList = MessageConverter.convertStringToList(player[6], 6);
             railroadList = MessageConverter.convertStringToList(player[7], 7);
-            readiness = player[8];
-            isStarted = Boolean.parseBoolean(player[9]);
-            doubleCounter = Integer.parseInt(player[10]);
-            isInJail = Boolean.parseBoolean(player[11]);
+            mortgagedSquares = MessageConverter.convertStringToList(player[8], 8);
+            readiness = player[9];
+            isStarted = Boolean.parseBoolean(player[10]);
+            doubleCounter = Integer.parseInt(player[11]);
+            isInJail = Boolean.parseBoolean(player[12]);
         }
         GameInfo.getInstance().loadPlayer(name, layer, location, color,
-                balance, propertyList, utilityList, railroadList, readiness, isStarted, doubleCounter, isInJail);
+                balance, propertyList, utilityList, railroadList, mortgagedSquares, readiness, isStarted, doubleCounter, isInJail);
     }
 }

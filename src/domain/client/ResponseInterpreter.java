@@ -28,7 +28,8 @@ public class ResponseInterpreter {
         ResponseInterpretable dontPayRentResponseInterpreter = new DontPayRentResponseInterpreter();
         ResponseInterpretable queueResponseInterpreter = new QueueResponseInterpreter();
         ResponseInterpretable initQueueResponseInterpreter = new InitQueueResponseInterpreter();
-        ResponseInterpretable upDownResponseInterpreter = new UpDownResponseInterpreter();
+        ResponseInterpretable upgradeResponseInterpreter = new UpgradeResponseInterpreter();
+        ResponseInterpretable downgradeResponseInterpreter = new DowngradeResponseInterpreter();
         ResponseInterpretable tokenMovementResponseInterpreter = new TokenMovementResponseInterpreter();
         ResponseInterpretable rollResponseInterpreter = new RollResponseInterpreter();
         ResponseInterpretable specialSquareResponseInterpreter = new SpecialSquareResponseInterpreter();
@@ -52,6 +53,11 @@ public class ResponseInterpreter {
         ResponseInterpretable doubleCounterResponseInterpreter = new DoubleCounterResponseInterpreter();
         ResponseInterpretable finishResponseInterpreter = new FinishResponseInterpreter();
         ResponseInterpretable buttonResponseInterpreter = new ButtonResponseInterpreter();
+        ResponseInterpretable mortgageResponseInterpreter = new MortgageResponseInterpreter();
+        ResponseInterpretable unmortgageResponseInterpreter = new UnmortgageResponseInterpreter();
+        ResponseInterpretable dontMortgageResponseInterpreter = new DontMortgageResponseInterpreter();
+        ResponseInterpretable dontUnmortgageResponseInterpreter = new DontUnmortgageResponseInterpreter();
+        ResponseInterpretable labelLighterResponseInterpreter = new LabelLighterResponseInterpreter();
 
 
         interpreterMap = new HashMap<>();
@@ -62,8 +68,8 @@ public class ResponseInterpreter {
         interpreterMap.put(Flags.getFlag("DontPayRent"), dontPayRentResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Queue"), queueResponseInterpreter);
         interpreterMap.put(Flags.getFlag("InitQueue"), initQueueResponseInterpreter);
-        interpreterMap.put(Flags.getFlag("Upgrade"), upDownResponseInterpreter);
-        interpreterMap.put(Flags.getFlag("Downgrade"), upDownResponseInterpreter); //TODO
+        interpreterMap.put(Flags.getFlag("Upgrade"), upgradeResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("Downgrade"), downgradeResponseInterpreter); //TODO
         interpreterMap.put(Flags.getFlag("Token"), tokenMovementResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Roll"), rollResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Special"), specialSquareResponseInterpreter);
@@ -88,6 +94,11 @@ public class ResponseInterpreter {
         interpreterMap.put(Flags.getFlag("DontBuy"), dontBuyResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Finish"), finishResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Button"), buttonResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("Mortgage"), mortgageResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("Unmortgage"), unmortgageResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("DontMortgage"), dontMortgageResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("DontUnmortgage"), dontUnmortgageResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("LabelLighter"), labelLighterResponseInterpreter);
     }
 
     public void interpret(String message) {

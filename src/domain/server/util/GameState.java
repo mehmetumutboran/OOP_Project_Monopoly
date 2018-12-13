@@ -170,6 +170,10 @@ public class GameState {
     private String generateRollAction(char flag, String name, String message) {
         return flag + "|" + name + "|" + message;
     }
+
+    public String generateCurrentAction(char flag, String player, String square, String buildingToUporDown) {
+        return flag + "|" + player + "|" + square + "|" +buildingToUporDown;
+    }
 //
 //    private String generateJailAction(char flag, String name) {
 //        return flag + "|" + name;

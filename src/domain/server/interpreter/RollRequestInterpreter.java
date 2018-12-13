@@ -40,7 +40,7 @@ public class RollRequestInterpreter implements RequestInterpretable {
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Move"), name, loc);
         }
 
-       if(GameInfo.getInstance().getPlayer(GameInfo.getInstance().getCurrentPlayer()).getReadiness().equals("Bot"))
+       if(GameInfo.getInstance().getPlayer(GameInfo.getInstance().getCurrentPlayerName()).getReadiness().equals("Bot"))
        { GameLogic.getInstance().checkMrMonopoly(name);}
 
         if (GameLogic.getInstance().checkSecondTurn(name)) {

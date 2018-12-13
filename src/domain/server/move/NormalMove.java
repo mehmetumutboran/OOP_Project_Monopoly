@@ -19,7 +19,7 @@ public class NormalMove implements MoveStrategy {
             newLoc[1] = lastLoc[1] + roll - layerSQNumber;
             if (lastLoc[0] == 1) {
                 System.out.println("Player passed above Go Square");
-                //ServerCommunicationHandler.getInstance().sendResponse(moneyFlag, getCurrentPlayer().getName(), GO_COLLECT);
+                //ServerCommunicationHandler.getInstance().sendResponse(moneyFlag, getCurrentPlayerName().getName(), GO_COLLECT);
             }
         } else {
             newLoc[0] = lastLoc[0];
