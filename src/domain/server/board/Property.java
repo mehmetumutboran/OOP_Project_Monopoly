@@ -140,9 +140,6 @@ public class Property extends DeedSquare {
                     (((Property)sq).getNumberOfBuildings()==0 || ((Property)sq).getNumberOfBuildings()==1)){
                 checker =true;
             }
-            else{
-                return false;
-            }
         }
         return checker;
     }
@@ -150,11 +147,12 @@ public class Property extends DeedSquare {
         boolean checker = false;
         if(square.getBuildingList().isEmpty()) return false;
         for (DeedSquare sq : Board.getInstance().getSameColoredSquares(square.getColor())) {
-            if (square.getBuildingList().get(0) instanceof Skyscraper &&
+            if (!((Property)sq).getBuildingList().isEmpty() && square.getBuildingList().get(0) instanceof Skyscraper &&
                     (((Property) sq).getBuildingList().get(0) instanceof Skyscraper || ((Property) sq).getBuildingList().get(0) instanceof Hotel)) {
                 checker = true;
-            }else if(square.getBuildingList().get(0) instanceof Hotel &&
-                    (((Property)sq).getBuildingList().get(0) instanceof Hotel || ((Property)sq).getNumberOfBuildings()==4)){
+            }else if(!((Property)sq).getBuildingList().isEmpty() && square.getBuildingList().get(0) instanceof Hotel &&
+                    (((Property)sq).getBuildingList().get(0) instanceof Hotel
+                            || ((Property)sq).getNumberOfBuildings()==4)){
                 checker=true;
             }else if(square.getNumberOfBuildings()==4 &&
                 (((Property)sq).getNumberOfBuildings()==4 || ((Property)sq).getNumberOfBuildings()==3)){
@@ -167,10 +165,8 @@ public class Property extends DeedSquare {
                 (((Property)sq).getNumberOfBuildings()==2 || ((Property)sq).getNumberOfBuildings()==1)){
             checker = true;
             }else if (square.getNumberOfBuildings()==1 &&
-                    (((Property)sq).getNumberOfBuildings()==1 || ((Property)sq).getNumberOfBuildings()==0)){
+                    (((Property)sq).getNumberOfBuildings()==1 || ((Property)sq).getNumberOfBuildings()==0)) {
                 checker = true;
-            }else {
-                return false;
             }
         }
         return checker;

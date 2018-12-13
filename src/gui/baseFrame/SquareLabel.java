@@ -129,10 +129,16 @@ public class SquareLabel extends JLabel implements MouseListener, LabelChangeLis
 //        this.setOpaque(getOpaqueOrNot());
         this.setBackground(new Color(255, 0, 16, 40));
         if (getActionType().equals("UP")) {
+            System.out.println("In Upgrade");
             PlayerActionController.getInstance().upgradeLabel(this.location);
-        } else {
+        }else if (getActionType().equals("DOWN")){
+            System.out.println("In Downgrade");
             PlayerActionController.getInstance().downgradeLabel(this.location);
+        }else{
+
         }
+        this.setVisible(false);
+        this.setOpaque(false);
     }
 
     @Override
@@ -160,7 +166,10 @@ public class SquareLabel extends JLabel implements MouseListener, LabelChangeLis
         setActionType(actionType);
         for (int[] loc : locationList) {
             if (loc[0] == this.location[0] && loc[1] == this.location[1]) {
-                this.setBackground(new Color(0, 252, 255, 70));
+                if(getActionType().equals("UP"))
+                    this.setBackground(new Color(0, 252, 255, 70));
+                else
+                    this.setBackground(new Color(112, 0, 255, 70));
                 this.setVisible(true);
                 this.setOpaque(true);
             }

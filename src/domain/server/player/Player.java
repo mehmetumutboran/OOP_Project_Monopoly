@@ -2,6 +2,8 @@ package domain.server.player;
 
 import domain.server.Savable;
 import domain.server.board.*;
+import domain.server.building.Hotel;
+import domain.server.building.House;
 import domain.server.die.DiceCup;
 import domain.util.MessageConverter;
 
@@ -60,12 +62,21 @@ public class Player implements Comparable, Savable {
             this.ownedProperties.add((Property) Board.getInstance().getNameGivenSquare("Canal Street"));
             this.ownedProperties.add((Property) Board.getInstance().getNameGivenSquare("Magazine Street"));
 
-            // this.ownedProperties.add((Property) Board.getInstance().getNameGivenSquare("Bourbon Street"));
+
+            this.ownedProperties.add((Property) Board.getInstance().getNameGivenSquare("Bourbon Street"));
 
             ((Property) Board.getInstance().getNameGivenSquare("Esplanade Avenue")).setOwner(name);
             ((Property) Board.getInstance().getNameGivenSquare("Canal Street")).setOwner(name);
             ((Property) Board.getInstance().getNameGivenSquare("Magazine Street")).setOwner(name);
-            // ((Property) Board.getInstance().getNameGivenSquare("Bourbon Street")).setOwner(name);
+
+//            this.getOwnedProperties().get(0).getBuildingList().add(new Hotel(((Property) Board.getInstance().getNameGivenSquare("Esplanade Avenue")).getHouseBuildingCost()));
+//            this.getOwnedProperties().get(0).setUpgraded(true);
+//
+//            this.getOwnedProperties().get(1).getBuildingList().add(new Hotel(((Property) Board.getInstance().getNameGivenSquare("Esplanade Avenue")).getHouseBuildingCost()));
+//            this.getOwnedProperties().get(1).setUpgraded(true);
+//            this.getOwnedProperties().get(2).getBuildingList().add(new Hotel(((Property) Board.getInstance().getNameGivenSquare("Esplanade Avenue")).getHouseBuildingCost()));
+//            this.getOwnedProperties().get(2).setUpgraded(true);
+             ((Property) Board.getInstance().getNameGivenSquare("Bourbon Street")).setOwner(name);
         }
     }
 
