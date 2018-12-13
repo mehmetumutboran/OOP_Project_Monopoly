@@ -1,8 +1,8 @@
 package domain.server.board;
 
-public class Railroad extends DeedSquare {
+public class Railroad extends DeedSquare implements Upgradable{
     private boolean hasDepot;
-    private int[] rents = new int[10];
+    private int[] rents;
     private int currentRent;
 
     public Railroad() {
@@ -39,8 +39,14 @@ public class Railroad extends DeedSquare {
             setCurrentRent(getCurrentRent()/2);
     }
 
-    public boolean isHasDepot() {
+    @Override
+    public boolean isUpgraded() {
         return hasDepot;
+    }
+
+    @Override
+    public int getBuildingCount() {
+        return hasDepot ? 1 : 0;
     }
 
     public void setHasDepot(boolean hasDepot) {
@@ -53,4 +59,5 @@ public class Railroad extends DeedSquare {
         return super.toString() + ";" +
                 hasDepot + "+";
     }
+
 }

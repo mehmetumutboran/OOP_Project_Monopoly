@@ -57,7 +57,7 @@ public class LabelLighterRequestInterpreter implements RequestInterpretable {
             }
         }
         for (Square p : GameInfo.getInstance().getPlayer(name).getOwnedRailroads()) {
-            if (((Railroad) p).isHasDepot()) {
+            if (((Railroad) p).isUpgraded()) {
                 sq.add(p.getName());
             }
         }
@@ -73,7 +73,7 @@ public class LabelLighterRequestInterpreter implements RequestInterpretable {
             }
         }
         for (Square p : GameInfo.getInstance().getPlayer(name).getOwnedRailroads()) {
-            if (!((Railroad) p).isHasDepot()) {
+            if (!((Railroad) p).isUpgraded()) {
                 sq.add(p.getName());
             }
         }

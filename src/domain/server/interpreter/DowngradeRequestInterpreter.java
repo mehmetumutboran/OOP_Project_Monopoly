@@ -17,7 +17,7 @@ public class DowngradeRequestInterpreter implements RequestInterpretable {
         int [] loc = MessageConverter.convertStringToIntArray(message[2], ',');
         Square square = Board.getInstance().getSquare(loc[0],loc[1]);
 
-        if(square instanceof Railroad && ((Railroad) square).isHasDepot()){
+        if(square instanceof Railroad && ((Railroad) square).isUpgraded()){
             GameLogic.getInstance().applyRailDowngrade(square,currentPlayer);
 
         }else if (square instanceof Property && (((Property) square).isUpgraded()) && ((Property) square).isDowngradable((Property)square)){

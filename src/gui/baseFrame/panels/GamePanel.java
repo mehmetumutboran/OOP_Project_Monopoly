@@ -124,8 +124,7 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
         super.paintComponent(G);
         G.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
         for (int i = 0; i < tokenlist.size(); i++) {
-            TokenLabel token = tokenlist.get(i);
-            token.draw(G, i);
+            tokenlist.get(i).draw(G, i);
         }
 
         for (int i = 0; i < squareLabels.size(); i++) {

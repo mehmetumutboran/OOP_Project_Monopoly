@@ -53,6 +53,9 @@ public class ResponseInterpreter {
         ResponseInterpretable finishResponseInterpreter = new FinishResponseInterpreter();
         ResponseInterpretable buttonResponseInterpreter = new ButtonResponseInterpreter();
         ResponseInterpretable mortgageResponseInterpreter = new MortgageResponseInterpreter();
+        ResponseInterpretable unmortgageResponseInterpreter = new UnmortgageResponseInterpreter();
+        ResponseInterpretable dontMortgageResponseInterpreter = new DontMortgageResponseInterpreter();
+        ResponseInterpretable dontUnmortgageResponseInterpreter = new DontUnmortgageResponseInterpreter();
         ResponseInterpretable labelLighterResponseInterpreter = new LabelLighterResponseInterpreter();
 
 
@@ -91,6 +94,9 @@ public class ResponseInterpreter {
         interpreterMap.put(Flags.getFlag("Finish"), finishResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Button"), buttonResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Mortgage"), mortgageResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("Unmortgage"), unmortgageResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("DontMortgage"), dontMortgageResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("DontUnmortgage"), dontUnmortgageResponseInterpreter);
         interpreterMap.put(Flags.getFlag("LabelLighter"), labelLighterResponseInterpreter);
     }
 

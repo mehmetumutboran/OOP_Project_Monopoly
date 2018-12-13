@@ -3,6 +3,7 @@ package gui.baseFrame;
 import domain.client.PlayerActionController;
 import domain.client.UIUpdater;
 import domain.server.listeners.LabelChangeListener;
+import domain.util.Flags;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 
 public class SquareLabel extends JLabel implements MouseListener, LabelChangeListener {
     private char size;
-    private final double LR_MARGIN = 0.997; //Left right
+    private final double LR_MARGIN = 0.997; // Left right
     private final double UD_MARGIN = 0.993; // up down
     private boolean opaqueChecker;
     private int[] location;
@@ -129,9 +130,13 @@ public class SquareLabel extends JLabel implements MouseListener, LabelChangeLis
 //        this.setOpaque(getOpaqueOrNot());
         this.setBackground(new Color(255, 0, 16, 40));
         if (getActionType().equals("UP")) {
-            PlayerActionController.getInstance().upgradeLabel(this.location);
-        } else {
-            PlayerActionController.getInstance().downgradeLabel(this.location);
+            PlayerActionController.getInstance().upgradeSquare(this.location);
+        } else if(getActionType().equals("DOWN")){
+            PlayerActionController.getInstance().downgradeSquare(this.location);
+        } else if(getActionType().equals(String.valueOf(Flags.getFlag("Mortgage")))){
+            PlayerActionController.getInstance().mortgageSquare(this.location);
+        } else if(getActionType().equals(String.valueOf(Flags.getFlag("Unmortgage")))){
+            PlayerActionController.getInstance().unmortgageSquare(this.location);
         }
     }
 

@@ -7,7 +7,7 @@ import domain.util.MessageConverter;
 
 import java.util.ArrayList;
 
-public class Property extends DeedSquare {
+public class Property extends DeedSquare implements Upgradable {
     private String color;
     private ArrayList<Building> buildingList;
     private boolean hasUpgrade;
@@ -15,13 +15,13 @@ public class Property extends DeedSquare {
     private int currentRent;
 
     public Property() {
-        this("", 0, 0, 0,new int[]{0, 0, 0, 0, 0,0,0,0,0,0}, "");
+        this("", 0, 0, 0, new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, "");
     }
 
     public Property(String name, int layer, int index, int buyValue, int[] rents, String color) {
-        super(name, layer, index, buyValue,  null,rents);
-       // this.rents = rents.clone();
-      //  this.currentRent = rents[0];
+        super(name, layer, index, buyValue, null, rents);
+        // this.rents = rents.clone();
+        //  this.currentRent = rents[0];
         this.color = color;
         this.buildingList = new ArrayList<>();
         hasUpgrade = false;
@@ -40,9 +40,6 @@ public class Property extends DeedSquare {
         this.hasUpgrade = hasUpgrade;
     }
 
-    public boolean isUpgraded() {
-        return hasUpgrade;
-    }
 
     public ArrayList<Building> getBuildingList() {
         return buildingList;
@@ -52,12 +49,6 @@ public class Property extends DeedSquare {
         this.buildingList = buildingList;
     }
 
-    public int getNumberOfBuildings () {
-        if(this.buildingList.isEmpty())
-            return 0;
-        else
-            return this.buildingList.size();
-    }
     public int[] getRents() {
         return rents;
     }
@@ -113,63 +104,62 @@ public class Property extends DeedSquare {
      * @param square
      * @return
      */
-    public boolean isUpgradable(Property square,String name) {
-        if(!square.getBuildingList().isEmpty() && square.getBuildingList().get(0) instanceof Skyscraper) return false;
+    public boolean isUpgradable(Property square, String name) {
+        if (!square.getBuildingList().isEmpty() && square.getBuildingList().get(0) instanceof Skyscraper) return false;
         boolean checker = false;
         for (DeedSquare sq : Board.getInstance().getSameColoredSquares(square.getColor())) {
-            if(sq.getOwner()==null) continue;
-            else
-                if(!sq.getOwner().equals(name)) continue;
-            if(!square.getBuildingList().isEmpty()&& square.getBuildingList().get(0) instanceof Hotel &&
-                    (((Property)sq).getBuildingList().get(0) instanceof Hotel || ((Property)sq).getBuildingList().get(0) instanceof Skyscraper)) {
+            if (sq.getOwner() == null) continue;
+            else if (!sq.getOwner().equals(name)) continue;
+            if (!square.getBuildingList().isEmpty() && square.getBuildingList().get(0) instanceof Hotel &&
+                    (((Property) sq).getBuildingList().get(0) instanceof Hotel || ((Property) sq).getBuildingList().get(0) instanceof Skyscraper)) {
                 checker = true;
-            }else if(square.getNumberOfBuildings()==4 &&
-                    (((Property)sq).getBuildingList().get(0) instanceof Hotel || ((Property)sq).getNumberOfBuildings()==4)){
+            } else if (square.getBuildingCount() == 4 &&
+                    (((Property) sq).getBuildingList().get(0) instanceof Hotel || ((Property) sq).getBuildingCount() == 4)) {
                 checker = true;
-            }else if(square.getNumberOfBuildings()==3 &&
-                    (((Property)sq).getNumberOfBuildings()==3 || ((Property)sq).getNumberOfBuildings()==4)){
+            } else if (square.getBuildingCount() == 3 &&
+                    (((Property) sq).getBuildingCount() == 3 || ((Property) sq).getBuildingCount() == 4)) {
                 checker = true;
 
-            }else if (square.getNumberOfBuildings()==2 &&
-                    (((Property)sq).getNumberOfBuildings()==2 || ((Property)sq).getNumberOfBuildings()==3)){
+            } else if (square.getBuildingCount() == 2 &&
+                    (((Property) sq).getBuildingCount() == 2 || ((Property) sq).getBuildingCount() == 3)) {
                 checker = true;
-            }else if (square.getNumberOfBuildings()==1 &&
-                    (((Property)sq).getNumberOfBuildings()==1 || ((Property)sq).getNumberOfBuildings()==2)){
+            } else if (square.getBuildingCount() == 1 &&
+                    (((Property) sq).getBuildingCount() == 1 || ((Property) sq).getBuildingCount() == 2)) {
                 checker = true;
-            }else if (square.getNumberOfBuildings()==0&&
-                    (((Property)sq).getNumberOfBuildings()==0 || ((Property)sq).getNumberOfBuildings()==1)){
-                checker =true;
-            }
-            else{
+            } else if (square.getBuildingCount() == 0 &&
+                    (((Property) sq).getBuildingCount() == 0 || ((Property) sq).getBuildingCount() == 1)) {
+                checker = true;
+            } else {
                 return false;
             }
         }
         return checker;
     }
-    public boolean isDowngradable (Property square) {
+
+    public boolean isDowngradable(Property square) {
         boolean checker = false;
-        if(square.getBuildingList().isEmpty()) return false;
+        if (square.getBuildingList().isEmpty()) return false;
         for (DeedSquare sq : Board.getInstance().getSameColoredSquares(square.getColor())) {
             if (square.getBuildingList().get(0) instanceof Skyscraper &&
                     (((Property) sq).getBuildingList().get(0) instanceof Skyscraper || ((Property) sq).getBuildingList().get(0) instanceof Hotel)) {
                 checker = true;
-            }else if(square.getBuildingList().get(0) instanceof Hotel &&
-                    (((Property)sq).getBuildingList().get(0) instanceof Hotel || ((Property)sq).getNumberOfBuildings()==4)){
-                checker=true;
-            }else if(square.getNumberOfBuildings()==4 &&
-                (((Property)sq).getNumberOfBuildings()==4 || ((Property)sq).getNumberOfBuildings()==3)){
-            checker = true;
-
-            }else if (square.getNumberOfBuildings()==3 &&
-                (((Property)sq).getNumberOfBuildings()==3 || ((Property)sq).getNumberOfBuildings()==2)){
-            checker = true;
-            }else if (square.getNumberOfBuildings()==2 &&
-                (((Property)sq).getNumberOfBuildings()==2 || ((Property)sq).getNumberOfBuildings()==1)){
-            checker = true;
-            }else if (square.getNumberOfBuildings()==1 &&
-                    (((Property)sq).getNumberOfBuildings()==1 || ((Property)sq).getNumberOfBuildings()==0)){
+            } else if (square.getBuildingList().get(0) instanceof Hotel &&
+                    (((Property) sq).getBuildingList().get(0) instanceof Hotel || ((Property) sq).getBuildingCount() == 4)) {
                 checker = true;
-            }else {
+            } else if (square.getBuildingCount() == 4 &&
+                    (((Property) sq).getBuildingCount() == 4 || ((Property) sq).getBuildingCount() == 3)) {
+                checker = true;
+
+            } else if (square.getBuildingCount() == 3 &&
+                    (((Property) sq).getBuildingCount() == 3 || ((Property) sq).getBuildingCount() == 2)) {
+                checker = true;
+            } else if (square.getBuildingCount() == 2 &&
+                    (((Property) sq).getBuildingCount() == 2 || ((Property) sq).getBuildingCount() == 1)) {
+                checker = true;
+            } else if (square.getBuildingCount() == 1 &&
+                    (((Property) sq).getBuildingCount() == 1 || ((Property) sq).getBuildingCount() == 0)) {
+                checker = true;
+            } else {
                 return false;
             }
         }
@@ -183,4 +173,15 @@ public class Property extends DeedSquare {
                 MessageConverter.convertListToString(buildingList) + ";" +
                 hasUpgrade + "+";
     }
+
+    @Override
+    public boolean isUpgraded() {
+        return hasUpgrade;
+    }
+
+    @Override
+    public int getBuildingCount() {
+        return this.buildingList.size();
+    }
+
 }

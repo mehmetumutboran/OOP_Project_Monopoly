@@ -282,4 +282,8 @@ public class GameInfo implements Savable {
     public boolean isCurrentPlayerFromIndex(int i) {
         return playerList.get(i).getName().equals(getCurrentPlayerName());
     }
+
+    public String getMortgagedFromIndex(int i) {
+        return playerList.get(i).getMortgagedSquares().toString();
+    }
 }

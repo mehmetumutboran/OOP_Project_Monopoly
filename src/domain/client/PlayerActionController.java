@@ -113,12 +113,22 @@ public class PlayerActionController {
 
     }
 
-    public void upgradeLabel(int location[]) {
+    public void mortgageSquare(int[] location) {
+        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Mortgage"), ClientFacade.getInstance().getUsername(), location);
+
+    }
+
+    public void unmortgageSquare(int[] location) {
+        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Unmortgage"), ClientFacade.getInstance().getUsername(), location);
+
+    }
+
+    public void upgradeSquare(int[] location) {
         System.out.println("In player action controller");
         ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Upgrade"), ClientFacade.getInstance().getUsername(), location);
     }
 
-    public void downgradeLabel(int location[]) {
+    public void downgradeSquare(int[] location) {
         System.out.println("In player action controller");
         ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Downgrade"), ClientFacade.getInstance().getUsername(), location);
     }

@@ -59,7 +59,7 @@ public class Player implements Comparable, Savable {
 
         //TODO test purposes
 
-        if(this.name.equals("Brian")) {
+        if (this.name.equals("Brian")) {
             this.ownedProperties.add((Property) Board.getInstance().getNameGivenSquare("Esplanade Avenue"));
             this.ownedProperties.add((Property) Board.getInstance().getNameGivenSquare("Canal Street"));
             this.ownedProperties.add((Property) Board.getInstance().getNameGivenSquare("Magazine Street"));
@@ -161,17 +161,22 @@ public class Player implements Comparable, Savable {
     }
 
     public void setFaceValues(int[] faceValues) {
-        for (int i = 0; i < faceValues.length; i++) {
-            this.faceValues[i] = faceValues[i];
-        }
+        System.arraycopy(faceValues, 0, this.faceValues, 0, faceValues.length);
     }
 
     public ArrayList<DeedSquare> getMortgagedSquares() {
         return mortgagedSquares;
     }
 
-    public void setMortgagedSquares(ArrayList<DeedSquare> mortgagedSquares) {
-        this.mortgagedSquares = mortgagedSquares;
+    public void addMortgagedSquare(DeedSquare square) {
+        if (square instanceof Property) {
+            this.ownedProperties.removeIf(x -> x.equals(square));
+        } else if (square instanceof Utility) {
+            this.ownedUtilities.removeIf(x -> x.equals(square));
+        } else {
+            this.ownedRailroads.removeIf(x -> x.equals(square));
+        }
+        this.mortgagedSquares.add(square);
     }
 
     public int resetDoubleCounter() {
@@ -222,7 +227,7 @@ public class Player implements Comparable, Savable {
                 balance + "," +
                 MessageConverter.convertListToString(ownedProperties) + "," +
                 MessageConverter.convertListToString(ownedUtilities) + "," +
-                MessageConverter.convertListToString(ownedRailroads) + "," +
+                MessageConverter.convertListToString(ownedRailroads) + "," + //TODO add Mortgage
                 readiness + "," +
                 started + "," +
                 doubleCounter + "," +

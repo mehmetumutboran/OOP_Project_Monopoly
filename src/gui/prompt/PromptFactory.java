@@ -39,6 +39,9 @@ public class PromptFactory {
     public PromptStrategy getPromptStrategy(char flag, int count) {
         if (flag == Flags.getFlag("DontStart"))
             return new DontStartPromptStrategy(count);
+        else if (flag == Flags.getFlag("DontMortgage")){
+            return new DontMortgagePromptStrategy(count);
+        }
         else return null;
     }
 
