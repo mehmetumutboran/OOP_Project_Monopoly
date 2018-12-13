@@ -139,6 +139,7 @@ public class SquareLabel extends JLabel implements MouseListener, LabelChangeLis
             PlayerActionController.getInstance().unmortgageSquare(this.location);
 
         }
+        this.actionToApply = null;
         this.setVisible(false);
         this.setOpaque(false);
     }
