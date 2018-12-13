@@ -15,6 +15,10 @@ public class DowngradeResponseInterpreter implements ResponseInterpretable {
 
     @Override
     public void interpret(String[] message) {
+
+        Player currentPlayer = GameInfo.getInstance().getPlayer(message[1]);
+        Upgradable selectedSquareForDowngrade = (Upgradable) Board.getInstance().getNameGivenSquare(message[2]);
+        selectedSquareForDowngrade.downgrade();
 //        System.out.println("!!!!!!!!!!!!!!!!!!!================!!!!!!!!!!!!!!!==================!!!!!!!!!!!!!!!");
 //        Player currentPlayer = GameInfo.getInstance().getPlayer(message[1]);
 //        Square selectedSquareForDowngrade = Board.getInstance().getNameGivenSquare(message[2]);
@@ -60,6 +64,22 @@ public class DowngradeResponseInterpreter implements ResponseInterpretable {
 //                + " from " + message[3]);
 //
 //         ClientCommunicationHandler.getInstance().sendReceived();
+        currentPlayer.increaseMoney(selectedSquareForDowngrade.getBuildingCost()/2);
+        ArrayList<int[]> locationList = new ArrayList<>();
+        for(Square s : currentPlayer.getOwnedProperties()){
+            locationList.add(s.getLocation());
+        }
+
+        for(Square s : currentPlayer.getOwnedRailroads()){
+            locationList.add(s.getLocation());
+        }
+        UIUpdater.getInstance().setMessage(currentPlayer.getName() + " downgraded " +((Square)selectedSquareForDowngrade).getName()
+                + " from " + message[3]);
+
+        UIUpdater.getInstance().updateLabels(locationList, "DOWN", 0);
+
+        ClientCommunicationHandler.getInstance().sendReceived();
+
     }
 }
 
