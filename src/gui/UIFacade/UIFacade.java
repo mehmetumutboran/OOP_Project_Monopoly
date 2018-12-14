@@ -28,6 +28,10 @@ public class UIFacade {
         PromptFactory.getInstance().getPromptStrategy(flag, count).show();
     }
 
+    public void generatePrompt(char flag, int[] location) {
+        PromptFactory.getInstance().getPromptStrategy(flag, location).show();
+    }
+
     public void generatePrompt(char flag, boolean b, String name) {
         pauseStrategy = (PauseStrategy) PromptFactory.getInstance().getPromptStrategy(flag, b, name);
         pauseStrategy.show();

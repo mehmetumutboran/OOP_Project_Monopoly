@@ -19,6 +19,8 @@ public interface Upgradable {
 
     int getBuildingCost();
 
+    boolean hasUpgradedSquareInGroup();
+
     //TODO!!! Add this methods
 
 }
