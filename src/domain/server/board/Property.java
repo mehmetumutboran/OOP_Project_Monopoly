@@ -7,6 +7,7 @@ import domain.server.building.Skyscraper;
 import domain.util.MessageConverter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Property extends DeedSquare implements Upgradable {
     private String color;
@@ -205,6 +206,7 @@ public class Property extends DeedSquare implements Upgradable {
         return this.buildingCost;
     }
 
+
     @Override
     public boolean isUpgradable() {
         if (!buildingList.isEmpty() && buildingList.get(0) instanceof Skyscraper) return false;
@@ -314,6 +316,11 @@ public class Property extends DeedSquare implements Upgradable {
                 setCurrentRent(rents[1]);
             }
         }
+    }
+
+    @Override
+    public boolean hasUpgradedSquareInGroup() {
+        return Arrays.stream(Board.getInstance().getSameColoredSquares(color)).anyMatch(x -> x.getBuildingCount() > 0);
     }
 
 }

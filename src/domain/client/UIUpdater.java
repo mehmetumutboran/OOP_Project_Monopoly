@@ -170,6 +170,10 @@ public class UIUpdater {
         UIFacade.getInstance().generatePrompt(flag, count);
     }
 
+    public void showPrompt(char flag, int[] location) {
+        UIFacade.getInstance().generatePrompt(flag, location);
+    }
+
     public void changePanel(String panel) { // Changes the panel to lobby for now
         UIFacade.getInstance().changePanel(panel);
     }

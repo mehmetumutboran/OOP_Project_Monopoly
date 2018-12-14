@@ -25,11 +25,9 @@ public class PromptFactory {
             return new KickPromptStrategy();
         } else if (flag == Flags.getFlag("Full")) {
             return new FullPromptStrategy();
-        }
-        else if (flag == Flags.getFlag("DontBuy")) {
+        } else if (flag == Flags.getFlag("DontBuy")) {
             return new DontBuyStrategy();
-        }
-        else if (flag == Flags.getFlag("DontPayRent")) {
+        } else if (flag == Flags.getFlag("DontPayRent")) {
             return new DontPayRentStrategy();
         }
         return null;
@@ -39,9 +37,14 @@ public class PromptFactory {
     public PromptStrategy getPromptStrategy(char flag, int count) {
         if (flag == Flags.getFlag("DontStart"))
             return new DontStartPromptStrategy(count);
-        else if (flag == Flags.getFlag("DontMortgage")){
-            return new DontMortgagePromptStrategy(count);
-        }
+
+        else return null;
+    }
+
+    public PromptStrategy getPromptStrategy(char flag, int[] location) {
+        if (flag == Flags.getFlag("DontMortgage"))
+            return new DontMortgagePromptStrategy(location);
+
         else return null;
     }
 
@@ -49,7 +52,7 @@ public class PromptFactory {
     public PromptStrategy getPromptStrategy(char flag, boolean b, String name) {
         if (flag == Flags.getFlag("Pause")) {
             return new PauseStrategy(b, name);
-        }else return null;
+        } else return null;
     }
 
 }

@@ -1,6 +1,7 @@
 package domain.server.interpreter;
 
 import domain.server.board.Board;
+import domain.server.board.Property;
 import domain.server.board.Upgradable;
 import domain.server.controller.ServerCommunicationHandler;
 import domain.util.Flags;
@@ -12,10 +13,9 @@ public class MortgageRequestInterpreter implements RequestInterpretable {
         String name = message[1];
         int[] location = MessageConverter.convertStringToIntArray(message[2], ',');
 
-        if (((Upgradable) Board.getInstance().getSquare(location[0], location[1])).isUpgraded()) {
+        if (((Upgradable) Board.getInstance().getSquare(location[0], location[1])).hasUpgradedSquareInGroup()) {
 
-            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("DontMortgage"), index,
-                    ((Upgradable) Board.getInstance().getSquare(location[0], location[1])).getBuildingCount(), name); //TODO Change!! Color group
+            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("DontMortgage"), index, name, MessageConverter.convertArrayToString(location));
 
         } else {
 
