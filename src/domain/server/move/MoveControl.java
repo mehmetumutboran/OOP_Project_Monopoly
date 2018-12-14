@@ -20,6 +20,11 @@ public class MoveControl {
         return instance;
     }
 
+    /**
+     * This method gets a player name and moves this player corresponding to the total roll that player rolled. It uses {@link NormalMove,UpDownMove,ReverseMove}.
+     * @param name The name of the player that are going to change location.
+     * @return The name of the square that the player moved.
+     */
     public String move(String name) {
         int[] lastLoc = GameInfo.getInstance().getPlayer(name).getToken().getLocation();
         int[] newLoc;
@@ -47,9 +52,7 @@ public class MoveControl {
             newLoc = NormalMove.getInstance().move(lastLoc, totalRoll, layerSQNumber);
         }
 
-        String locStr = MessageConverter.convertArrayToString(newLoc);
-
-        return locStr;
+        return MessageConverter.convertArrayToString(newLoc);
     }
 
     /**
@@ -99,8 +102,7 @@ public class MoveControl {
 
     public boolean checkSecondTurn(String name) {
         if (!checkDouble(name)) return false;
-        else if (checkJail(name)) return false;
-        else return true;
+        else return !checkJail(name);
     }
 
     public void updateDoubleCounter(String name) {
@@ -109,7 +111,12 @@ public class MoveControl {
         }
     }
 
-
+    /**
+     * This method checks whether the player rolled third double, or in jail, or rolled triple or rolled bus. Then does corresponding actions of them and returns false.
+     * If these are not the case simply returns true. For example, it returns false(does not allow to move) and sends the player to jail because the player rolled three double in same turn.
+     * @param name The name of the player that will move.
+     * @return true if all pre-conditions of move is happened, if not returns false.
+     */
     public boolean checkMoveConditions(String name) {
         if (checkThirdDouble(name)) {
             sendToJail(name);
@@ -119,9 +126,7 @@ public class MoveControl {
             return false;
         } else if (checkTriple(name)) {
             return false;
-        } else if (checkBus(name)) {
-            return false;
-        }
+        } else if (checkBus(name)) return false;
         return true;
 
     }
