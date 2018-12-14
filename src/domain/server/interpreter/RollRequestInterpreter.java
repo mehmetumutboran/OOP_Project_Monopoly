@@ -4,6 +4,8 @@ import domain.server.GameLogic;
 import domain.server.ReceivedChecker;
 import domain.server.board.Board;
 import domain.server.controller.ServerCommunicationHandler;
+import domain.server.die.DiceCup;
+import domain.server.move.MoveControl;
 import domain.server.util.ButtonStringGenerator;
 import domain.util.Flags;
 import domain.util.GameInfo;
@@ -16,7 +18,7 @@ public class RollRequestInterpreter implements RequestInterpretable {
 
         String name = message[1];
 
-        int[] rolled = GameLogic.getInstance().roll(name);
+        int[] rolled = roll(name);
 
         ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Roll"), name, MessageConverter.convertArrayToString(rolled));
 
@@ -27,11 +29,11 @@ public class RollRequestInterpreter implements RequestInterpretable {
             }
         }
 
-        GameLogic.getInstance().updateDoubleCounter(name);
+        MoveControl.getInstance().updateDoubleCounter(name);
 
-        if (GameLogic.getInstance().checkMoveConditions(name)) {
+        if (MoveControl.getInstance().checkMoveConditions(name)) {
 
-            String newLoc = GameLogic.getInstance().move(name);
+            String newLoc = MoveControl.getInstance().move(name);
 
             String locName = Board.getInstance().getSquare(MessageConverter.convertStringToIntArray(newLoc, ',')[0], MessageConverter.convertStringToIntArray(newLoc, ',')[1]).getName();
 
@@ -43,7 +45,7 @@ public class RollRequestInterpreter implements RequestInterpretable {
        if(GameInfo.getInstance().getPlayer(GameInfo.getInstance().getCurrentPlayerName()).getReadiness().equals("Bot"))
        { GameLogic.getInstance().checkMrMonopoly(name);}
 
-        if (GameLogic.getInstance().checkSecondTurn(name)) {
+        if (MoveControl.getInstance().checkSecondTurn(name)) {
             //ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), name, "");
         }
 
@@ -60,5 +62,19 @@ public class RollRequestInterpreter implements RequestInterpretable {
 
         if (!GameInfo.getInstance().isBot(name))
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), index, ButtonStringGenerator.getInstance().getButtonString(name), name);
+    }
+
+    /**
+     * This method calls the roll method of {@link DiceCup} to roll the dice for given player.
+     * @param name The name of the player that rolls the dice.
+     * @return int array that includes faces of rolled dice.
+     */
+    public int[] roll(String name) {
+        //TODO check if the player can roll
+        System.out.println("\n\nGameLogic: roll\n\n");
+        int[] loc = GameInfo.getInstance().getPlayer(name).getToken().getLocation();
+        String locName = Board.getInstance().getSquare(loc[0], loc[1]).getName();
+        int[] currentDice = DiceCup.getInstance().rollDice(locName);
+        return currentDice;
     }
 }
