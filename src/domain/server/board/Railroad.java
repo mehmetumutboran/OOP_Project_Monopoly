@@ -32,26 +32,27 @@ public class Railroad extends DeedSquare implements Upgradable{
         this.currentRent = currentRent;
     }
 
-    public void updateRentInUpDownGrade(String action) {
-        if(action.equals("UP"))
-            setCurrentRent(getCurrentRent()*2);
-        else if(action.equals("DOWN"))
-            setCurrentRent(getCurrentRent()/2);
-    }
+//    public void updateRentInUpDownGrade(String action) {
+//        if(action.equals("UP"))
+//            setCurrentRent(getCurrentRent()*2);
+//        else if(action.equals("DOWN"))
+//            setCurrentRent(getCurrentRent()/2);
+//    }
 
     @Override
     public boolean isUpgradable() {
-        return false;
+        return !hasDepot;
     }
 
     @Override
     public boolean isDowngradable() {
-        return false;
+        return hasDepot;
     }
 
     @Override
     public void updateRent() {
-
+        if(hasDepot) setCurrentRent(this.currentRent*2);
+        else setCurrentRent(this.currentRent/2);
     }
 
     @Override
@@ -66,17 +67,22 @@ public class Railroad extends DeedSquare implements Upgradable{
 
     @Override
     public int getUpgradeLevel() {
-        return 0;
+        if(hasDepot) return 7;
+        else return 0;
+
     }
 
     @Override
     public void upgrade() {
+        hasDepot=true;
+        updateRent();
 
     }
 
     @Override
     public void downgrade() {
-
+        hasDepot=false;
+        updateRent();
     }
 
     @Override

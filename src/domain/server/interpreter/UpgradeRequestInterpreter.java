@@ -18,6 +18,7 @@ public class UpgradeRequestInterpreter implements RequestInterpretable {
         int[] loc = MessageConverter.convertStringToIntArray(message[2], ',');
         Upgradable square = (Upgradable) Board.getInstance().getSquare(loc[0], loc[1]);
 
+
         String typeOfUpgrade;
 
         if (square.getUpgradeLevel() == 5) {
@@ -28,10 +29,14 @@ public class UpgradeRequestInterpreter implements RequestInterpretable {
                 return;
             }
         } else if (square.getUpgradeLevel() == 4) typeOfUpgrade = "Hotel";
-        else if (square.getUpgradeLevel() == 8) typeOfUpgrade = "Railroad";
+        else if (square.getUpgradeLevel() == 7) typeOfUpgrade = "TrainDepot";
         else typeOfUpgrade = "House";
 
-        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Upgrade"), currentPlayer.getName(), ((Square) square).getName(), typeOfUpgrade);
+        if(currentPlayer.getBalance()>=square.getBuildingCost())
+            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Upgrade"), currentPlayer.getName(), ((Square) square).getName(), typeOfUpgrade);
+        else {
+            //OptionPane
+        }
 
 //
 //        if (square instanceof Railroad && !square.isUpgraded() && currentPlayer.getBalance() >= ((Railroad) square).getHouseBuildingCost()) {

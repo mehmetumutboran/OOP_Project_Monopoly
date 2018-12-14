@@ -185,6 +185,18 @@ public class Property extends DeedSquare implements Upgradable {
 
     @Override
     public void downgrade() {
+        if(getUpgradeLevel()>=1 && getUpgradeLevel()<=4){
+            buildingList.remove(buildingList.size()-1);
+        }else if(getUpgradeLevel()==5){
+            buildingList.clear();
+            for(int i=0 ; i<4; i++)
+                buildingList.add(new House(buildingCost));
+        }else if(getUpgradeLevel()==6){
+            buildingList.remove(0);
+            buildingList.add(new Hotel(buildingCost));
+        }
+        if(buildingList.isEmpty())hasUpgrade=false;
+        updateRent();
 
     }
 
@@ -205,9 +217,9 @@ public class Property extends DeedSquare implements Upgradable {
 
             int levelDiff = ((Upgradable) sq).getUpgradeLevel() - getUpgradeLevel();
 
-            if (levelDiff == 0 || levelDiff == 1) {
+            if (levelDiff == 0 || levelDiff == 1)
                 checker = true;
-            }
+
             else
                 return false;
 
@@ -238,6 +250,18 @@ public class Property extends DeedSquare implements Upgradable {
 
     @Override
     public boolean isDowngradable() {
+        boolean checker = false;
+        if(buildingList.isEmpty()) return false;
+        for (Property sq : Board.getInstance().getSameColoredSquares(color)){
+            if(sq.getOwner()==null)continue;
+            else if(!sq.getOwner().equals(owner))continue;
+            else if(sq.equals(this))continue;
+            int levelDiff = getUpgradeLevel() - ((Upgradable)sq).getUpgradeLevel();
+            if(levelDiff==0 || levelDiff == 1)
+                checker = true;
+            else
+                return false;
+        }
 //        boolean checker = false;
 //        if (square.getBuildingList().isEmpty()) return false;
 //        for (DeedSquare sq : Board.getInstance().getSameColoredSquares(square.getColor())) {
@@ -268,7 +292,7 @@ public class Property extends DeedSquare implements Upgradable {
 //            }
 //        }
 //        return checker;
-        return false;
+        return checker;
     }
 
     @Override
