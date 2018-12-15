@@ -172,7 +172,12 @@ public class GameInfo implements Savable {
         publishPlayerListEvent();
     }
 
+    /**
+     * Checks if everyone is ready after host wanted to start the game
+     * @return Number of unready players
+     */
     public int checkReadiness() {
+        //@requires playerList notNull
         if (playerList.size() == 1) return -1;
         int count = 0;
         for (Player player : playerList) {
@@ -246,7 +251,13 @@ public class GameInfo implements Savable {
         }
     }
 
+    /**
+     * Checks if the given player is the current turn owner
+     * @param username Player name which is wanted to be checked
+     * @return whether given player is the current player
+     */
     public boolean isCurrentPlayer(String username) {
+        //@effects If playerQueue is empty it returns false
         if (playerQueue.isEmpty()) return false;
         return playerQueue.peekFirst().equals(username);
     }

@@ -120,6 +120,21 @@ class GameInfoTest {
 
     @Test
     void checkReadiness() {
+        // Test1
+        GameInfo.getInstance().addPlayer("0", "White", "Host");
+        GameInfo.getInstance().addPlayer("1", "White", "Not Ready");
+        GameInfo.getInstance().addPlayer("2", "White", "Not Ready");
+
+        assertEquals(2, GameInfo.getInstance().checkReadiness());
+
+        // Test2
+        GameInfo.getInstance().getPlayer("1").setReadiness();
+        assertEquals(1, GameInfo.getInstance().checkReadiness());
+
+        // Test3
+        GameInfo.getInstance().getPlayer("2").setReadiness();
+        assertEquals(0, GameInfo.getInstance().checkReadiness());
+
     }
 
     @Test
@@ -186,6 +201,18 @@ class GameInfoTest {
 
     @Test
     void isCurrentPlayer() {
+        // Test1
+        Deque<String> deque = new LinkedList<>();
+        Player player1 = new Player("Test1");
+        Player player2 = new Player("Test2");
+        deque.addLast(player1.getName());
+        deque.addLast(player2.getName());
+        GameInfo.getInstance().setPlayerQueue(deque);
+
+        assertTrue(GameInfo.getInstance().isCurrentPlayer(player1.getName()));
+        assertFalse(GameInfo.getInstance().isCurrentPlayer(player2.getName()));
+
+
     }
 
     @Test
