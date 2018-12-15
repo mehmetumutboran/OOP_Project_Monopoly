@@ -18,6 +18,13 @@ public class NormalMove implements MoveStrategy {
         return instance;
     }
 
+    /**
+     * This method calculates the final location of the player after move if move is in the same layer.
+     * @param lastLoc The location of the player before move.
+     * @param roll This is the total roll.
+     * @param layerSQNumber This is the square number of the layer that player is in.
+     * @return an int array that is the final location of the player.
+     */
     @Override
     public int [] move(int[] lastLoc, int roll, int layerSQNumber) {
         int[] newLoc = new int[2];

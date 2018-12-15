@@ -71,6 +71,12 @@ public class Board {
         return squareMap.get(color);
     }
 
+    /**
+     * This method takes a location and roll number and tries to find a closest railroad to that location within roll number away.
+     * @param location The location that the closest railroad will be found.
+     * @param roll The roll number of a player.
+     * @return Square array of closest railroad.
+     */
     public Square[] railRoadFind(int[] location, int roll) {
         int layerSQNumber = 0;
         switch (location[0]) {
@@ -84,7 +90,7 @@ public class Board {
                 layerSQNumber = SECONDLAYERSQ;
                 break;
         }
-        Square[] closestRailRoads = new Square[2];
+        Square[] closestRailRoads = new Square[1];
         for (int i = 0; i <= roll; i++) {
             if (location[1] + i <= layerSQNumber - 1) {
                 if (squareList[location[0]][location[1] + i] instanceof Railroad) {
