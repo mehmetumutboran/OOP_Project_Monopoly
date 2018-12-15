@@ -7,6 +7,7 @@ import network.client.Client;
 import network.listeners.ConnectionFailedListener;
 import network.listeners.ReceivedChangedListener;
 
+import javax.annotation.processing.SupportedAnnotationTypes;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -65,9 +66,10 @@ public class ClientFacade {
     /**
      * Sends Message to the server
      *
-     * @param message Formatted as JSON String
+     * @param message Formatted message string
      */
     public synchronized void send(String message) {
+        //@requires client not null
         client.send(message);
     }
 

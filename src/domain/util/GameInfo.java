@@ -227,7 +227,11 @@ public class GameInfo implements Savable {
         return playerList.size();
     }
 
+    /**
+     * Resets player list and queue
+     */
     public void reset() {
+        // @modifies playerList and playerQueue
         playerList = new ArrayList<>();
         playerQueue = new LinkedList<>();
     }
@@ -258,11 +262,23 @@ public class GameInfo implements Savable {
         return playerList.get(i).getToken().getColor();
     }
 
+    /**
+     * Checks if the maximum player capacity is reached
+     * @return whether game has maximum number of players
+     */
     public boolean isFull() {
+        // @requires playerList not null
         return getPlayerListSize() == 12;
     }
 
+    /**
+     * Updates Queue for incoming turn
+     */
     public void nextTurn() {
+        // @requires playerQueue not null
+        // @modifies playerQueue
+        // @effects throws NoSuchElementException if the deque is empty
+        //          updates the playerQueue for incoming turn
         playerQueue.addLast(playerQueue.removeFirst());
     }
 
