@@ -12,12 +12,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PayRentResponseInterpreterTest {
 
-    private Player payer = new Player("Payer");
-    private Player owner = new Player("Owner");
+    private Player payer;
+    private Player owner;
 
     @BeforeEach
     void setUp() {
         GameInfo.getInstance().reset();
+        payer = new Player("Payer");
+        owner = new Player("Owner");
         GameInfo.getInstance().addPlayer(payer);
         GameInfo.getInstance().addPlayer(owner);
     }
@@ -26,9 +28,7 @@ class PayRentResponseInterpreterTest {
     void interpret() {
         String locName = "Kirby Drive";
         ((DeedSquare)Board.getInstance().getNameGivenSquare(locName)).setOwner("Owner");
-        System.out.println((DeedSquare)Board.getInstance().getNameGivenSquare(locName));
         int rent = ((Property)Board.getInstance().getNameGivenSquare(locName)).getCurrentRent();//rent = 14
-        System.out.println(rent);
         String [] message = {"Flag" , "Payer" ,""+(payer.getBalance()-rent) , ""+(owner.getBalance()+rent), locName};
         new PayRentResponseInterpreter().interpret(message);
         assertEquals(3186,payer.getBalance());

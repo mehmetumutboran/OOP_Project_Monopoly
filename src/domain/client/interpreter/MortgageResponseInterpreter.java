@@ -5,6 +5,11 @@ import domain.server.board.DeedSquare;
 import domain.util.GameInfo;
 
 public class MortgageResponseInterpreter implements ResponseInterpretable {
+    /**
+     * This method sets the given player's given square mortgage.
+     * @param message String array of the form [Flag, args...] Generated in {@link domain.server.util.GameState}
+     * args includes player's name and the square that will be mortgaged.
+     */
     @Override
     public void interpret(String[] message) {
         String name = message[1];
