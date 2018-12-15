@@ -17,6 +17,7 @@ class PayRentResponseInterpreterTest {
 
     @BeforeEach
     void setUp() {
+        GameInfo.getInstance().reset();
         GameInfo.getInstance().addPlayer(payer);
         GameInfo.getInstance().addPlayer(owner);
     }

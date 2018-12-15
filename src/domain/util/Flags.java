@@ -51,6 +51,7 @@ public class Flags {
     private static final char unmortgageFlag = 'r';
     private static final char dontMortgageFlag = 's';
     private static final char dontUnmortgageFlag = 't';
+    private static final char goOutJailFlag = 'u';
 
 
     private static final char receivedFlag = 'z';
@@ -80,7 +81,7 @@ public class Flags {
         flagMap.put("Full", fullFlag);
         flagMap.put("Move", moveFlag);
         flagMap.put("GoToJail", jailFlag);
-        flagMap.put("GoOutOfJail", jailFlag);
+        flagMap.put("GoOutOfJail", goOutJailFlag);
         flagMap.put("DoubleCounter", doubleCounterFlag);
         flagMap.put("Buy", buyFlag);
         flagMap.put("DontBuy", dontBuyFlag);
