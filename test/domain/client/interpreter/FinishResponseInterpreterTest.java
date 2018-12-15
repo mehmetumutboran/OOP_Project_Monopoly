@@ -40,7 +40,7 @@ class FinishResponseInterpreterTest {
         GameInfo.getInstance().setPlayerQueue(deque);
     }
 
-    @Test
+
     void interpret() {
 //        System.out.println(GameInfo.getInstance().getPlayerQueue());
         new FinishResponseInterpreter().interpret(new String[]{Flags.getFlag("Finish")+"", "test1"});

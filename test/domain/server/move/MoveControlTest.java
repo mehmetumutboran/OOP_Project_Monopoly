@@ -23,6 +23,7 @@ class MoveControlTest {
         if (setUpIsDone) {
             return;
         }
+        GameInfo.getInstance().reset();
         GameInfo.getInstance().addPlayer(player);
         deque = new LinkedList<>();
         if (!deque.contains(player.getName()))

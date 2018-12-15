@@ -18,51 +18,15 @@ class GameInfoTest {
         GameInfo.getInstance().reset();
     }
 
-    @Test
-    void getInstance() {
-    }
-
-    @Test
-    void getPlayerQueue() {
-    }
-
-    @Test
-    void getPlayerList() {
-    }
-
-    @Test
-    void getPlayerListName() {
-    }
-
-    @Test
-    void getPlayerListColor() {
-    }
-
-    @Test
-    void setPlayerQueue() {
-    }
-
-    @Test
-    void setPlayerList() {
-    }
-
-    @Test
     void getCurrentPlayer() {
     }
 
-    @Test
     void getPlayer() {
     }
 
-    @Test
     void getMyself() {
     }
 
-    @Test
-    void getPeek() {
-    }
-
-    @Test
     void isMyselfHost() {
     }
 
@@ -82,39 +46,27 @@ class GameInfoTest {
         assertFalse(GameInfo.getInstance().isListEmpty());
     }
 
-    @Test
     void addPlayer() {
     }
 
-    @Test
     void addPlayer1() {
     }
 
-    @Test
     void addPlayer2() {
     }
 
-    @Test
     void hasColor() {
     }
 
-    @Test
     void setPlayerColor() {
     }
 
-    @Test
     void getPlayersAsString() {
     }
 
-    @Test
-    void addPlayerListChangedListener() {
-    }
-
-    @Test
     void getPlayerConnectAttributes() {
     }
 
-    @Test
     void setReadiness() {
     }
 
@@ -137,45 +89,9 @@ class GameInfoTest {
 
     }
 
-    @Test
-    void generateSaveInfo() {
-    }
-
-    @Test
     void loadPlayer() {
     }
 
-    @Test
-    void getNameFromIndex() {
-    }
-
-    @Test
-    void getLayerFromIndex() {
-    }
-
-    @Test
-    void getLocationFromIndex() {
-    }
-
-    @Test
-    void getBalanceFromIndex() {
-    }
-
-    @Test
-    void getPropertyFromIndex() {
-    }
-
-    @Test
-    void getUtilityFromIndex() {
-    }
-
-    @Test
-    void getRailRoadFromIndex() {
-    }
-
-    @Test
-    void getPlayerListSize() {
-    }
 
     @Test
     void reset() {
@@ -217,10 +133,6 @@ class GameInfoTest {
 
     @Test
     void isBot() {
-    }
-
-    @Test
-    void getColorFromIndex() {
     }
 
     @Test
@@ -277,19 +189,4 @@ class GameInfoTest {
     void isPeekBot() {
     }
 
-    @Test
-    void getCurrentPlayerName() {
-    }
-
-    @Test
-    void getLocationFromName() {
-    }
-
-    @Test
-    void isCurrentPlayerFromIndex() {
-    }
-
-    @Test
-    void getMortgagedFromIndex() {
-    }
 }
