@@ -5,6 +5,10 @@ import domain.client.UIUpdater;
 import domain.util.GameInfo;
 import network.client.clientFacade.ClientFacade;
 
+/**
+ * The class responsible for interpreting add player response from server.
+ * This interpreter is for players who are already in the lobby to add new player to their list.
+ */
 public class AddPlayerResponseInterpreter implements ResponseInterpretable {
     @Override
     public void interpret(String[] message) {

@@ -12,7 +12,7 @@ public abstract class DeedSquare extends Square implements Savable {
     private int currentRent;
     protected int buildingCost;
     private int buyValue;
-    private int[] rents;
+    protected int[] rents;
     protected String owner;
     private boolean mortgaged;
     private int mortgageValue;

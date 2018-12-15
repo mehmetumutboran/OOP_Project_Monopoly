@@ -30,7 +30,7 @@ class PayRentResponseInterpreterTest {
         System.out.println(rent);
         String [] message = {"Flag" , "Payer" ,""+(payer.getBalance()-rent) , ""+(owner.getBalance()+rent), locName};
         new PayRentResponseInterpreter().interpret(message);
-//        assertEquals(3186,payer.getBalance());
-//        assertEquals(3214,owner.getBalance());
+        assertEquals(3186,payer.getBalance());
+        assertEquals(3214,owner.getBalance());
     }
 }

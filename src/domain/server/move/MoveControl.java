@@ -13,15 +13,17 @@ public class MoveControl {
     private static final int FIRST_LAYER_SQ = 40;
     private static final int ZEROTH_LAYER_SQ = 56;
 
-    private MoveControl(){}
+    private MoveControl() {
+    }
 
-    public static MoveControl getInstance(){
-        if(instance==null)instance = new MoveControl();
+    public static MoveControl getInstance() {
+        if (instance == null) instance = new MoveControl();
         return instance;
     }
 
     /**
      * This method gets a player name and moves this player corresponding to the total roll that player rolled. It uses {@link NormalMove,UpDownMove,ReverseMove}.
+     *
      * @param name The name of the player that are going to change location.
      * @return The name of the square that the player moved.
      */
@@ -57,6 +59,7 @@ public class MoveControl {
 
     /**
      * This method calculates the total face values of the given player.
+     *
      * @param name The name of the player that we want to get total roll of.
      * @return total of the face values of the given player
      */
@@ -114,6 +117,7 @@ public class MoveControl {
     /**
      * This method checks whether the player rolled third double, or in jail, or rolled triple or rolled bus. Then does corresponding actions of them and returns false.
      * If these are not the case simply returns true. For example, it returns false(does not allow to move) and sends the player to jail because the player rolled three double in same turn.
+     *
      * @param name The name of the player that will move.
      * @return true if all pre-conditions of move is happened, if not returns false.
      */
@@ -126,8 +130,7 @@ public class MoveControl {
             return false;
         } else if (checkTriple(name)) {
             return false;
-        } else if (checkBus(name)) return false;
-        return true;
+        } else return !checkBus(name);
 
     }
 

@@ -12,7 +12,7 @@ public class Property extends DeedSquare implements Upgradable {
     private String color;
     private ArrayList<Building> buildingList;
     private boolean hasUpgrade;
-    private int[] rents = new int[10];
+//    private int[] rents = new int[10];
     private int currentRent;
 
     public Property() {
@@ -22,7 +22,7 @@ public class Property extends DeedSquare implements Upgradable {
     public Property(String name, int layer, int index, int buyValue, int[] rents, String color) {
         super(name, layer, index, buyValue, null, rents);
         // this.rents = rents.clone();
-        //  this.currentRent = rents[0];
+        this.currentRent = rents[0];
         this.color = color;
         this.buildingList = new ArrayList<>();
         hasUpgrade = false;
