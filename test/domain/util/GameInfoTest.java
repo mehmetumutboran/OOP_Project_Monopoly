@@ -34,15 +34,19 @@ class GameInfoTest {
     void hasPlayer() {
         Player player = new Player("Test");
         GameInfo.getInstance().addPlayer(player);
+        // Test1
         assertTrue(GameInfo.getInstance().hasPlayer(player.getName()));
+        // Test2
         assertFalse(GameInfo.getInstance().hasPlayer("1"));
     }
 
     @Test
     void isListEmpty() {
+        // Test1
         assertTrue(GameInfo.getInstance().isListEmpty());
         Player player = new Player("Test");
         GameInfo.getInstance().addPlayer(player);
+        // Test2
         assertFalse(GameInfo.getInstance().isListEmpty());
     }
 
@@ -111,7 +115,6 @@ class GameInfoTest {
 
     }
 
-    @Test
     void removePlayer() {
     }
 
@@ -126,12 +129,13 @@ class GameInfoTest {
         GameInfo.getInstance().setPlayerQueue(deque);
 
         assertTrue(GameInfo.getInstance().isCurrentPlayer(player1.getName()));
+
+        // Test2
         assertFalse(GameInfo.getInstance().isCurrentPlayer(player2.getName()));
 
 
     }
 
-    @Test
     void isBot() {
     }
 
@@ -185,7 +189,6 @@ class GameInfoTest {
 
     }
 
-    @Test
     void isPeekBot() {
     }
 
