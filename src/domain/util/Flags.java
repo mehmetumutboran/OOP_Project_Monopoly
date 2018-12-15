@@ -13,7 +13,7 @@ public class Flags {
     private static final char payDayFlag = 'F';
     private static final char bonusFlag = 'G';
     private static final char jailFlag = 'H';
-    private static final char finishTurnFlag = 'I';
+    private static final char goOutJailFlag  = 'I';
     private static final char queueFlag = 'J';
     private static final char closeFlag = 'K';
     private static final char upgradeFlag = 'L';
@@ -51,7 +51,7 @@ public class Flags {
     private static final char unmortgageFlag = 'r';
     private static final char dontMortgageFlag = 's';
     private static final char dontUnmortgageFlag = 't';
-    private static final char goOutJailFlag = 'u';
+    private static final char finishTurnFlag = 'u';
 
 
     private static final char receivedFlag = 'z';
