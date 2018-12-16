@@ -41,6 +41,8 @@ class MortgageResponseInterpreterTest {
         assertEquals(3200 - buyValue + ((DeedSquare) Board.getInstance().getNameGivenSquare(squareName)).getMortgageValue(),test.getBalance());
         assertTrue(((DeedSquare) Board.getInstance().getNameGivenSquare(squareName)).isMortgaged());
         assertTrue(test.getMortgagedSquares().contains((Board.getInstance().getNameGivenSquare(squareName))));
+        assertTrue(test.repOK());
+        assertTrue(Board.getInstance().getNameGivenSquare(squareName).repOK());
     }
     @AfterEach
     void shutDown(){

@@ -38,6 +38,7 @@ class BuyResponseInterpreterTest {
         assertEquals(buyer, GameInfo.getInstance().getPlayer(((DeedSquare) Board.getInstance().getNameGivenSquare(squareName)).getOwner()));
         assertTrue(GameInfo.getInstance().getPlayer("Buyer").getOwnedProperties().contains(Board.getInstance().getNameGivenSquare(squareName)));
         assertTrue(buyer.repOK());
+        assertTrue(Board.getInstance().getNameGivenSquare(squareName).repOK());
     }
 
     @AfterEach

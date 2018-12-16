@@ -230,5 +230,6 @@ class PropertyTest {
 
         assertNotEquals(rentBeforeRemovalOfBuilding, p1.getCurrentRent());
 
+
     }
 }

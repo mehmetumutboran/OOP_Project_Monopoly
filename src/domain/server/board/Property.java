@@ -313,4 +313,17 @@ public class Property extends DeedSquare implements Upgradable {
         }
     }
 
+    public boolean repOK(){
+        super.repOK();
+        if(this.currentRent<0)return false;
+        if(buildingList.size()>4)return false;
+        if(!this.color.equals("PINK") && !this.color.equals("LIGHTGREEN") && !this.color.equals("LIGHTYELLOW")
+                && !this.color.equals("MEDIUMBLUE") && !this.color.equals("PURPLE") && !this.color.equals("DARKOLIVEGREEN") && !this.color.equals("LIGHTPINK") &&
+                !this.color.equals("BROWN") && !this.color.equals("MEDIUMPURPLE") && !this.color.equals("LIGHTBLUE") &&
+                !this.color.equals("DEEPPINK") && !this.color.equals("ORANGE") && !this.color.equals("RED")
+        && !this.color.equals("YELLOW") && !this.color.equals("GREEN") && !this.color.equals("BLUE") &&
+                !this.color.equals("WHITE") && !this.color.equals("BLACK") && !this.color.equals("GRAY") && !this.color.equals("SANDYBROWN"))return false;
+        return true;
+    }
+
 }

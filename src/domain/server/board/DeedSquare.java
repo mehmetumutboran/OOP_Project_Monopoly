@@ -1,6 +1,7 @@
 package domain.server.board;
 
 import domain.server.Savable;
+import domain.util.GameInfo;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -113,6 +114,23 @@ public abstract class DeedSquare extends Square implements Savable {
                         .collect(Collectors.joining("@")) + ";" +
                 owner + ";" +
                 mortgaged;
+    }
+    public boolean repOK(){
+        super.repOK();
+        if(this.buyValue<0) return false;
+        if(this.mortgageValue<0) return false;
+        if(this.currentRent<0)return false;
+        if(buildingCost<0) return false;
+        if(this instanceof Property){
+            if(!GameInfo.getInstance().getPlayer(owner).getOwnedProperties().contains(this)) return false;
+        }
+        if(this instanceof Utility){
+            if(!GameInfo.getInstance().getPlayer(owner).getOwnedUtilities().contains(this)) return false;
+        }
+        if(this instanceof Railroad){
+            if(!GameInfo.getInstance().getPlayer(owner).getOwnedRailroads().contains(this)) return false;
+        }
+        return true;
     }
 
 }

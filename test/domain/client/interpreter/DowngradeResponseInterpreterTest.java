@@ -50,6 +50,8 @@ class DowngradeResponseInterpreterTest {
         assertEquals(3200-buyValue-buildingCost+buildingCost/2,test.getBalance());
         assertFalse(((Upgradable) Board.getInstance().getNameGivenSquare(squareName)).isUpgraded());
         assertTrue((((Upgradable) Board.getInstance().getNameGivenSquare(squareName)).getBuildingCount()==0));
+        assertTrue(test.repOK());
+        assertTrue(Board.getInstance().getNameGivenSquare(squareName).repOK());
     }
 
     @AfterEach
