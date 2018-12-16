@@ -4,8 +4,7 @@ import domain.server.Savable;
 import domain.server.board.*;
 import domain.util.MessageConverter;
 
-import java.util.ArrayList;
-import java.util.Objects;
+import java.util.*;
 
 public class Player implements Comparable, Savable {
     private String name;
@@ -113,14 +112,6 @@ public class Player implements Comparable, Savable {
         this.readiness = readiness;
     }
 
-    public boolean isStarted() {
-        return started;
-    }
-
-    public void setStarted(boolean started) {
-        this.started = started;
-    }
-
     public Token getToken() {
         return token;
     }
@@ -210,6 +201,7 @@ public class Player implements Comparable, Savable {
 
     /**
      * This method compares two player object corresponding to their face values.
+     *
      * @param o The other object that we compare with this.
      * @return 1 if o's total face value is bigger than this total face value. Else returns -1.
      */
@@ -245,11 +237,8 @@ public class Player implements Comparable, Savable {
 
     public boolean checkMajority(Property square) {
         int numOfColoredSqBoardHas = Board.getInstance().getSameColoredSquares(square.getColor()).length;
-        int numOfColoredSqPlayerHas = 0;
-        for (Property sq : getOwnedProperties()) {
-            if (sq.getColor().equals(square.getColor()))
-                numOfColoredSqPlayerHas++;
-        }
+        int numOfColoredSqPlayerHas = getNumOfColoredSqPlayerHas(square);
+
         if (numOfColoredSqBoardHas > 2) {
             return numOfColoredSqBoardHas - numOfColoredSqPlayerHas == 0 || numOfColoredSqBoardHas - numOfColoredSqPlayerHas == 1;
         } else
@@ -258,13 +247,18 @@ public class Player implements Comparable, Savable {
 
     public boolean checkMonopoly(Property square) {
         int numOfColoredSqBoardHas = Board.getInstance().getSameColoredSquares(square.getColor()).length;
+        int numOfColoredSqPlayerHas = getNumOfColoredSqPlayerHas(square);
+
+        return numOfColoredSqBoardHas - numOfColoredSqPlayerHas == 0;
+    }
+
+    private int getNumOfColoredSqPlayerHas(Property square){
         int numOfColoredSqPlayerHas = 0;
         for (Property sq : getOwnedProperties()) {
             if (sq.getColor().equals(square.getColor()))
                 numOfColoredSqPlayerHas++;
         }
-
-        return numOfColoredSqBoardHas - numOfColoredSqPlayerHas == 0;
+        return numOfColoredSqPlayerHas;
     }
 
     public void increaseMoney(int money) {
@@ -275,84 +269,6 @@ public class Player implements Comparable, Savable {
         this.setBalance(this.getBalance() - money);
     }
 
-
-//    public boolean buy() {
-//        System.out.println("in  player buy");
-//        /* checks if buyable square i.e. railroad */
-//        Square square = Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]];
-//
-//
-//        boolean buyable = (square instanceof DeedSquare);
-//
-//        System.out.println("buyable checked");
-//        /*
-//        1. if which buyable square -> downcast accordingly
-//        2. if have enough money
-//        3. if owned ?
-//        * */
-//
-//
-//        if (buyable) {
-//            System.out.println("buyable 2 checked ");
-//
-//            if (square instanceof Property
-//                    && this.getBalance() > ((Property) square).getBuyValue()
-//                    && !((Property) square).isOwned()) {
-//                return true;
-//            } else if (square instanceof Railroad
-//                    && this.getBalance() > ((Railroad) square).getBuyValue()
-//                    && !((Railroad) square).isOwned()) {
-//                return true;
-//            } else return square instanceof Utility
-//                    && this.getBalance() > ((Utility) square).getBuyValue()
-//                    && !((Utility) square).isOwned();
-//        }
-//
-//        return false;
-//    }
-//
-//
-//    public boolean payRent() {
-//        System.out.println("in  player payRent");
-//        /* checks if buyable square i.e. railroad */
-//        Square square = Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]];
-//
-//
-//        boolean rentable =
-//                (square instanceof Property ||
-//                        square instanceof Railroad ||
-//                        square instanceof Utility);
-//
-//        /*
-//        1. if which buyable square -> downcast accordingly
-//        2. if have enough money
-//        3. if owned ?
-//        * */
-//
-//
-//        if (rentable) {
-//
-//            if (square instanceof Property
-//                    && ((Property) square).isOwned()
-//                    && !((Property) square).getOwner().equals(this)
-//                    && this.getBalance() > ((Property) square).getCurrentRent()) {
-//                return true;
-//            }
-//            /*others like railroad*/
-//            else if (square instanceof Railroad
-//                    && ((Railroad) square).isOwned()
-//                    && !((Railroad) square).getOwner().equals(this)
-//                    && this.getBalance() > ((Railroad) square).getCurrentRent()) {
-//                return true;
-//            } else return square instanceof Utility
-//                    && ((Utility) square).isOwned()
-//                    && !((Utility) square).getOwner().equals(this)
-//                    && this.getBalance() > ((Utility) square).getCurrentRent();
-//        }
-//
-//        return false;
-//    }
-
     public void addDeed(Square square) {
         if (square instanceof Property) {
             ownedProperties.add((Property) square);
@@ -362,4 +278,30 @@ public class Player implements Comparable, Savable {
             ownedUtilities.add((Utility) square);
         }
     }
+
+    public boolean repOK() {
+        if (this.balance < 0) return false;
+        if (this.ownedProperties.size() > 64) return false;
+        if (this.ownedUtilities.size() > 12) return false;
+        if (this.ownedRailroads.size() > 8) return false;
+        if (this.mortgagedSquares.size() > 84) return false;
+        if (hasDuplicate(ownedRailroads) || hasDuplicate(ownedProperties)
+                || hasDuplicate(ownedUtilities) || hasDuplicate(mortgagedSquares)) return false;
+        if (!this.readiness.equals("Host") && !this.readiness.equals("Not Ready") &&
+                !this.readiness.equals("Ready") && !this.readiness.equals("Bot"))
+            return false;
+        if (doubleCounter < 0 || doubleCounter > 2) return false;
+        if (faceValues == null || faceValues.length > 3) return false;
+
+        return true;
+    }
+
+    public static <T> boolean hasDuplicate(Iterable<T> all) {
+        Set<T> set = new HashSet<>();
+        // Set#add returns false if the set does not change, which
+        // indicates that a duplicate element has been added.
+        for (T each : all) if (!set.add(each)) return true;
+        return false;
+    }
+
 }
