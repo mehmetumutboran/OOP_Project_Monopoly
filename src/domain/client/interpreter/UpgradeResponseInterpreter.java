@@ -16,35 +16,13 @@ import java.util.ArrayList;
 public class UpgradeResponseInterpreter implements ResponseInterpretable {
     @Override
     public void interpret(String[] message) {
+        //@requires message[2]message[3] not null
 
         Player currentPlayer = GameInfo.getInstance().getPlayer(message[1]);
         Upgradable selectedSquareForUpgrade = (Upgradable) Board.getInstance().getNameGivenSquare(message[2]);
 
         selectedSquareForUpgrade.upgrade();
 
-//        Building buildingtoUpgrade = null ;
-//        if(selectedSquareForUpgrade instanceof Property) {
-//            if (message[3].equals("Skyscrapper")) {
-//                buildingtoUpgrade = new Skyscraper(((Property) selectedSquareForUpgrade).getHouseBuildingCost());
-//                ((Property) selectedSquareForUpgrade).getBuildingList().remove(0);
-//                ((Property) selectedSquareForUpgrade).getBuildingList().add(buildingtoUpgrade);
-//            } else if (message[3].equals("Hotel")) {
-//                buildingtoUpgrade = new Hotel(((Property) selectedSquareForUpgrade).getHouseBuildingCost());
-//                ((Property) selectedSquareForUpgrade).getBuildingList().clear();
-//                ((Property) selectedSquareForUpgrade).getBuildingList().add(buildingtoUpgrade);
-//            } else if (message[3].equals("House")) {
-//                buildingtoUpgrade = new House(((Property) selectedSquareForUpgrade).getHouseBuildingCost());
-//                ((Property) selectedSquareForUpgrade).getBuildingList().add(buildingtoUpgrade);
-//            }
-//
-//            ((Property) selectedSquareForUpgrade).setUpgraded(true);
-//            ((Property) selectedSquareForUpgrade).updateRent();
-//
-//        }
-//        else {//means that square is a Railroad
-//            ((Railroad)selectedSquareForUpgrade).setHasDepot(true);
-//            ((Railroad)selectedSquareForUpgrade).updateRentInUpDownGrade("UP");
-//        }
         currentPlayer.decreaseMoney(selectedSquareForUpgrade.getBuildingCost());
 
         ArrayList<int[]> locationList = new ArrayList<>();
