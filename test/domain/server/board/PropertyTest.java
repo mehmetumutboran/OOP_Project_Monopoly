@@ -210,4 +210,25 @@ class PropertyTest {
         assertFalse(p3.isDowngradable());
 
     }
+
+    @Test
+    void updateRent() {
+        //Holds the first rent, adds a building to a property and calculates the new rent, not equal
+        int rentBeforeAdditionofBuilding = p1.getCurrentRent();
+        ArrayList<Building> bl = new ArrayList<>();
+        bl.add(new House(p1.getBuildingCost()));
+        p1.setBuildingList(bl);
+        p1.updateRent();
+
+        assertNotEquals(rentBeforeAdditionofBuilding, p1.getCurrentRent());
+
+
+        //Holds the rent with building case, empties the list and calculates new rent, not equal
+        int rentBeforeRemovalOfBuilding = p1.getCurrentRent();
+        p1.getBuildingList().clear();
+        p1.updateRent();
+
+        assertNotEquals(rentBeforeRemovalOfBuilding, p1.getCurrentRent());
+
+    }
 }

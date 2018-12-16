@@ -3,6 +3,8 @@ package domain.client.interpreter;
 import domain.client.PlayerActionController;
 import domain.server.board.Board;
 import domain.server.board.DeedSquare;
+import domain.server.board.Property;
+import domain.server.board.Upgradable;
 import domain.server.player.Player;
 import domain.util.GameInfo;
 import network.server.serverFacade.ServerFacade;
@@ -12,12 +14,13 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MortgageResponseInterpreterTest {
+class UpgradeResponseInterpreterTest {
 
     private Player test;
     String squareName;
     int buyValue;
-
+    int buildingCost;
+    String buildingToUp;
     @BeforeEach
     void setUp() {
         GameInfo.getInstance().reset();
@@ -26,21 +29,21 @@ class MortgageResponseInterpreterTest {
             continue;
         }
         test = GameInfo.getInstance().getPlayer("Test");
-        GameInfo.getInstance().addPlayer(test);
-        squareName = "Wacker Drive";
+        squareName = "Lake Street";
         buyValue = ((DeedSquare) Board.getInstance().getNameGivenSquare(squareName)).getBuyValue();
-        test.setBalance(test.getBalance() - buyValue);
+        buildingCost =((Upgradable) Board.getInstance().getNameGivenSquare(squareName)).getBuildingCost();
+        buildingToUp = "House";
+        test.setBalance(test.getBalance() - buyValue-buildingCost);
         test.addDeed((Board.getInstance().getNameGivenSquare(squareName)));
         ((DeedSquare) Board.getInstance().getNameGivenSquare(squareName)).setOwner(test.getName());
     }
-
     @Test
     void interpret() {
-        String [] message = {"Flag", test.getName(), squareName};
-        new MortgageResponseInterpreter().interpret(message);
-        assertEquals(3200 - buyValue + ((DeedSquare) Board.getInstance().getNameGivenSquare(squareName)).getMortgageValue(),test.getBalance());
-        assertTrue(((DeedSquare) Board.getInstance().getNameGivenSquare(squareName)).isMortgaged());
-        assertTrue(test.getMortgagedSquares().contains((Board.getInstance().getNameGivenSquare(squareName))));
+        String [] message = {"Flag", test.getName(), squareName, buildingToUp};
+        new UpgradeResponseInterpreter().interpret(message);
+        assertEquals(3200-buyValue-buildingCost - ((Upgradable)Board.getInstance().getNameGivenSquare(squareName)).getBuildingCost(),test.getBalance());
+        assertTrue(((Upgradable) Board.getInstance().getNameGivenSquare(squareName)).isUpgraded());
+        assertTrue((((Upgradable) Board.getInstance().getNameGivenSquare(squareName)).getBuildingCount()!=0));
     }
     @AfterEach
     void shutDown(){
