@@ -58,6 +58,7 @@ class PlayerTest {
       assertTrue(player.checkMajority((Property) Board.getInstance().getNameGivenSquare("South Street")));
         //since player has 1 out of 4 from same colour it should return false
       assertFalse(player.checkMajority((Property) Board.getInstance().getNameGivenSquare("Esplanade Avenue")));
+      assertTrue(player.repOK());
     }
 
     @Test
@@ -66,5 +67,6 @@ class PlayerTest {
         assertTrue(player.checkMonopoly((Property) Board.getInstance().getNameGivenSquare("North Temple")));
         //since player has 3 out of 4 from same colour it should return false
         assertFalse(player.checkMonopoly((Property) Board.getInstance().getNameGivenSquare("South Street")));
+        assertTrue(player.repOK());
     }
 }

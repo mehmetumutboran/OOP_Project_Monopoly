@@ -41,6 +41,8 @@ class MoneyChangeResponseInterpreterTest {
         String [] message4 = {"Flag", rich.getName(), "@-50"};
         new MoneyChangeResponseInterpreter().interpret(message4);
         assertEquals(3150,rich.getBalance());
+
+        assertTrue(rich.repOK());
     }
 
     @AfterEach

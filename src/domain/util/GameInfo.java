@@ -236,7 +236,7 @@ public class GameInfo implements Savable {
      * Resets player list and queue
      */
     public void reset() {
-        // @modifies playerList and playerQueue
+        //@effects empties layerList and playerQueue
         playerList = new ArrayList<>();
         playerQueue = new LinkedList<>();
     }
@@ -287,7 +287,6 @@ public class GameInfo implements Savable {
      */
     public void nextTurn() {
         // @requires playerQueue not null
-        // @modifies playerQueue
         // @effects throws NoSuchElementException if the deque is empty
         //          updates the playerQueue for incoming turn
         playerQueue.addLast(playerQueue.removeFirst());

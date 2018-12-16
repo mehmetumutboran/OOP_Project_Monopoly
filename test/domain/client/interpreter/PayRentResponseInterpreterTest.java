@@ -33,5 +33,8 @@ class PayRentResponseInterpreterTest {
         new PayRentResponseInterpreter().interpret(message);
         assertEquals(3186,payer.getBalance());
         assertEquals(3214,owner.getBalance());
+        assertTrue(payer.repOK());
+        assertTrue(owner.repOK());
+        assertTrue(Board.getInstance().getNameGivenSquare(locName).repOK());
     }
 }

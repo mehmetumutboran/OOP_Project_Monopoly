@@ -10,7 +10,7 @@ public class FinishResponseInterpreter implements ResponseInterpretable {
     public void interpret(String[] message) {
         // @requires message of the form [Flag, name]
         //           GameInfo deque not null
-        // @modifies GameInfo playerDeque
+        // @effects GameInfo playerDeque
         GameInfo.getInstance().nextTurn();
         UIUpdater.getInstance().turnUpdate();
 

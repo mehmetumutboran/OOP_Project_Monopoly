@@ -89,4 +89,11 @@ public abstract class Square{
     public int hashCode() {
         return name.hashCode();
     }
+
+    public boolean repOK(){
+        if(this.location[0]<0 || this.location[0]>2) return false;
+        if(this.location[1]<0 || this.location[1]>55 )return false;
+        if(this.name==null)return false;
+        return true;
+    }
 }

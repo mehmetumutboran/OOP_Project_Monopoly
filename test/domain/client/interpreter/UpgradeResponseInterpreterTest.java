@@ -47,6 +47,8 @@ class UpgradeResponseInterpreterTest {
         assertEquals(3200-buyValue-buildingCost ,test.getBalance());
         assertTrue(((Upgradable) Board.getInstance().getNameGivenSquare(squareName)).isUpgraded());
         assertTrue((((Upgradable) Board.getInstance().getNameGivenSquare(squareName)).getBuildingCount()!=0));
+        assertTrue(test.repOK());
+        assertTrue(Board.getInstance().getNameGivenSquare(squareName).repOK());
     }
     @AfterEach
     void shutDown(){
