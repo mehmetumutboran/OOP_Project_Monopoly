@@ -1,6 +1,5 @@
 package domain.server.interpreter;
 
-import domain.server.GameLogic;
 import domain.server.ReceivedChecker;
 import domain.server.board.Board;
 import domain.server.controller.ServerCommunicationHandler;
@@ -43,7 +42,7 @@ public class RollRequestInterpreter implements RequestInterpretable {
         }
 
        if(GameInfo.getInstance().getPlayer(GameInfo.getInstance().getCurrentPlayerName()).getReadiness().equals("Bot"))
-       { GameLogic.getInstance().checkMrMonopoly(name);}
+       { MoveControl.getInstance().checkMrMonopoly(name);}
 
         if (MoveControl.getInstance().checkSecondTurn(name)) {
             //ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), name, "");
