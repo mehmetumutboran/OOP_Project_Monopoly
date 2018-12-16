@@ -215,9 +215,15 @@ public class Player implements Comparable, Savable {
 //        // this.faceValues = DiceCup.getInstance().getFaceValues();
 //    } // Player gives command to roll dice to the controller.
 
-
+    /**
+     * This method compares two player object corresponding to their face values.
+     * @param o The other object that we compare with this.
+     * @return 1 if o's total face value is bigger than this total face value. Else returns -1.
+     */
     @Override
-    public int compareTo(Object o) { // To order players i use comparable interface and its compareTo method
+    public int compareTo(Object o) {
+        // @requires: o!=null
+        // @effects: returns an integer that shows which object is bigger.
         if (this.getFaceValues()[0] + this.getFaceValues()[1] + this.getFaceValues()[2] >=
                 ((Player) o).getFaceValues()[0] + ((Player) o).getFaceValues()[1] + ((Player) o).getFaceValues()[2]) {
             return -1;
