@@ -5,6 +5,9 @@ import domain.server.player.Player;
 import domain.util.Flags;
 import domain.util.GameInfo;
 import domain.util.MessageConverter;
+import network.server.serverFacade.ServerFacade;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -37,5 +40,10 @@ class RollResponseInterpreterTest {
                         new String[]{Flags.getFlag("Roll") +"",
                                 player.getName(),
                                 MessageConverter.convertArrayToString(roll2)}));
+    }
+
+    @AfterEach
+    void shutDown(){
+        ServerFacade.getInstance().shutDown();
     }
 }

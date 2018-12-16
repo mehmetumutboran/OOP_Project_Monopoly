@@ -22,7 +22,8 @@ public class MoveControl {
     }
 
     /**
-     * This method gets a player name and moves this player corresponding to the total roll that player rolled. It uses {@link NormalMove,UpDownMove,ReverseMove}.
+     * This method gets a player name and moves this player corresponding to the total roll that player rolled.
+     * It uses {@link NormalMove} {@link UpDownMove} {@link ReverseMove}.
      *
      * @param name The name of the player that are going to change location.
      * @return The name of the square that the player moved.
