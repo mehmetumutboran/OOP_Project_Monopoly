@@ -12,6 +12,8 @@ public class MortgageResponseInterpreter implements ResponseInterpretable {
      */
     @Override
     public void interpret(String[] message) {
+        // @requires: message.length()=3
+        // @effects: Changes the player's balance(adds mortgage value of the square), mortgagedSquares(adds the square) fields. Changes the square's mortgaged field to true.
         String name = message[1];
         String sqName = message[2];
 

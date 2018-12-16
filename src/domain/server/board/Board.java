@@ -78,6 +78,8 @@ public class Board {
      * @return Square array of closest railroad.
      */
     public Square[] railRoadFind(int[] location, int roll) {
+        // @requires: location.length() = 2, 0=<location[0]=<2
+        // @effects: returns a new array containing closest railroad square.
         int layerSQNumber = 0;
         switch (location[0]) {
             case 0:

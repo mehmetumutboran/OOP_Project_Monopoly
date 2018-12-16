@@ -28,6 +28,8 @@ public class MoveControl {
      * @return The name of the square that the player moved.
      */
     public String move(String name) {
+        // @requires: name!=null
+        // @effects: returns a new array contains the new location that calculated in the method corresponding to total roll and last location.
         int[] lastLoc = GameInfo.getInstance().getPlayer(name).getToken().getLocation();
         int[] newLoc;
         int totalRoll;
@@ -64,6 +66,8 @@ public class MoveControl {
      * @return total of the face values of the given player
      */
     public int getTotalRoll(String name) {
+        // @requires: The faceValues field of given player is not equal to null.
+        // @effects: returns an int equals to total face values the dice that given player rolled.
         int totalRoll;
         if (GameInfo.getInstance().getPlayer(name).getFaceValues()[2] <= 3) {
             totalRoll = GameInfo.getInstance().getPlayer(name).getFaceValues()[0]

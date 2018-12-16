@@ -13,7 +13,8 @@ public class PayRentResponseInterpreter implements ResponseInterpretable {
      */
     @Override
     public void interpret(String[] message) {
-
+        // @requires: message.length()=5
+        // @effects: Changes the payer(decreases by rent) and owner(increases by rent) player's balance field.
         String name = message[1];
         int customerFinalMoney = Integer.parseInt(message[2]);
         int ownerFinalMoney = Integer.parseInt(message[3]);

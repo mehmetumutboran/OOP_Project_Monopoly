@@ -12,6 +12,8 @@ public class JailResponseInterpreter implements ResponseInterpretable {
      */
     @Override
     public void interpret(String[] message) {
+        // @requires: message.length()=2
+        // @effects: Changes the player's inJail field(true or false) corresponding to the given message.
         if(message[0].charAt(0) == Flags.getFlag("GoToJail")){
             GameInfo.getInstance().getPlayer(message[1]).setInJail(true);
             UIUpdater.getInstance().setMessage(message[1] + " goes to jail!!!");
