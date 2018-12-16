@@ -6,6 +6,7 @@ import domain.server.board.DeedSquare;
 import domain.server.player.Player;
 import domain.util.GameInfo;
 import network.server.serverFacade.ServerFacade;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,8 +19,6 @@ class BuyResponseInterpreterTest {
 
     @BeforeEach
     void setUp() {
-        if (ServerFacade.getInstance().getServer() != null)
-            ServerFacade.getInstance().shutDown();
         GameInfo.getInstance().reset();
         PlayerActionController.getInstance().host("Buyer", 2222, false);
         while (GameInfo.getInstance().getPlayer("Buyer") == null) {
@@ -38,5 +37,10 @@ class BuyResponseInterpreterTest {
         assertTrue(((DeedSquare) Board.getInstance().getNameGivenSquare(squareName)).isOwned());
         assertEquals(buyer, GameInfo.getInstance().getPlayer(((DeedSquare) Board.getInstance().getNameGivenSquare(squareName)).getOwner()));
         assertTrue(GameInfo.getInstance().getPlayer("Buyer").getOwnedProperties().contains(Board.getInstance().getNameGivenSquare(squareName)));
+    }
+
+    @AfterEach
+    void shutDown(){
+        ServerFacade.getInstance().shutDown();
     }
 }
