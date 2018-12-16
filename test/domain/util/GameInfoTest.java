@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
@@ -30,6 +31,31 @@ class GameInfoTest {
     void isMyselfHost() {
     }
 
+
+    @Test
+    void addPlayer1() {
+        String name = "Hasan";
+        ArrayList<Player> list = new ArrayList<>();
+        Player player = new Player(name);
+        list.add(player);
+        GameInfo.getInstance().addPlayer(name);
+        assertEquals(list, GameInfo.getInstance().getPlayerList());
+    }
+    @Test
+    void addPlayer2() {
+        String name = "Hasan";
+        ArrayList<Player> list = new ArrayList<>();
+        Player player = new Player(name);
+        list.add(player);
+        GameInfo.getInstance().addPlayer(player);
+        assertEquals(list, GameInfo.getInstance().getPlayerList());
+
+        GameInfo.getInstance().setPlayerList(new ArrayList<>());
+
+
+    }
+
+
     @Test
     void hasPlayer() {
         Player player = new Player("Test");
@@ -53,11 +79,7 @@ class GameInfoTest {
     void addPlayer() {
     }
 
-    void addPlayer1() {
-    }
 
-    void addPlayer2() {
-    }
 
     void hasColor() {
     }

@@ -33,15 +33,18 @@ class UpgradeResponseInterpreterTest {
         buyValue = ((DeedSquare) Board.getInstance().getNameGivenSquare(squareName)).getBuyValue();
         buildingCost =((Upgradable) Board.getInstance().getNameGivenSquare(squareName)).getBuildingCost();
         buildingToUp = "House";
-        test.setBalance(test.getBalance() - buyValue-buildingCost);
+        test.setBalance(test.getBalance() - buyValue);
         test.addDeed((Board.getInstance().getNameGivenSquare(squareName)));
         ((DeedSquare) Board.getInstance().getNameGivenSquare(squareName)).setOwner(test.getName());
     }
+
+    //sets the message of interpreter, balance is equal, building in that square is upgraded, number of buildings is not zero
+    //since a square is upgraded.
     @Test
     void interpret() {
         String [] message = {"Flag", test.getName(), squareName, buildingToUp};
         new UpgradeResponseInterpreter().interpret(message);
-        assertEquals(3200-buyValue-buildingCost - ((Upgradable)Board.getInstance().getNameGivenSquare(squareName)).getBuildingCost(),test.getBalance());
+        assertEquals(3200-buyValue-buildingCost ,test.getBalance());
         assertTrue(((Upgradable) Board.getInstance().getNameGivenSquare(squareName)).isUpgraded());
         assertTrue((((Upgradable) Board.getInstance().getNameGivenSquare(squareName)).getBuildingCount()!=0));
     }
