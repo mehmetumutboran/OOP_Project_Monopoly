@@ -171,6 +171,8 @@ public class Property extends DeedSquare implements Upgradable {
 
     @Override
     public void upgrade() {
+        //@requires isUpgradable true
+        //@modifies buildingList, hasUpgrade, currentRent
         if(getUpgradeLevel()<=3) buildingList.add(new House(buildingCost));
         else if(getUpgradeLevel()==4){
             buildingList.clear();
