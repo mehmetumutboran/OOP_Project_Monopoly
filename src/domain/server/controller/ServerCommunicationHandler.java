@@ -1,6 +1,5 @@
 package domain.server.controller;
 
-import domain.server.board.Square;
 import domain.server.util.GameState;
 import network.server.serverFacade.ServerFacade;
 
@@ -71,16 +70,5 @@ public class ServerCommunicationHandler {
         ServerFacade.getInstance()
                 .send(index, GameState.getInstance().generateCurrentAction(flag, message, args));
     }
-
-//    public synchronized void sendResponse(char flag, String message, String name) {
-//        ServerFacade.getInstance()
-//                .send(GameState.getInstance().generateCurrentAction(flag, name, buildame));
-//    }
-//
-//    public synchronized void sendResponse(char flag, String name, int changedMoney) {
-//        ServerFacade.getInstance()
-//                .send(GameState.getInstance().generateCurrentAction(flag, name, changedMoney));
-//    }
-
 
 }

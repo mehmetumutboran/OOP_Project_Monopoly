@@ -208,13 +208,6 @@ public class Player implements Comparable, Savable {
         this.inJail = inJail;
     }
 
-//    public void rollDice() {
-//        String locName = Board.getInstance().getSquare(this.token.getLocation()[0], this.token.getLocation()[1]).getName();
-//        // String locName = "Go";
-//        DiceCup.getInstance().rollDice(locName);
-//        // this.faceValues = DiceCup.getInstance().getFaceValues();
-//    } // Player gives command to roll dice to the controller.
-
     /**
      * This method compares two player object corresponding to their face values.
      * @param o The other object that we compare with this.
@@ -283,82 +276,82 @@ public class Player implements Comparable, Savable {
     }
 
 
-    public boolean buy() {
-        System.out.println("in  player buy");
-        /* checks if buyable square i.e. railroad */
-        Square square = Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]];
-
-
-        boolean buyable = (square instanceof DeedSquare);
-
-        System.out.println("buyable checked");
-        /*
-        1. if which buyable square -> downcast accordingly
-        2. if have enough money
-        3. if owned ?
-        * */
-
-
-        if (buyable) {
-            System.out.println("buyable 2 checked ");
-
-            if (square instanceof Property
-                    && this.getBalance() > ((Property) square).getBuyValue()
-                    && !((Property) square).isOwned()) {
-                return true;
-            } else if (square instanceof Railroad
-                    && this.getBalance() > ((Railroad) square).getBuyValue()
-                    && !((Railroad) square).isOwned()) {
-                return true;
-            } else return square instanceof Utility
-                    && this.getBalance() > ((Utility) square).getBuyValue()
-                    && !((Utility) square).isOwned();
-        }
-
-        return false;
-    }
-
-
-    public boolean payRent() {
-        System.out.println("in  player payRent");
-        /* checks if buyable square i.e. railroad */
-        Square square = Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]];
-
-
-        boolean rentable =
-                (square instanceof Property ||
-                        square instanceof Railroad ||
-                        square instanceof Utility);
-
-        /*
-        1. if which buyable square -> downcast accordingly
-        2. if have enough money
-        3. if owned ?
-        * */
-
-
-        if (rentable) {
-
-            if (square instanceof Property
-                    && ((Property) square).isOwned()
-                    && !((Property) square).getOwner().equals(this)
-                    && this.getBalance() > ((Property) square).getCurrentRent()) {
-                return true;
-            }
-            /*others like railroad*/
-            else if (square instanceof Railroad
-                    && ((Railroad) square).isOwned()
-                    && !((Railroad) square).getOwner().equals(this)
-                    && this.getBalance() > ((Railroad) square).getCurrentRent()) {
-                return true;
-            } else return square instanceof Utility
-                    && ((Utility) square).isOwned()
-                    && !((Utility) square).getOwner().equals(this)
-                    && this.getBalance() > ((Utility) square).getCurrentRent();
-        }
-
-        return false;
-    }
+//    public boolean buy() {
+//        System.out.println("in  player buy");
+//        /* checks if buyable square i.e. railroad */
+//        Square square = Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]];
+//
+//
+//        boolean buyable = (square instanceof DeedSquare);
+//
+//        System.out.println("buyable checked");
+//        /*
+//        1. if which buyable square -> downcast accordingly
+//        2. if have enough money
+//        3. if owned ?
+//        * */
+//
+//
+//        if (buyable) {
+//            System.out.println("buyable 2 checked ");
+//
+//            if (square instanceof Property
+//                    && this.getBalance() > ((Property) square).getBuyValue()
+//                    && !((Property) square).isOwned()) {
+//                return true;
+//            } else if (square instanceof Railroad
+//                    && this.getBalance() > ((Railroad) square).getBuyValue()
+//                    && !((Railroad) square).isOwned()) {
+//                return true;
+//            } else return square instanceof Utility
+//                    && this.getBalance() > ((Utility) square).getBuyValue()
+//                    && !((Utility) square).isOwned();
+//        }
+//
+//        return false;
+//    }
+//
+//
+//    public boolean payRent() {
+//        System.out.println("in  player payRent");
+//        /* checks if buyable square i.e. railroad */
+//        Square square = Board.getInstance().getSquareList()[this.getToken().getLocation()[0]][this.getToken().getLocation()[1]];
+//
+//
+//        boolean rentable =
+//                (square instanceof Property ||
+//                        square instanceof Railroad ||
+//                        square instanceof Utility);
+//
+//        /*
+//        1. if which buyable square -> downcast accordingly
+//        2. if have enough money
+//        3. if owned ?
+//        * */
+//
+//
+//        if (rentable) {
+//
+//            if (square instanceof Property
+//                    && ((Property) square).isOwned()
+//                    && !((Property) square).getOwner().equals(this)
+//                    && this.getBalance() > ((Property) square).getCurrentRent()) {
+//                return true;
+//            }
+//            /*others like railroad*/
+//            else if (square instanceof Railroad
+//                    && ((Railroad) square).isOwned()
+//                    && !((Railroad) square).getOwner().equals(this)
+//                    && this.getBalance() > ((Railroad) square).getCurrentRent()) {
+//                return true;
+//            } else return square instanceof Utility
+//                    && ((Utility) square).isOwned()
+//                    && !((Utility) square).getOwner().equals(this)
+//                    && this.getBalance() > ((Utility) square).getCurrentRent();
+//        }
+//
+//        return false;
+//    }
 
     public void addDeed(Square square) {
         if (square instanceof Property) {

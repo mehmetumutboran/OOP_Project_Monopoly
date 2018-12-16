@@ -14,7 +14,6 @@ public class RollThreeStrategy implements DiceRollStrategy {
         diceCup.getDice()[0].roll(diceCup);
         diceCup.getDice()[1].roll(diceCup);
         diceCup.getDice()[2].roll(diceCup);
-        //diceCup.getInstance().setTotalFaceValue();
         int[] returnDie = new int[3];
         returnDie[0] = diceCup.getDice()[0].getFaceValue();
         returnDie[1] = diceCup.getDice()[1].getFaceValue();
