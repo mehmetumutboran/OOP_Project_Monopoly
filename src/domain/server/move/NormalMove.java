@@ -35,9 +35,19 @@ public class NormalMove implements MoveStrategy {
                 System.out.println("Player passed above Go Square");
                 ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Money"), GameInfo.getInstance().getCurrentPlayer().getName(),"Go" + "@" + GO_COLLECT);
             }
+            if(lastLoc[0] == 2){
+                if(lastLoc[1] + roll - layerSQNumber > 6 && lastLoc[1] > 15) {//Bug
+                    System.out.println("Player passed above Bonus Square");
+                    ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Money"), GameInfo.getInstance().getCurrentPlayer().getName(),"BonusP" + "@" + BONUSP_COLLECT);
+                }else if(lastLoc[1] + roll - layerSQNumber == 6){
+                    System.out.println("Player landed on Bonus Square");
+                    ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Money"), GameInfo.getInstance().getCurrentPlayer().getName(),"BonusL" + "@" + BONUSL_COLLECT);
+                }
+            }
+
         } else {
             if(lastLoc[0] == 2){
-                if(lastLoc[1] + roll > 6) {
+                if(lastLoc[1] + roll > 6 && lastLoc[1] < 6) {
                     System.out.println("Player passed above Bonus Square");
                     ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Money"), GameInfo.getInstance().getCurrentPlayer().getName(),"BonusP" + "@" + BONUSP_COLLECT);
                 }else if(lastLoc[1] + roll == 6){

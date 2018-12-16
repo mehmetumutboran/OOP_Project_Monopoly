@@ -110,8 +110,14 @@ public class Flags {
         flagMap.put("LabelLighter", labellighterFlag);
     }
 
+    /**
+     * This method gets the corresponding flag to given action name.
+     * @param action The name of the game action.
+     * @return The char flag that symbols the given action.
+     */
     public static char getFlag(String action) {
-//        System.out.println(action);
+        // @requires: action!=null, flagMap.keySet().contains(action)=true.
+        // @effects: returns a char that symbols an action.
         return flagMap.get(action);
     }
 
