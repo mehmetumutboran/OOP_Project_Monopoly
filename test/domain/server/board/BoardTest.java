@@ -1,5 +1,6 @@
 package domain.server.board;
 
+import domain.util.GameInfo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,6 +14,7 @@ class BoardTest {
 
     @BeforeEach
     void setUp() {
+        GameInfo.getInstance().reset();
         location = new int[]{1, 13}; //"States Avenue"
         railroad = "Pennsylvania Railroad"; //The closest railroad to States Avenue(2 square away)
         roll = 5;
