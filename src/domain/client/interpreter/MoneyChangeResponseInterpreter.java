@@ -6,8 +6,16 @@ import domain.server.player.Player;
 import domain.util.GameInfo;
 
 public class MoneyChangeResponseInterpreter implements ResponseInterpretable {
+
+    /**
+     * This method changes the given player's balance by the given changed money.
+     * @param message String array of the form [Flag, args...] Generated in {@link domain.server.util.GameState}
+     * args include player's name and changed money.
+     */
     @Override
     public void interpret(String[] message) {
+        // @requires: message!=null
+        // @effects: Changes player's balance field.
         String name = message[1];
         int changedMoney = Integer.parseInt(message[2].substring(message[2].indexOf("@")+1));
 
