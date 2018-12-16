@@ -6,7 +6,6 @@ import domain.server.building.House;
 import domain.server.building.Skyscraper;
 import domain.server.player.Player;
 import domain.util.GameInfo;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +20,7 @@ class PropertyTest {
     private Property p3 = (Property) Board.getInstance().getSquare(0, 1);
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         GameInfo.getInstance().reset();
         player.setOwnedProperties(new ArrayList<>());
         player.addDeed(p1);
@@ -64,9 +63,14 @@ class PropertyTest {
         p1.upgrade();
         arrayList.clear();
         arrayList.add(new Skyscraper(p1.getBuildingCost()));
-        //Test4 Hotel
+        //Test4 Skyscraper
         assertEquals(arrayList, p1.getBuildingList());
 
+        p1.upgrade();
+        arrayList.clear();
+        arrayList.add(new Skyscraper(p1.getBuildingCost()));
+        //Test5 After Skyscraper
+        assertEquals(arrayList, p1.getBuildingList());
     }
 
     @Test

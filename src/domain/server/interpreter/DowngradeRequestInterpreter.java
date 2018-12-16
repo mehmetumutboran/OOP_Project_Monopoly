@@ -1,6 +1,5 @@
 package domain.server.interpreter;
 
-import domain.server.GameLogic;
 import domain.server.board.*;
 import domain.server.controller.ServerCommunicationHandler;
 import domain.server.player.Player;
