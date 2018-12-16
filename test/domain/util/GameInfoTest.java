@@ -19,19 +19,6 @@ class GameInfoTest {
         GameInfo.getInstance().reset();
     }
 
-    void getCurrentPlayer() {
-    }
-
-    void getPlayer() {
-    }
-
-    void getMyself() {
-    }
-
-    void isMyselfHost() {
-    }
-
-
     @Test
     void addPlayer1() {
         String name = "Hasan";
@@ -55,7 +42,6 @@ class GameInfoTest {
 
     }
 
-
     @Test
     void hasPlayer() {
         Player player = new Player("Test");
@@ -74,26 +60,6 @@ class GameInfoTest {
         GameInfo.getInstance().addPlayer(player);
         // Test2
         assertFalse(GameInfo.getInstance().isListEmpty());
-    }
-
-    void addPlayer() {
-    }
-
-
-
-    void hasColor() {
-    }
-
-    void setPlayerColor() {
-    }
-
-    void getPlayersAsString() {
-    }
-
-    void getPlayerConnectAttributes() {
-    }
-
-    void setReadiness() {
     }
 
     @Test
@@ -115,10 +81,6 @@ class GameInfoTest {
 
     }
 
-    void loadPlayer() {
-    }
-
-
     @Test
     void reset() {
         // Test1
@@ -137,9 +99,6 @@ class GameInfoTest {
 
     }
 
-    void removePlayer() {
-    }
-
     @Test
     void isCurrentPlayer() {
         // Test1
@@ -156,9 +115,6 @@ class GameInfoTest {
         assertFalse(GameInfo.getInstance().isCurrentPlayer(player2.getName()));
 
 
-    }
-
-    void isBot() {
     }
 
     @Test
@@ -209,9 +165,6 @@ class GameInfoTest {
         Executable executable = () -> GameInfo.getInstance().nextTurn();
         assertThrows(NoSuchElementException.class, executable);
 
-    }
-
-    void isPeekBot() {
     }
 
 }
