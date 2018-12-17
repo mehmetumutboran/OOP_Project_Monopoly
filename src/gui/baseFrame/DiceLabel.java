@@ -14,9 +14,9 @@ public class DiceLabel extends JLabel {
     private static int count;
     private BufferedImage img;
 
-    public DiceLabel(){
-        this.x = 645 + count*40;
-        this.y = 480;
+    public DiceLabel(int height,int width){
+        this.x = width/2 - 55 + count*40; //645
+        this.y = height/2 - 20; // 480
         count++;
         this.setImage(1);
     }

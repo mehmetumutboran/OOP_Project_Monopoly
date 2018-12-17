@@ -158,9 +158,9 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
 //
 //            tokenlist.add(tl);
 //        }
-        DiceLabel die1 = new DiceLabel();
-        DiceLabel die2 = new DiceLabel();
-        DiceLabel die3 = new DiceLabel();
+        DiceLabel die1 = new DiceLabel(this.height,this.width);
+        DiceLabel die2 = new DiceLabel(this.height,this.width);
+        DiceLabel die3 = new DiceLabel(this.height,this.width);
         this.add(die1);
         this.add(die2);
         this.add(die3);
