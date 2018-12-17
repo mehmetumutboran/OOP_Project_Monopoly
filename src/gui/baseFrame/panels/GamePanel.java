@@ -62,6 +62,7 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
         //this.setLayout(null);
 
         initsquareLabels();
+        initDieLabels();
 //        SquareLabel label = new SquareLabel();
 //        label.setBounds(1240, 7, this.width / 17, this.height / 17);
 //
@@ -84,6 +85,18 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
         timer.scheduleAtFixedRate(timerTaskPaint, 0, 100);
 
         UIUpdater.getInstance().addTokenMovementListeners(this);
+    }
+
+    private void initDieLabels() {
+        DiceLabel die1 = new DiceLabel(this.getHeight()*10,this.getWidth());
+        DiceLabel die2 = new DiceLabel(this.getHeight()*10,this.getWidth());
+        DiceLabel die3 = new DiceLabel(this.getHeight()*10,this.getWidth());
+        this.add(die1);
+        this.add(die2);
+        this.add(die3);
+        diceList.add(die1);
+        diceList.add(die2);
+        diceList.add(die3);
     }
 
     private void initsquareLabels() {
@@ -158,15 +171,6 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
 //
 //            tokenlist.add(tl);
 //        }
-        DiceLabel die1 = new DiceLabel(this.height,this.width);
-        DiceLabel die2 = new DiceLabel(this.height,this.width);
-        DiceLabel die3 = new DiceLabel(this.height,this.width);
-        this.add(die1);
-        this.add(die2);
-        this.add(die3);
-        diceList.add(die1);
-        diceList.add(die2);
-        diceList.add(die3);
     }
 
     @Override
