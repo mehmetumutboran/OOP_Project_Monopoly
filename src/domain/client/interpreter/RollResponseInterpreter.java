@@ -32,6 +32,7 @@ public class RollResponseInterpreter implements ResponseInterpretable {
                 break;
         }
 
+        UIUpdater.getInstance().setDices(faceValues);
         ClientCommunicationHandler.getInstance().sendReceived();
     }
 }
