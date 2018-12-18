@@ -143,7 +143,7 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
         super.paintComponent(G);
         G.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
         for (int i = 0; i < tokenlist.size(); i++) {
-            tokenlist.get(i).draw(G, i);
+            tokenlist.get(i).draw(G);
         }
         for (int i = 0; i < diceList.size(); i++){
             diceList.get(i).draw(G,i,this.getWidth(),this.getHeight());
@@ -176,17 +176,17 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
 //        }
     }
 
-    @Override
+   @Override
     public void onTokenMovement(String pName, int x, int y) {
-        int[] coor = indexToCoor(x, y, pName);
-        for (TokenLabel t : tokenlist) {
-            if (t.getOwner().equals(pName))
-                t.setCoordinates(coor[0], coor[1]);
-            this.revalidate();
-            this.repaint();
-        }
-
-    }
+//        int[] coor = indexToCoor(x, y, pName);
+//        for (TokenLabel t : tokenlist) {
+//            if (t.getOwner().equals(pName))
+//                t.setCoordinates(coor[0], coor[1]);
+//            this.revalidate();
+//            this.repaint();
+//        }
+//
+   }
 
     public int[] indexToCoor(int label, int index, String name) {
         int xLoc = 0;
@@ -329,9 +329,8 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
             String message = pList.get(i);
             TokenLabel tl = TokenFactory.getInstance().getNewToken(message);
             tl.setOpaque(false);
+            tl.setCoordinates(this.getWidth(), this.getHeight(),i);
             this.add(tl);
-            if (i >= 6) tl.setCoordinates(1070 + (i - 6) * 25, 125);
-            else tl.setCoordinates(1070 + i * 25, 150);
             tokenlist.add(tl);
         }
     }

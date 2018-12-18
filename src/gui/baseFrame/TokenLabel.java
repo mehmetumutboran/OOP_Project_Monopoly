@@ -17,6 +17,8 @@ public class TokenLabel extends JLabel {
     public TokenLabel(String owner) {
         super();
         this.owner = owner;
+        this.x=1;
+        this.y=1;
     }
 
     public String getOwner() {
@@ -27,7 +29,7 @@ public class TokenLabel extends JLabel {
         this.owner = owner;
     }
 
-    public void draw(Graphics g, int i) {
+    public void draw(Graphics g) {
         BufferedImage img = null;
         try {
             img = ImageIO.read(new File("res/pika.png"));
@@ -35,10 +37,16 @@ public class TokenLabel extends JLabel {
             e.printStackTrace();
         }
         g.drawImage(new ImageIcon(img.getScaledInstance(30, 30, Image.SCALE_SMOOTH)).getImage(), x, y, this);
+        this.setBounds(x,y,30,30);
     }
 
-    public void setCoordinates(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public void setCoordinates(int width, int height,int i) {
+        if(i>=6){
+            this.x = width-(width/17)*4 + (i-6)*this.getWidth();
+            this.y = height-(height/17)*13-this.getHeight()*2;
+        }else {
+            this.x = width - ((width / 17) * 4) + (i * this.getWidth());
+            this.y = height-((height/17)*13)-this.getHeight();
+        }
     }
 }
