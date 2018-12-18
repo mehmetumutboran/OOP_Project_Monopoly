@@ -143,7 +143,7 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
 //            tokenlist.get(i).draw(G, i);
 //        }
         for (int i = 0; i < diceList.size(); i++){
-            diceList.get(i).draw(G,i);
+            diceList.get(i).draw(G,i,this.getWidth(),this.getHeight());
         }
 
 
