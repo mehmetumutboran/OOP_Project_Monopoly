@@ -88,8 +88,6 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
 
         timer.scheduleAtFixedRate(timerTaskPaint, 0, 100);
 
-        new Thread(new Animator(this)).start();
-
         UIUpdater.getInstance().addTokenMovementListeners(this);
     }
 
@@ -180,14 +178,10 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
 
    @Override
     public void onTokenMovement(String pName, int x, int y) {
-//        int[] coor = indexToCoor(x, y, pName);
-//        for (TokenLabel t : tokenlist) {
-//            if (t.getOwner().equals(pName))
-//                t.setCoordinates(coor[0], coor[1]);
-//            this.revalidate();
-//            this.repaint();
-//        }
-//
+        for (TokenLabel t : tokenlist) {
+            if (t.getOwner().equals(pName)) t.setNewLoc(new int []{x,y});
+        }
+        new Thread(new Animator(this)).start();
    }
 
     @Override

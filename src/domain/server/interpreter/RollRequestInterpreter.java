@@ -30,9 +30,11 @@ public class RollRequestInterpreter implements RequestInterpretable {
 
         MoveControl.getInstance().updateDoubleCounter(name);
 
+        String newLoc = null;
+
         if (MoveControl.getInstance().checkMoveConditions(name)) {
 
-            String newLoc = MoveControl.getInstance().move(name);
+            newLoc = MoveControl.getInstance().move(name);
 
             String locName = Board.getInstance().getSquare(MessageConverter.convertStringToIntArray(newLoc, ',')[0], MessageConverter.convertStringToIntArray(newLoc, ',')[1]).getName();
 
@@ -59,6 +61,7 @@ public class RollRequestInterpreter implements RequestInterpretable {
 //            }
 //        }
 
+        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Token"), name, newLoc);
         if (!GameInfo.getInstance().isBot(name))
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), index, ButtonStringGenerator.getInstance().getButtonString(name), name);
     }
