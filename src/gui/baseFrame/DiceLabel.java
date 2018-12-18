@@ -11,7 +11,7 @@ public class DiceLabel extends JLabel {
 
     private int x;
     private int y;
-    private static int count;
+    private static int count=0;
     private BufferedImage img;
 
     public DiceLabel(int height,int width){
@@ -21,8 +21,9 @@ public class DiceLabel extends JLabel {
         this.setImage(1);
     }
 
-    public void draw(Graphics g, int i) {
-        g.drawImage(new ImageIcon(img.getScaledInstance(40, 40, Image.SCALE_SMOOTH)).getImage(), x, y, this);
+    public void draw(Graphics g, int i, int width, int height) {
+        g.drawImage(new ImageIcon(img.getScaledInstance(width/35, height/25, Image.SCALE_SMOOTH)).getImage(), width/2-width/25+i*getWidth(), height/2, this);
+        this.setBounds(width/2-width/25+i*getWidth(),height/2-height/70,width/35,height/25);
     }
 
     public void setImage(int i){
