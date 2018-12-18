@@ -1,8 +1,5 @@
 package gui.baseFrame;
 
-
-import gui.util.ColorConverter;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -13,16 +10,13 @@ import java.io.IOException;
 public class TokenLabel extends JLabel {
 
     private String owner;
-    private String color;
     private int x;
     private int y;
 
 
-    public TokenLabel(String owner, String color) {
+    public TokenLabel(String owner) {
         super();
         this.owner = owner;
-        this.color = color;
-        this.setBackground(ColorConverter.getInstance().getColor(this.color));
     }
 
     public String getOwner() {
@@ -34,7 +28,6 @@ public class TokenLabel extends JLabel {
     }
 
     public void draw(Graphics g, int i) {
-        g.setColor(ColorConverter.getInstance().getColor(this.color));
         BufferedImage img = null;
         try {
             img = ImageIO.read(new File("res/pika.png"));

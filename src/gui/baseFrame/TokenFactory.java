@@ -16,8 +16,8 @@ public class TokenFactory {
         return tf;
     }
 
-    public TokenLabel getNewToken(String name, String color) {
-        newTkn = new TokenLabel(name, color);
+    public TokenLabel getNewToken(String name) {
+        newTkn = new TokenLabel(name);
         return newTkn;
     }
 

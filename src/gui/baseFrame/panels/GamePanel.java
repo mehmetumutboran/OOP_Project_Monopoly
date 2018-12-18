@@ -4,6 +4,7 @@ import domain.client.UIUpdater;
 import domain.server.listeners.DiceRolledListener;
 import domain.server.listeners.GameStartedListener;
 import domain.server.listeners.TokenMovementListener;
+import domain.server.listeners.TokenStarterListener;
 import gui.baseFrame.DiceLabel;
 import gui.baseFrame.SquareLabel;
 import gui.baseFrame.TokenFactory;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class GamePanel extends JPanel implements GameStartedListener, TokenMovementListener, DiceRolledListener {
+public class GamePanel extends JPanel implements GameStartedListener, TokenMovementListener, DiceRolledListener, TokenStarterListener {
 
     private int width;
     private int height;
@@ -42,6 +43,7 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
         this.setBackground(Color.white);
         UIUpdater.getInstance().addGameStartedListener(this);
         UIUpdater.getInstance().addDiceRolledListener(this);
+        UIUpdater.getInstance().addTokenStarterListener(this);
         tokenlist = new ArrayList<>();
         diceList = new ArrayList<>(3);
 
@@ -140,9 +142,9 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
     public void paintComponent(Graphics G) {
         super.paintComponent(G);
         G.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
-//        for (int i = 0; i < tokenlist.size(); i++) {
-//            tokenlist.get(i).draw(G, i);
-//        }
+        for (int i = 0; i < tokenlist.size(); i++) {
+            tokenlist.get(i).draw(G, i);
+        }
         for (int i = 0; i < diceList.size(); i++){
             diceList.get(i).draw(G,i,this.getWidth(),this.getHeight());
         }
@@ -318,6 +320,19 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
             diceList.get(i).setImage(faces[i]);
             this.revalidate();
             this.repaint();
+        }
+    }
+
+    @Override
+    public void onTokenStarterEvent(ArrayList<String> pList) {
+        for (int i = 0; i < pList.size(); i++) {
+            String message = pList.get(i);
+            TokenLabel tl = TokenFactory.getInstance().getNewToken(message);
+            tl.setOpaque(false);
+            this.add(tl);
+            if (i >= 6) tl.setCoordinates(1070 + (i - 6) * 25, 125);
+            else tl.setCoordinates(1070 + i * 25, 150);
+            tokenlist.add(tl);
         }
     }
 }
