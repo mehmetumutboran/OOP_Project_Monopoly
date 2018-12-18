@@ -12,13 +12,14 @@ public class TokenLabel extends JLabel {
     private String owner;
     private int x;
     private int y;
+    private int tokenWidth;
+    private int tokenHeight;
 
 
     public TokenLabel(String owner) {
         super();
         this.owner = owner;
-        this.x=1;
-        this.y=1;
+
     }
 
     public String getOwner() {
@@ -36,16 +37,18 @@ public class TokenLabel extends JLabel {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        g.drawImage(new ImageIcon(img.getScaledInstance(30, 30, Image.SCALE_SMOOTH)).getImage(), x, y, this);
-        this.setBounds(x,y,30,30);
+        g.drawImage(new ImageIcon(img.getScaledInstance(tokenWidth, tokenHeight, Image.SCALE_SMOOTH)).getImage(), x, y, this);
+        this.setBounds(x,y,tokenWidth,tokenHeight);
     }
 
     public void setCoordinates(int width, int height,int i) {
+        tokenWidth=width/56;
+        tokenHeight=height/40;
         if(i>=6){
-            this.x = width-(width/17)*4 + (i-6)*this.getWidth();
+            this.x = width-(width/17)*4 + (i-6)*this.getWidth()-width/100;
             this.y = height-(height/17)*13-this.getHeight()*2;
         }else {
-            this.x = width - ((width / 17) * 4) + (i * this.getWidth());
+            this.x = width - ((width / 17) * 4) + (i * this.getWidth())-width/100;
             this.y = height-((height/17)*13)-this.getHeight();
         }
     }

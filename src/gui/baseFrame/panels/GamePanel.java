@@ -143,6 +143,7 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
         super.paintComponent(G);
         G.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
         for (int i = 0; i < tokenlist.size(); i++) {
+            tokenlist.get(i).setCoordinates(this.getWidth(), this.getHeight(),i);
             tokenlist.get(i).draw(G);
         }
         for (int i = 0; i < diceList.size(); i++){
@@ -329,7 +330,6 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
             String message = pList.get(i);
             TokenLabel tl = TokenFactory.getInstance().getNewToken(message);
             tl.setOpaque(false);
-            tl.setCoordinates(this.getWidth(), this.getHeight(),i);
             this.add(tl);
             tokenlist.add(tl);
         }
