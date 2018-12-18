@@ -5,6 +5,7 @@ import domain.server.listeners.DiceRolledListener;
 import domain.server.listeners.GameStartedListener;
 import domain.server.listeners.TokenMovementListener;
 import domain.server.listeners.TokenStarterListener;
+import gui.Animator.Animator;
 import gui.baseFrame.DiceLabel;
 import gui.baseFrame.SquareLabel;
 import gui.baseFrame.TokenFactory;
@@ -87,6 +88,8 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
 
         timer.scheduleAtFixedRate(timerTaskPaint, 0, 100);
 
+        new Thread(new Animator(this)).start();
+
         UIUpdater.getInstance().addTokenMovementListeners(this);
     }
 
@@ -149,8 +152,6 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
         for (int i = 0; i < diceList.size(); i++){
             diceList.get(i).draw(G,i,this.getWidth(),this.getHeight());
         }
-
-
         for (int i = 0; i < squareLabels.size(); i++) {
             squareLabels.get(i).draw(this.getWidth(), this.getHeight());
         }
