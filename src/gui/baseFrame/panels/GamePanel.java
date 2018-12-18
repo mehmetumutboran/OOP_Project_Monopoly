@@ -6,6 +6,7 @@ import domain.server.listeners.GameStartedListener;
 import domain.server.listeners.TokenMovementListener;
 import gui.baseFrame.DiceLabel;
 import gui.baseFrame.SquareLabel;
+import gui.baseFrame.TokenFactory;
 import gui.baseFrame.TokenLabel;
 
 import javax.imageio.ImageIO;
@@ -88,9 +89,9 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
     }
 
     private void initDieLabels() {
-        DiceLabel die1 = new DiceLabel(this.getHeight()*10,this.getWidth());
-        DiceLabel die2 = new DiceLabel(this.getHeight()*10,this.getWidth());
-        DiceLabel die3 = new DiceLabel(this.getHeight()*10,this.getWidth());
+        DiceLabel die1 = new DiceLabel();
+        DiceLabel die2 = new DiceLabel();
+        DiceLabel die3 = new DiceLabel();
         this.add(die1);
         this.add(die2);
         this.add(die3);
@@ -157,7 +158,7 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
 
     @Override
     public void onGameStartedEvent() {
-//        for (int i = 0; i < playerListColor.size(); i++) {
+//        for (int i = 0; i < 3; i++) {
 //            String message = playerListColor.get(i);
 //            int sep = message.indexOf('@');
 //            System.out.println(sep);

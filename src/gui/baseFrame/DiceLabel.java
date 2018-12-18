@@ -9,21 +9,17 @@ import java.io.IOException;
 
 public class DiceLabel extends JLabel {
 
-    private int x;
-    private int y;
     private static int count=0;
     private BufferedImage img;
 
-    public DiceLabel(int height,int width){
-        this.x = width/2 - 55 + count*40; //645
-        this.y = height/2 - 20; // 480
+    public DiceLabel(){
         count++;
         this.setImage(1);
     }
 
     public void draw(Graphics g, int i, int width, int height) {
-        g.drawImage(new ImageIcon(img.getScaledInstance(width/35, height/25, Image.SCALE_SMOOTH)).getImage(), width/2-width/25+i*getWidth(), height/2, this);
-        this.setBounds(width/2-width/25+i*getWidth(),height/2-height/70,width/35,height/25);
+        g.drawImage(new ImageIcon(img.getScaledInstance(width/35, height/25, Image.SCALE_SMOOTH)).getImage(), width/2-width/25+i*getWidth(), height/2-getHeight()/2, this);
+        this.setBounds(width/2-width/25+i*getWidth(),height/2-getHeight()/2,width/35,height/25);
     }
 
     public void setImage(int i){
