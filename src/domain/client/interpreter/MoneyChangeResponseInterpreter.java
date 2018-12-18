@@ -23,9 +23,9 @@ public class MoneyChangeResponseInterpreter implements ResponseInterpretable {
 
         player.increaseMoney(changedMoney);
 
-        if(message[2].substring(0,message[2].indexOf("@")).equals("Go")) UIUpdater.getInstance().setMessage(name + " passed Go Square and he/she's money increased by " + changedMoney);
-        else if(message[2].substring(0,message[2].indexOf("@")).equals("BonusP")) UIUpdater.getInstance().setMessage(name + " passed Bonus Square and he/she's money increased by " + changedMoney);
-        else if(message[2].substring(0,message[2].indexOf("@")).equals("BonusL")) UIUpdater.getInstance().setMessage(name + " landed Bonus Square and he/she's money increased by " + changedMoney);
+        if(message[2].substring(0,message[2].indexOf("@")).equals("Go")) UIUpdater.getInstance().setMessage(name + " passed Go Square and his/her money increased by " + changedMoney);
+        else if(message[2].substring(0,message[2].indexOf("@")).equals("BonusP")) UIUpdater.getInstance().setMessage(name + " passed Bonus Square and his/her money increased by " + changedMoney);
+        else if(message[2].substring(0,message[2].indexOf("@")).equals("BonusL")) UIUpdater.getInstance().setMessage(name + " landed Bonus Square and his/her money increased by " + changedMoney);
         else if (changedMoney > 0) UIUpdater.getInstance().setMessage(name + " 's money increased by " + changedMoney);
         else UIUpdater.getInstance().setMessage(name + " 's money decreased by " + (-changedMoney));
         ClientCommunicationHandler.getInstance().sendReceived();
