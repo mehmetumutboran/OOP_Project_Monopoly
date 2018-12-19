@@ -25,14 +25,17 @@ public class UIFacade implements Runnable{
     public void generatePrompt(char flag) {
 //        PromptFactory.getInstance().getPromptStrategy(flag).show();
         promptStrategy = PromptFactory.getInstance().getPromptStrategy(flag);
+        new Thread(this).start();
     }
 
     public void generatePrompt(char flag, int count) {
         promptStrategy = PromptFactory.getInstance().getPromptStrategy(flag, count);//.show();
+        new Thread(this).start();
     }
 
     public void generatePrompt(char flag, int[] location) {
         promptStrategy = PromptFactory.getInstance().getPromptStrategy(flag, location);//.show();
+        new Thread(this).start();
     }
 
     public void generatePrompt(char flag, boolean b, String name) {
