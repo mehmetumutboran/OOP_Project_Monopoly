@@ -14,6 +14,7 @@ import network.client.clientFacade.ClientFacade;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 public class GameInfo implements Savable {
@@ -21,6 +22,7 @@ public class GameInfo implements Savable {
 
     private ArrayList<PlayerListChangedListener> playerListChangedListeners;
     private ArrayList<String> selectedColors;
+    private boolean isStarted;
 
     public static GameInfo getInstance() {
         if (ourInstance == null)
@@ -247,15 +249,18 @@ public class GameInfo implements Savable {
     }
 
     public void removePlayer(String username) {
-        RandomPlayer randomPlayer = new RandomPlayer(getPlayer(username));
         if (hasPlayer(username)) {
             playerList.removeIf(x -> x.getName().equals(username));
-            addPlayer(randomPlayer);
-            if (!playerQueue.isEmpty()) {
-                playerQueue.removeLast();
-                playerQueue.addLast(randomPlayer.getName());
-            }
             publishPlayerListEvent();
+
+            if (isStarted) {
+                RandomPlayer randomPlayer = new RandomPlayer(getPlayer(username));
+                addPlayer(randomPlayer);
+                if (!playerQueue.isEmpty()) {
+                    playerQueue.removeLast();
+                    playerQueue.addLast(randomPlayer.getName());
+                }
+            }
         }
     }
 
@@ -320,5 +325,13 @@ public class GameInfo implements Savable {
 
     public String getMortgagedFromIndex(int i) {
         return playerList.get(i).getMortgagedSquares().toString();
+    }
+
+    public void startGame() {
+        this.isStarted = true;
+    }
+
+    public boolean isStarted() {
+        return isStarted;
     }
 }

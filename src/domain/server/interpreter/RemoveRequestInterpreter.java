@@ -11,9 +11,13 @@ public class RemoveRequestInterpreter implements RequestInterpretable {
     public void interpret(String[] message, int index) {
         String username = message[1];
 
+        System.out.println("Eited " + username);
+
+
         if (!GameInfo.getInstance().isBot(username)) {
-            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Kick"),
-                    ServerFacade.getInstance().nameToIndex(username), username);
+            if (ServerFacade.getInstance().isAvailable(username))
+                ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Kick"),
+                        ServerFacade.getInstance().nameToIndex(username), username);
 
             ServerFacade.getInstance().kick(username);
         }
@@ -21,8 +25,8 @@ public class RemoveRequestInterpreter implements RequestInterpretable {
         if (GameInfo.getInstance().isCurrentPlayer(username)) {
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Finish"), username);
 
-            while (true){
-                if(ReceivedChecker.getInstance().checkReceived()) {
+            while (true) {
+                if (ReceivedChecker.getInstance().checkReceived()) {
                     ReceivedChecker.getInstance().setReceived();
                     break;
                 }

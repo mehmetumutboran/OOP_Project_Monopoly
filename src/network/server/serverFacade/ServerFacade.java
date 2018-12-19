@@ -1,9 +1,7 @@
 package network.server.serverFacade;
 
 import domain.server.RequestInterpreter;
-import domain.server.controller.ServerCommunicationHandler;
 import domain.server.interpreter.RemoveRequestInterpreter;
-import domain.util.Flags;
 import network.server.ClientHandler;
 import network.server.Server;
 
@@ -61,26 +59,18 @@ public class ServerFacade {
 
 
     public void send(String response) {
-        try {
-            server.sendAll(response);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        server.sendAll(response);
     }
 
     public void send(int index, String response) {
-        try {
-            server.sendToOne(index, response);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        server.sendToOne(index, response);
     }
 
-    public int nameToIndex(String username){
+    public int nameToIndex(String username) {
         return server.getClientIndex(username);
     }
 
-    public void setClientInfo(String username){
+    public void setClientInfo(String username) {
         Server.setClientInfo(username);
     }
 
@@ -90,5 +80,9 @@ public class ServerFacade {
 
     public int getTotalNumPlayers() {
         return server.getTotalNumPlayers();
+    }
+
+    public boolean isAvailable(String username) {
+        return !server.getClientHandler(username).isClosed();
     }
 }

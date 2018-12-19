@@ -110,14 +110,14 @@ public class Server implements Runnable {
         return ss;
     }
 
-    public synchronized void sendAll(String m) throws IOException {
+    public synchronized void sendAll(String m) {
         for (ClientHandler clientThread : clientThreads) {
             if (clientThread == null) continue;
             clientThread.send(m);
         }
     }
 
-    public synchronized void sendToOne(int index, String response) throws IOException {
+    public synchronized void sendToOne(int index, String response) {
         clientThreads[index].send(response);
     }
 
