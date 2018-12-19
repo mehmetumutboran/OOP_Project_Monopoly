@@ -1,6 +1,9 @@
 package network.server.serverFacade;
 
 import domain.server.RequestInterpreter;
+import domain.server.controller.ServerCommunicationHandler;
+import domain.server.interpreter.RemoveRequestInterpreter;
+import domain.util.Flags;
 import network.server.ClientHandler;
 import network.server.Server;
 
@@ -82,7 +85,7 @@ public class ServerFacade {
     }
 
     public void removeClient(ClientHandler clientHandler) {
-        server.removeClient(clientHandler);
+        new RemoveRequestInterpreter().interpret(new String[]{"Exit", server.getClientNameFromIndex(clientHandler.getIndex())}, clientHandler.getIndex());
     }
 
     public int getTotalNumPlayers() {

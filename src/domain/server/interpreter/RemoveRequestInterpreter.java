@@ -1,5 +1,6 @@
 package domain.server.interpreter;
 
+import domain.server.ReceivedChecker;
 import domain.server.controller.ServerCommunicationHandler;
 import domain.util.Flags;
 import domain.util.GameInfo;
@@ -17,9 +18,21 @@ public class RemoveRequestInterpreter implements RequestInterpretable {
             ServerFacade.getInstance().kick(username);
         }
 
-        if (GameInfo.getInstance().isCurrentPlayer(username))
+        if (GameInfo.getInstance().isCurrentPlayer(username)) {
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Finish"), username);
 
+            while (true){
+                if(ReceivedChecker.getInstance().checkReceived()) {
+                    ReceivedChecker.getInstance().setReceived();
+                    break;
+                }
+            }
+
+            String nextPlayer = GameInfo.getInstance().getCurrentPlayerName();
+            if (!GameInfo.getInstance().isBot(nextPlayer))
+                ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), ServerFacade.getInstance().nameToIndex(nextPlayer), "001001110110", nextPlayer);
+
+        }
         ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Remove"), username);
     }
 }

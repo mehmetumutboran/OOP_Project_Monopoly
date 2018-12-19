@@ -59,6 +59,13 @@ public class ClientHandler implements Runnable {
 
     }
 
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int i) {
+        this.index = i;
+    }
 
     public synchronized void send(String m) throws IOException {
         dos.writeUTF(m);

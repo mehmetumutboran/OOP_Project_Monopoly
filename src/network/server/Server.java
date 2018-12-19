@@ -17,7 +17,7 @@ public class Server implements Runnable {
     private static final int maxClientsCount = 12;
 
     private volatile static ClientHandler[] clientThreads = new ClientHandler[maxClientsCount];
-    private volatile static String[] clientNames = new String[maxClientsCount];
+    private volatile static String[] clientNames = new String[maxClientsCount]; //TODO
 
 
     public Server(int port, boolean isMulti) {
@@ -32,12 +32,22 @@ public class Server implements Runnable {
     }
 
     public synchronized void removeClient(ClientHandler clientHandler) {
-        for (int i = 0; i < maxClientsCount; i++) {
+        int i;
+        for (i = 0; i < maxClientsCount; i++) {
             if (clientThreads[i] == clientHandler) {
                 clientThreads[i] = null;
                 clientNames[i] = null;
+                break;
             }
         }
+
+        for (int j = i; j < maxClientsCount - 1; j++) {
+            if(clientThreads[j] == null) continue;
+            clientThreads[j] = clientThreads[j + 1];
+            clientThreads[j].setIndex(j);
+            clientNames[j] = clientNames[j + 1];
+        }
+
     }
 
     public static void setClientInfo(String line) {
@@ -112,7 +122,7 @@ public class Server implements Runnable {
     }
 
     public int getClientIndex(String username) {
-        if(GameInfo.getInstance().isBot(username))
+        if (GameInfo.getInstance().isBot(username))
             return 0; // Bot messages are sent to host
         for (int i = 0; i < clientNames.length; i++) {
             if (clientNames[i] == null) continue;
@@ -124,8 +134,13 @@ public class Server implements Runnable {
     public int getTotalNumPlayers() {
         int count = 0;
         for (int i = 0; i < clientThreads.length; i++) {
-            if (clientThreads[i]!=null) count++;
+            if (clientThreads[i] != null) count++;
         }
         return count;
     }
+
+    public String getClientNameFromIndex(int i) {
+        return clientNames[i];
+    }
+
 }

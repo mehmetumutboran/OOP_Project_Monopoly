@@ -11,6 +11,23 @@ public class RandomPlayer extends Player {
         this.setReadiness("Bot");
     }
 
+    public RandomPlayer(String name, String color, String readiness) {
+        super(name, color, readiness);
+    }
+
+    public RandomPlayer(Player player) {
+        super("Bot " + player.getName(),
+                player.getToken(),
+                player.getBalance(),
+                player.getOwnedProperties(),
+                player.getOwnedUtilities(),
+                player.getOwnedRailroads(),
+                player.getMortgagedSquares(),
+                "Bot",
+                player.getDoubleCounter(),
+                player.isInJail());
+    }
+
 
     @Override
     public String toString() {
