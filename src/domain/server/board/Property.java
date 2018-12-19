@@ -13,7 +13,7 @@ public class Property extends DeedSquare implements Upgradable {
     private String color;
     private ArrayList<Building> buildingList;
     private boolean hasUpgrade;
-    private int[] rents = new int[10];
+    //    private int[] rents = new int[10];
     private int currentRent;
 
     public Property() {
@@ -23,7 +23,7 @@ public class Property extends DeedSquare implements Upgradable {
     public Property(String name, int layer, int index, int buyValue, int[] rents, String color) {
         super(name, layer, index, buyValue, null, rents);
         // this.rents = rents.clone();
-        //  this.currentRent = rents[0];
+        this.currentRent = rents[0];
         this.color = color;
         this.buildingList = new ArrayList<>();
         hasUpgrade = false;
@@ -66,7 +66,6 @@ public class Property extends DeedSquare implements Upgradable {
     public void setCurrentRent(int currentRent) {
         this.currentRent = currentRent;
     }
-
 
 
 //    public boolean isUpgradable(Property square,String name) {
@@ -135,7 +134,6 @@ public class Property extends DeedSquare implements Upgradable {
 //        }
 //        return checker;
 //    }
-
     @Override
     public String generateSaveInfo() {
         return super.generateSaveInfo() + ";" +
@@ -156,10 +154,10 @@ public class Property extends DeedSquare implements Upgradable {
 
     @Override
     public int getUpgradeLevel() {
-        if(buildingList.isEmpty()) return 0;
-        if(buildingList.get(0) instanceof Skyscraper)
+        if (buildingList.isEmpty()) return 0;
+        if (buildingList.get(0) instanceof Skyscraper)
             return 6;
-        else if(buildingList.get(0) instanceof Hotel){
+        else if (buildingList.get(0) instanceof Hotel) {
             return 5;
         }
         return buildingList.size();
@@ -167,11 +165,13 @@ public class Property extends DeedSquare implements Upgradable {
 
     @Override
     public void upgrade() {
-        if(getUpgradeLevel()<=3) buildingList.add(new House(buildingCost));
-        else if(getUpgradeLevel()==4){
+        //@requires isUpgradable true
+        //@effects buildingList, hasUpgrade, currentRent
+        if (getUpgradeLevel() <= 3) buildingList.add(new House(buildingCost));
+        else if (getUpgradeLevel() == 4) {
             buildingList.clear();
             buildingList.add(new Hotel(buildingCost));
-        }else {
+        } else {
             buildingList.clear();
             buildingList.add(new Skyscraper(buildingCost));
         }
@@ -181,17 +181,19 @@ public class Property extends DeedSquare implements Upgradable {
 
     @Override
     public void downgrade() {
-        if(getUpgradeLevel()>=1 && getUpgradeLevel()<=4){
-            buildingList.remove(buildingList.size()-1);
-        }else if(getUpgradeLevel()==5){
+        //@requires isDowngradable true
+        //@effects buildingList, hasUpgrade, currentRent
+        if (getUpgradeLevel() >= 1 && getUpgradeLevel() <= 4) {
+            buildingList.remove(buildingList.size() - 1);
+        } else if (getUpgradeLevel() == 5) {
             buildingList.clear();
-            for(int i=0 ; i<4; i++)
+            for (int i = 0; i < 4; i++)
                 buildingList.add(new House(buildingCost));
-        }else if(getUpgradeLevel()==6){
+        } else if (getUpgradeLevel() == 6) {
             buildingList.remove(0);
             buildingList.add(new Hotel(buildingCost));
         }
-        if(buildingList.isEmpty())hasUpgrade=false;
+        if (buildingList.isEmpty()) hasUpgrade = false;
         updateRent();
 
     }
@@ -261,13 +263,13 @@ public class Property extends DeedSquare implements Upgradable {
     @Override
     public boolean isDowngradable() {
         boolean checker = false;
-        if(buildingList.isEmpty()) return false;
-        for (Property sq : Board.getInstance().getSameColoredSquares(color)){
-            if(sq.getOwner()==null)continue;
-            else if(!sq.getOwner().equals(owner))continue;
-            else if(sq.equals(this))continue;
-            int levelDiff = getUpgradeLevel() - ((Upgradable)sq).getUpgradeLevel();
-            if(levelDiff==0 || levelDiff == 1)
+        if (buildingList.isEmpty()) return false;
+        for (Property sq : Board.getInstance().getSameColoredSquares(color)) {
+            if (sq.getOwner() == null) continue;
+            else if (!sq.getOwner().equals(owner)) continue;
+            else if (sq.equals(this)) continue;
+            int levelDiff = getUpgradeLevel() - ((Upgradable) sq).getUpgradeLevel();
+            if (levelDiff == 0 || levelDiff == 1)
                 checker = true;
             else
                 return false;
@@ -329,6 +331,19 @@ public class Property extends DeedSquare implements Upgradable {
     @Override
     public boolean hasUpgradedSquareInGroup() {
         return Arrays.stream(Board.getInstance().getSameColoredSquares(color)).anyMatch(x -> x.getBuildingCount() > 0);
+    }
+
+    public boolean repOK(){
+        super.repOK();
+        if(this.currentRent<0)return false;
+        if(buildingList.size()>4)return false;
+        if(!this.color.equals("PINK") && !this.color.equals("LIGHTGREEN") && !this.color.equals("LIGHTYELLOW")
+                && !this.color.equals("MEDIUMBLUE") && !this.color.equals("PURPLE") && !this.color.equals("DARKOLIVEGREEN") && !this.color.equals("LIGHTPINK") &&
+                !this.color.equals("BROWN") && !this.color.equals("MEDIUMPURPLE") && !this.color.equals("LIGHTBLUE") &&
+                !this.color.equals("DEEPPINK") && !this.color.equals("ORANGE") && !this.color.equals("RED")
+        && !this.color.equals("YELLOW") && !this.color.equals("GREEN") && !this.color.equals("BLUE") &&
+                !this.color.equals("WHITE") && !this.color.equals("BLACK") && !this.color.equals("GRAY") && !this.color.equals("SANDYBROWN"))return false;
+        return true;
     }
 
 }

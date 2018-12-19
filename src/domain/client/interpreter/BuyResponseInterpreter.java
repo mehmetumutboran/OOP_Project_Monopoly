@@ -9,6 +9,11 @@ import domain.util.GameInfo;
 
 public class BuyResponseInterpreter implements ResponseInterpretable {
 
+    /**
+     * This method gets a buyer player, money after buy, and a square. Then set players money to that money and this square's owner as this player.
+     * @param message String array of the form [Flag, args...] Generated in {@link domain.server.util.GameState}
+     * args includes name of the player that wants to buy a square, the money of the buyer after buy completed, and the name of thr square that bought.
+     */
     @Override
     public void interpret(String[] message) {
 

@@ -71,10 +71,7 @@ public class ConnectGameHandler  {
 //        ClientFacade.getInstance().send("R+" + p.getName() + "+" + p.getReadiness());
 //    }
 
-    /**
-     * Normally it would transfer received message to the {@link RequestInterpreter}
-     * Right now it assumes Received message is new {@link Player} and adds it to the {@link MonopolyGameController#//getPlayerList()}
-     */
+
 //    @Override
 //    public synchronized void onReceivedChangedEvent() {
 //        String message = ClientFacade.getInstance().getMessage();

@@ -47,6 +47,7 @@ public class SaveGameHandler {
      * {@link domain.server.player.Player}
      * {@link GameInfo}
      * {@link domain.server.board.Board}
+     * @return a
      */
 
     // player : name ,[ location[], color], balance, [] , ,

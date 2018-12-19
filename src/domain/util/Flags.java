@@ -13,7 +13,7 @@ public class Flags {
     private static final char payDayFlag = 'F';
     private static final char bonusFlag = 'G';
     private static final char jailFlag = 'H';
-    private static final char finishTurnFlag = 'I';
+    private static final char goOutJailFlag  = 'I';
     private static final char queueFlag = 'J';
     private static final char closeFlag = 'K';
     private static final char upgradeFlag = 'L';
@@ -52,6 +52,7 @@ public class Flags {
     private static final char dontMortgageFlag = 's';
     private static final char dontUnmortgageFlag = 't';
     private static final char colorDowngradeFlag = 'u';
+    private static final char finishTurnFlag = 'u';
 
 
     private static final char receivedFlag = 'z';
@@ -81,7 +82,7 @@ public class Flags {
         flagMap.put("Full", fullFlag);
         flagMap.put("Move", moveFlag);
         flagMap.put("GoToJail", jailFlag);
-        flagMap.put("GoOutOfJail", jailFlag);
+        flagMap.put("GoOutOfJail", goOutJailFlag);
         flagMap.put("DoubleCounter", doubleCounterFlag);
         flagMap.put("Buy", buyFlag);
         flagMap.put("DontBuy", dontBuyFlag);
@@ -111,8 +112,14 @@ public class Flags {
         flagMap.put("ColorDowngrade", colorDowngradeFlag);
     }
 
+    /**
+     * This method gets the corresponding flag to given action name.
+     * @param action The name of the game action.
+     * @return The char flag that symbols the given action.
+     */
     public static char getFlag(String action) {
-//        System.out.println(action);
+        // @requires: action!=null, flagMap.keySet().contains(action)=true.
+        // @effects: returns a char that symbols an action.
         return flagMap.get(action);
     }
 

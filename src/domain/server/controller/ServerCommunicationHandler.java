@@ -75,15 +75,4 @@ public class ServerCommunicationHandler {
                 .send(index, GameState.getInstance().generateCurrentAction(flag, message, args));
     }
 
-//    public synchronized void sendResponse(char flag, String message, String name) {
-//        ServerFacade.getInstance()
-//                .send(GameState.getInstance().generateCurrentAction(flag, name, buildame));
-//    }
-//
-//    public synchronized void sendResponse(char flag, String name, int changedMoney) {
-//        ServerFacade.getInstance()
-//                .send(GameState.getInstance().generateCurrentAction(flag, name, changedMoney));
-//    }
-
-
 }

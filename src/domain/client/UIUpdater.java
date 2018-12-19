@@ -18,6 +18,7 @@ public class UIUpdater {
     private ArrayList<GameStartedListener> gameStartedListeners;
     private ArrayList<ButtonChangeListener> buttonChangeListeners;
     private ArrayList<LabelChangeListener> labelChangeListeners;
+    private ArrayList<DiceRolledListener> diceRolledListeners;
     private String message;
     private String buttonLayout = "000000000000";
     private String defaultLayout = "000000000000";
@@ -38,6 +39,7 @@ public class UIUpdater {
         buttonChangeListeners = new ArrayList<>();
         turnUpdateListeners = new ArrayList<>();
         labelChangeListeners = new ArrayList<>();
+        diceRolledListeners = new ArrayList<>();
     }
 
     public void addMessageChangedListener(MessageChangedListener mcl) {
@@ -71,6 +73,10 @@ public class UIUpdater {
 
     public void addLabelChangeListener (LabelChangeListener lcl){
         labelChangeListeners.add(lcl);
+    }
+
+    public void addDiceRolledListener (DiceRolledListener drl){
+        diceRolledListeners.add(drl);
     }
 
     public void publishGameStartedEvent() {
@@ -208,4 +214,13 @@ public class UIUpdater {
         publishLabelChangeEvent(locationlst, actionType, i);
     }
 
+    public void publishDiceRolledEvent(int [] faces){
+        for (DiceRolledListener drl:diceRolledListeners) {
+            drl.onDiceRolledEvent(faces);
+        }
+    }
+
+    public void setDices(int[] faceValues) {
+        publishDiceRolledEvent(faceValues);
+    }
 }

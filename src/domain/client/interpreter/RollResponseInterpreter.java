@@ -8,8 +8,13 @@ import domain.util.MessageConverter;
 import java.util.Arrays;
 
 public class RollResponseInterpreter implements ResponseInterpretable {
+    /**
+     * Interprets roll message by setting faceValues of the player
+     * @param message String array of the form [Flag, args...] Generated in {@link domain.server.util.GameState}
+     */
     @Override
     public void interpret(String[] message) {
+        //@requires message[2] not null
         String name = message[1];
         int[] faceValues = MessageConverter.convertStringToIntArray(message[2], ',');
         System.out.println("In roll response method: " + Arrays.toString(faceValues));
@@ -27,6 +32,7 @@ public class RollResponseInterpreter implements ResponseInterpretable {
                 break;
         }
 
+        UIUpdater.getInstance().setDices(faceValues);
         ClientCommunicationHandler.getInstance().sendReceived();
     }
 }

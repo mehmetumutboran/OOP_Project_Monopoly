@@ -6,9 +6,15 @@ import domain.server.board.DeedSquare;
 import domain.util.GameInfo;
 
 public class PayRentResponseInterpreter implements ResponseInterpretable {
+    /**
+     * This method takes payer player, final balances of payer and payee and square name.
+     * It uses square name to get owner of it then sets owner's and payer's balance.
+     * @param message The string array that has the rent flag, the payer player's name, payer player's and payee's final balance, and square name.
+     */
     @Override
     public void interpret(String[] message) {
-
+        // @requires: message.length()=5
+        // @effects: Changes the payer(decreases by rent) and owner(increases by rent) player's balance field.
         String name = message[1];
         int customerFinalMoney = Integer.parseInt(message[2]);
         int ownerFinalMoney = Integer.parseInt(message[3]);

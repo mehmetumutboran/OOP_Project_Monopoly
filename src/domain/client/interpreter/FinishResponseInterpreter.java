@@ -8,6 +8,9 @@ import domain.util.GameInfo;
 public class FinishResponseInterpreter implements ResponseInterpretable {
     @Override
     public void interpret(String[] message) {
+        // @requires message of the form [Flag, name]
+        //           GameInfo deque not null
+        // @effects GameInfo playerDeque
         GameInfo.getInstance().nextTurn();
         UIUpdater.getInstance().turnUpdate();
 

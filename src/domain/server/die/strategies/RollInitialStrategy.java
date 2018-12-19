@@ -12,9 +12,8 @@ public class RollInitialStrategy implements DiceRollStrategy {
 
     @Override
     public int[] roll(DiceCup diceCup) {
-        diceCup.getDice()[0].roll(diceCup, 0);
-        diceCup.getDice()[1].roll(diceCup, 1);
-        //    diceCup.getInstance().setTotalFaceValue();
+        diceCup.getDice()[0].roll(diceCup);
+        diceCup.getDice()[1].roll(diceCup);
         int[] returnDie = new int[3];
         returnDie[0] = diceCup.getDice()[0].getFaceValue();
         returnDie[1] = diceCup.getDice()[1].getFaceValue();

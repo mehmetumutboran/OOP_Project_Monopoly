@@ -4,6 +4,9 @@ import domain.client.ClientCommunicationHandler;
 import domain.server.player.RandomPlayer;
 import domain.util.GameInfo;
 
+/**
+ * The class responsible for interpreting Bot add response from server.
+ */
 public class AddBotResponseInterpreter implements ResponseInterpretable {
     @Override
     public void interpret(String[] message) {

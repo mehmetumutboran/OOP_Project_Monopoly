@@ -1,9 +1,12 @@
 package gui.baseFrame.panels;
 
 import domain.client.UIUpdater;
+import domain.server.listeners.DiceRolledListener;
 import domain.server.listeners.GameStartedListener;
 import domain.server.listeners.TokenMovementListener;
+import gui.baseFrame.DiceLabel;
 import gui.baseFrame.SquareLabel;
+import gui.baseFrame.TokenFactory;
 import gui.baseFrame.TokenLabel;
 
 import javax.imageio.ImageIO;
@@ -16,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class GamePanel extends JPanel implements GameStartedListener, TokenMovementListener {
+public class GamePanel extends JPanel implements GameStartedListener, TokenMovementListener, DiceRolledListener {
 
     private int width;
     private int height;
@@ -24,6 +27,7 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
 
     private BufferedImage image;
     private Image img;
+    private ArrayList<DiceLabel> diceList;
     private ArrayList<TokenLabel> tokenlist;
     JPanel jPanel;
     private ArrayList<SquareLabel> squareLabels = new ArrayList<>();
@@ -37,8 +41,9 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
         this.setLayout(new BorderLayout());
         this.setBackground(Color.white);
         UIUpdater.getInstance().addGameStartedListener(this);
+        UIUpdater.getInstance().addDiceRolledListener(this);
         tokenlist = new ArrayList<>();
-
+        diceList = new ArrayList<>(3);
 
         try {
             if (System.getProperty("os.name").startsWith("Windows")) {
@@ -50,7 +55,6 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
             ex.printStackTrace();
         }
 
-//        MonopolyGameController.getInstance().addGameStartedListener(this); //TODO push updates through UIFACADE
         img = new ImageIcon(image).getImage();
 
 //        jPanel = new JPanel();
@@ -59,6 +63,7 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
         //this.setLayout(null);
 
         initsquareLabels();
+        initDieLabels();
 //        SquareLabel label = new SquareLabel();
 //        label.setBounds(1240, 7, this.width / 17, this.height / 17);
 //
@@ -81,6 +86,18 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
         timer.scheduleAtFixedRate(timerTaskPaint, 0, 100);
 
         UIUpdater.getInstance().addTokenMovementListeners(this);
+    }
+
+    private void initDieLabels() {
+        DiceLabel die1 = new DiceLabel();
+        DiceLabel die2 = new DiceLabel();
+        DiceLabel die3 = new DiceLabel();
+        this.add(die1);
+        this.add(die2);
+        this.add(die3);
+        diceList.add(die1);
+        diceList.add(die2);
+        diceList.add(die3);
     }
 
     private void initsquareLabels() {
@@ -123,20 +140,25 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
     public void paintComponent(Graphics G) {
         super.paintComponent(G);
         G.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
-        for (int i = 0; i < tokenlist.size(); i++) {
-            tokenlist.get(i).draw(G, i);
+//        for (int i = 0; i < tokenlist.size(); i++) {
+//            tokenlist.get(i).draw(G, i);
+//        }
+        for (int i = 0; i < diceList.size(); i++){
+            diceList.get(i).draw(G,i,this.getWidth(),this.getHeight());
         }
+
 
         for (int i = 0; i < squareLabels.size(); i++) {
             squareLabels.get(i).draw(this.getWidth(), this.getHeight());
         }
 //        repaint();
+
     }
 
 
     @Override
     public void onGameStartedEvent() {
-//        for (int i = 0; i < playerListColor.size(); i++) {
+//        for (int i = 0; i < 3; i++) {
 //            String message = playerListColor.get(i);
 //            int sep = message.indexOf('@');
 //            System.out.println(sep);
@@ -288,6 +310,15 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
         coor[0] = xLoc;
         coor[1] = yLoc;
         return coor;
+    }
+
+    @Override
+    public void onDiceRolledEvent(int [] faces) {
+        for (int i = 0; i < diceList.size(); i++) {
+            diceList.get(i).setImage(faces[i]);
+            this.revalidate();
+            this.repaint();
+        }
     }
 }
 

@@ -172,7 +172,12 @@ public class GameInfo implements Savable {
         publishPlayerListEvent();
     }
 
+    /**
+     * Checks if everyone is ready after host wanted to start the game
+     * @return Number of unready players
+     */
     public int checkReadiness() {
+        //@requires playerList notNull
         if (playerList.size() == 1) return -1;
         int count = 0;
         for (Player player : playerList) {
@@ -227,7 +232,11 @@ public class GameInfo implements Savable {
         return playerList.size();
     }
 
+    /**
+     * Resets player list and queue
+     */
     public void reset() {
+        //@effects empties layerList and playerQueue
         playerList = new ArrayList<>();
         playerQueue = new LinkedList<>();
     }
@@ -242,7 +251,13 @@ public class GameInfo implements Savable {
         }
     }
 
+    /**
+     * Checks if the given player is the current turn owner
+     * @param username Player name which is wanted to be checked
+     * @return whether given player is the current player
+     */
     public boolean isCurrentPlayer(String username) {
+        //@effects If playerQueue is empty it returns false
         if (playerQueue.isEmpty()) return false;
         return playerQueue.peekFirst().equals(username);
     }
@@ -258,11 +273,22 @@ public class GameInfo implements Savable {
         return playerList.get(i).getToken().getColor();
     }
 
+    /**
+     * Checks if the maximum player capacity is reached
+     * @return whether game has maximum number of players
+     */
     public boolean isFull() {
+        // @requires playerList not null
         return getPlayerListSize() == 12;
     }
 
+    /**
+     * Updates Queue for incoming turn
+     */
     public void nextTurn() {
+        // @requires playerQueue not null
+        // @effects throws NoSuchElementException if the deque is empty
+        //          updates the playerQueue for incoming turn
         playerQueue.addLast(playerQueue.removeFirst());
     }
 

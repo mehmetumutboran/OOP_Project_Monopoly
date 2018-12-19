@@ -73,7 +73,8 @@ public class ResponseInterpreter {
         interpreterMap.put(Flags.getFlag("Token"), tokenMovementResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Roll"), rollResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Special"), specialSquareResponseInterpreter);
-        interpreterMap.put(Flags.getFlag("Jail"), jailResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("GoToJail"), jailResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("GoOutOfJail"), jailResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Start"), startResponseInterpreter);
         interpreterMap.put(Flags.getFlag("DontStart"), dontStartResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Kick"), kickResponseInterpreter);
