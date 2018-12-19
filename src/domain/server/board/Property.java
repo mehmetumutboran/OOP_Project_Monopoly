@@ -68,12 +68,7 @@ public class Property extends DeedSquare implements Upgradable {
     }
 
 
-    /**
-     * Checks if all squares in Square's color group are at the same level.
-     *
-     * @param
-     * @return
-     */
+
 //    public boolean isUpgradable(Property square,String name) {
 //        //if(square.getBuildingList().isEmpty()) return false;
 //        if(!square.getBuildingList().isEmpty() && square.getBuildingList().get(0) instanceof Skyscraper) return false;
@@ -207,6 +202,14 @@ public class Property extends DeedSquare implements Upgradable {
     }
 
 
+
+    /**
+     * Checks if all squares in Square's color group are at the same level.
+     *
+     * @param
+     * @return
+     */
+
     @Override
     public boolean isUpgradable() {
         if (!buildingList.isEmpty() && buildingList.get(0) instanceof Skyscraper) return false;
@@ -249,7 +252,12 @@ public class Property extends DeedSquare implements Upgradable {
         }
         return checker;
     }
-
+    /**
+     * Checks if all squares in Square's color group are at the same level.
+     *
+     * @param
+     * @return
+     */
     @Override
     public boolean isDowngradable() {
         boolean checker = false;
