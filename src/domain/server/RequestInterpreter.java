@@ -39,6 +39,7 @@ public class RequestInterpreter {
         RequestInterpretable resumeRequestInterpreter = new ResumeRequestInterpreter();
         RequestInterpretable mrMonopolyRequestInterpreter = new MrMonopolyRequestInterpreter();
         RequestInterpretable mortgageRequestInterpreter = new MortgageRequestInterpreter();
+        RequestInterpretable colorDowngradeRequestInterpreter = new ColorDowngradeRequestInterpreter();
 
 
         interpreterMap = new HashMap<>();
@@ -67,6 +68,7 @@ public class RequestInterpreter {
         interpreterMap.put(Flags.getFlag("Draw"), drawCardRequestInterpreter);
         interpreterMap.put(Flags.getFlag("MrMonopoly"), mrMonopolyRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Mortgage"), mortgageRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("ColorDowngrade"), colorDowngradeRequestInterpreter);
 
     }
 
