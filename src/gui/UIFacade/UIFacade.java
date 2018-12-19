@@ -1,14 +1,16 @@
 package gui.UIFacade;
 
 import gui.baseFrame.BaseFrame;
+import gui.prompt.FullPromptStrategy;
 import gui.prompt.PromptFactory;
 import gui.prompt.promptStrategy.PauseStrategy;
 import gui.prompt.promptStrategy.PromptStrategy;
 
-public class UIFacade {
+public class UIFacade implements Runnable{
     private static UIFacade ourInstance;
 
     private PauseStrategy pauseStrategy;
+    private PromptStrategy promptStrategy;
 
     public static UIFacade getInstance() {
         if (ourInstance == null)
@@ -21,15 +23,19 @@ public class UIFacade {
 
 
     public void generatePrompt(char flag) {
-        PromptFactory.getInstance().getPromptStrategy(flag).show();
+//        PromptFactory.getInstance().getPromptStrategy(flag).show();
+        promptStrategy = PromptFactory.getInstance().getPromptStrategy(flag);
+        new Thread(this).start();
     }
 
     public void generatePrompt(char flag, int count) {
-        PromptFactory.getInstance().getPromptStrategy(flag, count).show();
+        promptStrategy = PromptFactory.getInstance().getPromptStrategy(flag, count);//.show();
+        new Thread(this).start();
     }
 
     public void generatePrompt(char flag, int[] location) {
-        PromptFactory.getInstance().getPromptStrategy(flag, location).show();
+        promptStrategy = PromptFactory.getInstance().getPromptStrategy(flag, location);//.show();
+        new Thread(this).start();
     }
 
     public void generatePrompt(char flag, boolean b, String name) {
@@ -49,6 +55,11 @@ public class UIFacade {
 
     public void setTitle(String username) {
         BaseFrame.setFrameTitle(username);
+    }
+
+    @Override
+    public void run() {
+        promptStrategy.show();
     }
 
 //    public void generateList(ArrayList<String> playerListName,ArrayList<String> playerListColor) {

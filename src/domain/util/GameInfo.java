@@ -7,12 +7,14 @@ import domain.server.board.Railroad;
 import domain.server.board.Utility;
 import domain.server.listeners.PlayerListChangedListener;
 import domain.server.player.Player;
+import domain.server.player.RandomPlayer;
 import domain.server.player.Token;
 import network.client.clientFacade.ClientFacade;
 
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 public class GameInfo implements Savable {
@@ -20,6 +22,7 @@ public class GameInfo implements Savable {
 
     private ArrayList<PlayerListChangedListener> playerListChangedListeners;
     private ArrayList<String> selectedColors;
+    private boolean isStarted;
 
     public static GameInfo getInstance() {
         if (ourInstance == null)
@@ -62,7 +65,7 @@ public class GameInfo implements Savable {
         this.playerList = playerList;
     }
 
-    public Player getCurrentPlayer(){
+    public Player getCurrentPlayer() {
         return getPlayer(getPlayerQueue().peek());
     }
 
@@ -74,7 +77,7 @@ public class GameInfo implements Savable {
         return getPlayer(ClientFacade.getInstance().getUsername());
     }
 
-    public Player getPeek(){
+    public Player getPeek() {
         return GameInfo.getInstance().getPlayer(GameInfo.getInstance().getPlayerQueue().peekFirst());
     }
 
@@ -102,7 +105,10 @@ public class GameInfo implements Savable {
     }
 
     public void addPlayer(String name, String color, String readiness) {
-        playerList.add(new Player(name, color, readiness));
+        if (readiness.equals("Bot"))
+            playerList.add(new RandomPlayer(name, color, readiness));
+        else
+            playerList.add(new Player(name, color, readiness));
         //publishPlayerListEvent();
         selectedColors.add(color);
         System.out.println(playerList);
@@ -174,6 +180,7 @@ public class GameInfo implements Savable {
 
     /**
      * Checks if everyone is ready after host wanted to start the game
+     *
      * @return Number of unready players
      */
     public int checkReadiness() {
@@ -196,7 +203,7 @@ public class GameInfo implements Savable {
                            ArrayList<? extends Savable> propertyList, ArrayList<? extends Savable> utilityList, ArrayList<? extends Savable> railroadList,
                            ArrayList<? extends Savable> mortgagedSquares, String readiness, boolean isStarted, int doubleCounter, boolean isInJail) {
         Player player = new Player(name, new Token(new int[]{layer, location}, color), balance, (ArrayList<Property>) propertyList, (ArrayList<Utility>) utilityList, (ArrayList<Railroad>) railroadList,
-                (ArrayList<DeedSquare>) mortgagedSquares, readiness, isStarted, doubleCounter, isInJail);
+                (ArrayList<DeedSquare>) mortgagedSquares, readiness, doubleCounter, isInJail);
         this.playerList.add(player);
     }
 
@@ -243,16 +250,23 @@ public class GameInfo implements Savable {
 
     public void removePlayer(String username) {
         if (hasPlayer(username)) {
-            playerList.removeIf(x -> x.getName().equals(username));
-            if (!playerQueue.isEmpty()) {
-                playerQueue.remove(username);
+            selectedColors.remove(getPlayer(username).tokenColor());
+            if (isStarted) {
+                RandomPlayer randomPlayer = new RandomPlayer(getPlayer(username));
+                addPlayer(randomPlayer);
+                if (!playerQueue.isEmpty()) {
+                    playerQueue.removeLast();
+                    playerQueue.addLast(randomPlayer.getName());
+                }
             }
+            playerList.removeIf(x -> x.getName().equals(username));
             publishPlayerListEvent();
         }
     }
 
     /**
      * Checks if the given player is the current turn owner
+     *
      * @param username Player name which is wanted to be checked
      * @return whether given player is the current player
      */
@@ -264,9 +278,9 @@ public class GameInfo implements Savable {
 
     public boolean isBot(String username) {
         System.out.println("\n\nQ: \n" + playerQueue + "\n");
-        if(hasPlayer(username)){
+        if (hasPlayer(username)) {
             return getPlayer(username).getReadiness().equals("Bot");
-        }else return false; // todo ? handle
+        } else return false; // todo ? handle
     }
 
     public String getColorFromIndex(int i) {
@@ -275,6 +289,7 @@ public class GameInfo implements Savable {
 
     /**
      * Checks if the maximum player capacity is reached
+     *
      * @return whether game has maximum number of players
      */
     public boolean isFull() {
@@ -300,7 +315,7 @@ public class GameInfo implements Savable {
         return playerQueue.peekFirst();
     }
 
-    public int[] getLocationFromName(String name){
+    public int[] getLocationFromName(String name) {
         return getPlayer(name).getToken().getLocation();
     }
 
@@ -310,5 +325,13 @@ public class GameInfo implements Savable {
 
     public String getMortgagedFromIndex(int i) {
         return playerList.get(i).getMortgagedSquares().toString();
+    }
+
+    public void startGame() {
+        this.isStarted = true;
+    }
+
+    public boolean isStarted() {
+        return isStarted;
     }
 }

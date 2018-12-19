@@ -7,7 +7,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.Arrays;
 
 public class ClientHandler implements Runnable {
     private Socket socket;
@@ -53,17 +52,30 @@ public class ClientHandler implements Runnable {
 
         } catch (IOException e) {
             //TODO Handle Player exit
-            System.out.println("\n\n Player exited\n\n");
-            ServerFacade.getInstance().removeClient(this);
+            if (!this.socket.isClosed()) {
+                System.out.println("\n\n Player exited\n\n");
+                ServerFacade.getInstance().removeClient(this);
+            }
         }
 
     }
 
+    public int getIndex() {
+        return index;
+    }
 
-    public synchronized void send(String m) throws IOException {
-        dos.writeUTF(m);
-        dos.flush();
-        ReceivedChecker.getInstance().received[index] = false;
+    public void setIndex(int i) {
+        this.index = i;
+    }
+
+    public synchronized void send(String m) {
+        try {
+            dos.writeUTF(m);
+            dos.flush();
+            ReceivedChecker.getInstance().received[index] = false;
+        } catch (IOException e) {
+            terminate();
+        }
     }
 
     public synchronized void terminate() {
@@ -74,5 +86,9 @@ public class ClientHandler implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean isClosed() {
+        return socket.isClosed();
     }
 }

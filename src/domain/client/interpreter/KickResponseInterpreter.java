@@ -12,8 +12,5 @@ public class KickResponseInterpreter implements ResponseInterpretable {
         GameInfo.getInstance().reset();
         UIUpdater.getInstance().changePanel("Join");
         UIUpdater.getInstance().showPrompt(message[0].charAt(0));
-
-        ClientCommunicationHandler.getInstance().sendReceived();
-
     }
 }

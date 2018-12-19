@@ -15,7 +15,6 @@ public class Player implements Comparable, Savable {
     private ArrayList<Railroad> ownedRailroads;
     private ArrayList<DeedSquare> mortgagedSquares;
     private String readiness;
-    private boolean started;
     private int doubleCounter; // Constructor
     private boolean inJail;
     private int[] faceValues;
@@ -35,13 +34,13 @@ public class Player implements Comparable, Savable {
 
     public Player(String name, Token token, int balance, ArrayList<Property> ownedProperties, ArrayList<Utility> ownedUtilities,
                   ArrayList<Railroad> ownedRailroads, String readiness) {
-        this(name, token, balance, ownedProperties, ownedUtilities, ownedRailroads, new ArrayList<>(), readiness, false, 0, false);
+        this(name, token, balance, ownedProperties, ownedUtilities, ownedRailroads, new ArrayList<>(), readiness, 0, false);
     }
 
     public Player(String name, Token token, int balance,
                   ArrayList<Property> propertyList, ArrayList<Utility> utilityList,
                   ArrayList<Railroad> railroadList, ArrayList<DeedSquare> mortgagedSquares,
-                  String readiness, boolean isStarted, int doubleCounter, boolean isInJail) {
+                  String readiness, int doubleCounter, boolean isInJail) {
 
         this.name = name;
         this.token = token;
@@ -52,7 +51,6 @@ public class Player implements Comparable, Savable {
         this.mortgagedSquares = mortgagedSquares;
         this.readiness = readiness;
         this.faceValues = new int[3];
-        this.started = isStarted;
         this.doubleCounter = doubleCounter;
         this.inJail = isInJail;
 
@@ -228,8 +226,7 @@ public class Player implements Comparable, Savable {
                 MessageConverter.convertListToString(ownedProperties) + "," +
                 MessageConverter.convertListToString(ownedUtilities) + "," +
                 MessageConverter.convertListToString(ownedRailroads) + "," + //TODO add Mortgage
-                readiness + "," +
-                started + "," +
+                readiness + "," + //TODO Started
                 doubleCounter + "," +
                 inJail + "*\n";
     }

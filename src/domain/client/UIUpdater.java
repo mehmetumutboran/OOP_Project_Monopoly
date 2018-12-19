@@ -149,7 +149,7 @@ public class UIUpdater {
         publishCloseButtonEvent();
     }
 
-    void removeUpdate(String name) {
+    public void removeUpdate(String name) {
         publishPlayerQuitEvent(name);
     }
 
