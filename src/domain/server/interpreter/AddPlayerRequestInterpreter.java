@@ -10,8 +10,11 @@ public class AddPlayerRequestInterpreter implements RequestInterpretable {
     @Override
     public void interpret(String[] message, int index) {
         String name = message[1];
+//        System.out.println("\nIS Multi  " + ServerFacade.getInstance().isMulti());
 
-        if(ServerFacade.getInstance().isMulti()){
+        ServerFacade.getInstance().setClientInfo(name);
+
+        if(!ServerFacade.getInstance().isMulti() && index != 0){
             ServerCommunicationHandler.getInstance()
                     .sendResponse(Flags.getFlag("Kick"), index, name);
             return;
@@ -36,7 +39,7 @@ public class AddPlayerRequestInterpreter implements RequestInterpretable {
         ServerCommunicationHandler.getInstance()
                 .sendResponse(Flags.getFlag("AddPlayer"), name);
 
-        ServerFacade.getInstance().setClientInfo(name);
+
 
     }
 }

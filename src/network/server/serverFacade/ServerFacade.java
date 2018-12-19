@@ -84,9 +84,6 @@ public class ServerFacade {
         return server.getTotalNumPlayers();
     }
 
-    public boolean isAvailable(String username) {
-        return !server.getClientHandler(username).isClosed();
-    }
 
     public boolean isMulti(){
         return isMulti;

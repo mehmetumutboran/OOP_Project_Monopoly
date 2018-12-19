@@ -15,7 +15,6 @@ public class RemoveRequestInterpreter implements RequestInterpretable {
 
 
         if (!GameInfo.getInstance().isBot(username)) {
-            if (ServerFacade.getInstance().isAvailable(username))
                 ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Kick"),
                         ServerFacade.getInstance().nameToIndex(username), username);
 

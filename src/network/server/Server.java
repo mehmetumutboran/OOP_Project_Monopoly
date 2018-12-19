@@ -45,7 +45,7 @@ public class Server implements Runnable {
             clientThreads[j].setIndex(j);
             clientNames[j] = clientNames[j + 1];
         }
-
+        System.out.println("=============" + Arrays.toString(clientThreads));
     }
 
     public static void setClientInfo(String line) {
