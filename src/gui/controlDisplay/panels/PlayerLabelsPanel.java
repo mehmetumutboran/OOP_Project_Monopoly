@@ -77,7 +77,7 @@ public class PlayerLabelsPanel extends JLabel implements GameStartedListener, Pl
     @Override
     public void onPlayerQuitEvent(String name) {
         playerLabels.removeIf(p -> p.getText().equals(name));
-        System.out.println("\n\n ----------------==========-----------======\n" + playerLabels + "\n\n");
+//        System.out.println("\n\n ----------------==========-----------======\n" + playerLabels + "\n\n");
 
 //        playerLabels.forEach(this::remove);
         setPlayerLabel();
