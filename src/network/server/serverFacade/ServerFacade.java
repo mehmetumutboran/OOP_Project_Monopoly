@@ -14,6 +14,7 @@ public class ServerFacade {
     private Server server;
 
     private static ServerFacade instance;
+    private boolean isMulti;
 
     private ServerFacade() {
 
@@ -31,7 +32,8 @@ public class ServerFacade {
      * @return Whether server successfully created
      */
     public boolean createServer(int port, boolean isMulti) {
-        server = new Server(port, isMulti);
+        server = new Server(port);
+        this.isMulti = isMulti;
         //noinspection ConstantConditions
         return server != null;
     }
@@ -84,5 +86,9 @@ public class ServerFacade {
 
     public boolean isAvailable(String username) {
         return !server.getClientHandler(username).isClosed();
+    }
+
+    public boolean isMulti(){
+        return isMulti;
     }
 }
