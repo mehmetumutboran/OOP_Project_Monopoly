@@ -252,7 +252,7 @@ public class GameInfo implements Savable {
         if (hasPlayer(username)) {
             playerList.removeIf(x -> x.getName().equals(username));
             publishPlayerListEvent();
-
+            selectedColors.remove(getPlayer(username).tokenColor());
             if (isStarted) {
                 RandomPlayer randomPlayer = new RandomPlayer(getPlayer(username));
                 addPlayer(randomPlayer);
