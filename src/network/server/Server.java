@@ -3,6 +3,7 @@ package network.server;
 import domain.util.GameInfo;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Arrays;
@@ -88,8 +89,8 @@ public class Server implements Runnable {
                 for (; i < maxClientsCount; i++) {
                     if (clientThreads[i] == null) {
                         clientThreads[i] = new ClientHandler(clientSocket, i);
-                        clientInfo[i][1] = clientSocket.getInetAddress().getHostAddress();
-//                        System.out.println("\n\nIP: ----------  \n" + clientSocket.getInetAddress().getHostAddress());
+                        if(i==0) clientInfo[i][1] = InetAddress.getLocalHost().getHostAddress();
+                        else clientInfo[i][1] = clientSocket.getInetAddress().getHostAddress();
                         (new Thread(clientThreads[i], "ClientThread " + i)).start();
                         break;
                     }
