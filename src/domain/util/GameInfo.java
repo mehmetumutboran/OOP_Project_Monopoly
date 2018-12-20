@@ -5,6 +5,8 @@ import domain.server.board.DeedSquare;
 import domain.server.board.Property;
 import domain.server.board.Railroad;
 import domain.server.board.Utility;
+import domain.server.card.ChanceCard;
+import domain.server.card.Community;
 import domain.server.listeners.PlayerListChangedListener;
 import domain.server.player.Player;
 import domain.server.player.Token;
@@ -29,6 +31,7 @@ public class GameInfo implements Savable {
 
     private volatile Deque<String> playerQueue;
     private volatile ArrayList<Player> playerList;
+
 
 
     private GameInfo() {

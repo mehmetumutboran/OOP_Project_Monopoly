@@ -15,5 +15,5 @@ public abstract class Card {
         this.name = name;
     }
 
-    public abstract boolean doAction();
+    public abstract boolean doAction(String name);
 }

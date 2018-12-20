@@ -7,7 +7,7 @@ public class ChanceCard extends Card {
     }
 
     @Override
-    public boolean doAction() {
+    public boolean doAction(String name) {
         return false;
     }
 }

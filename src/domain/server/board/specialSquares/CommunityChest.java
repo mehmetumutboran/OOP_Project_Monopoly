@@ -12,7 +12,7 @@ public class CommunityChest extends Square implements SpecialSquareStrategy {
 
     @Override
     public boolean doAction() {
-        Board.getInstance().getCommunityDeckList()[0].doAction();
+    //    Board.getInstance().getCommunityDeckList()[0].doAction();
         return true;
 
     }
