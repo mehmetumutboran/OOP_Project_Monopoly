@@ -14,6 +14,6 @@ public class MultiPlayerButton extends BaseButton {
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         System.out.println("Multi Button Pressed");
-        BaseFrame.setStatus("Multi");
+        BaseFrame.getInstance().setStatus("Multi");
     }
 }

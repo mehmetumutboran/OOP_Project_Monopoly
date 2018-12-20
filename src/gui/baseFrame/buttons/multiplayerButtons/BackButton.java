@@ -1,5 +1,7 @@
 package gui.baseFrame.buttons.multiplayerButtons;
 
+import domain.client.UIUpdater;
+import domain.server.listeners.ReadinessChangedListener;
 import domain.util.GameInfo;
 import gui.baseFrame.BaseFrame;
 import gui.baseFrame.buttons.BaseButton;
@@ -11,20 +13,26 @@ import java.awt.event.ActionEvent;
 /**
  * Allows player to return previous menu
  */
-public class BackButton extends BaseButton {
+public class BackButton extends BaseButton implements ReadinessChangedListener {
     public BackButton(String text) {
         super(text);
+        UIUpdater.getInstance().addReadinessChangedListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         System.out.println("Back Button Pressed");
-        if (BaseFrame.getStatus().equals("Lobby")) {
+        if (BaseFrame.getInstance().getStatus().equals("Lobby")) {
             if (GameInfo.getInstance().isMyselfHost())
                 ServerFacade.getInstance().shutDown();
             ClientFacade.getInstance().terminate();
         }
 
-        BaseFrame.setStatus("Init");
+        BaseFrame.getInstance().setStatus("Init");
+    }
+
+    @Override
+    public void onReadinessChangedEvent(boolean isReady) {
+        this.setEnabled(!isReady);
     }
 }

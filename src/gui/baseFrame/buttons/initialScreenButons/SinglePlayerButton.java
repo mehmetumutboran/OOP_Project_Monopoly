@@ -14,6 +14,6 @@ public class SinglePlayerButton extends BaseButton {
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         System.out.println("Single Button Pressed");
-        BaseFrame.setStatus("Single");
+        BaseFrame.getInstance().setStatus("Single");
     }
 }

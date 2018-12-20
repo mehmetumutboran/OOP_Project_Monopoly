@@ -13,6 +13,6 @@ public class JoinGameButton extends BaseButton {
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         System.out.println("Join Button Pressed");
-        BaseFrame.setStatus("Join");
+        BaseFrame.getInstance().setStatus("Join");
     }
 }

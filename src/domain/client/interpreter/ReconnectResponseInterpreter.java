@@ -12,7 +12,13 @@ public class ReconnectResponseInterpreter implements ResponseInterpretable {
 
         GameInfo.getInstance().removePlayer(oldHost);
 
-        UIUpdater.getInstance().setMessage(oldHost + "'s connection failed!, "+newHost+" is now the new host!");
+        GameInfo.getInstance().setNewHost(newHost);
+
+
+        if (GameInfo.getInstance().isStarted())
+            UIUpdater.getInstance().setMessage(oldHost + "'s connection failed!, " + newHost + " is now the new host!");
+        else if(GameInfo.getInstance().isMyselfHost())
+            UIUpdater.getInstance().setNewHost();
 
         UIUpdater.getInstance().removeUpdate(oldHost);
 

@@ -13,6 +13,6 @@ public class HostGameButton extends BaseButton {
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         System.out.println("Host Button Pressed");
-        BaseFrame.setStatus("Host");
+        BaseFrame.getInstance().setStatus("Host");
     }
 }

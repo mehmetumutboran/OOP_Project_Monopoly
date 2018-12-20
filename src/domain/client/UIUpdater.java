@@ -19,6 +19,7 @@ public class UIUpdater {
     private ArrayList<ButtonChangeListener> buttonChangeListeners;
     private ArrayList<LabelChangeListener> labelChangeListeners;
     private ArrayList<DiceRolledListener> diceRolledListeners;
+    private ArrayList<ReadinessChangedListener> readinessChangedListeners;
     private String message;
     private String buttonLayout = "000000000000";
     private String defaultLayout = "000000000000";
@@ -40,6 +41,7 @@ public class UIUpdater {
         turnUpdateListeners = new ArrayList<>();
         labelChangeListeners = new ArrayList<>();
         diceRolledListeners = new ArrayList<>();
+        readinessChangedListeners = new ArrayList<>();
     }
 
     public void addMessageChangedListener(MessageChangedListener mcl) {
@@ -79,17 +81,20 @@ public class UIUpdater {
         diceRolledListeners.add(drl);
     }
 
+    public void addGameStartedListener(GameStartedListener gsl) {
+        gameStartedListeners.add(gsl);
+    }
+
+    public void addReadinessChangedListener(ReadinessChangedListener rcl) {
+        readinessChangedListeners.add(rcl);
+    }
+
     public void publishGameStartedEvent() {
         for (GameStartedListener gls : gameStartedListeners) {
             if (gls == null) continue;
             gls.onGameStartedEvent();
         }
     }
-
-    public void addGameStartedListener(GameStartedListener gsl) {
-        gameStartedListeners.add(gsl);
-    }
-
 
     private void publishTokenMovementEvent(String name, int x, int y) {
         for (TokenMovementListener tml : tokenMovementListeners) {
@@ -118,6 +123,12 @@ public class UIUpdater {
     private void publishCloseButtonEvent() {
         for (CloseButtonListener cbl : closeButtonListeners) {
             cbl.onCloseClickedEvent();
+        }
+    }
+
+    private void publishReadinessChangedEvent(boolean readiness) {
+        for (ReadinessChangedListener rcl : readinessChangedListeners) {
+            rcl.onReadinessChangedEvent(readiness);
         }
     }
 
@@ -223,5 +234,13 @@ public class UIUpdater {
 
     public void setDices(int[] faceValues) {
         publishDiceRolledEvent(faceValues);
+    }
+
+    public void setNewHost() {
+        UIFacade.getInstance().setNewHost();
+    }
+
+    public void changeReadiness(boolean readiness) {
+        publishReadinessChangedEvent(readiness);
     }
 }

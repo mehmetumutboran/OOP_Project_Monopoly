@@ -343,4 +343,12 @@ public class GameInfo implements Savable {
     public boolean isStarted() {
         return isStarted;
     }
+
+    public void setNewHost(String newHost) {
+        getPlayer(newHost).setReadiness("Host");
+    }
+
+    public boolean isReady(String username) {
+        return getPlayer(username).getReadiness().equals("Ready");
+    }
 }

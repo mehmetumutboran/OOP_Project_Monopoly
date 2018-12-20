@@ -48,17 +48,21 @@ public class UIFacade implements Runnable {
 
 
     public void changePanel(String panel) {
-        if (!BaseFrame.getStatus().equals(panel))
-            BaseFrame.setStatus(panel);
+        if (!BaseFrame.getInstance().getStatus().equals(panel))
+            BaseFrame.getInstance().setStatus(panel);
     }
 
     public void setTitle(String username) {
-        BaseFrame.setFrameTitle(username);
+        BaseFrame.getInstance().setFrameTitle(username);
     }
 
     @Override
     public void run() {
         promptStrategy.show();
+    }
+
+    public void setNewHost() {
+        BaseFrame.getInstance().setHost();
     }
 
 //    public void generateList(ArrayList<String> playerListName,ArrayList<String> playerListColor) {

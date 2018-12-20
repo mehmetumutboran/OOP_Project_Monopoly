@@ -132,7 +132,7 @@ public class LobbyPanel extends JPanel {
         clientButtonPanel.setLayout(null);
         clientButtonPanel.setOpaque(false);
 
-        readyButton = new ReadyButton(backButton, colorBox);
+        readyButton = new ReadyButton();
         readyButton.setVisible(true);
         readyButton.setBorderPainted(false);
         readyButton.setBounds(0, 2 * BUTTON_HEIGHT, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -168,6 +168,11 @@ public class LobbyPanel extends JPanel {
         }
         validate();
         repaint();
+    }
+
+    public void refresh() {
+        lobbyPlayerListPanel.revalidate();
+        lobbyPlayerListPanel.repaint();
     }
 }
 

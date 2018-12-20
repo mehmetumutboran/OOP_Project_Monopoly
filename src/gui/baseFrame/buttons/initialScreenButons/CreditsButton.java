@@ -14,6 +14,6 @@ public class CreditsButton extends BaseButton {
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         System.out.println("Credits Button Pressed");
-        BaseFrame.setStatus("Credits");
+        BaseFrame.getInstance().setStatus("Credits");
     }
 }

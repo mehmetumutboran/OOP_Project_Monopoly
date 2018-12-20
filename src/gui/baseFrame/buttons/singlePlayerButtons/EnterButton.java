@@ -21,7 +21,7 @@ public class EnterButton extends BaseButton {
         System.out.println("Enter Button Pressed");
         if (InputChecker.getInstance().userNameChecker(userNameField.getText())) {
             PlayerActionController.getInstance().host(userNameField.getText(), 2222, false);
-            BaseFrame.setStatus("Lobby");
+            BaseFrame.getInstance().setStatus("Lobby");
         }
     }
 }

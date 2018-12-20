@@ -15,6 +15,7 @@ public class ReconnectRequestInterpreter implements RequestInterpretable {
             ServerFacade.getInstance().setClientInfo(name);
 
         String oldHostName = ClientFacade.getInstance().getOldHostName();
-        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Reconnect"),index,name,oldHostName);
+        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Reconnect"), index,
+                ClientFacade.getInstance().getUsername(), oldHostName);
     }
 }
