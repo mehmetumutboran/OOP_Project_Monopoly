@@ -32,4 +32,8 @@ public class ReceivedChecker {
     public void setReceived() {
         received = new boolean[12];
     }
+
+    public boolean checkReceived(int index) {
+        return received[index];
+    }
 }

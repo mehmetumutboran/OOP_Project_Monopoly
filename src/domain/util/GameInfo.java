@@ -14,6 +14,7 @@ import network.client.clientFacade.ClientFacade;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.ListIterator;
 import java.util.stream.Collectors;
 
 public class GameInfo implements Savable {
@@ -174,6 +175,7 @@ public class GameInfo implements Savable {
 
     public void setReadiness(String username) {
         getPlayer(username).setReadiness();
+        System.out.println(playerList);
         publishPlayerListEvent();
     }
 
@@ -254,8 +256,16 @@ public class GameInfo implements Savable {
                 RandomPlayer randomPlayer = new RandomPlayer(getPlayer(username));
                 addPlayer(randomPlayer);
                 if (!playerQueue.isEmpty()) {
-                    playerQueue.removeLast();
-                    playerQueue.addLast(randomPlayer.getName());
+                    ListIterator<String> iterator = (ListIterator<String>) playerQueue.iterator();
+
+                    while(iterator.hasNext()){
+                        if(iterator.next().equals(username)){
+                            iterator.set(randomPlayer.getName());
+                        }
+                    }
+
+//                    playerQueue.removeLast();
+//                    playerQueue.addLast(randomPlayer.getName());
                 }
             }
             playerList.removeIf(x -> x.getName().equals(username));

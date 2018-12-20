@@ -6,6 +6,7 @@ import network.server.ClientHandler;
 import network.server.Server;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * Class that provides network logic to server Host
@@ -42,9 +43,10 @@ public class ServerFacade {
         return server;
     }
 
-    public synchronized void kick(String username) {
-        server.getClientHandler(username).terminate();
-        server.removeClient(server.getClientHandler(username));
+    public synchronized void kick(int i) {
+        server.kick(i);
+//        server.getClientHandler(username).terminate();
+//        server.removeClient(server.getClientHandler(username));
     }
 
     public void shutDown() {
@@ -77,6 +79,7 @@ public class ServerFacade {
     }
 
     public void removeClient(ClientHandler clientHandler) {
+        System.out.println(Arrays.toString(server.clientThreads));
         new RemoveRequestInterpreter().interpret(new String[]{"Exit", server.getClientNameFromIndex(clientHandler.getIndex())}, clientHandler.getIndex());
     }
 

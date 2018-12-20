@@ -1,5 +1,6 @@
 package domain.server.interpreter;
 
+import domain.server.ReceivedChecker;
 import domain.server.controller.ServerCommunicationHandler;
 import domain.util.Flags;
 import domain.util.GameInfo;
@@ -29,6 +30,15 @@ public class AddPlayerRequestInterpreter implements RequestInterpretable {
         if (GameInfo.getInstance().hasPlayer(name)) {
             ServerCommunicationHandler.getInstance()
                     .sendResponse(Flags.getFlag("Close"), index, name);
+
+            while (true) {
+                if (ReceivedChecker.getInstance().checkReceived(index)) {
+                    ReceivedChecker.getInstance().setReceived();
+                    break;
+                }
+            }
+
+            ServerFacade.getInstance().kick(index);
             return;
         }
 

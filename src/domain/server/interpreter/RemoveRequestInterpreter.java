@@ -11,15 +11,22 @@ public class RemoveRequestInterpreter implements RequestInterpretable {
     public void interpret(String[] message, int index) {
         String username = message[1];
 
-        System.out.println("Eited " + username);
+        System.out.println("Exited " + username);
 
 
         if (!GameInfo.getInstance().isBot(username)) {
+//            int i;
+//            if(message[0].equals("Exit")) i = index;
+//            else i = ServerFacade.getInstance().nameToIndex(username);
+
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Kick"),
                     ServerFacade.getInstance().nameToIndex(username), username);
 
-            ServerFacade.getInstance().kick(username);
+            ServerFacade.getInstance().kick(ServerFacade.getInstance().nameToIndex(username));
+
         }
+
+
 
         if (GameInfo.getInstance().isCurrentPlayer(username)) {
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Finish"), username);

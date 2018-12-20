@@ -16,7 +16,7 @@ public class Server implements Runnable {
 
     private static final int maxClientsCount = 12;
 
-    private volatile ClientHandler[] clientThreads = new ClientHandler[maxClientsCount];
+    public volatile ClientHandler[] clientThreads = new ClientHandler[maxClientsCount];
     private volatile String[] clientNames = new String[maxClientsCount]; //TODO
     private volatile String[][] clientInfo = new String[maxClientsCount][2];
 
@@ -37,25 +37,28 @@ public class Server implements Runnable {
             if (clientThreads[i] == clientHandler) {
                 clientThreads[i] = null;
                 clientNames[i] = null;
+                clientInfo[i] = new String[]{null, null};
                 break;
             }
         }
 
         for (int j = i; j < maxClientsCount - 1; j++) {
-            if (clientThreads[j] == null) continue;
+            if (clientThreads[j + 1] == null) continue;
             clientThreads[j] = clientThreads[j + 1];
+            clientThreads[j + 1] = null;
             clientThreads[j].setIndex(j);
             clientNames[j] = clientNames[j + 1];
+            clientNames[j+1] = null;
+            clientInfo[j] = clientInfo[j+1];
+            clientInfo[j+1] = new String[]{null, null};
         }
         System.out.println("=============" + Arrays.toString(clientThreads));
+        System.out.println(Arrays.deepToString(clientInfo));
     }
 
     public void setClientInfo(String line) {
         for (int i = 0; i < maxClientsCount; i++) {
-            if (line.equals(clientNames[i])) {
-                clientThreads[i].terminate();
-                break;
-            } else if (clientNames[i] == null) {
+            if (clientNames[i] == null) {
                 clientNames[i] = line;
                 clientInfo[i][0] = line;
                 break;
@@ -89,7 +92,7 @@ public class Server implements Runnable {
                 for (; i < maxClientsCount; i++) {
                     if (clientThreads[i] == null) {
                         clientThreads[i] = new ClientHandler(clientSocket, i);
-                        if(i==0) clientInfo[i][1] = InetAddress.getLocalHost().getHostAddress();
+                        if (i == 0) clientInfo[i][1] = InetAddress.getLocalHost().getHostAddress();
                         else clientInfo[i][1] = clientSocket.getInetAddress().getHostAddress();
                         (new Thread(clientThreads[i], "ClientThread " + i)).start();
                         break;
@@ -143,5 +146,11 @@ public class Server implements Runnable {
 
     public String[][] getClientInfo() {
         return clientInfo;
+    }
+
+    public synchronized void kick(int i) {
+        clientThreads[i].terminate();
+        removeClient(clientThreads[i]);
+
     }
 }
