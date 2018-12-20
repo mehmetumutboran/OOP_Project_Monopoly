@@ -34,6 +34,10 @@ public class MessageConverter {
         return Arrays.toString(array);
     }
 
+    public static <T> String convertArrayToString(T[][] array) {
+        return Arrays.deepToString(array);
+    }
+
     public static String convertArrayToString(int[] array) {
         return Arrays.toString(array);
     }
@@ -51,8 +55,14 @@ public class MessageConverter {
         return intArray;
     }
 
-    public static String[] convertStringToStringArray(String str) {
-        return str.substring(1, str.length()-1).split(",\\s");
+    public static String[][] convertStringTo2DStringArray(String str) {
+        String[] arr = str.substring(2, str.length()-2).split("],\\s\\[");
+        String[][] arr2D = new String[arr.length][2];
+        for (int i = 0; i < arr.length; i++) {
+            arr2D[i][0] = arr[i].split(", ")[0];
+            arr2D[i][1] = arr[i].split(", ")[1];
+        }
+        return arr2D;
     }
 
     public static Deque<String> convertStringToDeque(String str) {

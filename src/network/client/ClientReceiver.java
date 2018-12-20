@@ -20,24 +20,23 @@ public class ClientReceiver extends Thread {
     public void run() {
         String received;
         while (true) {
-            received = receive();
+            try {
+                received = receive();
+            } catch (IOException e) {
+                e.printStackTrace();
+                break;
+            }
             if (socket.isClosed()) break;
 
-//            System.out.println("client receiver :" + received);
             ClientFacade.getInstance().sendReceivedMessage(received);
 
 
         }
     }
 
-    public synchronized String receive() {
-        String received = "";
-        try {
-            received = dis.readUTF();
-            System.out.println("Client class received Message:\n" + received + "\n\n");
-        } catch (IOException ignored) {
-
-        }
+    public synchronized String receive() throws IOException {
+        String received = dis.readUTF();
+        System.out.println("Client class received Message:\n" + received + "\n\n");
 
         return received;
     }

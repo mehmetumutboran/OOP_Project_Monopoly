@@ -3,7 +3,6 @@ package network.server;
 import domain.util.GameInfo;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Arrays;
@@ -18,7 +17,7 @@ public class Server implements Runnable {
 
     private volatile ClientHandler[] clientThreads = new ClientHandler[maxClientsCount];
     private volatile String[] clientNames = new String[maxClientsCount]; //TODO
-    private volatile String[] clientIps = new String[maxClientsCount];
+    private volatile String[][] clientInfo = new String[maxClientsCount][2];
 
 
     public Server(int port) {
@@ -57,6 +56,7 @@ public class Server implements Runnable {
                 break;
             } else if (clientNames[i] == null) {
                 clientNames[i] = line;
+                clientInfo[i][0] = line;
                 break;
             }
         }
@@ -88,7 +88,7 @@ public class Server implements Runnable {
                 for (; i < maxClientsCount; i++) {
                     if (clientThreads[i] == null) {
                         clientThreads[i] = new ClientHandler(clientSocket, i);
-                        clientIps[i] = clientSocket.getInetAddress().getHostAddress();
+                        clientInfo[i][1] = clientSocket.getInetAddress().getHostAddress();
 //                        System.out.println("\n\nIP: ----------  \n" + clientSocket.getInetAddress().getHostAddress());
                         (new Thread(clientThreads[i], "ClientThread " + i)).start();
                         break;
@@ -140,7 +140,7 @@ public class Server implements Runnable {
         return clientNames[i];
     }
 
-    public String[] getClientIps() {
-        return clientIps;
+    public String[][] getClientInfo() {
+        return clientInfo;
     }
 }

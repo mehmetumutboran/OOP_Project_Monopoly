@@ -84,8 +84,8 @@ public class ServerFacade {
         return server.getTotalNumPlayers();
     }
 
-    public String[] getClientIps(){
-        return server.getClientIps();
+    public String[][] getClientInfo(){
+        return server.getClientInfo();
     }
 
 
