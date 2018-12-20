@@ -3,6 +3,7 @@ package network.server;
 import domain.util.GameInfo;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Arrays;
@@ -15,8 +16,9 @@ public class Server implements Runnable {
 
     private static final int maxClientsCount = 12;
 
-    private volatile static ClientHandler[] clientThreads = new ClientHandler[maxClientsCount];
-    private volatile static String[] clientNames = new String[maxClientsCount]; //TODO
+    private volatile ClientHandler[] clientThreads = new ClientHandler[maxClientsCount];
+    private volatile String[] clientNames = new String[maxClientsCount]; //TODO
+    private volatile String[] clientIps = new String[maxClientsCount];
 
 
     public Server(int port) {
@@ -48,7 +50,7 @@ public class Server implements Runnable {
         System.out.println("=============" + Arrays.toString(clientThreads));
     }
 
-    public static void setClientInfo(String line) {
+    public void setClientInfo(String line) {
         for (int i = 0; i < maxClientsCount; i++) {
             if (line.equals(clientNames[i])) {
                 clientThreads[i].terminate();
@@ -86,12 +88,9 @@ public class Server implements Runnable {
                 for (; i < maxClientsCount; i++) {
                     if (clientThreads[i] == null) {
                         clientThreads[i] = new ClientHandler(clientSocket, i);
-//                        if (!isMulti && !clientSocket.getInetAddress().getHostAddress().equals("127.0.0.1")) {
-//                            clientThreads[i].terminate();
-//                            clientThreads[i] = null;
-//                        } else {
+                        clientIps[i] = clientSocket.getInetAddress().getHostAddress();
+//                        System.out.println("\n\nIP: ----------  \n" + clientSocket.getInetAddress().getHostAddress());
                         (new Thread(clientThreads[i], "ClientThread " + i)).start();
-//                        }
                         break;
                     }
                 }
@@ -141,4 +140,7 @@ public class Server implements Runnable {
         return clientNames[i];
     }
 
+    public String[] getClientIps() {
+        return clientIps;
+    }
 }

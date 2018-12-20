@@ -26,6 +26,7 @@ public class ClientFacade {
      */
     private volatile ArrayList<ReceivedChangedListener> receivedChangedListeners;
     private volatile ArrayList<ConnectionFailedListener> connectionFailedListeners;
+    private String[] ips;
 
     private ClientFacade() {
         receivedChangedListeners = new ArrayList<>();
@@ -138,6 +139,11 @@ public class ClientFacade {
 
     public String getUsername() {
         return client.getUsername();
+    }
+
+
+    public void setIps(String[] ips) {
+        this.ips = ips;
     }
 
 

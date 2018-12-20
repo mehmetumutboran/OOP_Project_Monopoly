@@ -51,6 +51,10 @@ public class MessageConverter {
         return intArray;
     }
 
+    public static String[] convertStringToStringArray(String str) {
+        return str.substring(1, str.length()-1).split(",\\s");
+    }
+
     public static Deque<String> convertStringToDeque(String str) {
         assert str.contains(",");
         Deque<String> myDeque = new LinkedList<>();

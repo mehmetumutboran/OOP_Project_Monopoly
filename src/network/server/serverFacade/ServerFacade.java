@@ -73,7 +73,7 @@ public class ServerFacade {
     }
 
     public void setClientInfo(String username) {
-        Server.setClientInfo(username);
+        server.setClientInfo(username);
     }
 
     public void removeClient(ClientHandler clientHandler) {
@@ -82,6 +82,10 @@ public class ServerFacade {
 
     public int getTotalNumPlayers() {
         return server.getTotalNumPlayers();
+    }
+
+    public String[] getClientIps(){
+        return server.getClientIps();
     }
 
 

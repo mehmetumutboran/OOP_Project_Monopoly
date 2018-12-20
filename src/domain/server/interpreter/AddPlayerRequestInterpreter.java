@@ -3,6 +3,8 @@ package domain.server.interpreter;
 import domain.server.controller.ServerCommunicationHandler;
 import domain.util.Flags;
 import domain.util.GameInfo;
+import domain.util.MessageConverter;
+import network.server.Server;
 import network.server.serverFacade.ServerFacade;
 
 public class AddPlayerRequestInterpreter implements RequestInterpretable {
@@ -38,6 +40,6 @@ public class AddPlayerRequestInterpreter implements RequestInterpretable {
         ServerCommunicationHandler.getInstance()
                 .sendResponse(Flags.getFlag("AddPlayer"), name);
 
-
+        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("IP"), name, MessageConverter.convertArrayToString(ServerFacade.getInstance().getClientIps()));
     }
 }
