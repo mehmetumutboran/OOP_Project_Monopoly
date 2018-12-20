@@ -1,4 +1,5 @@
 package domain.server.controller;
+
 //
 //import domain.util.Flags;
 //import domain.server.listeners.CloseButtonListener;
@@ -9,7 +10,8 @@ package domain.server.controller;
 //import java.util.*;
 //import java.util.stream.Collectors;
 //
-public class MonopolyGameController { }
+public class MonopolyGameController {
+}
 //    private ArrayList<Player> playerList;
 //    private ArrayList<Player> playerSortList;
 //    private Deque<Player> playerQueue;

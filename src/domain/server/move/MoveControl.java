@@ -159,8 +159,6 @@ public class MoveControl {
     }
 
 
-
-
     public boolean isMrMonopolyChecked() {
         return mrMonopolyChecked;
     }
@@ -206,8 +204,9 @@ public class MoveControl {
             for (int i = 1; i < FIRST_LAYER_SQ; i++) {
                 findNextSquare(loc, i);
                 if (findNextSquare(loc, i) instanceof DeedSquare
-                        && ((DeedSquare) findNextSquare(loc, i)).getOwner() == null){
-                    return findNextSquare(loc, i).getLocation();}
+                        && ((DeedSquare) findNextSquare(loc, i)).getOwner() == null) {
+                    return findNextSquare(loc, i).getLocation();
+                }
             }
         } else if (layer == 2) {
             for (int i = 1; i < SECOND_LAYER_SQ; i++) {
@@ -251,11 +250,6 @@ public class MoveControl {
         } else return Board.getInstance().getSquare(loc[0], loc[1]);
 
     }
-
-
-
-
-
 
 
 }

@@ -3,12 +3,14 @@ package domain.server.board;
 public interface Upgradable {
     /**
      * Checks other same colored squares or railroad to determine whether the square is upgradable
+     *
      * @return whether the square is upgradable
      */
     boolean isUpgradable();
 
     /**
      * Checks other same colored squares or railroad to determine whether the square is downgradable
+     *
      * @return whether the square is downgradable
      */
     boolean isDowngradable();

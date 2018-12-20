@@ -18,27 +18,27 @@ public class PayRentRequestInterpreter implements RequestInterpretable {
 
         Player player = GameInfo.getInstance().getPlayer(name);
         int[] loc = player.getToken().getLocation().clone();
-        Square square = Board.getInstance().getSquare(loc[0] , loc[1]);
+        Square square = Board.getInstance().getSquare(loc[0], loc[1]);
 
-        boolean paidRent = (player.getBalance() >= ((DeedSquare)square).getCurrentRent() )
-                && ( ((DeedSquare) square).getOwner()!= null)
+        boolean paidRent = (player.getBalance() >= ((DeedSquare) square).getCurrentRent())
+                && (((DeedSquare) square).getOwner() != null)
                 && (!((DeedSquare) square).getOwner().equals(name));
 
-        if(paidRent){
+        if (paidRent) {
             int customerCurrentMoney = GameInfo.getInstance().getPlayer(player.getName()).getBalance();
             int ownerCurrentMoney = GameInfo.getInstance().getPlayer(((DeedSquare) square).getOwner()).getBalance();
             int customerFinalMoney = customerCurrentMoney - 50; //((DeedSquare)square).getCurrentRent();
             int ownerFinalMoney = ownerCurrentMoney + 50;//((DeedSquare)square).getCurrentRent();
 
-            while (true){
-                if(ReceivedChecker.getInstance().checkReceived()) {
+            while (true) {
+                if (ReceivedChecker.getInstance().checkReceived()) {
                     ReceivedChecker.getInstance().setReceived();
                     break;
                 }
             }
 
             ServerCommunicationHandler.getInstance()
-                    .sendResponse(Flags.getFlag("PayRent"),name , customerFinalMoney ,ownerFinalMoney, square.getName());
+                    .sendResponse(Flags.getFlag("PayRent"), name, customerFinalMoney, ownerFinalMoney, square.getName());
 
 //            while (true){
 //                try {
@@ -49,8 +49,8 @@ public class PayRentRequestInterpreter implements RequestInterpretable {
 //                }
 //            }
 
-            while (true){
-                if(ReceivedChecker.getInstance().checkReceived()) {
+            while (true) {
+                if (ReceivedChecker.getInstance().checkReceived()) {
                     ReceivedChecker.getInstance().setReceived();
                     break;
                 }
@@ -59,18 +59,17 @@ public class PayRentRequestInterpreter implements RequestInterpretable {
             ServerCommunicationHandler.getInstance()
                     .sendResponse(Flags.getFlag("Button"), index, "000010000111", name);
 
-        }
-        else{
+        } else {
 
-            while (true){
-                if(ReceivedChecker.getInstance().checkReceived()) {
+            while (true) {
+                if (ReceivedChecker.getInstance().checkReceived()) {
                     ReceivedChecker.getInstance().setReceived();
                     break;
                 }
             }
 
             ServerCommunicationHandler.getInstance()
-                    .sendResponse(Flags.getFlag("DontPayRent") , index );
+                    .sendResponse(Flags.getFlag("DontPayRent"), index);
 
         }
         //       String name = message[1];

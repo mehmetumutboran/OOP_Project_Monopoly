@@ -9,6 +9,7 @@ public class PayRentResponseInterpreter implements ResponseInterpretable {
     /**
      * This method takes payer player, final balances of payer and payee and square name.
      * It uses square name to get owner of it then sets owner's and payer's balance.
+     *
      * @param message The string array that has the rent flag, the payer player's name, payer player's and payee's final balance, and square name.
      */
     @Override
@@ -19,7 +20,6 @@ public class PayRentResponseInterpreter implements ResponseInterpretable {
         int customerFinalMoney = Integer.parseInt(message[2]);
         int ownerFinalMoney = Integer.parseInt(message[3]);
         String squareName = message[4];
-
 
 
         DeedSquare boughtSquare = ((DeedSquare) Board.getInstance().getNameGivenSquare(squareName));

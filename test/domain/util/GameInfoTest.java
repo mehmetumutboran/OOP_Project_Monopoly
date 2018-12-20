@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class GameInfoTest {
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         GameInfo.getInstance().reset();
     }
 
@@ -28,6 +28,7 @@ class GameInfoTest {
         GameInfo.getInstance().addPlayer(name);
         assertEquals(list, GameInfo.getInstance().getPlayerList());
     }
+
     @Test
     void addPlayer2() {
         String name = "Hasan";

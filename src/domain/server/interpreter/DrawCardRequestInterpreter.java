@@ -9,8 +9,8 @@ public class DrawCardRequestInterpreter implements RequestInterpretable {
     public void interpret(String[] message, int index) {
         String name = message[1];
 
-        if(GameInfo.getInstance().getPlayer(name).getFaceValues()[2]!=7)
-        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), index, "000010000110", name);
+        if (GameInfo.getInstance().getPlayer(name).getFaceValues()[2] != 7)
+            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), index, "000010000110", name);
         else
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), index, "000010000111", name);
 

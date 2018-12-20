@@ -1,14 +1,13 @@
-
 package gui.controlDisplay.butons;
 
-        import domain.client.PlayerActionController;
-        import domain.client.UIUpdater;
-        import domain.server.listeners.ButtonChangeListener;
-        import domain.server.listeners.TurnChangedListener;
+import domain.client.PlayerActionController;
+import domain.client.UIUpdater;
+import domain.server.listeners.ButtonChangeListener;
+import domain.server.listeners.TurnChangedListener;
 
-        import javax.swing.*;
-        import java.awt.event.ActionEvent;
-        import java.awt.event.ActionListener;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MrMonopolyButton extends JButton implements ActionListener, TurnChangedListener, ButtonChangeListener {
 
@@ -29,7 +28,7 @@ public class MrMonopolyButton extends JButton implements ActionListener, TurnCha
 
     @Override
     public void onTurnChangedEvent(String enable) {
-        this.setEnabled(enable.charAt(INDEX)=='1');
+        this.setEnabled(enable.charAt(INDEX) == '1');
     }
 
     @Override

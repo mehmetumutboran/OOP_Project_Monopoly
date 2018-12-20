@@ -14,7 +14,6 @@ import network.client.clientFacade.ClientFacade;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
-import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 public class GameInfo implements Savable {

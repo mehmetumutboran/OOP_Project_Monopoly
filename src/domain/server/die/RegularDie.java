@@ -14,6 +14,7 @@ public class RegularDie extends Die {
 
     /**
      * The roll methods that rolls one dice using random class
+     *
      * @param diceCup the dice cup that includes the regular dice.
      */
     @Override

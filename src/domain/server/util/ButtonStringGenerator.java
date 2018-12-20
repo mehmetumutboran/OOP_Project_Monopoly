@@ -44,7 +44,7 @@ public class ButtonStringGenerator {
             } else if (curSq instanceof Utility) {
                 if (!((Utility) curSq).isOwned()) {
                     buttonString = "100010000110";
-                }else if (((Utility) curSq).getOwner().equals(name)) {
+                } else if (((Utility) curSq).getOwner().equals(name)) {
                     buttonString = "100010000110";
                 } else {
                     buttonString = "010000000110"; // Force pay rent
@@ -60,11 +60,12 @@ public class ButtonStringGenerator {
             }
         }
 
-        if(GameInfo.getInstance().getPlayer(name).getFaceValues()[2]==7){
+        if (GameInfo.getInstance().getPlayer(name).getFaceValues()[2] == 7) {
             char[] buttonString2 = buttonString.toCharArray();
             buttonString2[11] = '1';
             buttonString2[4] = '0';
-            buttonString = String.valueOf(buttonString2);}
+            buttonString = String.valueOf(buttonString2);
+        }
         return buttonString;
     }
 

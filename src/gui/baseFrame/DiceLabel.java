@@ -9,22 +9,22 @@ import java.io.IOException;
 
 public class DiceLabel extends JLabel {
 
-    private static int count=0;
+    private static int count = 0;
     private BufferedImage img;
 
-    public DiceLabel(){
+    public DiceLabel() {
         count++;
         this.setImage(1);
     }
 
     public void draw(Graphics g, int i, int width, int height) {
-        g.drawImage(new ImageIcon(img.getScaledInstance(width/35, height/25, Image.SCALE_SMOOTH)).getImage(), width/2-width/25+i*getWidth(), height/2-getHeight()/2, this);
-        this.setBounds(width/2-width/25+i*getWidth(),height/2-getHeight()/2,width/35,height/25);
+        g.drawImage(new ImageIcon(img.getScaledInstance(width / 35, height / 25, Image.SCALE_SMOOTH)).getImage(), width / 2 - width / 25 + i * getWidth(), height / 2 - getHeight() / 2, this);
+        this.setBounds(width / 2 - width / 25 + i * getWidth(), height / 2 - getHeight() / 2, width / 35, height / 25);
     }
 
-    public void setImage(int i){
+    public void setImage(int i) {
         try {
-            switch (i){
+            switch (i) {
                 case 1:
                     img = ImageIO.read(new File("res/dice1low.jpg"));
                     break;

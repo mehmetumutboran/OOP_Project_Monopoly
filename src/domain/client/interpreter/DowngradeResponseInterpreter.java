@@ -2,10 +2,9 @@ package domain.client.interpreter;
 
 import domain.client.ClientCommunicationHandler;
 import domain.client.UIUpdater;
-import domain.server.board.*;
-import domain.server.building.Building;
-import domain.server.building.Hotel;
-import domain.server.building.House;
+import domain.server.board.Board;
+import domain.server.board.Square;
+import domain.server.board.Upgradable;
 import domain.server.player.Player;
 import domain.util.GameInfo;
 
@@ -64,16 +63,16 @@ public class DowngradeResponseInterpreter implements ResponseInterpretable {
 //                + " from " + message[3]);
 //
 //         ClientCommunicationHandler.getInstance().sendReceived();
-        currentPlayer.increaseMoney(selectedSquareForDowngrade.getBuildingCost()/2);
+        currentPlayer.increaseMoney(selectedSquareForDowngrade.getBuildingCost() / 2);
         ArrayList<int[]> locationList = new ArrayList<>();
-        for(Square s : currentPlayer.getOwnedProperties()){
+        for (Square s : currentPlayer.getOwnedProperties()) {
             locationList.add(s.getLocation());
         }
 
-        for(Square s : currentPlayer.getOwnedRailroads()){
+        for (Square s : currentPlayer.getOwnedRailroads()) {
             locationList.add(s.getLocation());
         }
-        UIUpdater.getInstance().setMessage(currentPlayer.getName() + " downgraded " +((Square)selectedSquareForDowngrade).getName()
+        UIUpdater.getInstance().setMessage(currentPlayer.getName() + " downgraded " + ((Square) selectedSquareForDowngrade).getName()
                 + " from " + message[3]);
 
         UIUpdater.getInstance().updateLabels(locationList, "DOWN", 0);

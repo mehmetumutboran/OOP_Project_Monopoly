@@ -2,7 +2,6 @@ package gui.prompt.promptStrategy;
 
 import domain.client.ClientCommunicationHandler;
 import domain.client.PlayerActionController;
-import domain.server.ReceivedChecker;
 import domain.util.Flags;
 import domain.util.MessageConverter;
 

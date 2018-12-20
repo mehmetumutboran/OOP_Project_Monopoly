@@ -2,5 +2,5 @@ package domain.server.listeners;
 
 public interface DiceRolledListener {
 
-    void onDiceRolledEvent(int [] faces);
+    void onDiceRolledEvent(int[] faces);
 }

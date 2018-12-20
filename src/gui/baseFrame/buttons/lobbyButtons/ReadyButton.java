@@ -5,10 +5,8 @@ import gui.baseFrame.ColorBox;
 import gui.baseFrame.buttons.BaseButton;
 import gui.baseFrame.buttons.multiplayerButtons.BackButton;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * When player presses ReadyButton it changes and becomes unready Button.

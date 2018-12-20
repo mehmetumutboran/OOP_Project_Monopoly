@@ -32,7 +32,7 @@ public class UpgradeRequestInterpreter implements RequestInterpretable {
         else if (square.getUpgradeLevel() == 7) typeOfUpgrade = "TrainDepot";
         else typeOfUpgrade = "House";
 
-        if(currentPlayer.getBalance()>=square.getBuildingCost())
+        if (currentPlayer.getBalance() >= square.getBuildingCost())
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Upgrade"), currentPlayer.getName(), ((Square) square).getName(), typeOfUpgrade);
         else {
             //OptionPane

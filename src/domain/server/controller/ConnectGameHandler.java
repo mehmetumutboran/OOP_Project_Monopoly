@@ -1,12 +1,9 @@
 package domain.server.controller;
 
 import domain.client.ClientCommunicationHandler;
-import domain.server.RequestInterpreter;
 import domain.server.listeners.PlayerKickedListener;
-import domain.server.player.Player;
 import domain.util.Flags;
 import network.client.clientFacade.ClientFacade;
-import network.listeners.ReceivedChangedListener;
 import network.server.serverFacade.ServerFacade;
 
 import java.util.ArrayList;
@@ -14,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Singleton Class to handle communication between UI and Network during initialization
  */
-public class ConnectGameHandler  {
+public class ConnectGameHandler {
 //implements ReceivedChangedListener
 
     private static ConnectGameHandler connectGameHandler;
@@ -35,7 +32,8 @@ public class ConnectGameHandler  {
 
     /**
      * //username Username from the {@link gui.baseFrame.buttons.hostJoinButtons.HostButton} usernameField
-     * @param port     Port number for the server connection from {@link gui.baseFrame.buttons.hostJoinButtons.HostButton}
+     *
+     * @param port Port number for the server connection from {@link gui.baseFrame.buttons.hostJoinButtons.HostButton}
      */
     public boolean connectHost(int port, boolean isMulti) {
         return ServerFacade.getInstance().createServer(port, isMulti);

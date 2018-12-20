@@ -24,13 +24,13 @@ public class UpgradeButton extends JButton implements ActionListener, TurnChange
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         //TODO should call another label for choosing own deeds.
-      PlayerActionController.getInstance().upgrade();
-       // System.out.println("Upgrade Button is clicked");
+        PlayerActionController.getInstance().upgrade();
+        // System.out.println("Upgrade Button is clicked");
     }
 
     @Override
     public void onTurnChangedEvent(String enable) {
-        this.setEnabled(enable.charAt(INDEX)=='1');
+        this.setEnabled(enable.charAt(INDEX) == '1');
     }
 
     @Override

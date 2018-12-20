@@ -4,7 +4,10 @@ import domain.server.Savable;
 import domain.server.board.*;
 import domain.util.MessageConverter;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 public class Player implements Comparable, Savable {
     private String name;
@@ -249,7 +252,7 @@ public class Player implements Comparable, Savable {
         return numOfColoredSqBoardHas - numOfColoredSqPlayerHas == 0;
     }
 
-    private int getNumOfColoredSqPlayerHas(Property square){
+    private int getNumOfColoredSqPlayerHas(Property square) {
         int numOfColoredSqPlayerHas = 0;
         for (Property sq : getOwnedProperties()) {
             if (sq.getColor().equals(square.getColor()))

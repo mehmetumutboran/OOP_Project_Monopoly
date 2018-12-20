@@ -13,7 +13,7 @@ public class Flags {
     private static final char payDayFlag = 'F';
     private static final char bonusFlag = 'G';
     private static final char jailFlag = 'H';
-    private static final char goOutJailFlag  = 'I';
+    private static final char goOutJailFlag = 'I';
     private static final char queueFlag = 'J';
     private static final char closeFlag = 'K';
     private static final char upgradeFlag = 'L';
@@ -114,6 +114,7 @@ public class Flags {
 
     /**
      * This method gets the corresponding flag to given action name.
+     *
      * @param action The name of the game action.
      * @return The char flag that symbols the given action.
      */

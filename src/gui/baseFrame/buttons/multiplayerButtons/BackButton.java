@@ -6,9 +6,7 @@ import gui.baseFrame.buttons.BaseButton;
 import network.client.clientFacade.ClientFacade;
 import network.server.serverFacade.ServerFacade;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * Allows player to return previous menu

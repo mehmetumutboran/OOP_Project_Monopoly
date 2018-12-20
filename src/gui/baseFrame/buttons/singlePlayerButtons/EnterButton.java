@@ -7,7 +7,6 @@ import gui.util.InputChecker;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class EnterButton extends BaseButton {
     private JTextField userNameField;

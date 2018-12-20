@@ -7,7 +7,6 @@ import network.client.Client;
 import network.listeners.ConnectionFailedListener;
 import network.listeners.ReceivedChangedListener;
 
-import javax.annotation.processing.SupportedAnnotationTypes;
 import java.io.IOException;
 import java.util.ArrayList;
 

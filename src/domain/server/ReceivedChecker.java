@@ -21,10 +21,10 @@ public class ReceivedChecker {
         }
     }
 
-    public boolean checkReceived(){
+    public boolean checkReceived() {
         int x = ServerFacade.getInstance().getTotalNumPlayers();
         for (int i = 0; i < x; i++) {
-            if(!received[i]) return false;
+            if (!received[i]) return false;
         }
         return true;
     }

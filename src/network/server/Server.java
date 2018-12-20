@@ -40,7 +40,7 @@ public class Server implements Runnable {
         }
 
         for (int j = i; j < maxClientsCount - 1; j++) {
-            if(clientThreads[j] == null) continue;
+            if (clientThreads[j] == null) continue;
             clientThreads[j] = clientThreads[j + 1];
             clientThreads[j].setIndex(j);
             clientNames[j] = clientNames[j + 1];
@@ -90,7 +90,7 @@ public class Server implements Runnable {
 //                            clientThreads[i].terminate();
 //                            clientThreads[i] = null;
 //                        } else {
-                            (new Thread(clientThreads[i], "ClientThread " + i)).start();
+                        (new Thread(clientThreads[i], "ClientThread " + i)).start();
 //                        }
                         break;
                     }

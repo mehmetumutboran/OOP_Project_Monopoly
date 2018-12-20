@@ -1,6 +1,5 @@
 package domain.client.interpreter;
 
-import domain.client.ClientCommunicationHandler;
 import domain.client.UIUpdater;
 import network.client.clientFacade.ClientFacade;
 

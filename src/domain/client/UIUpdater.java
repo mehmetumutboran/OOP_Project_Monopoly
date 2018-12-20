@@ -67,15 +67,15 @@ public class UIUpdater {
         buttonChangeListeners.add(bcl);
     }
 
-    public void addTurnUpdateListener(TurnUpdateListener tul){
+    public void addTurnUpdateListener(TurnUpdateListener tul) {
         turnUpdateListeners.add(tul);
     }
 
-    public void addLabelChangeListener (LabelChangeListener lcl){
+    public void addLabelChangeListener(LabelChangeListener lcl) {
         labelChangeListeners.add(lcl);
     }
 
-    public void addDiceRolledListener (DiceRolledListener drl){
+    public void addDiceRolledListener(DiceRolledListener drl) {
         diceRolledListeners.add(drl);
     }
 
@@ -103,8 +103,8 @@ public class UIUpdater {
         }
     }
 
-    public void publishTurnUpdateEvent(){
-        for (TurnUpdateListener tul : turnUpdateListeners){
+    public void publishTurnUpdateEvent() {
+        for (TurnUpdateListener tul : turnUpdateListeners) {
             tul.onTurnUpdateEvent();
         }
     }
@@ -120,8 +120,9 @@ public class UIUpdater {
             cbl.onCloseClickedEvent();
         }
     }
-    private void publishLabelChangeEvent(ArrayList<int []> location, String actionType, int i){
-        for (LabelChangeListener lcl: labelChangeListeners){
+
+    private void publishLabelChangeEvent(ArrayList<int[]> location, String actionType, int i) {
+        for (LabelChangeListener lcl : labelChangeListeners) {
             lcl.onLabelChangeEvent(location, actionType, i);
         }
     }
@@ -140,7 +141,7 @@ public class UIUpdater {
         publishTurnChangedEvent(defaultLayout);
     }
 
-    public void pauseUpdate(boolean b, String name){
+    public void pauseUpdate(boolean b, String name) {
         publishTurnChangedEvent(defaultLayout);
         UIFacade.getInstance().generatePrompt(Flags.getFlag("Pause"), b, name);
     }
@@ -207,15 +208,15 @@ public class UIUpdater {
 //    }
 
 
-//    public void showList() {
+    //    public void showList() {
 //        UIFacade.getInstance().generateList(GameInfo.getInstance().getPlayerListName(),GameInfo.getInstance().getPlayerListColor());
 //    }
-    public void updateLabels(ArrayList<int[]> locationlst, String actionType, int i){
+    public void updateLabels(ArrayList<int[]> locationlst, String actionType, int i) {
         publishLabelChangeEvent(locationlst, actionType, i);
     }
 
-    public void publishDiceRolledEvent(int [] faces){
-        for (DiceRolledListener drl:diceRolledListeners) {
+    public void publishDiceRolledEvent(int[] faces) {
+        for (DiceRolledListener drl : diceRolledListeners) {
             drl.onDiceRolledEvent(faces);
         }
     }

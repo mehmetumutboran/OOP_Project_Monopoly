@@ -1,7 +1,10 @@
 package domain.util;
 
 import domain.server.Savable;
-import domain.server.board.*;
+import domain.server.board.Board;
+import domain.server.board.Property;
+import domain.server.board.Railroad;
+import domain.server.board.Utility;
 import domain.server.building.Building;
 import domain.server.building.Hotel;
 import domain.server.building.House;

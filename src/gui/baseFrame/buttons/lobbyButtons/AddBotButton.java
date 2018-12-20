@@ -5,9 +5,7 @@ import domain.util.GameInfo;
 import gui.baseFrame.ColorBox;
 import gui.baseFrame.buttons.BaseButton;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Random;
 
 public class AddBotButton extends BaseButton {
@@ -23,7 +21,7 @@ public class AddBotButton extends BaseButton {
         count++;
         Random random = new Random();
         String color = ColorBox.colorList.get(random.nextInt(ColorBox.colorList.size()));
-        while(GameInfo.getInstance().hasColor(color)){
+        while (GameInfo.getInstance().hasColor(color)) {
             color = ColorBox.colorList.get(random.nextInt(ColorBox.colorList.size()));
         }
         ConnectGameHandler.getInstance().connectBot("Bot " + names[count % 11],

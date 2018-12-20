@@ -68,7 +68,7 @@ public class Property extends DeedSquare implements Upgradable {
     }
 
 
-//    public boolean isUpgradable(Property square,String name) {
+    //    public boolean isUpgradable(Property square,String name) {
 //        //if(square.getBuildingList().isEmpty()) return false;
 //        if(!square.getBuildingList().isEmpty() && square.getBuildingList().get(0) instanceof Skyscraper) return false;
 //        boolean checker = false;
@@ -204,7 +204,6 @@ public class Property extends DeedSquare implements Upgradable {
     }
 
 
-
     /**
      * Checks if all squares in Square's color group are at the same level.
      *
@@ -254,6 +253,7 @@ public class Property extends DeedSquare implements Upgradable {
         }
         return checker;
     }
+
     /**
      * Checks if all squares in Square's color group are at the same level.
      *
@@ -333,16 +333,17 @@ public class Property extends DeedSquare implements Upgradable {
         return Arrays.stream(Board.getInstance().getSameColoredSquares(color)).anyMatch(x -> x.getBuildingCount() > 0);
     }
 
-    public boolean repOK(){
+    public boolean repOK() {
         super.repOK();
-        if(this.currentRent<0)return false;
-        if(buildingList.size()>4)return false;
-        if(!this.color.equals("PINK") && !this.color.equals("LIGHTGREEN") && !this.color.equals("LIGHTYELLOW")
+        if (this.currentRent < 0) return false;
+        if (buildingList.size() > 4) return false;
+        if (!this.color.equals("PINK") && !this.color.equals("LIGHTGREEN") && !this.color.equals("LIGHTYELLOW")
                 && !this.color.equals("MEDIUMBLUE") && !this.color.equals("PURPLE") && !this.color.equals("DARKOLIVEGREEN") && !this.color.equals("LIGHTPINK") &&
                 !this.color.equals("BROWN") && !this.color.equals("MEDIUMPURPLE") && !this.color.equals("LIGHTBLUE") &&
                 !this.color.equals("DEEPPINK") && !this.color.equals("ORANGE") && !this.color.equals("RED")
-        && !this.color.equals("YELLOW") && !this.color.equals("GREEN") && !this.color.equals("BLUE") &&
-                !this.color.equals("WHITE") && !this.color.equals("BLACK") && !this.color.equals("GRAY") && !this.color.equals("SANDYBROWN"))return false;
+                && !this.color.equals("YELLOW") && !this.color.equals("GREEN") && !this.color.equals("BLUE") &&
+                !this.color.equals("WHITE") && !this.color.equals("BLACK") && !this.color.equals("GRAY") && !this.color.equals("SANDYBROWN"))
+            return false;
         return true;
     }
 

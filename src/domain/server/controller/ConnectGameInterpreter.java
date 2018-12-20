@@ -1,9 +1,5 @@
 package domain.server.controller;
 
-import domain.server.player.Player;
-import domain.util.GameInfo;
-import network.client.clientFacade.ClientFacade;
-
 public class ConnectGameInterpreter {
     private static ConnectGameInterpreter ourInstance;
     private boolean isStarted = false;

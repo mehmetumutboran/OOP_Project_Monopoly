@@ -41,8 +41,9 @@ public class RollRequestInterpreter implements RequestInterpretable {
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Move"), name, loc);
         }
 
-       if(GameInfo.getInstance().getPlayer(GameInfo.getInstance().getCurrentPlayerName()).getReadiness().equals("Bot"))
-       { MoveControl.getInstance().checkMrMonopoly(name);}
+        if (GameInfo.getInstance().getPlayer(GameInfo.getInstance().getCurrentPlayerName()).getReadiness().equals("Bot")) {
+            MoveControl.getInstance().checkMrMonopoly(name);
+        }
 
         if (MoveControl.getInstance().checkSecondTurn(name)) {
             //ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), name, "");
@@ -65,6 +66,7 @@ public class RollRequestInterpreter implements RequestInterpretable {
 
     /**
      * This method calls the roll method of {@link DiceCup} to roll the dice for given player.
+     *
      * @param name The name of the player that rolls the dice.
      * @return int array that includes faces of rolled dice.
      */

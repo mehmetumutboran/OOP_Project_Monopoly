@@ -1,6 +1,5 @@
 package domain.client.interpreter;
 
-import domain.client.ClientCommunicationHandler;
 import domain.client.UIUpdater;
 import domain.util.GameInfo;
 import network.client.clientFacade.ClientFacade;

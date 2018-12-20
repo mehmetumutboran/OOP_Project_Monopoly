@@ -1,6 +1,5 @@
 package gui.baseFrame.panels;
 
-import gui.baseFrame.BaseFrame;
 import gui.baseFrame.ColorBox;
 import gui.baseFrame.LoadBox;
 import gui.baseFrame.buttons.lobbyButtons.AddBotButton;
@@ -14,7 +13,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class LobbyPanel extends JPanel {
     private ReadyButton readyButton;

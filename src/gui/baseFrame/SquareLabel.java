@@ -131,11 +131,11 @@ public class SquareLabel extends JLabel implements MouseListener, LabelChangeLis
         this.setBackground(new Color(255, 0, 16, 40));
         if (getActionType().equals("UP")) {
             PlayerActionController.getInstance().upgradeSquare(this.location);
-        } else if(getActionType().equals("DOWN")){
+        } else if (getActionType().equals("DOWN")) {
             PlayerActionController.getInstance().downgradeSquare(this.location);
-        } else if(getActionType().equals(String.valueOf(Flags.getFlag("Mortgage")))){
+        } else if (getActionType().equals(String.valueOf(Flags.getFlag("Mortgage")))) {
             PlayerActionController.getInstance().mortgageSquare(this.location);
-        } else if(getActionType().equals(String.valueOf(Flags.getFlag("Unmortgage")))){
+        } else if (getActionType().equals(String.valueOf(Flags.getFlag("Unmortgage")))) {
             PlayerActionController.getInstance().unmortgageSquare(this.location);
 
         }
@@ -167,14 +167,14 @@ public class SquareLabel extends JLabel implements MouseListener, LabelChangeLis
     @Override
     public void onLabelChangeEvent(ArrayList<int[]> locationList, String actionType, int i) {
 
-        if(i == 0){
-            for (int[] lst : locationList){
-                if(lst[0]==location[0] && lst[1]==location[1]){
+        if (i == 0) {
+            for (int[] lst : locationList) {
+                if (lst[0] == location[0] && lst[1] == location[1]) {
                     this.setVisible(false);
                     this.setOpaque(false);
                 }
             }
-        }else {
+        } else {
             setActionType(actionType);
             for (int[] loc : locationList) {
                 if (loc[0] == this.location[0] && loc[1] == this.location[1]) {

@@ -9,22 +9,24 @@ public class UpDownMove implements MoveStrategy {
     private static final int FIRST_LAYER_SQ = 40;
     private static final int ZEROTH_LAYER_SQ = 56;
 
-    private UpDownMove(){}
+    private UpDownMove() {
+    }
 
-    public static UpDownMove getInstance(){
-        if(instance == null) instance = new UpDownMove();
+    public static UpDownMove getInstance() {
+        if (instance == null) instance = new UpDownMove();
         return instance;
     }
 
     /**
      * This method calculates the final location of the player after move if the player will be in railroad and will change layer.
-     * @param lastLoc The location of the player before move.
-     * @param roll This is the total roll.
+     *
+     * @param lastLoc       The location of the player before move.
+     * @param roll          This is the total roll.
      * @param layerSQNumber This is the square number of the layer that player is in before.
      * @return an int array that is the final location of the player.
      */
     @Override
-    public int [] move(int[] lastLoc, int roll, int layerSQNumber) {
+    public int[] move(int[] lastLoc, int roll, int layerSQNumber) {
         int railroad;
         if (Board.getInstance().railRoadFind(lastLoc, roll)[0].getLocation()[1] - lastLoc[1] < 0)
             railroad = Board.getInstance().railRoadFind(lastLoc, roll)[0].getLocation()[1] - lastLoc[1] + layerSQNumber;

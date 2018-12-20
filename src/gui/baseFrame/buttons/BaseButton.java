@@ -16,8 +16,8 @@ public abstract class BaseButton extends JButton implements MouseListener, Actio
 
     public BaseButton(String text) {
         super(text);
-        bigFont = new Font("Comic Sans",Font.BOLD,42);
-        smallFont = new Font("Comic Sans",Font.BOLD,32);
+        bigFont = new Font("Comic Sans", Font.BOLD, 42);
+        smallFont = new Font("Comic Sans", Font.BOLD, 32);
         smallColor = new Color(44, 194, 224);
         bigColor = new Color(255, 90, 94);
         this.setFont(smallFont);

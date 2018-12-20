@@ -6,7 +6,7 @@ import domain.util.GameInfo;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class RandomPlayerHandler{
+public class RandomPlayerHandler {
     private static RandomPlayerHandler ourInstance;
 
     public static RandomPlayerHandler getInstance() {
@@ -37,8 +37,8 @@ public class RandomPlayerHandler{
         Timer timer = new Timer();
         long delay = 500L;
 
-        timer.schedule(timerTaskRoll,delay);
-        timer.schedule(timerTaskFinish,2*delay);
+        timer.schedule(timerTaskRoll, delay);
+        timer.schedule(timerTaskFinish, 2 * delay);
     }
 
     public void roll() {

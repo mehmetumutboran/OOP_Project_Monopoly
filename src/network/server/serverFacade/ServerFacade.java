@@ -85,7 +85,7 @@ public class ServerFacade {
     }
 
 
-    public boolean isMulti(){
+    public boolean isMulti() {
         return isMulti;
     }
 }

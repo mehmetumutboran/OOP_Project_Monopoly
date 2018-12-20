@@ -2,15 +2,12 @@ package domain.client.interpreter;
 
 import domain.client.ClientCommunicationHandler;
 import domain.client.UIUpdater;
-import domain.server.board.*;
-import domain.server.building.Building;
-import domain.server.building.Hotel;
-import domain.server.building.House;
-import domain.server.building.Skyscraper;
+import domain.server.board.Board;
+import domain.server.board.Square;
+import domain.server.board.Upgradable;
 import domain.server.player.Player;
 import domain.util.GameInfo;
 
-import java.nio.channels.SeekableByteChannel;
 import java.util.ArrayList;
 
 public class UpgradeResponseInterpreter implements ResponseInterpretable {
@@ -26,11 +23,11 @@ public class UpgradeResponseInterpreter implements ResponseInterpretable {
         currentPlayer.decreaseMoney(selectedSquareForUpgrade.getBuildingCost());
 
         ArrayList<int[]> locationList = new ArrayList<>();
-        for(Square s : currentPlayer.getOwnedProperties()){
+        for (Square s : currentPlayer.getOwnedProperties()) {
             locationList.add(s.getLocation());
         }
 
-        for(Square s : currentPlayer.getOwnedRailroads()){
+        for (Square s : currentPlayer.getOwnedRailroads()) {
             locationList.add(s.getLocation());
         }
 
@@ -41,7 +38,7 @@ public class UpgradeResponseInterpreter implements ResponseInterpretable {
 
         UIUpdater.getInstance().updateLabels(locationList, "UP", 0);
 
-         ClientCommunicationHandler.getInstance().sendReceived();
+        ClientCommunicationHandler.getInstance().sendReceived();
 
 
     }

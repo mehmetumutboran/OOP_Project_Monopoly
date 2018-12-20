@@ -1,7 +1,6 @@
-
 package gui.prompt.promptStrategy;
 
-        import javax.swing.*;
+import javax.swing.*;
 
 public class DontBuyStrategy implements PromptStrategy {
     @Override

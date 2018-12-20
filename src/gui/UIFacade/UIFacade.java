@@ -1,12 +1,11 @@
 package gui.UIFacade;
 
 import gui.baseFrame.BaseFrame;
-import gui.prompt.FullPromptStrategy;
 import gui.prompt.PromptFactory;
 import gui.prompt.promptStrategy.PauseStrategy;
 import gui.prompt.promptStrategy.PromptStrategy;
 
-public class UIFacade implements Runnable{
+public class UIFacade implements Runnable {
     private static UIFacade ourInstance;
 
     private PauseStrategy pauseStrategy;
@@ -43,7 +42,7 @@ public class UIFacade implements Runnable{
         pauseStrategy.show();
     }
 
-    public void closePrompt(){
+    public void closePrompt() {
         pauseStrategy.close();
     }
 
