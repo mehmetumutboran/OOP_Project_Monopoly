@@ -1,7 +1,9 @@
 package network.client.clientFacade;
 
 
+import domain.client.PlayerActionController;
 import domain.client.ResponseInterpreter;
+import domain.server.controller.ConnectGameHandler;
 import domain.util.GameInfo;
 import network.client.Client;
 import network.listeners.ConnectionFailedListener;
@@ -26,7 +28,8 @@ public class ClientFacade {
      */
     private volatile ArrayList<ReceivedChangedListener> receivedChangedListeners;
     private volatile ArrayList<ConnectionFailedListener> connectionFailedListeners;
-    private String[][] ips;
+    private volatile String[][] ips;
+    private int ipIndex;
 
     private ClientFacade() {
         receivedChangedListeners = new ArrayList<>();
@@ -146,5 +149,19 @@ public class ClientFacade {
         this.ips = ips;
     }
 
+    public void reconnect() {
+        PlayerActionController.getInstance().reconnect(ips[++ipIndex][0].equals(getUsername()));
+    }
 
+    public String getNextIP(){
+        return ips[ipIndex][1];
+    }
+
+    public int getPort() {
+        return client.getSocket().getPort();
+    }
+
+    public String getOldHostName() {
+        return ips[ipIndex-1][0];
+    }
 }

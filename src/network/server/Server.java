@@ -16,7 +16,7 @@ public class Server implements Runnable {
 
     private static final int maxClientsCount = 12;
 
-    public volatile ClientHandler[] clientThreads = new ClientHandler[maxClientsCount];
+    private volatile ClientHandler[] clientThreads = new ClientHandler[maxClientsCount];
     private volatile String[] clientNames = new String[maxClientsCount]; //TODO
     private volatile String[][] clientInfo = new String[maxClientsCount][2];
 
@@ -92,7 +92,7 @@ public class Server implements Runnable {
                 for (; i < maxClientsCount; i++) {
                     if (clientThreads[i] == null) {
                         clientThreads[i] = new ClientHandler(clientSocket, i);
-                        if (i == 0) clientInfo[i][1] = InetAddress.getLocalHost().getHostAddress();
+                        if (clientSocket.getInetAddress().getHostAddress().equals("127.0.0.1")) clientInfo[i][1] = InetAddress.getLocalHost().getHostAddress();
                         else clientInfo[i][1] = clientSocket.getInetAddress().getHostAddress();
                         (new Thread(clientThreads[i], "ClientThread " + i)).start();
                         break;

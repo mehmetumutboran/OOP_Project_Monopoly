@@ -20,13 +20,15 @@ public class ClientReceiver extends Thread {
     public void run() {
         String received;
         while (true) {
+            if (socket.isClosed()) break;
             try {
                 received = receive();
             } catch (IOException e) {
                 System.out.println("Server is down!!!");
+                ClientFacade.getInstance().reconnect();
                 break;
             }
-            if (socket.isClosed()) break;
+
 
             ClientFacade.getInstance().sendReceivedMessage(received);
 
@@ -34,7 +36,7 @@ public class ClientReceiver extends Thread {
         }
     }
 
-    public synchronized String receive() throws IOException {
+    private synchronized String receive() throws IOException {
         String received = dis.readUTF();
         System.out.println("Client class received Message:\n" + received + "\n\n");
 

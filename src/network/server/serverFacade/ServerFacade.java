@@ -79,7 +79,6 @@ public class ServerFacade {
     }
 
     public void removeClient(ClientHandler clientHandler) {
-        System.out.println(Arrays.toString(server.clientThreads));
         new RemoveRequestInterpreter().interpret(new String[]{"Exit", server.getClientNameFromIndex(clientHandler.getIndex())}, clientHandler.getIndex());
     }
 

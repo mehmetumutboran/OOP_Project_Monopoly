@@ -70,6 +70,17 @@ public class PlayerActionController {
             join(username, "localhost", port);
     }
 
+    public void reconnect(boolean isNextHost) {
+        int port = ClientFacade.getInstance().getPort();
+        String username = ClientFacade.getInstance().getUsername();
+        if (isNextHost) {
+            if (ConnectGameHandler.getInstance().connectHost(port, true))
+                if (ConnectGameHandler.getInstance().connectClient(username, "localhost", port))
+                    ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Reconnect"), username);
+        } else if (ConnectGameHandler.getInstance().connectClient(username, ClientFacade.getInstance().getNextIP(), port))
+            ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Reconnect"), username);
+    }
+
     public void changePlayerColor(String color) {
         ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Color"), ClientFacade.getInstance().getUsername(), color);
     }

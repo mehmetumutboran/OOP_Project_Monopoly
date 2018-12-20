@@ -1,6 +1,7 @@
 package domain.client;
 
 import domain.client.interpreter.*;
+import domain.server.interpreter.ReconnectRequestInterpreter;
 import domain.util.Flags;
 
 import java.util.HashMap;
@@ -59,6 +60,7 @@ public class ResponseInterpreter {
         ResponseInterpretable dontUnmortgageResponseInterpreter = new DontUnmortgageResponseInterpreter();
         ResponseInterpretable labelLighterResponseInterpreter = new LabelLighterResponseInterpreter();
         ResponseInterpretable ipResponseInterpreter = new IPResponseInterpreter();
+        ResponseInterpretable reconnectResponseInterpreter = new ReconnectResponseInterpreter();
 
 
         interpreterMap = new HashMap<>();
@@ -102,6 +104,7 @@ public class ResponseInterpreter {
         interpreterMap.put(Flags.getFlag("DontUnmortgage"), dontUnmortgageResponseInterpreter);
         interpreterMap.put(Flags.getFlag("LabelLighter"), labelLighterResponseInterpreter);
         interpreterMap.put(Flags.getFlag("IP"), ipResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("Reconnect"), reconnectResponseInterpreter);
     }
 
     public void interpret(String message) {
