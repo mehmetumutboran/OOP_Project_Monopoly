@@ -36,4 +36,8 @@ public class ReceivedChecker {
     public boolean checkReceived(int index) {
         return received[index];
     }
+
+    public void setReceived(int index) {
+        received[index] = false;
+    }
 }

@@ -14,6 +14,8 @@ public class FinishResponseInterpreter implements ResponseInterpretable {
         GameInfo.getInstance().nextTurn();
         UIUpdater.getInstance().turnUpdate();
 
+        System.out.println("Finish turn called!!!");
+
         if (GameInfo.getInstance().isMyselfHost() && GameInfo.getInstance().isPeekBot()) {
             ClientCommunicationHandler.getInstance().sendReceived();
             RandomPlayerHandler.getInstance().playBotTurn();

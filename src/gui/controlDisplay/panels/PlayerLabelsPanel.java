@@ -11,6 +11,7 @@ import gui.util.ColorConverter;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class PlayerLabelsPanel extends JLabel implements GameStartedListener, PlayerQuitEventListener, TurnUpdateListener {
     private final int SQUARE_EDGE = 90;
@@ -75,7 +76,7 @@ public class PlayerLabelsPanel extends JLabel implements GameStartedListener, Pl
 
     @Override
     public void onPlayerQuitEvent(String name) {
-        playerLabels.removeIf(p -> p.getText().equals(name));
+        playerLabels.removeIf(p -> p.getName().equals(name));
 //        System.out.println("\n\n ----------------==========-----------======\n" + playerLabels + "\n\n");
 
 //        playerLabels.forEach(this::remove);

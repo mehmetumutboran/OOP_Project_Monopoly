@@ -25,6 +25,7 @@ public class ClientReceiver extends Thread {
                 received = receive();
             } catch (IOException e) {
                 System.out.println("Server is down!!!");
+                if (socket.isClosed()) break;
                 ClientFacade.getInstance().reconnect();
                 break;
             }

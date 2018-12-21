@@ -33,7 +33,7 @@ public class AddPlayerRequestInterpreter implements RequestInterpretable {
 
             while (true) {
                 if (ReceivedChecker.getInstance().checkReceived(index)) {
-                    ReceivedChecker.getInstance().setReceived();
+                    ReceivedChecker.getInstance().setReceived(index);
                     break;
                 }
             }

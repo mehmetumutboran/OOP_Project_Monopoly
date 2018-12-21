@@ -162,6 +162,7 @@ public class UIUpdater {
     }
 
     public void removeUpdate(String name) {
+        System.out.println("In remove update!!!");
         publishPlayerQuitEvent(name);
     }
 
