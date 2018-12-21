@@ -354,7 +354,7 @@ public class GameInfo implements Savable {
     }
 
     public void setWasHostPeekBefore() {
-        this.wasHostPeekBefore = getPeek().getReadiness().equals("Host");
+        this.wasHostPeekBefore = !getPeek().getReadiness().equals("Ready");
     }
 
     public boolean WasHostPeekBefore() {
