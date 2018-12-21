@@ -23,6 +23,7 @@ public class GameInfo implements Savable {
     private ArrayList<PlayerListChangedListener> playerListChangedListeners;
     private ArrayList<String> selectedColors;
     private boolean isStarted;
+    private boolean wasHostPeekBefore;
 
     public static GameInfo getInstance() {
         if (ourInstance == null)
@@ -350,5 +351,13 @@ public class GameInfo implements Savable {
 
     public boolean isReady(String username) {
         return getPlayer(username).getReadiness().equals("Ready");
+    }
+
+    public void setWasHostPeekBefore() {
+        this.wasHostPeekBefore = getPeek().getReadiness().equals("Host");
+    }
+
+    public boolean WasHostPeekBefore() {
+        return this.wasHostPeekBefore;
     }
 }

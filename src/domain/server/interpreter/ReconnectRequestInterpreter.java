@@ -32,7 +32,7 @@ public class ReconnectRequestInterpreter implements RequestInterpretable {
 
         System.out.println(oldHostName + " was the old host!");
 
-        if (GameInfo.getInstance().isCurrentPlayer("Bot " + oldHostName)) {
+        if (GameInfo.getInstance().WasHostPeekBefore()) {
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Finish"), index, name);
 
             while (true) {
@@ -44,11 +44,11 @@ public class ReconnectRequestInterpreter implements RequestInterpretable {
 
             System.out.println("After having received in finish in reconnect!!!");
 
-            String nextPlayer = GameInfo.getInstance().getCurrentPlayerName();
-            if (!GameInfo.getInstance().isBot(nextPlayer))
-                ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"),
-                        ServerFacade.getInstance().nameToIndex(nextPlayer), "001001110110", nextPlayer);
-
         }
+
+        String nextPlayer = GameInfo.getInstance().getCurrentPlayerName();
+        if (nextPlayer.equals(name) && !GameInfo.getInstance().isBot(nextPlayer))
+            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"),
+                    index, "001001110110", nextPlayer);
     }
 }
