@@ -34,6 +34,7 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
     JPanel jPanel;
     private ArrayList<SquareLabel> squareLabels = new ArrayList<>();
     private JLabel j;
+    public static Animator animator;
 
 
     public GamePanel(int width, int height) {
@@ -47,6 +48,7 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
         UIUpdater.getInstance().addTokenStarterListener(this);
         tokenlist = new ArrayList<>();
         diceList = new ArrayList<>(3);
+        animator = new Animator(this,"");
 
         try {
             if (System.getProperty("os.name").startsWith("Windows")) {
@@ -144,7 +146,7 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
         super.paintComponent(G);
         G.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
         for (int i = 0; i < tokenlist.size(); i++) {
-            tokenlist.get(i).setCoordinates(this.getWidth(), this.getHeight(),i);
+            tokenlist.get(i).setCoordinates(this.getWidth(), this.getHeight());
             tokenlist.get(i).draw(G);
         }
         for (int i = 0; i < diceList.size(); i++){
@@ -153,8 +155,6 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
         for (int i = 0; i < squareLabels.size(); i++) {
             squareLabels.get(i).draw(this.getWidth(), this.getHeight());
         }
-//        repaint();
-
     }
 
 
@@ -181,7 +181,8 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
         for (TokenLabel t : tokenlist) {
             if (t.getOwner().equals(pName)) t.setNewLoc(new int []{x,y});
         }
-        new Thread(new Animator(this)).start();
+        animator = new Animator(this,pName);
+        new Thread(animator, "Animator").start();
    }
 
     @Override
@@ -201,9 +202,29 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
             tl.setOpaque(false);
             this.add(tl);
             tokenlist.add(tl);
+            tl.setCoordinates(width,height);
             this.revalidate();
             this.repaint();
         }
     }
+
+    public void tokenDraw(Graphics G, String tokName){
+        for (TokenLabel aTokenlist : tokenlist) {
+            if(aTokenlist.getOwner().equals(tokName)) {
+                aTokenlist.setCoordinates(this.getWidth(), this.getHeight());
+                aTokenlist.draw(G);
+                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            }
+        }
+   }
+
+   public void setPath(String tokName){
+       for (TokenLabel aTokenlist : tokenlist) {
+           if (aTokenlist.getOwner().equals(tokName)) {
+                aTokenlist.setPath();
+           }
+       }
+   }
+
 }
 

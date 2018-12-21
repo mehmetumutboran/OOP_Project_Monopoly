@@ -3,6 +3,7 @@ package gui.baseFrame;
 import gui.Animator.Drawable;
 import gui.Animator.Path;
 import gui.Animator.TokenPath;
+import gui.baseFrame.panels.GamePanel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -22,14 +23,23 @@ public class TokenLabel extends JLabel implements Drawable {
     private int tokIndex;
     private Path path;
     int [] oldLoc = {0,1};
-    int [] newLoc;
-
+    int [] newLoc = {0,1};
+    private BufferedImage img = null;
+    private static int indexCount;
+    private boolean firstSet = true;
 
     public TokenLabel(String owner) {
         super();
         this.owner = owner;
         point = new Point();
 
+        try {
+            img = ImageIO.read(new File("res/pika.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        tokIndex = indexCount;
+        indexCount++;
     }
 
     public String getOwner() {
@@ -42,36 +52,35 @@ public class TokenLabel extends JLabel implements Drawable {
 
     @Override
     public void draw(Graphics g) {
-        BufferedImage img = null;
-        try {
-            img = ImageIO.read(new File("res/pika.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(firstSet){
+            setCoordinates(width,height);
+            if(tokIndex>=6){
+                point.setLocation(width-(width/17)*4 + (tokIndex-6)*this.getWidth()-width/100,height-(height/17)*13-this.getHeight()*2);
+            }else {
+                point.setLocation(width - ((width / 17) * 4) + (tokIndex * this.getWidth())-width/100,height-((height/17)*13)-this.getHeight());
+            }
+            firstSet = false;
+        }else {
+            if (path != null && path.hasMoreSteps()) {
+                point = path.nextPosition();
+            } else {
+                GamePanel.animator.animatorStopped = true;
+            }
         }
-        if(path != null && path.hasMoreSteps()) point = path.nextPosition();
-        else{
-            path = pathChooser();
-            point = path.nextPosition();
-        }
-        g.drawImage(new ImageIcon(img.getScaledInstance(tokenWidth, tokenHeight, Image.SCALE_SMOOTH)).getImage(), (int) point.getX(), (int) point.getY(), this);
+        g.drawImage(new ImageIcon(img.getScaledInstance(tokenWidth, tokenHeight, Image.SCALE_SMOOTH)).getImage(), (int) point.getX(), (int) point.getY(), null);
         this.setBounds((int) point.getX(), (int) point.getY(),tokenWidth,tokenHeight);
     }
 
     private Path pathChooser() {
-        return new TokenPath(100, 500, 1400,1000,200);
+        return new TokenPath(width/14, height/2, width/14*9,height/2,width/14);
     }
 
-    public void setCoordinates(int width, int height,int i) {
+    public void setCoordinates(int width, int height) {
         this.width = width;
         this.height = height;
-        tokenWidth=width/56;
-        tokenHeight=height/40;
-        tokIndex = i;
-        if(i>=6){
-            point.setLocation(width-(width/17)*4 + (i-6)*this.getWidth()-width/100,height-(height/17)*13-this.getHeight()*2);
-        }else {
-            point.setLocation(width - ((width / 17) * 4) + (i * this.getWidth())-width/100,height-((height/17)*13)-this.getHeight());
-        }
+        tokenWidth = width/56;
+        tokenHeight = height/40;
+        this.setBounds((int) point.getX(), (int) point.getY(),tokenWidth,tokenHeight);
     }
 
     public int[] getOldLoc() {
@@ -88,5 +97,9 @@ public class TokenLabel extends JLabel implements Drawable {
 
     public void setNewLoc(int[] newLoc) {
         this.newLoc = newLoc;
+    }
+
+    public void setPath() {
+        path = pathChooser();
     }
 }
