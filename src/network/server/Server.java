@@ -1,6 +1,7 @@
 package network.server;
 
 import domain.util.GameInfo;
+import network.client.clientFacade.ClientFacade;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -32,6 +33,8 @@ public class Server implements Runnable {
     }
 
     public synchronized void removeClient(ClientHandler clientHandler) {
+        System.out.println("=====Before shifting in the server \n"+Arrays.deepToString(clientInfo));
+
         int i;
         for (i = 0; i < maxClientsCount; i++) {
             if (clientThreads[i] == clientHandler) {
@@ -47,13 +50,17 @@ public class Server implements Runnable {
             clientThreads[j] = clientThreads[j + 1];
             clientThreads[j + 1] = null;
             clientThreads[j].setIndex(j);
+
             clientNames[j] = clientNames[j + 1];
-            clientNames[j+1] = null;
-            clientInfo[j] = clientInfo[j+1];
-            clientInfo[j+1] = new String[]{null, null};
+            clientNames[j + 1] = null;
+
+            clientInfo[j] = clientInfo[j + 1];
+            clientInfo[j + 1] = new String[]{null, null};
         }
+
+
         System.out.println("=============" + Arrays.toString(clientThreads));
-        System.out.println(Arrays.deepToString(clientInfo));
+        System.out.println("===After shifting in the server \n"+ Arrays.deepToString(clientInfo));
     }
 
     public void setClientInfo(String line) {
@@ -92,7 +99,8 @@ public class Server implements Runnable {
                 for (; i < maxClientsCount; i++) {
                     if (clientThreads[i] == null) {
                         clientThreads[i] = new ClientHandler(clientSocket, i);
-                        if (clientSocket.getInetAddress().getHostAddress().equals("127.0.0.1")) clientInfo[i][1] = InetAddress.getLocalHost().getHostAddress();
+                        if (clientSocket.getInetAddress().getHostAddress().equals("127.0.0.1"))
+                            clientInfo[i][1] = InetAddress.getLocalHost().getHostAddress();
                         else clientInfo[i][1] = clientSocket.getInetAddress().getHostAddress();
                         (new Thread(clientThreads[i], "ClientThread " + i)).start();
                         break;
@@ -100,6 +108,11 @@ public class Server implements Runnable {
                 }
                 System.out.println("\n\n ClientThreads: " + Arrays.toString(clientThreads) + "\n\n");
             } catch (IOException e) {
+                System.out.println("ServerSocket is now closed!!");
+                for (int i = 0; i < clientThreads.length - 1; i++) {
+                    if (clientThreads[i] != null)
+                        clientThreads[i].terminate();
+                }
                 break;
             }
 
@@ -145,6 +158,16 @@ public class Server implements Runnable {
     }
 
     public String[][] getClientInfo() {
+        int j = 0;
+        for (int i = 0; i < clientInfo.length; i++) {
+            if(clientInfo[i][0]!=null && clientInfo[i][0].equals(ClientFacade.getInstance().getUsername()) && i!=0){
+                System.out.println("\nIteration " +i + "\n CLient Info == " + Arrays.deepToString(clientInfo));
+                String[] ithArray = clientInfo[i].clone();
+                clientInfo[i] = clientInfo[0].clone();
+                clientInfo[0] = ithArray.clone();
+            }
+        }
+        System.out.println("In get client info"+Arrays.deepToString(clientInfo));
         return clientInfo;
     }
 

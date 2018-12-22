@@ -4,6 +4,7 @@ import domain.server.ReceivedChecker;
 import domain.server.controller.ServerCommunicationHandler;
 import domain.util.Flags;
 import domain.util.GameInfo;
+import domain.util.MessageConverter;
 import network.client.clientFacade.ClientFacade;
 import network.server.serverFacade.ServerFacade;
 
@@ -50,5 +51,8 @@ public class ReconnectRequestInterpreter implements RequestInterpretable {
         if (GameInfo.getInstance().isStarted() && nextPlayer.equals(name) && !GameInfo.getInstance().isBot(nextPlayer))
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"),
                     index, "001001110110", nextPlayer);
+
+        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("IP"), index, oldHostName, MessageConverter.convertArrayToString(ServerFacade.getInstance().getClientInfo()));
+
     }
 }

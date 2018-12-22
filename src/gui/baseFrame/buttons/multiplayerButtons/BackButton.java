@@ -23,12 +23,15 @@ public class BackButton extends BaseButton implements ReadinessChangedListener {
     public void actionPerformed(ActionEvent actionEvent) {
         System.out.println("Back Button Pressed");
         if (BaseFrame.getInstance().getStatus().equals("Lobby")) {
-            if (GameInfo.getInstance().isMyselfHost())
+            if (GameInfo.getInstance().isMyselfHost()) {
+                System.out.println("ShutDown INITIATED!!!!!!!!!!!!!!!!!!!!!");
                 ServerFacade.getInstance().shutDown();
+            }
             ClientFacade.getInstance().terminate();
         }
 
         BaseFrame.getInstance().setStatus("Init");
+        BaseFrame.getInstance().setFrameTitle("");
     }
 
     @Override

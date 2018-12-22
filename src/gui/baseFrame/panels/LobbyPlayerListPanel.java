@@ -35,12 +35,12 @@ public class LobbyPlayerListPanel extends JPanel implements PlayerListChangedLis
 
     }
 
-    public void setPlayerLabelList(ArrayList<ArrayList<String>> playerAttributes, boolean isHost) {
+    public void setPlayerLabelList(ArrayList<ArrayList<String>> playerAttributes) {
         playerLabels.removeIf(p -> !GameInfo.getInstance().hasPlayer(p.getName()));
 
         for (ArrayList<String> player : playerAttributes) {
-            getPlayer(player, isHost).setText("<HTML>" + player.get(0) + "<BR>" + player.get(2) + "</HTML>");
-            getPlayer(player, isHost).setBackground(ColorConverter.getInstance().getColorMap().get(player.get(1)));
+            getPlayer(player).setText("<HTML>" + player.get(0) + "<BR>" + player.get(2) + "</HTML>");
+            getPlayer(player).setBackground(ColorConverter.getInstance().getColorMap().get(player.get(1)));
         }
 
         this.removeAll();
@@ -48,7 +48,7 @@ public class LobbyPlayerListPanel extends JPanel implements PlayerListChangedLis
         repaint();
     }
 
-    private LobbyPlayerLabel getPlayer(ArrayList<String> list, boolean isHost) {
+    private LobbyPlayerLabel getPlayer(ArrayList<String> list) {
         for (int i = 0; i < playerLabels.size(); i++) {
             if (playerLabels.get(i) == null) continue;
             else if (playerLabels.get(i).getText().contains(list.get(0))) {
@@ -56,18 +56,14 @@ public class LobbyPlayerListPanel extends JPanel implements PlayerListChangedLis
             }
         }
         LobbyPlayerLabel temp = new LobbyPlayerLabel(list.get(0),
-                ColorConverter.getInstance().getColorMap().get(list.get(1)), isHost);
-        if (isHost &&
-                temp.getName().equals(GameInfo.getInstance().getMyself().getName()))
-            temp.removeMouseListener(temp);
+                ColorConverter.getInstance().getColorMap().get(list.get(1)));
         this.playerLabels.add(temp);
-        return getPlayer(list, isHost);
+        return getPlayer(list);
     }
 
     @Override
     public void onPlayerListChangedEvent(ArrayList<String> selectedColors) {
-        setPlayerLabelList(GameInfo.getInstance().getPlayerConnectAttributes(),
-                (GameInfo.getInstance().isMyselfHost()));
+        setPlayerLabelList(GameInfo.getInstance().getPlayerConnectAttributes());
     }
 
 }

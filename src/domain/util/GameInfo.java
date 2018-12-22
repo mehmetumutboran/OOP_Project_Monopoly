@@ -166,7 +166,7 @@ public class GameInfo implements Savable {
     public ArrayList<ArrayList<String>> getPlayerConnectAttributes() {
         ArrayList<ArrayList<String>> playerConnectAttributes = new ArrayList<>();
         for (Player player : playerList) {
-            System.out.println("\n\n Get Player Connect Attr. " + player + "\n\n\n");
+            //System.out.println("\n\n Get Player Connect Attr. " + player + "\n\n\n");
             ArrayList<String> temp = new ArrayList<>();
             temp.add(player.getName());
             temp.add(player.getToken().getColor());
@@ -250,6 +250,7 @@ public class GameInfo implements Savable {
         //@effects empties layerList and playerQueue
         playerList = new ArrayList<>();
         playerQueue = new LinkedList<>();
+        selectedColors = new ArrayList<>();
     }
 
     public void removePlayer(String username) {

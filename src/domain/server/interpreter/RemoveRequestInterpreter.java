@@ -4,6 +4,7 @@ import domain.server.ReceivedChecker;
 import domain.server.controller.ServerCommunicationHandler;
 import domain.util.Flags;
 import domain.util.GameInfo;
+import domain.util.MessageConverter;
 import network.server.serverFacade.ServerFacade;
 
 public class RemoveRequestInterpreter implements RequestInterpretable {
@@ -15,6 +16,7 @@ public class RemoveRequestInterpreter implements RequestInterpretable {
 
 
         if (!GameInfo.getInstance().isBot(username)) {
+            System.out.println("In kick");
 //            int i;
 //            if(message[0].equals("Exit")) i = index;
 //            else i = ServerFacade.getInstance().nameToIndex(username);
@@ -23,12 +25,6 @@ public class RemoveRequestInterpreter implements RequestInterpretable {
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Kick"),
                     ind, username);
 
-            while (true) {
-                if (ReceivedChecker.getInstance().checkReceived(ind)) {
-                    ReceivedChecker.getInstance().setReceived(ind);
-                    break;
-                }
-            }
 
             ServerFacade.getInstance().kick(ServerFacade.getInstance().nameToIndex(username));
         }
@@ -36,6 +32,7 @@ public class RemoveRequestInterpreter implements RequestInterpretable {
 
 
         if (GameInfo.getInstance().isCurrentPlayer(username)) {
+            System.out.println("In isCurrentPlayer");
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Finish"), username);
 
             while (true) {
@@ -51,5 +48,10 @@ public class RemoveRequestInterpreter implements RequestInterpretable {
 
         }
         ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Remove"), username);
+
+        System.out.println("Player remove for "+username+" is sent");
+
+        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("IP"), username, MessageConverter.convertArrayToString(ServerFacade.getInstance().getClientInfo()));
+
     }
 }

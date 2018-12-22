@@ -5,12 +5,14 @@ import domain.client.PlayerActionController;
 import domain.client.ResponseInterpreter;
 import domain.server.controller.ConnectGameHandler;
 import domain.util.GameInfo;
+import domain.util.MessageConverter;
 import network.client.Client;
 import network.listeners.ConnectionFailedListener;
 import network.listeners.ReceivedChangedListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Class that provides network logic to client Player
@@ -29,7 +31,7 @@ public class ClientFacade {
     private volatile ArrayList<ReceivedChangedListener> receivedChangedListeners;
     private volatile ArrayList<ConnectionFailedListener> connectionFailedListeners;
     private volatile String[][] ips;
-    private int ipIndex;
+    private final int ipIndex = 1;
 
     private ClientFacade() {
         receivedChangedListeners = new ArrayList<>();
@@ -150,7 +152,11 @@ public class ClientFacade {
     }
 
     public void reconnect() {
-        PlayerActionController.getInstance().reconnect(ips[++ipIndex][0].equals(getUsername()));
+        System.out.println("\nThe client's username is " + getUsername());
+        System.out.println("Ip index is "+ ipIndex);
+        System.out.println(Arrays.deepToString(ips));
+        //System.out.println("Trying to reconnect to "+ips[ipIndex][0]+"\n");
+        PlayerActionController.getInstance().reconnect(ips[ipIndex][0].equals(getUsername()));
     }
 
     public String getNextIP(){

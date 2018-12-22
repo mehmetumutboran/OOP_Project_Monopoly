@@ -23,7 +23,6 @@ public class ClientReceiver extends Thread {
             if (socket.isClosed()) break;
             try {
                 received = receive();
-                if (socket.isClosed()) break;
             } catch (IOException e) {
                 System.out.println("Server is down!!!");
                 if (socket.isClosed()) break;

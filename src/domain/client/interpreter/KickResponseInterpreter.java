@@ -8,7 +8,6 @@ import network.client.clientFacade.ClientFacade;
 public class KickResponseInterpreter implements ResponseInterpretable {
     @Override
     public void interpret(String[] message) {
-        ClientCommunicationHandler.getInstance().sendReceived();
         GameInfo.getInstance().getMyself().setReadiness("Not Ready");
         ClientFacade.getInstance().terminate();
         UIUpdater.getInstance().changePanel("Join");
