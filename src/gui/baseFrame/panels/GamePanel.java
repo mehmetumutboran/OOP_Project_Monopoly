@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class GamePanel extends JPanel implements GameStartedListener, TokenMovementListener, DiceRolledListener, TokenStarterListener {
+public class GamePanel extends JPanel implements TokenMovementListener, DiceRolledListener, TokenStarterListener {
 
     private int width;
     private int height;
@@ -43,7 +43,6 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
         this.setSize(width, height / 10);
         this.setLayout(new BorderLayout());
         this.setBackground(Color.white);
-        UIUpdater.getInstance().addGameStartedListener(this);
         UIUpdater.getInstance().addDiceRolledListener(this);
         UIUpdater.getInstance().addTokenStarterListener(this);
         tokenlist = new ArrayList<>();
@@ -155,25 +154,6 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
         for (int i = 0; i < squareLabels.size(); i++) {
             squareLabels.get(i).draw(this.getWidth(), this.getHeight());
         }
-    }
-
-
-    @Override
-    public void onGameStartedEvent() {
-//        for (int i = 0; i < 3; i++) {
-//            String message = playerListColor.get(i);
-//            int sep = message.indexOf('@');
-//            System.out.println(sep);
-//            String pName = message.substring(0, sep);
-//            String cName = message.substring(sep + 1);
-//            TokenLabel tl = TokenFactory.getInstance().getNewToken(pName, cName);
-//            tl.setOpaque(false);
-//            jPanel.add(tl);
-//            if (i >= 6) tl.setCoordinates(1070 + (i - 6) * 25, 125);
-//            else tl.setCoordinates(1070 + i * 25, 150);
-//
-//            tokenlist.add(tl);
-//        }
     }
 
    @Override

@@ -22,8 +22,8 @@ public class TokenLabel extends JLabel implements Drawable {
     private int height;
     private int tokIndex;
     private Path path;
-    int [] oldLoc = {0,1};
-    int [] newLoc = {0,1};
+    private int [] oldLoc = {0,1};
+    private int [] newLoc = {0,1};
     private BufferedImage img = null;
     private static int indexCount;
     private boolean firstSet = true;
@@ -65,6 +65,7 @@ public class TokenLabel extends JLabel implements Drawable {
                 point = path.nextPosition();
             } else {
                 GamePanel.animator.animatorStopped = true;
+                setOldLoc(getNewLoc());
             }
         }
         g.drawImage(new ImageIcon(img.getScaledInstance(tokenWidth, tokenHeight, Image.SCALE_SMOOTH)).getImage(), (int) point.getX(), (int) point.getY(), null);
@@ -72,7 +73,124 @@ public class TokenLabel extends JLabel implements Drawable {
     }
 
     private Path pathChooser() {
-        return new TokenPath(width/14, height/2, width/14*9,height/2,width/14);
+//        if(oldLoc[0] == newLoc[0]){
+//            if(newLoc[0] == 0){
+//                if(oldLoc[1] > 0 && oldLoc[1] < 14){
+//                    if(newLoc[1] >= 0 && newLoc[1] < 14){
+//                        if(tokIndex < 6){
+//                            return new TokenPath(width - 2*width/17 + tokIndex*tokenWidth - width/100,height/14*oldLoc[1],width - 2*width/17 + tokIndex*tokenWidth,height/14*newLoc[1],(newLoc[1] - oldLoc[1])*width/14);
+//                        }else return new TokenPath(width - 2*width/17 + (tokIndex - 6)*tokenWidth - width/100,height/14*oldLoc[1] - tokenHeight,width - 2*width/17 + (tokIndex - 6)*tokenWidth,height/14*newLoc[1] - tokenHeight,(newLoc[1] - oldLoc[1])*width/14);
+//                    }else if(newLoc[1] >= 14 && newLoc[1] < 28){
+//                        if(tokIndex < 6){
+//                            return new TokenPath(width - 2*width/17 + tokIndex*tokenWidth,height/14*oldLoc[1],width - 2*width/17 + tokIndex*tokenWidth,height/14*newLoc[1],(newLoc[1] - oldLoc[1])*width/14);
+//                        }else return new TokenPath(width - 2*width/17 + (tokIndex - 6)*tokenWidth,height/14*oldLoc[1] - tokenHeight,width - 2*width/17 + (tokIndex - 6)*tokenWidth,height/14*newLoc[1] - tokenHeight,(newLoc[1] - oldLoc[1])*width/14);
+//                    }else if(newLoc[1] >= 28 && newLoc[1] < 42){
+//
+//                    }else if(newLoc[1] >= 42 && newLoc[1] < 56){
+//
+//                    }
+//                }
+//                if(oldLoc[1] >= 14 && oldLoc[1] < 28){
+//                    if(newLoc[1] >= 0 && newLoc[1] < 14){
+//
+//                    }else if(newLoc[1] >= 14 && newLoc[1] < 28){
+//
+//                    }else if(newLoc[1] >= 28 && newLoc[1] < 42){
+//
+//                    }else if(newLoc[1] >= 42 && newLoc[1] < 56){
+//
+//                    }
+//                }
+//                if(oldLoc[1] >= 28 && oldLoc[1] < 42){
+//                    if(newLoc[1] >= 0 && newLoc[1] < 14){
+//
+//                    }else if(newLoc[1] >= 14 && newLoc[1] < 28){
+//
+//                    }else if(newLoc[1] >= 28 && newLoc[1] < 42){
+//
+//                    }else if(newLoc[1] >= 42 && newLoc[1] < 56){
+//
+//                    }
+//                }
+//                if(oldLoc[1] >= 42 && oldLoc[1] < 56){
+//                    if(newLoc[1] >= 0 && newLoc[1] < 14){
+//
+//                    }else if(newLoc[1] >= 14 && newLoc[1] < 28){
+//
+//                    }else if(newLoc[1] >= 28 && newLoc[1] < 42){
+//
+//                    }else if(newLoc[1] >= 42 && newLoc[1] < 56){
+//
+//                    }
+//                }
+//            }else if(newLoc[0] == 1){
+//                if(oldLoc[1] > 0 && oldLoc[1] < 14){
+//                    if(newLoc[1] >= 0 && newLoc[1] < 10){
+//                        if(tokIndex < 6){
+//
+//                        }else {
+//
+//                        }
+//                    }else if(newLoc[1] >= 10 && newLoc[1] < 20){
+//                        if(tokIndex < 6){
+//
+//                        }else {
+//
+//                        }
+//                    }else if(newLoc[1] >= 20 && newLoc[1] < 30){
+//
+//                    }else if(newLoc[1] >= 30 && newLoc[1] < 40){
+//
+//                    }
+//                }
+//                if(oldLoc[1] >= 14 && oldLoc[1] < 28){
+//                    if(newLoc[1] >= 0 && newLoc[1] < 14){
+//
+//                    }else if(newLoc[1] >= 14 && newLoc[1] < 28){
+//
+//                    }else if(newLoc[1] >= 28 && newLoc[1] < 42){
+//
+//                    }else if(newLoc[1] >= 42 && newLoc[1] < 56){
+//
+//                    }
+//                }
+//                if(oldLoc[1] >= 28 && oldLoc[1] < 42){
+//                    if(newLoc[1] >= 0 && newLoc[1] < 14){
+//
+//                    }else if(newLoc[1] >= 14 && newLoc[1] < 28){
+//
+//                    }else if(newLoc[1] >= 28 && newLoc[1] < 42){
+//
+//                    }else if(newLoc[1] >= 42 && newLoc[1] < 56){
+//
+//                    }
+//                }
+//                if(oldLoc[1] >= 42 && oldLoc[1] < 56){
+//                    if(newLoc[1] >= 0 && newLoc[1] < 14){
+//
+//                    }else if(newLoc[1] >= 14 && newLoc[1] < 28){
+//
+//                    }else if(newLoc[1] >= 28 && newLoc[1] < 42){
+//
+//                    }else if(newLoc[1] >= 42 && newLoc[1] < 56){
+//
+//                    }
+//                }
+//            }else if(newLoc[0] == 2){
+//
+//            }
+//        }else {
+//            if(newLoc[0] == 0){
+//
+//            }else if(newLoc[0] == 1){
+//
+//            }else if(newLoc[0] == 2){
+//
+//            }
+//        }
+        if(tokIndex < 6) {
+            return new TokenPath(width / 14 + tokIndex * tokenWidth, height / 2, width / 14 * 9 + tokIndex * tokenWidth, height / 2, width / 14);
+        }else return new TokenPath(width / 14 + (tokIndex-6) * tokenWidth, height / 2 - tokenHeight, width / 14 * 9 + (tokIndex-6) * tokenWidth, height / 2 - tokenHeight, width / 14);
     }
 
     public void setCoordinates(int width, int height) {
