@@ -126,7 +126,7 @@ public class UIUpdater {
         }
     }
 
-    private void publishReadinessChangedEvent(boolean readiness) {
+    public void publishReadinessChangedEvent(boolean readiness) {
         for (ReadinessChangedListener rcl : readinessChangedListeners) {
             rcl.onReadinessChangedEvent(readiness);
         }
@@ -239,6 +239,7 @@ public class UIUpdater {
 
     public void setNewHost() {
         UIFacade.getInstance().setNewHost();
+        publishReadinessChangedEvent(false);
     }
 
     public void changeReadiness(boolean readiness) {

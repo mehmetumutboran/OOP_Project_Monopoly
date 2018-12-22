@@ -11,7 +11,5 @@ public class CloseResponseInterpreter implements ResponseInterpretable {
         UIUpdater.getInstance().showPrompt(message[0].charAt(0));
         ClientCommunicationHandler.getInstance().sendReceived();
         ClientFacade.getInstance().terminate();
-        GameInfo.getInstance().reset();
-
     }
 }

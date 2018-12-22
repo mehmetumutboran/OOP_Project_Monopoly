@@ -75,6 +75,8 @@ public class GameInfo implements Savable {
     }
 
     public Player getMyself() {
+        System.out.println("In game info getmyself"+ClientFacade.getInstance().getUsername());
+        System.out.println(playerList);
         return getPlayer(ClientFacade.getInstance().getUsername());
     }
 
@@ -347,6 +349,7 @@ public class GameInfo implements Savable {
 
     public void setNewHost(String newHost) {
         getPlayer(newHost).setReadiness("Host");
+        publishPlayerListEvent();
     }
 
     public boolean isReady(String username) {
@@ -354,10 +357,12 @@ public class GameInfo implements Savable {
     }
 
     public void setWasHostPeekBefore() {
-        this.wasHostPeekBefore = !getPeek().getReadiness().equals("Ready");
+        if(isStarted)
+            this.wasHostPeekBefore = !getPeek().getReadiness().equals("Ready");
     }
 
     public boolean WasHostPeekBefore() {
+        if(!isStarted) return false;
         return this.wasHostPeekBefore;
     }
 }

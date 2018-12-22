@@ -18,12 +18,19 @@ public class RemoveRequestInterpreter implements RequestInterpretable {
 //            int i;
 //            if(message[0].equals("Exit")) i = index;
 //            else i = ServerFacade.getInstance().nameToIndex(username);
+            int ind = ServerFacade.getInstance().nameToIndex(username);
 
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Kick"),
-                    ServerFacade.getInstance().nameToIndex(username), username);
+                    ind, username);
+
+            while (true) {
+                if (ReceivedChecker.getInstance().checkReceived(ind)) {
+                    ReceivedChecker.getInstance().setReceived(ind);
+                    break;
+                }
+            }
 
             ServerFacade.getInstance().kick(ServerFacade.getInstance().nameToIndex(username));
-
         }
 
 
