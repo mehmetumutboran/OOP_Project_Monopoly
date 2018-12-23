@@ -3,7 +3,9 @@ package domain.server.board;
 import domain.server.board.specialSquares.*;
 import domain.server.card.ChanceCard;
 import domain.server.card.Community;
+import domain.server.card.chanceDeck.SocialMediaFail;
 import domain.server.card.chanceDeck.HolidayBonus;
+import domain.server.card.communityDeck.PayHospitalBills;
 import domain.server.card.communityDeck.TheInsidersEdge;
 
 import java.util.HashMap;
@@ -16,9 +18,12 @@ public class Board {
     private static final int FIRSTLAYERSQ = 40;
     private static final int ZEROTHLAYERSQ = 56;
     private static final int[][] railRoads = {{0, 7}, {0, 35}, {1, 5}, {1, 15}, {1, 25}, {1, 35}, {2, 9}, {2, 21}};
-    private ChanceCard[] chanceDeckList;
-    private Community[] communityDeckList;
+    private ChanceCard[] chanceList;
+    private Community[] communityList;
     private int pool;
+
+    //private volatile Deque<ChanceCard> chanceCardsDeck;
+    //private volatile Deque<Community> communityCardsDeck;
 
    // private static HashMap<String, Integer> ColorNumber = new HashMap<>();
 
@@ -50,14 +55,27 @@ public class Board {
         this.pool += money;
     }
 
-    public ChanceCard[] getChanceDeckList() {
-        return chanceDeckList;
+   // public Deque<ChanceCard> getChanceDeckList() {
+   //     return chanceCardsDeck;
+   // }
+     public ChanceCard[] getChanceList() {
+         return chanceList;
+     }
+
+    public void setChanceList(int index, ChanceCard card) {
+        chanceList[index] = card;
     }
 
-    public Community[] getCommunityDeckList() {
-        return communityDeckList;
-    }
+    //  public Deque<Community> getCommunityDeckList() {
+  //      return communityCardsDeck;
+  //  }
+  public Community[] getCommunityList() {
+      return communityList;
+  }
 
+    public void setCommunityList(int index, Community card) {
+        communityList[index] = card;
+    }
 
     public Square[][] getSquareList() {
         return squareList;
@@ -110,13 +128,28 @@ public class Board {
     }
 
     private void initializeDecks() {
-        chanceDeckList = new ChanceCard[23];
-        communityDeckList = new Community[11];
+//        communityCardsDeck = (Deque<Community>) new ArrayList<Community>();
+//        chanceCardsDeck = (Deque<ChanceCard>) new ArrayList<ChanceCard>();
+
+//        chanceCardsDeck.add(new ForwardThinker("ForwardThinker"));
+//        chanceCardsDeck.add(new HolidayBonus("HolidayBonus"));
+//        communityCardsDeck.add(new TheInsidersEdge("TheInsidersEdge"));
+//        communityCardsDeck.add(new PayHospitalBills("PayHospitalBills"));
+
+        chanceList = new ChanceCard[2];
+        communityList = new Community[2];
 
         TheInsidersEdge theInsidersEdge = new TheInsidersEdge("theInsidersEdge");
-        communityDeckList[0] = theInsidersEdge;
+        communityList[0] = theInsidersEdge;
+        PayHospitalBills payHospitalBills = new PayHospitalBills("payHospitalBills");
+        communityList[1] = payHospitalBills;
         HolidayBonus holidayBonus = new HolidayBonus("holidayBonus");
-        chanceDeckList[0] = holidayBonus;
+        chanceList[0] = holidayBonus;
+        SocialMediaFail socialMediaFail = new SocialMediaFail("socialMediaFail");
+        chanceList[1] = socialMediaFail;
+
+
+
     }
 
     private void initializeSquares() {

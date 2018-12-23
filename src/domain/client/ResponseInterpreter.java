@@ -58,6 +58,9 @@ public class ResponseInterpreter {
         ResponseInterpretable dontMortgageResponseInterpreter = new DontMortgageResponseInterpreter();
         ResponseInterpretable dontUnmortgageResponseInterpreter = new DontUnmortgageResponseInterpreter();
         ResponseInterpretable labelLighterResponseInterpreter = new LabelLighterResponseInterpreter();
+        ResponseInterpretable drawCardResponseInterpreter = new DrawCardResponseInterpreter();
+
+
 
 
         interpreterMap = new HashMap<>();
@@ -100,6 +103,8 @@ public class ResponseInterpreter {
         interpreterMap.put(Flags.getFlag("DontMortgage"), dontMortgageResponseInterpreter);
         interpreterMap.put(Flags.getFlag("DontUnmortgage"), dontUnmortgageResponseInterpreter);
         interpreterMap.put(Flags.getFlag("LabelLighter"), labelLighterResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("Draw"), drawCardResponseInterpreter);
+
     }
 
     public void interpret(String message) {

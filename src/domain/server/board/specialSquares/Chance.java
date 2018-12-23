@@ -14,7 +14,7 @@ public class Chance extends Square implements SpecialSquareStrategy {
     public boolean doAction() {
 
 
-        Board.getInstance().getChanceDeckList()[0].doAction();
+ //       Board.getInstance().getChanceDeckList()[0].doAction();
         return true;
     }
 

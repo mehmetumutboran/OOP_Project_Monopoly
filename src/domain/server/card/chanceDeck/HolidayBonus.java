@@ -1,6 +1,8 @@
 package domain.server.card.chanceDeck;
 
+import domain.client.UIUpdater;
 import domain.server.card.ChanceCard;
+import domain.util.GameInfo;
 
 public class HolidayBonus extends ChanceCard {
 
@@ -9,8 +11,11 @@ public class HolidayBonus extends ChanceCard {
     }
 
     @Override
-    public boolean doAction() {
+    public boolean doAction(String name) {
 //        GameLogic.getInstance().getCurrentPlayerName().increaseMoney(100);
+//        UIUpdater.getInstance().setMessage(name + " draw " + drawnCard);
+        GameInfo.getInstance().getCurrentPlayer().increaseMoney(100);
+        UIUpdater.getInstance().setMessage(name + " collected 100 dollars from the bank" );
         return true;
     }
 }
