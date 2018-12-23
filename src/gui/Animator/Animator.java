@@ -20,7 +20,7 @@ public class Animator implements Runnable {
         gp.setPath(movingToken);
         while (true) {
             try {
-                Thread.sleep(50);
+                Thread.sleep(100);
                 synchronized(this) {
                     if (animatorStopped) {
                         break;

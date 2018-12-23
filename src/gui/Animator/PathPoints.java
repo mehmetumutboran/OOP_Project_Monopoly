@@ -1,6 +1,7 @@
 package gui.Animator;
 
 import java.awt.*;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class PathPoints {
@@ -11,9 +12,9 @@ public class PathPoints {
     private int height;
 
     private PathPoints(int width,int height){
-        install();
         this.width = width;
         this.height = height;
+        install();
     }
 
     public static PathPoints getInstance(int width,int height) {
@@ -25,29 +26,45 @@ public class PathPoints {
 
     private void install(){
         for(int i=0 ; i<=55 ; i++){
-            if(i>=0 && i<= 14){
-                locToPoint.put(new Point(0,i), new Point(width - 2*width/17+(width/17) - width/100,2*(i+1)*height/17 + height/100));
+            if(i>=0 && i<= 13){
+                locToPoint.put(new Point(0,i), new Point(width - 2*width/17 - width/100,(i+2)*height/17)); //nice
+            }
+            else if(i == 14){
+                locToPoint.put(new Point(0,i), new Point(width - 2*width/17 - width/100,height - height/100)); //nice
             }
             else if(i>=15 && i<=27){
-                locToPoint.put(new Point(0,i), new Point(width - 2*(i+1)*width/17 - width/100,2*15*height/17 + height/100));
+                locToPoint.put(new Point(0,i), new Point(width - (i-12)*width/17 - width/100,height - height/100));
             }
-            else if(i>=28 && i<= 41){
-                locToPoint.put(new Point(0,i), new Point(width - 2*28*width/17 - width/100,height-2*(i-1)*height/17 - height/100));
-            }else if(i>=42 && i<=55){
-                locToPoint.put(new Point(0,i), new Point( 2*width/17 - width/100,2*(i+1)*height/17 + height/100));
+            else if(i == 28){
+                locToPoint.put(new Point(0,i), new Point(width - 17*width/17 + width/100,16*height/17 + height/100));
+            }
+            else if(i>=29 && i<= 41) {
+                locToPoint.put(new Point(0, i), new Point(width - 17 * width / 17 + width / 100, height - (i - 27) * height / 17 - height / 100));
+            }else if(i == 42){
+                locToPoint.put(new Point(0, i), new Point(width - 17 * width / 17 + width / 100, height - 15* height / 17 - height / 100));
+            }else{
+                locToPoint.put(new Point(0,i), new Point(width - (i - 41)*width/17 - width/100,height-15*height/17 - height/100));
             }
         }
         for(int i=0; i<=39 ; i++) {
             if(i>=0 && i<= 9){
-                locToPoint.put(new Point(1,i), new Point(width - 2*width/17 - width/100,2*(i+1)*height/17 + height/100));
+                locToPoint.put(new Point(1,i), new Point(width - 4*width/17 - width/100,(i+4)*height/17 + 7*height/400));
             }
-            else if(i>=10 && i<=19){
-                locToPoint.put(new Point(1,i), new Point(width - 2*width/17 - width/100,2*(i+1)*height/17 + height/100));
+            else if(i == 10){
+                locToPoint.put(new Point(1,i), new Point(width - 4*width/17 - 7*width/400,15*height/17 + 7*height/400));
             }
-            else if(i>=20 && i<= 29){
-                locToPoint.put(new Point(1,i), new Point(width - 2*width/17 - width/100,2*(i+1)*height/17 + height/100));
-            }else if(i>=30 && i<=39){
-                locToPoint.put(new Point(1,i), new Point(width - 2*width/17 - width/100,2*(i+1)*height/17 + height/100));
+            else if(i>=11 && i<=19){
+                locToPoint.put(new Point(1,i), new Point(width - (i - 6)*width/17 - width/100,15*height/17 + height/100));
+            }
+            else if(i == 20){
+                locToPoint.put(new Point(1,i), new Point(width - 15*width/17 - width/100,15*height/17 + height/100));
+            }
+            else if(i>=21 && i<= 29) {
+                locToPoint.put(new Point(1, i), new Point(width - 15 * width / 17 - width / 100, height - (i - 18) * height / 17 - 7 * height / 400));
+            }else if(i == 30){
+                locToPoint.put(new Point(1, i), new Point(width - 15 * width / 17 - width / 100, height - 12* height / 17 - 7 * height / 400));
+            }else if(i>=31 && i<=39){
+                locToPoint.put(new Point(1,i), new Point((i -28)*width/17  + 7*width/400,height - 12* height / 17 - 7 * height / 400));
             }
         }
         for(int i=0; i<=23 ; i++) {
@@ -81,7 +98,9 @@ public class PathPoints {
     }
 
     public Point pointFind(int [] loc){
+        System.out.println("Array: " + Arrays.toString(loc));
         Point newP = new Point(loc[0],loc[1]);
+        System.out.println("Pointx: " + locToPoint.get(newP).getX() + " Pointy: " + locToPoint.get(newP).getY());
         return locToPoint.get(newP);
     }
 }
