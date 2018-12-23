@@ -66,6 +66,7 @@ public class ClientHandler implements Runnable {
 
     public void setIndex(int i) {
         this.index = i;
+        clientProcessHandler.setIndex(i);
     }
 
     public synchronized void send(String m) {

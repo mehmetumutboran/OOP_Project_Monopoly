@@ -34,7 +34,7 @@ public class ClientFacade {
     private volatile ArrayList<ReceivedChangedListener> receivedChangedListeners;
     private volatile ArrayList<ConnectionFailedListener> connectionFailedListeners;
     private volatile String[][] ips;
-    private int ipIndex = 1;
+    private int ipIndex = 0;
 
     private ClientFacade() {
         receivedChangedListeners = new ArrayList<>();
@@ -160,14 +160,15 @@ public class ClientFacade {
             return;
         }
         System.out.println("\nThe client's username is " + getUsername());
-        System.out.println("Ip index is "+ ipIndex+1);
+        System.out.println("Ip index is "+ (ipIndex+1));
         System.out.println(Arrays.deepToString(ips));
         //System.out.println("Trying to reconnect to "+ips[ipIndex][0]+"\n");
-        PlayerActionController.getInstance().reconnect(ips[++ipIndex][0].equals(getUsername()));
+        ipIndex += 1;
+        PlayerActionController.getInstance().reconnect(ips[ipIndex][0].equals(getUsername()));
     }
 
     public void resetIndex(){
-        this.ipIndex = 1;
+        this.ipIndex = 0;
     }
 
     public String getNextIP(){

@@ -40,4 +40,8 @@ public class ClientProcessHandler implements Runnable {
 //        this.notify();
 
     }
+
+    public void setIndex(int i) {
+        this.index = i;
+    }
 }
