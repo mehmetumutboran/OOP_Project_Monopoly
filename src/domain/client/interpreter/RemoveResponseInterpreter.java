@@ -9,6 +9,7 @@ public class RemoveResponseInterpreter implements ResponseInterpretable {
     public void interpret(String[] message) {
         String username = message[1];
         //Lobby
+        ClientFacade.getInstance().resetIndex();
 
         GameInfo.getInstance().removePlayer(username);
 

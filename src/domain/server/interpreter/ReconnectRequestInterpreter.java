@@ -52,7 +52,7 @@ public class ReconnectRequestInterpreter implements RequestInterpretable {
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"),
                     index, "001001110110", nextPlayer);
 
-        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("IP"), index, oldHostName, MessageConverter.convertArrayToString(ServerFacade.getInstance().getClientInfo()));
+        //ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("IP"), index, oldHostName, MessageConverter.convertArrayToString(ServerFacade.getInstance().getClientInfo()));
 
     }
 }
