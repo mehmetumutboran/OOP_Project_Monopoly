@@ -140,7 +140,7 @@ public class MoveControl {
             tryToGoOutOfJail(name);
             return false;
         } else if (checkTriple(name)) {
-            return false;
+            return true;
         } else return !checkBus(name);
 
     }
