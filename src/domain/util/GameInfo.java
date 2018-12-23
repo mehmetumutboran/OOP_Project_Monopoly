@@ -85,7 +85,12 @@ public class GameInfo implements Savable {
     }
 
     public boolean isMyselfHost() {
-        return getPlayer(ClientFacade.getInstance().getUsername()).getReadiness().equals("Host");
+        Player p = getPlayer(ClientFacade.getInstance().getUsername());
+        if(p==null){
+            System.out.println("Player not found in the method isMyselfHost!!");
+            return false;
+        }
+        return p.getReadiness().equals("Host");
     }
 
     public boolean hasPlayer(String name) {

@@ -26,7 +26,7 @@ public class RemoveRequestInterpreter implements RequestInterpretable {
                     ind, username);
 
 
-            ServerFacade.getInstance().kick(ServerFacade.getInstance().nameToIndex(username));
+            ServerFacade.getInstance().kick(ind);
         }
 
 

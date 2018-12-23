@@ -3,13 +3,16 @@ package network.client.clientFacade;
 
 import domain.client.PlayerActionController;
 import domain.client.ResponseInterpreter;
+import domain.client.interpreter.KickResponseInterpreter;
 import domain.server.controller.ConnectGameHandler;
+import domain.util.Flags;
 import domain.util.GameInfo;
 import domain.util.MessageConverter;
 import network.client.Client;
 import network.listeners.ConnectionFailedListener;
 import network.listeners.ReceivedChangedListener;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -152,6 +155,10 @@ public class ClientFacade {
     }
 
     public void reconnect() {
+        if(!GameInfo.getInstance().isStarted()){
+            new KickResponseInterpreter().interpret(new String[]{String.valueOf(Flags.getFlag("Kick"))});
+            return;
+        }
         System.out.println("\nThe client's username is " + getUsername());
         System.out.println("Ip index is "+ ipIndex);
         System.out.println(Arrays.deepToString(ips));
