@@ -26,6 +26,7 @@ public class ClientReceiver extends Thread {
 
                 if(received.equals("Connected")){
                     ConnectionChecker.setConnected();
+                    continue;
                 }
 
             } catch (IOException e) {

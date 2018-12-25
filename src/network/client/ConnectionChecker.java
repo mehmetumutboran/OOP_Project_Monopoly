@@ -1,6 +1,7 @@
 package network.client;
 
 import jdk.jfr.SettingControl;
+import network.client.clientFacade.ClientFacade;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -32,6 +33,7 @@ public class ConnectionChecker extends Thread {
                 System.out.println("\n=============================\n" +
                         "Connection Lost"
                         + "\n=============================\n");
+                ClientFacade.getInstance().reconnect();
                 break;
             }
         }
