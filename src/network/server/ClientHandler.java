@@ -40,6 +40,10 @@ public class ClientHandler implements Runnable {
                     continue;
                 }
 
+                else if(line.equals("isConnected")){
+                    continue;
+                }
+
 
                 //ServerFacade.getInstance().interpretRequest(dis, line, index);
                 clientProcessHandler.setLine(line);

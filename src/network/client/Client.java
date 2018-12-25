@@ -8,6 +8,7 @@ import java.net.Socket;
 public class Client {
     private Socket socket;
     private ClientReceiver clientReceiver;
+    private ConnectionChecker connectionChecker;
     private String username;
 
     private DataOutputStream dos;
@@ -20,6 +21,8 @@ public class Client {
         dos = new DataOutputStream(socket.getOutputStream());
         clientReceiver = new ClientReceiver(dis, socket);
         clientReceiver.start();
+        connectionChecker = new ConnectionChecker(dos);
+        connectionChecker.start();
 
     }
 
