@@ -41,6 +41,9 @@ public class ClientHandler implements Runnable {
                 }
 
                 else if(line.equals("isConnected")){
+                    synchronized (this) {
+                        send("Connected");
+                    }
                     continue;
                 }
 
