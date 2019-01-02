@@ -1,6 +1,5 @@
 package network.client;
 
-import jdk.jfr.SettingControl;
 import network.client.clientFacade.ClientFacade;
 
 import java.io.DataOutputStream;
@@ -8,7 +7,7 @@ import java.io.IOException;
 
 public class ConnectionChecker extends Thread {
     private DataOutputStream dos;
-    private static volatile boolean connected;
+    private volatile boolean connected;
 
     public ConnectionChecker(DataOutputStream dos) {
         this.dos = dos;
@@ -24,7 +23,7 @@ public class ConnectionChecker extends Thread {
 
                 Thread.sleep(5000);
 
-                if (!connected){
+                if (!connected) {
                     throw new IOException();
                 }
                 connected = false;
@@ -41,8 +40,12 @@ public class ConnectionChecker extends Thread {
     }
 
 
-    public static synchronized void setConnected(){
+    public synchronized void setConnected() {
         connected = true;
+    }
+
+    public void setDos(DataOutputStream dos){
+        this.dos = dos;
     }
 
 }

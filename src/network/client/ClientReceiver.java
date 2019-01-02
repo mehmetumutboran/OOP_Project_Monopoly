@@ -9,11 +9,13 @@ import java.net.Socket;
 public class ClientReceiver extends Thread {
     private DataInputStream dis;
     private Socket socket;
+    private ConnectionChecker connectionChecker;
 
-
-    public ClientReceiver(DataInputStream dis, Socket socket) {
+    public ClientReceiver(DataInputStream dis, Socket socket, ConnectionChecker connectionChecker) {
         this.dis = dis;
         this.socket = socket;
+        this.connectionChecker = connectionChecker;
+
     }
 
     @Override
@@ -25,14 +27,14 @@ public class ClientReceiver extends Thread {
                 received = receive();
 
                 if(received.equals("Connected")){
-                    ConnectionChecker.setConnected();
+                    connectionChecker.setConnected();
                     continue;
                 }
 
             } catch (IOException e) {
                 System.out.println("Server is down!!!");
                 if (socket.isClosed()) break;
-                ClientFacade.getInstance().reconnect();
+//                ClientFacade.getInstance().reconnect();
                 break;
             }
 
