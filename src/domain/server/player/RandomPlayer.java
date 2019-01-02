@@ -22,7 +22,6 @@ public class RandomPlayer extends Player {
                 player.getOwnedProperties(),
                 player.getOwnedUtilities(),
                 player.getOwnedRailroads(),
-                player.getMortgagedSquares(),
                 "Bot",
                 player.getDoubleCounter(),
                 player.isInJail());
