@@ -108,13 +108,14 @@ public class GameInfo implements Savable {
     }
 
     public void addPlayer(String name, String color, String readiness) {
-        if (readiness.equals("Bot"))
-            playerList.add(new RandomPlayer(name, color, readiness));
-        else
-            playerList.add(new Player(name, color, readiness));
-        //publishPlayerListEvent();
+        playerList.add(new Player(name, color, readiness));
         selectedColors.add(color);
         System.out.println(playerList);
+    }
+
+
+    public void addPlayer(String name, String color, String readiness, String difficulty) {
+        playerList.add(new RandomPlayer(name, color, readiness, difficulty));
     }
 
     public void addPlayer(Player player) {
