@@ -34,6 +34,6 @@ public class Utility extends DeedSquare {
 
     @Override
     public String generateSaveInfo() {
-        return super.toString() + "+";
+        return super.generateSaveInfo() + "+";
     }
 }

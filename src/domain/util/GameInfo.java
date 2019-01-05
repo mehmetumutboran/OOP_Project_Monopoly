@@ -204,9 +204,9 @@ public class GameInfo implements Savable {
 
     public void loadPlayer(String name, int layer, int location, String color, int balance,
                            ArrayList<? extends Savable> propertyList, ArrayList<? extends Savable> utilityList, ArrayList<? extends Savable> railroadList,
-                           ArrayList<? extends Savable> mortgagedSquares, String readiness, boolean isStarted, int doubleCounter, boolean isInJail) {
+                           String readiness, int doubleCounter, boolean isInJail) {
         Player player = new Player(name, new Token(new int[]{layer, location}, color), balance, (ArrayList<Property>) propertyList, (ArrayList<Utility>) utilityList, (ArrayList<Railroad>) railroadList,
-                (ArrayList<DeedSquare>) mortgagedSquares, readiness, doubleCounter, isInJail);
+                readiness, doubleCounter, isInJail);
         this.playerList.add(player);
     }
 

@@ -22,7 +22,11 @@ public class DrawCardRequestInterpreter implements RequestInterpretable {
         else if(Board.getInstance().getSquare(loc[0] , loc[1]) instanceof CommunityChest){
             drawnCard = Board.getInstance().getCommunityList()[0];
         }
-        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Draw"), name , drawnCard.getName());
+
+        String cardName = "theInsidersEdge";
+
+        if(drawnCard != null) cardName = drawnCard.getName();
+        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Draw"), name , cardName);
 
         //ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Money") , name , );
 //        int[] loc = GameInfo.getInstance().getCurrentPlayer().getToken().getLocation().clone();
