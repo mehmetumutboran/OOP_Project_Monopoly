@@ -1,5 +1,8 @@
 package domain.client;
 
+import domain.server.board.Board;
+import domain.server.board.DeedSquare;
+import domain.server.board.Square;
 import domain.util.Flags;
 import domain.util.GameInfo;
 
@@ -7,7 +10,7 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class RandomPlayerHandler{
+public class RandomPlayerHandler {
     private static RandomPlayerHandler ourInstance;
     private float botChance = 0.4f;
 
@@ -21,37 +24,66 @@ public class RandomPlayerHandler{
     private RandomPlayerHandler() {
     }
 
-    public void playBotTurn() {
-        int playCount = 2; // 1 for roll and 1 for finish turn initially
-        TimerTask timerTaskRoll = new TimerTask() {
-            @Override
-            public void run() {
-                roll();
-            }
-        };
-        TimerTask timerTaskBuy;
-        TimerTask timerTaskFinish = new TimerTask() {
-            @Override
-            public void run() {
-                finishTurn();
-            }
-        };
-
+    public void playBotTurn(boolean isSecondMove) {
         Timer timer = new Timer();
         long delay = 500L;
 
-        if(lucky()){
-            timerTaskBuy = new TimerTask() {
-                @Override
-                public void run() {
-                    buy();
-                }
-            };
-            timer.schedule(timerTaskBuy,(++playCount-1)*delay);
+        TimerTask timerTaskBuy = new TimerTask() {
+            @Override
+            public void run() {
+                buy();
+            }
+        };
+        if (lucky() && isBuyable()) {
+            System.out.println("Bot is trying to buy here!!");
+            timer.schedule(timerTaskBuy, delay);
         }
 
-        timer.schedule(timerTaskRoll,delay);
-        timer.schedule(timerTaskFinish,playCount*delay);
+
+        TimerTask timerTaskPayRent = new TimerTask() {
+            @Override
+            public void run() {
+                payRent();
+            }
+        };
+        if (mustPayRent()) {
+            System.out.println("Bot is trying to pay rent here!!");
+            timer.schedule(timerTaskPayRent, delay);
+        }
+
+        if (GameInfo.getInstance().getCurrentPlayer().getFaceValues()[2] == 7 && isSecondMove) {
+            TimerTask timerTaskFinish = new TimerTask() {
+                @Override
+                public void run() {
+                    finishTurn();
+                }
+            };
+            timer.schedule(timerTaskFinish, 2 * delay);
+        } else if(GameInfo.getInstance().getCurrentPlayer().getFaceValues()[2] != 7) {
+            TimerTask timerTaskFinish = new TimerTask() {
+                @Override
+                public void run() {
+                    finishTurn();
+                }
+            };
+            timer.schedule(timerTaskFinish, 2 * delay);
+        }
+
+    }
+
+    private boolean isBuyable() {
+        int[] loc = GameInfo.getInstance().getCurrentPlayer().getToken().getLocation().clone();
+        Square sq = Board.getInstance().getSquare(loc[0], loc[1]);
+        return sq instanceof DeedSquare && ((DeedSquare) sq).getOwner() == null;
+    }
+
+    private boolean mustPayRent() {
+        int[] loc = GameInfo.getInstance().getCurrentPlayer().getToken().getLocation().clone();
+        Square sq = Board.getInstance().getSquare(loc[0], loc[1]);
+        return sq instanceof DeedSquare &&
+                ((DeedSquare) sq).getOwner() != null &&
+                !((DeedSquare) sq).getOwner().equals(GameInfo.getInstance().getCurrentPlayer().getName());
+
     }
 
     private boolean lucky() {
@@ -69,8 +101,13 @@ public class RandomPlayerHandler{
     }
 
     public void buy() {
-        System.out.println("Bot roll");
+        System.out.println("Bot buy");
         ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Buy"), GameInfo.getInstance().getCurrentPlayerName());
+    }
+
+    public void payRent() {
+        System.out.println("Bot payRent");
+        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("PayRent"), GameInfo.getInstance().getCurrentPlayerName());
     }
 
 

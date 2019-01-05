@@ -38,7 +38,7 @@ public class RollRequestInterpreter implements RequestInterpretable {
 
             String loc = newLoc + "@" + locName;
 
-            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Move"), name, loc);
+            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Move"), name, loc, 0);
 
             while (true) {
                 if (ReceivedChecker.getInstance().checkReceived()) {

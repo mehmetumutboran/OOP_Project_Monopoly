@@ -139,13 +139,13 @@ public class Board {
         chanceList = new ChanceCard[2];
         communityList = new Community[2];
 
-        TheInsidersEdge theInsidersEdge = new TheInsidersEdge("theInsidersEdge");
+        TheInsidersEdge theInsidersEdge = new TheInsidersEdge("The Insiders Edge");
         communityList[0] = theInsidersEdge;
-        PayHospitalBills payHospitalBills = new PayHospitalBills("payHospitalBills");
+        PayHospitalBills payHospitalBills = new PayHospitalBills("Pay Hospital Bills");
         communityList[1] = payHospitalBills;
-        HolidayBonus holidayBonus = new HolidayBonus("holidayBonus");
+        HolidayBonus holidayBonus = new HolidayBonus("Holiday Bonus");
         chanceList[0] = holidayBonus;
-        SocialMediaFail socialMediaFail = new SocialMediaFail("socialMediaFail");
+        SocialMediaFail socialMediaFail = new SocialMediaFail("Social Media Fail");
         chanceList[1] = socialMediaFail;
 
 
