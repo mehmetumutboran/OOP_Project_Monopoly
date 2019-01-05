@@ -17,31 +17,17 @@ public class MoveResponseInterpreter implements ResponseInterpretable {
         String name = message[1];
         int[] location = MessageConverter.convertStringToIntArray(message[2].substring(0, message[2].indexOf("@")), ',');
         String locName = message[2].substring(message[2].indexOf("@") + 1);
-        boolean isSecondMove = message[3].equals("1");
+        boolean isFirstMove = message[3].equals("0");
 //        System.out.println(Arrays.toString(MessageConverter.convertStringToIntArray(message[2], ',')));
 //        System.out.println(Arrays.toString(location));
 
         GameInfo.getInstance().getPlayer(name).getToken().setLocation(location);
 
-        if (GameInfo.getInstance().isBot(GameInfo.getInstance().getCurrentPlayer().getName())) {
-            if(isSecondMove) {
-                Timer timer = new Timer();
-                long delay = 1000L;
-                TimerTask timerTaskPlayBotTurn = new TimerTask() {
-                    @Override
-                    public void run() {
-                        UIUpdater.getInstance().setMessage(name + " moved to " + locName);
-                        RandomPlayerHandler.getInstance().playBotTurn(true);
-                    }
-                };
-                timer.schedule(timerTaskPlayBotTurn, delay);
-
-                ClientCommunicationHandler.getInstance().sendReceived();
-
-                return;
-            }else{
-                RandomPlayerHandler.getInstance().playBotTurn(false);
-            }
+        if (GameInfo.getInstance().isMyselfHost() && GameInfo.getInstance().isBot(name) ) {
+            if(GameInfo.getInstance().getPlayer(name).getFaceValues()[2]==7 && isFirstMove)
+                RandomPlayerHandler.getInstance().playMrMonopolyBotTurn();
+            else if(isFirstMove) // todo jail is wrong here
+                RandomPlayerHandler.getInstance().playNormalBotTurn();
         }
 
         Timer timer = new Timer();

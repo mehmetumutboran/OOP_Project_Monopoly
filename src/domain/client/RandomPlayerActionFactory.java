@@ -24,6 +24,10 @@ public class RandomPlayerActionFactory {
             return new RandomPlayerActionPayRentStrategy();
         } else if (strategy.equals("DrawCard")) {
             return new RandomPlayerActionDrawCardStrategy();
+        } else if (strategy.equals("MrMonopoly")) {
+            return new RandomPlayerActionMrMonopolyStrategy();
+        } else if (strategy.equals("FinishTurn")) {
+            return new RandomPlayerActionFinishTurnStrategy();
         } else return null;
     }
 
@@ -31,12 +35,6 @@ public class RandomPlayerActionFactory {
         float diff = chances[difficulty];
         if (strategy.equals("Buy")) {
             return new RandomPlayerActionBuyStrategy(diff);
-        } else return null;
-    }
-
-    public RandomPlayerActionStrategy generateStrategy(String strategy, boolean isSecondMove) {
-        if (strategy.equals("FinishTurn")) {
-            return new RandomPlayerActionFinishTurnStrategy(isSecondMove);
         } else return null;
     }
 }
