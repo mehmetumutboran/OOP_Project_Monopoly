@@ -10,15 +10,15 @@ import domain.util.GameInfo;
 import java.util.Random;
 
 public class RandomPlayerActionBuyStrategy implements RandomPlayerActionStrategy {
-    float botChance;
+    private float botDifficulty;
 
-    public RandomPlayerActionBuyStrategy(float botChance) {
-        this.botChance = botChance;
+    public RandomPlayerActionBuyStrategy(float botDifficulty) {
+        this.botDifficulty = botDifficulty;
     }
 
     @Override
     public void doRandomPlayerAction() {
-        if (isBuyable() && lucky()) {
+        if (isBuyable() && isSmart()) {
             ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Buy"), GameInfo.getInstance().getCurrentPlayerName());
         }
     }
@@ -29,7 +29,10 @@ public class RandomPlayerActionBuyStrategy implements RandomPlayerActionStrategy
         return sq instanceof DeedSquare && ((DeedSquare) sq).getOwner() == null;
     }
 
-    private boolean lucky() {
-        return botChance > new Random().nextFloat();
+    private boolean isSmart() {
+        if (botDifficulty == 0.6f && GameInfo.getInstance().getCurrentPlayer().getBalance() < 1000)
+            return false;
+        else
+            return botDifficulty > new Random().nextFloat();
     }
 }

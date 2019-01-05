@@ -1,11 +1,13 @@
 package domain.client;
 
+import domain.server.player.RandomPlayer;
+import domain.util.GameInfo;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class RandomPlayerHandler {
     private static RandomPlayerHandler ourInstance;
-    private int botDiff = 3;
 
     public static RandomPlayerHandler getInstance() {
         if (ourInstance == null) {
@@ -20,6 +22,15 @@ public class RandomPlayerHandler {
     public void playBotTurn(boolean isSecondMove) {
         Timer timer = new Timer();
         long delay = 250L;
+        String difficulty = ((RandomPlayer) GameInfo.getInstance().getCurrentPlayer()).getDifficulty();
+        int botDiff;
+        if (difficulty.equals("Hard"))
+            botDiff = 2;
+        else if (difficulty.equals("Medium"))
+            botDiff = 1;
+        else if (difficulty.equals("Easy"))
+            botDiff = 0;
+        else botDiff = 0;
 
         TimerTask timerTaskBuy = new TimerTask() {
             @Override

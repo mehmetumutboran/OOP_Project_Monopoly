@@ -36,4 +36,8 @@ public class RandomPlayer extends Player {
     public String toString() {
         return super.toString() + ","+ difficulty;
     }
+
+    public String getDifficulty() {
+        return difficulty;
+    }
 }

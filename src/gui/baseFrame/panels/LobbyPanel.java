@@ -171,8 +171,12 @@ public class LobbyPanel extends JPanel {
     public synchronized void setHost(boolean b) {
         if (b) {
             cardLayout.show(buttonPanel, "Host");
+            botDifficultyBox.setEnabled(true);
+            botDifficultyBox.setVisible(true);
         } else {
             cardLayout.show(buttonPanel, "Client");
+            botDifficultyBox.setEnabled(false);
+            botDifficultyBox.setVisible(false);
         }
         validate();
         repaint();

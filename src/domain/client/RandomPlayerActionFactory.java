@@ -28,7 +28,7 @@ public class RandomPlayerActionFactory {
     }
 
     public RandomPlayerActionStrategy generateStrategy(String strategy, int difficulty) {
-        float diff = chances[difficulty-1];
+        float diff = chances[difficulty];
         if (strategy.equals("Buy")) {
             return new RandomPlayerActionBuyStrategy(diff);
         } else return null;
