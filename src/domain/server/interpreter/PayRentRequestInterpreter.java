@@ -57,7 +57,7 @@ public class PayRentRequestInterpreter implements RequestInterpretable {
             }
 
             ServerCommunicationHandler.getInstance()
-                    .sendResponse(Flags.getFlag("Button"), index, "000010000111", name);
+                    .sendResponse(Flags.getFlag("Button"), index, "000010000110", name);
 
         }
         else{
