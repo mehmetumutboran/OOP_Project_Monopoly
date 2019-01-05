@@ -1,5 +1,6 @@
 package domain.client.interpreter;
 
+import domain.client.ClientCommunicationHandler;
 import domain.client.UIUpdater;
 import domain.server.board.Board;
 import domain.server.board.DeedSquare;
@@ -29,7 +30,8 @@ public class PayRentResponseInterpreter implements ResponseInterpretable {
 //        Board.getInstance().getNameGivenSquare(ownerName);
 
 
-        UIUpdater.getInstance().setMessage(name + " paid rent for " + squareName);
+        UIUpdater.getInstance().setMessage(name + " paid rent for " + squareName + " to "
+                + boughtSquare.getOwner());
 //        String name = message[1];
 //        String sqName = message[2];
 //
@@ -41,6 +43,6 @@ public class PayRentResponseInterpreter implements ResponseInterpretable {
 //        square.getOwner().increaseMoney(square.getRent());
 //        UIUpdater.getInstance().setMessage(name + " paid rent " + square.getRent() + " dollars to " + square.getOwner().getName());
 
-
+        ClientCommunicationHandler.getInstance().sendReceived();
     }
 }

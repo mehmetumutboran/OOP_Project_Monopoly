@@ -1,7 +1,5 @@
 package domain.server.util;
 
-import domain.server.board.Board;
-import domain.server.die.DiceCup;
 import domain.util.Flags;
 import domain.util.GameInfo;
 import domain.util.MessageConverter;
@@ -61,7 +59,7 @@ public class GameState {
     }
 
     public String generateCurrentAction(char flag) {
-        return Character.toString(flag) ;
+        return Character.toString(flag);
     }
 
 //    private String generateInitQueueAction(char flag, int money , String name) {
@@ -82,13 +80,13 @@ public class GameState {
         return flag + "|" + count + "|" + message;
     }
 
-    public String generateCurrentAction(char flag, String name , int money1, int money2, String squareName) {
-        return flag + "|" + name + "|" + money1 + "|" + money2+ "|" + squareName;
+    public String generateCurrentAction(char flag, String name, int money1, int money2, String squareName) {
+        return flag + "|" + name + "|" + money1 + "|" + money2 + "|" + squareName;
 
-}
+    }
 
-    public String generateCurrentAction(char flag, String name , int money , String squareName) {
-        return flag + "|" + name + "|" + money +  "|" + squareName;
+    public String generateCurrentAction(char flag, String name, int money, String squareName) {
+        return flag + "|" + name + "|" + money + "|" + squareName;
 
     }
 //    public String generateCurrentAction(char flag, String name, String buildNameOrLoc) {
@@ -172,7 +170,11 @@ public class GameState {
     }
 
     public String generateCurrentAction(char flag, String player, String square, String buildingToUporDown) {
-        return flag + "|" + player + "|" + square + "|" +buildingToUporDown;
+        return flag + "|" + player + "|" + square + "|" + buildingToUporDown;
+    }
+
+    public String generateCurrentAction(char flag, String name, String locat, int args) {
+        return flag + "|" + name + "|" + locat + "|" + args;
     }
 //
 //    private String generateJailAction(char flag, String name) {

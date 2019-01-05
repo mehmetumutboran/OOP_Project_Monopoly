@@ -7,7 +7,6 @@ import network.client.Client;
 import network.listeners.ConnectionFailedListener;
 import network.listeners.ReceivedChangedListener;
 
-import javax.annotation.processing.SupportedAnnotationTypes;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -27,6 +26,7 @@ public class ClientFacade {
      */
     private volatile ArrayList<ReceivedChangedListener> receivedChangedListeners;
     private volatile ArrayList<ConnectionFailedListener> connectionFailedListeners;
+    private boolean received;
 
     private ClientFacade() {
         receivedChangedListeners = new ArrayList<>();
@@ -81,7 +81,6 @@ public class ClientFacade {
      */
     public synchronized void sendReceivedMessage(String m) {
         this.message = m;
-//        System.out.println(m);
         ResponseInterpreter.getInstance().interpret(m);
     }
 

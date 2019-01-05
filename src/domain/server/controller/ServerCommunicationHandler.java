@@ -81,4 +81,8 @@ public class ServerCommunicationHandler {
                 .send(index, GameState.getInstance().generateCurrentAction(flag, message, args));
     }
 
+    public void sendResponse(char flag, String name, String locat, int args) {
+        ServerFacade.getInstance()
+                .send(GameState.getInstance().generateCurrentAction(flag, name, locat, args));
+    }
 }
