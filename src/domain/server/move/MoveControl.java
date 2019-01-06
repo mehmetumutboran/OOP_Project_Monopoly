@@ -1,5 +1,6 @@
 package domain.server.move;
 
+import domain.server.ReceivedChecker;
 import domain.server.board.Board;
 import domain.server.board.DeedSquare;
 import domain.server.board.Square;
@@ -172,20 +173,14 @@ public class MoveControl {
         if (GameInfo.getInstance().getPlayer(name).getFaceValues()[2] == 7) {
 
             int[] loc = GameInfo.getInstance().getPlayer(name).getToken().getLocation().clone();
-            System.out.println("!!!!!!!!!!!!" + Arrays.toString(loc));
             loc = findNextUnOwnedSquare(loc);
-            System.out.println("!!!!!!!!!!!!" + Arrays.toString(loc));
-
-            //GameInfo.getInstance().getPlayer(name).getToken().setLocation(loc);
-
             String locName = Board.getInstance().getSquare(loc[0], loc[1]).getName();
             String locat = MessageConverter.convertArrayToString(loc) + "@" + locName;
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Move"), name, locat, 1);
+            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Token"), name, MessageConverter.convertArrayToString(loc));
             return true;
 
         }
-        //      return  true;
-        //  }
         else return false;
     }
 
@@ -250,6 +245,5 @@ public class MoveControl {
         } else return Board.getInstance().getSquare(loc[0], loc[1]);
 
     }
-
 
 }

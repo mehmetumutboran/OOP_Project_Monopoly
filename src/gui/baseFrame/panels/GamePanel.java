@@ -1,10 +1,7 @@
 package gui.baseFrame.panels;
 
 import domain.client.UIUpdater;
-import domain.server.listeners.DiceRolledListener;
-import domain.server.listeners.GameStartedListener;
-import domain.server.listeners.TokenMovementListener;
-import domain.server.listeners.TokenStarterListener;
+import domain.server.listeners.*;
 import gui.Animator.Animator;
 import gui.baseFrame.DiceLabel;
 import gui.baseFrame.SquareLabel;
@@ -21,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class GamePanel extends JPanel implements TokenMovementListener, DiceRolledListener, TokenStarterListener {
+public class GamePanel extends JPanel implements TokenMovementListener, DiceRolledListener, TokenStarterListener, AnimationPauseListener {
 
     private int width;
     private int height;
@@ -45,6 +42,7 @@ public class GamePanel extends JPanel implements TokenMovementListener, DiceRoll
         this.setBackground(Color.white);
         UIUpdater.getInstance().addDiceRolledListener(this);
         UIUpdater.getInstance().addTokenStarterListener(this);
+        UIUpdater.getInstance().addAnimationPauseListener(this);
         tokenlist = new ArrayList<>();
         diceList = new ArrayList<>(3);
         animator = new Animator(this,"");
@@ -193,7 +191,6 @@ public class GamePanel extends JPanel implements TokenMovementListener, DiceRoll
             if(aTokenlist.getOwner().equals(tokName)) {
                 aTokenlist.setCoordinates(this.getWidth(), this.getHeight());
                 aTokenlist.draw(G);
-                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             }
         }
    }
@@ -206,5 +203,17 @@ public class GamePanel extends JPanel implements TokenMovementListener, DiceRoll
        }
    }
 
+    @Override
+    public void onAnimationPausedEvent(boolean b) {
+//            if (b) {
+//                try {
+//                    animator.wait();
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            } else {
+//                animator.notify();
+//            }
+    }
 }
 

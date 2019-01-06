@@ -22,6 +22,7 @@ public class UIUpdater {
     private ArrayList<DiceRolledListener> diceRolledListeners;
     private ArrayList<ReadinessChangedListener> readinessChangedListeners;
     private ArrayList<TokenStarterListener> tokenStarterListeners;
+    private ArrayList<AnimationPauseListener> animationPauseListeners;
 
     private String message;
     private String buttonLayout = "000000000000";
@@ -46,6 +47,7 @@ public class UIUpdater {
         diceRolledListeners = new ArrayList<>();
         readinessChangedListeners = new ArrayList<>();
         tokenStarterListeners = new ArrayList<>();
+        animationPauseListeners = new ArrayList<>();
     }
 
     public void addMessageChangedListener(MessageChangedListener mcl) {
@@ -89,9 +91,6 @@ public class UIUpdater {
         tokenStarterListeners.add(tsl);
     }
 
-    public void addGameStartedListener(GameStartedListener gsl) {
-        gameStartedListeners.add(gsl);
-    }
 
     public void addReadinessChangedListener(ReadinessChangedListener rcl) {
         readinessChangedListeners.add(rcl);
@@ -101,6 +100,18 @@ public class UIUpdater {
         for (GameStartedListener gls : gameStartedListeners) {
             if (gls == null) continue;
             gls.onGameStartedEvent();
+        }
+    }
+
+    public void addGameStartedListener(GameStartedListener gsl) {
+        gameStartedListeners.add(gsl);
+    }
+
+    public void addAnimationPauseListener(AnimationPauseListener apl){animationPauseListeners.add(apl);}
+
+    public void publishAnimationPauseEvent(boolean b){
+        for (AnimationPauseListener apl:animationPauseListeners) {
+            apl.onAnimationPausedEvent(b);
         }
     }
 
@@ -252,7 +263,6 @@ public class UIUpdater {
         publishDiceRolledEvent(faceValues);
     }
 
-
     public void setNewHost() {
         UIFacade.getInstance().setNewHost();
         publishReadinessChangedEvent(false);
@@ -263,11 +273,6 @@ public class UIUpdater {
 
     }
 
-    public void changeButton(int index, String val) {
-        this.buttonLayout = buttonLayout.substring(0, index) + val + buttonLayout.substring(index + 1);
-        publishTurnChangedEvent(buttonLayout);
-    }
-
     public void startTokens(ArrayList<String> pList) {
         publishTokenStarterEvent(pList);
     }
@@ -276,5 +281,14 @@ public class UIUpdater {
         for (TokenStarterListener tsl : tokenStarterListeners) {
             tsl.onTokenStarterEvent(pList);
         }
+    }
+
+    public void changeButton(int index, String val) {
+        this.buttonLayout = buttonLayout.substring(0,index) + val + buttonLayout.substring(index+1);
+        publishTurnChangedEvent(buttonLayout);
+    }
+
+    public void setAnimationPause(boolean b) {
+        publishAnimationPauseEvent(b);
     }
 }

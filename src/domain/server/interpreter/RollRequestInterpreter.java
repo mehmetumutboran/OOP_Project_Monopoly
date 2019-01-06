@@ -11,6 +11,7 @@ import domain.util.GameInfo;
 import domain.util.MessageConverter;
 
 public class RollRequestInterpreter implements RequestInterpretable {
+
     @Override
     public void interpret(String[] message, int index) {
         System.out.println("\n\nRollResponseInterpreter: interpret\n\n");
@@ -39,26 +40,13 @@ public class RollRequestInterpreter implements RequestInterpretable {
 
             ReceivedChecker.getInstance().check();
         }
-//       if(GameInfo.getInstance().getPlayer(GameInfo.getInstance().getCurrentPlayerName()).getReadiness().equals("Bot"))
-//       { MoveControl.getInstance().checkMrMonopoly(name);}
 
-        if (MoveControl.getInstance().checkSecondTurn(name)) {
-            //ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), name, "");
-        }
 
         System.out.println(ButtonStringGenerator.getInstance().getButtonStringForNextSquare(name));
 
-//        while (true) {
-//            try {
-//                String line = dis.readUTF();
-//                if (line.charAt(0) == 'z') break;
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
+        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Token"), name, newLoc);
 
         if (!GameInfo.getInstance().isBot(name)) {
-            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Token"), name, newLoc);
             String layout = ButtonStringGenerator.getInstance().getButtonStringForNextSquare(name);
             System.out.println(layout);
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), index, layout, name);
@@ -76,7 +64,6 @@ public class RollRequestInterpreter implements RequestInterpretable {
         System.out.println("\n\nGameLogic: roll\n\n");
         int[] loc = GameInfo.getInstance().getPlayer(name).getToken().getLocation();
         String locName = Board.getInstance().getSquare(loc[0], loc[1]).getName();
-        int[] currentDice = DiceCup.getInstance().rollDice(locName);
-        return currentDice;
+        return DiceCup.getInstance().rollDice(locName);
     }
 }

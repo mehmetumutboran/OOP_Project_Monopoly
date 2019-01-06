@@ -10,6 +10,7 @@ public class PauseResponseInterpreter implements ResponseInterpretable {
         String username = message[1];
         UIUpdater.getInstance().pauseUpdate(username.equals(ClientFacade.getInstance().getUsername()),
                 username);
+        UIUpdater.getInstance().setAnimationPause(true);
         ClientCommunicationHandler.getInstance().sendReceived();
     }
 }

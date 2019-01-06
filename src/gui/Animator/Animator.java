@@ -5,8 +5,6 @@ import gui.baseFrame.panels.GamePanel;
 public class Animator implements Runnable {
 
     @SuppressWarnings("rawtypes")
-//    long sleepTime = 100;
-//    , firstTime = true;
     public boolean animatorStopped = false;
     GamePanel gp;
     String movingToken;
