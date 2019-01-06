@@ -12,33 +12,26 @@ import domain.util.GameInfo;
 public class PayRentRequestInterpreter implements RequestInterpretable {
     @Override
     public void interpret(String[] message, int index) {
-
-
         String name = message[1];
 
         Player player = GameInfo.getInstance().getPlayer(name);
         int[] loc = player.getToken().getLocation().clone();
-        Square square = Board.getInstance().getSquare(loc[0] , loc[1]);
+        Square square = Board.getInstance().getSquare(loc[0], loc[1]);
 
-        boolean paidRent = (player.getBalance() >= ((DeedSquare)square).getCurrentRent() )
-                && ( ((DeedSquare) square).getOwner()!= null)
+        System.out.println("Square in pay rent request from "+ name+" is "+square.getName());
+        boolean paidRent = (square instanceof DeedSquare)
+                && (player.getBalance() >= ((DeedSquare) square).getCurrentRent())
+                && (((DeedSquare) square).getOwner() != null)
                 && (!((DeedSquare) square).getOwner().equals(name));
 
-        if(paidRent){
+        if (paidRent) {
             int customerCurrentMoney = GameInfo.getInstance().getPlayer(player.getName()).getBalance();
             int ownerCurrentMoney = GameInfo.getInstance().getPlayer(((DeedSquare) square).getOwner()).getBalance();
-            int customerFinalMoney = customerCurrentMoney - 50; //((DeedSquare)square).getCurrentRent();
-            int ownerFinalMoney = ownerCurrentMoney + 50;//((DeedSquare)square).getCurrentRent();
-
-            while (true){
-                if(ReceivedChecker.getInstance().checkReceived()) {
-                    ReceivedChecker.getInstance().setReceived();
-                    break;
-                }
-            }
+            int customerFinalMoney = customerCurrentMoney - ((DeedSquare)square).getCurrentRent();
+            int ownerFinalMoney = ownerCurrentMoney + ((DeedSquare)square).getCurrentRent();
 
             ServerCommunicationHandler.getInstance()
-                    .sendResponse(Flags.getFlag("PayRent"),name , customerFinalMoney ,ownerFinalMoney, square.getName());
+                    .sendResponse(Flags.getFlag("PayRent"), name, customerFinalMoney, ownerFinalMoney, square.getName());
 
 //            while (true){
 //                try {
@@ -49,28 +42,29 @@ public class PayRentRequestInterpreter implements RequestInterpretable {
 //                }
 //            }
 
-            while (true){
-                if(ReceivedChecker.getInstance().checkReceived()) {
+            while (true) {
+                if (ReceivedChecker.getInstance().checkReceived()) {
                     ReceivedChecker.getInstance().setReceived();
                     break;
                 }
             }
 
+            if (!GameInfo.getInstance().isBot(name))
+                if(GameInfo.getInstance().getPlayer(name).getFaceValues()[2]==7 && !GameInfo.getInstance().getPlayer(name).isSecondMove()) // if player had mr monopoly before
+                    ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), index, "000000000111", name);
+                else
+                    ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), index, "000010000110", name);
+        } else {
+
+//            while (true){
+//                if(ReceivedChecker.getInstance().checkReceived()) {
+//                    ReceivedChecker.getInstance().setReceived();
+//                    break;
+//                }
+//            }
+
             ServerCommunicationHandler.getInstance()
-                    .sendResponse(Flags.getFlag("Button"), index, "000010000111", name);
-
-        }
-        else{
-
-            while (true){
-                if(ReceivedChecker.getInstance().checkReceived()) {
-                    ReceivedChecker.getInstance().setReceived();
-                    break;
-                }
-            }
-
-            ServerCommunicationHandler.getInstance()
-                    .sendResponse(Flags.getFlag("DontPayRent") , index );
+                    .sendResponse(Flags.getFlag("DontPayRent"), index, name);
 
         }
         //       String name = message[1];

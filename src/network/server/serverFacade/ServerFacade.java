@@ -1,6 +1,7 @@
 package network.server.serverFacade;
 
 import domain.server.RequestInterpreter;
+import domain.server.interpreter.RemoveRequestInterpreter;
 import network.server.ClientHandler;
 import network.server.Server;
 
@@ -13,6 +14,7 @@ public class ServerFacade {
     private Server server;
 
     private static ServerFacade instance;
+    private boolean isMulti;
 
     private ServerFacade() {
 
@@ -30,7 +32,8 @@ public class ServerFacade {
      * @return Whether server successfully created
      */
     public boolean createServer(int port, boolean isMulti) {
-        server = new Server(port, isMulti);
+        server = new Server(port);
+        this.isMulti = isMulti;
         //noinspection ConstantConditions
         return server != null;
     }
@@ -58,34 +61,31 @@ public class ServerFacade {
 
 
     public void send(String response) {
-        try {
-            server.sendAll(response);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        server.sendAll(response);
     }
 
     public void send(int index, String response) {
-        try {
-            server.sendToOne(index, response);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        server.sendToOne(index, response);
     }
 
-    public int nameToIndex(String username){
+    public int nameToIndex(String username) {
         return server.getClientIndex(username);
     }
 
-    public void setClientInfo(String username){
+    public void setClientInfo(String username) {
         Server.setClientInfo(username);
     }
 
     public void removeClient(ClientHandler clientHandler) {
-        server.removeClient(clientHandler);
+        new RemoveRequestInterpreter().interpret(new String[]{"Exit", server.getClientNameFromIndex(clientHandler.getIndex())}, clientHandler.getIndex());
     }
 
     public int getTotalNumPlayers() {
         return server.getTotalNumPlayers();
+    }
+
+
+    public boolean isMulti(){
+        return isMulti;
     }
 }

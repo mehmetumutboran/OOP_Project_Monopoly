@@ -155,7 +155,7 @@ public class UIUpdater {
         publishCloseButtonEvent();
     }
 
-    void removeUpdate(String name) {
+    public void removeUpdate(String name) {
         publishPlayerQuitEvent(name);
     }
 
@@ -180,6 +180,10 @@ public class UIUpdater {
 
     public void showPrompt(char flag, int count) {
         UIFacade.getInstance().generatePrompt(flag, count);
+    }
+
+    public void showPrompt(char flag, int[] location) {
+        UIFacade.getInstance().generatePrompt(flag, location);
     }
 
     public void changePanel(String panel) { // Changes the panel to lobby for now
@@ -231,8 +235,14 @@ public class UIUpdater {
     }
 
     private void publishTokenStarterEvent(ArrayList<String> pList) {
-        for (TokenStarterListener tsl:tokenStarterListeners) {
+        for (TokenStarterListener tsl : tokenStarterListeners) {
             tsl.onTokenStarterEvent(pList);
         }
+    }
+
+    public void changeButton(int index, String val) {
+        this.buttonLayout = buttonLayout.substring(0,index) + val + buttonLayout.substring(index+1);
+        publishTurnChangedEvent(buttonLayout);
+
     }
 }

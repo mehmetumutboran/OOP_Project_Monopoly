@@ -141,7 +141,7 @@ public class MoveControl {
             tryToGoOutOfJail(name);
             return false;
         } else if (checkTriple(name)) {
-            return false;
+            return true;
         } else return !checkBus(name);
 
     }
@@ -156,7 +156,7 @@ public class MoveControl {
 
     private void sendToJail(String name) {
         ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("GoToJail"), name);
-        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Move"), name, MessageConverter.convertArrayToString(Board.getInstance().getNameGivenSquare("Jail").getLocation()) + "@" + "Jail");
+        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Move"), name, MessageConverter.convertArrayToString(Board.getInstance().getNameGivenSquare("Jail").getLocation()) + "@" + "Jail", 1);
     }
 
 
@@ -186,6 +186,7 @@ public class MoveControl {
                 }
             }
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Token"), name, MessageConverter.convertArrayToString(loc));
+            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Move"), name, locat, 1);
             return true;
 
         }
@@ -207,8 +208,8 @@ public class MoveControl {
             for (int i = 1; i < FIRST_LAYER_SQ; i++) {
                 findNextSquare(loc, i);
                 if (findNextSquare(loc, i) instanceof DeedSquare
-                        && ((DeedSquare) findNextSquare(loc, i)).getOwner() == null)
-                    return findNextSquare(loc, i).getLocation();
+                        && ((DeedSquare) findNextSquare(loc, i)).getOwner() == null){
+                    return findNextSquare(loc, i).getLocation();}
             }
         } else if (layer == 2) {
             for (int i = 1; i < SECOND_LAYER_SQ; i++) {
@@ -252,11 +253,5 @@ public class MoveControl {
         } else return Board.getInstance().getSquare(loc[0], loc[1]);
 
     }
-
-
-
-
-
-
 
 }

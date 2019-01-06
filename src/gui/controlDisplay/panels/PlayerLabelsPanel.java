@@ -63,7 +63,11 @@ public class PlayerLabelsPanel extends JLabel implements GameStartedListener, Pl
     public void setPlayerLabel() {
         int size = GameInfo.getInstance().getPlayerListSize();
         for (int i = 0; i < size; i++) {
-            PlayerLabel temp = new PlayerLabel(GameInfo.getInstance().getNameFromIndex(i), this);
+            String name = GameInfo.getInstance().getNameFromIndex(i);
+
+            if(playerLabels.stream().anyMatch(x -> x.getName().equals(name))) continue;
+
+            PlayerLabel temp = new PlayerLabel(name, this);
             temp.setBackground(ColorConverter.getInstance().getColor(
                     GameInfo.getInstance().getColorFromIndex(i)));
             playerLabels.add(temp);
@@ -73,9 +77,10 @@ public class PlayerLabelsPanel extends JLabel implements GameStartedListener, Pl
     @Override
     public void onPlayerQuitEvent(String name) {
         playerLabels.removeIf(p -> p.getText().equals(name));
-        System.out.println("\n\n ----------------==========-----------======\n" + playerLabels + "\n\n");
+//        System.out.println("\n\n ----------------==========-----------======\n" + playerLabels + "\n\n");
 
 //        playerLabels.forEach(this::remove);
+        setPlayerLabel();
         this.removeAll();
         revalidate();
         repaint();

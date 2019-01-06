@@ -13,7 +13,7 @@ public class StartResponseInterpreter implements ResponseInterpretable {
         UIUpdater.getInstance().changePanel("Game");
 ////      UIUpdater.getInstance().showList();
         UIUpdater.getInstance().startGame();
-
+        GameInfo.getInstance().startGame();
         ClientCommunicationHandler.getInstance().sendReceived();
     }
 

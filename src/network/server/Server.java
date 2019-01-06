@@ -12,18 +12,16 @@ import java.util.Arrays;
  */
 public class Server implements Runnable {
     private ServerSocket ss;
-    private boolean isMulti;
 
     private static final int maxClientsCount = 12;
 
     private volatile static ClientHandler[] clientThreads = new ClientHandler[maxClientsCount];
-    private volatile static String[] clientNames = new String[maxClientsCount];
+    private volatile static String[] clientNames = new String[maxClientsCount]; //TODO
 
 
-    public Server(int port, boolean isMulti) {
+    public Server(int port) {
         try {
             ss = new ServerSocket(port);
-            this.isMulti = isMulti;
             System.out.println("server crated with the port: " + port);
             (new Thread(this)).start();
         } catch (IOException e) {
@@ -32,12 +30,22 @@ public class Server implements Runnable {
     }
 
     public synchronized void removeClient(ClientHandler clientHandler) {
-        for (int i = 0; i < maxClientsCount; i++) {
+        int i;
+        for (i = 0; i < maxClientsCount; i++) {
             if (clientThreads[i] == clientHandler) {
                 clientThreads[i] = null;
                 clientNames[i] = null;
+                break;
             }
         }
+
+        for (int j = i; j < maxClientsCount - 1; j++) {
+            if(clientThreads[j] == null) continue;
+            clientThreads[j] = clientThreads[j + 1];
+            clientThreads[j].setIndex(j);
+            clientNames[j] = clientNames[j + 1];
+        }
+        System.out.println("=============" + Arrays.toString(clientThreads));
     }
 
     public static void setClientInfo(String line) {
@@ -78,12 +86,12 @@ public class Server implements Runnable {
                 for (; i < maxClientsCount; i++) {
                     if (clientThreads[i] == null) {
                         clientThreads[i] = new ClientHandler(clientSocket, i);
-                        if (!isMulti && !clientSocket.getInetAddress().getHostAddress().equals("127.0.0.1")) {
-                            clientThreads[i].terminate();
-                            clientThreads[i] = null;
-                        } else {
+//                        if (!isMulti && !clientSocket.getInetAddress().getHostAddress().equals("127.0.0.1")) {
+//                            clientThreads[i].terminate();
+//                            clientThreads[i] = null;
+//                        } else {
                             (new Thread(clientThreads[i], "ClientThread " + i)).start();
-                        }
+//                        }
                         break;
                     }
                 }
@@ -100,19 +108,19 @@ public class Server implements Runnable {
         return ss;
     }
 
-    public synchronized void sendAll(String m) throws IOException {
+    public synchronized void sendAll(String m) {
         for (ClientHandler clientThread : clientThreads) {
             if (clientThread == null) continue;
             clientThread.send(m);
         }
     }
 
-    public synchronized void sendToOne(int index, String response) throws IOException {
+    public synchronized void sendToOne(int index, String response) {
         clientThreads[index].send(response);
     }
 
     public int getClientIndex(String username) {
-        if(GameInfo.getInstance().isBot(username))
+        if (GameInfo.getInstance().isBot(username))
             return 0; // Bot messages are sent to host
         for (int i = 0; i < clientNames.length; i++) {
             if (clientNames[i] == null) continue;
@@ -124,8 +132,13 @@ public class Server implements Runnable {
     public int getTotalNumPlayers() {
         int count = 0;
         for (int i = 0; i < clientThreads.length; i++) {
-            if (clientThreads[i]!=null) count++;
+            if (clientThreads[i] != null) count++;
         }
         return count;
     }
+
+    public String getClientNameFromIndex(int i) {
+        return clientNames[i];
+    }
+
 }

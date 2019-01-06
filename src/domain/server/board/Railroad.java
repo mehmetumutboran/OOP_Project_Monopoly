@@ -90,6 +90,11 @@ public class Railroad extends DeedSquare implements Upgradable{
         return 0;
     }
 
+    @Override
+    public boolean hasUpgradedSquareInGroup() {
+        return hasDepot;
+    }
+
     public void setHasDepot(boolean hasDepot) {
         this.hasDepot = hasDepot;
     }
@@ -97,7 +102,7 @@ public class Railroad extends DeedSquare implements Upgradable{
 
     @Override
     public String generateSaveInfo() {
-        return super.toString() + ";" +
+        return super.generateSaveInfo() + ";" +
                 hasDepot + "+";
     }
 

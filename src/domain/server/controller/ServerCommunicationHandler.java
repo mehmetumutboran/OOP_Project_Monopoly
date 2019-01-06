@@ -1,6 +1,8 @@
 package domain.server.controller;
 
+import domain.server.card.Card;
 import domain.server.util.GameState;
+import domain.util.Flags;
 import network.server.serverFacade.ServerFacade;
 
 
@@ -32,6 +34,11 @@ public class ServerCommunicationHandler {
                 .send(GameState.getInstance().generateCurrentAction(flag, message));
     }
 
+  //  public synchronized void sendResponse(char flag, String drawnCard , String name) {
+  //      ServerFacade.getInstance()
+  //              .send(GameState.getInstance().generateCurrentAction(flag, message));
+  //  }
+
     public synchronized void sendResponse(char flag, int index, String message) {
         ServerFacade.getInstance()
                 .send(index, GameState.getInstance().generateCurrentAction(flag, message));
@@ -42,14 +49,14 @@ public class ServerCommunicationHandler {
                 .send(index, GameState.getInstance().generateCurrentAction(flag));
     }
 
-    public synchronized void sendResponse(char flag, String name , int money, String square) {
+    public synchronized void sendResponse(char flag, String name, int money, String square) {
         ServerFacade.getInstance()
-                .send(GameState.getInstance().generateCurrentAction( flag , name , money ,  square));
+                .send(GameState.getInstance().generateCurrentAction(flag, name, money, square));
     }
 
-    public synchronized void sendResponse(char flag, String name , int money1, int money2 , String square) {
+    public synchronized void sendResponse(char flag, String name, int money1, int money2, String square) {
         ServerFacade.getInstance()
-                .send(GameState.getInstance().generateCurrentAction( flag , name , money1,money2 ,  square));
+                .send(GameState.getInstance().generateCurrentAction(flag, name, money1, money2, square));
     }
 
 
@@ -62,8 +69,11 @@ public class ServerCommunicationHandler {
         ServerFacade.getInstance()
                 .send(index, GameState.getInstance().generateCurrentAction(flag, count, name));
     }
-    public synchronized void sendResponse(char flag, String player, String square, String buildingToUporDown){
-        ServerFacade.getInstance().send(GameState.getInstance().generateCurrentAction(flag,player,square,buildingToUporDown));
+
+    public synchronized void sendResponse(char flag, String player, String square, String buildingToUporDown) {
+        if (flag == Flags.getFlag("Downgrade"))
+            System.out.println("SendResponse " + player + " - " + square + " - " + buildingToUporDown);
+        ServerFacade.getInstance().send(GameState.getInstance().generateCurrentAction(flag, player, square, buildingToUporDown));
     }
 
     public synchronized void sendResponse(char flag, int index, String message, String args) {
@@ -71,4 +81,8 @@ public class ServerCommunicationHandler {
                 .send(index, GameState.getInstance().generateCurrentAction(flag, message, args));
     }
 
+    public void sendResponse(char flag, String name, String locat, int args) {
+        ServerFacade.getInstance()
+                .send(GameState.getInstance().generateCurrentAction(flag, name, locat, args));
+    }
 }
