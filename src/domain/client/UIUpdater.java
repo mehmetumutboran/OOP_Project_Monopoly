@@ -244,5 +244,11 @@ public class UIUpdater {
 
     public void changeReadiness(boolean readiness) {
         publishReadinessChangedEvent(readiness);
+
+    }
+
+    public void changeButton(int index, String val) {
+        this.buttonLayout = buttonLayout.substring(0, index) + val + buttonLayout.substring(index + 1);
+        publishTurnChangedEvent(buttonLayout);
     }
 }

@@ -33,7 +33,7 @@ public class Server implements Runnable {
     }
 
     public synchronized void removeClient(ClientHandler clientHandler) {
-        System.out.println("=====Before shifting in the server \n"+Arrays.deepToString(clientInfo));
+        System.out.println("=====Before shifting in the server \n" + Arrays.deepToString(clientInfo));
 
         int i;
         for (i = 0; i < maxClientsCount; i++) {
@@ -60,7 +60,7 @@ public class Server implements Runnable {
 
 
         System.out.println("=============" + Arrays.toString(clientThreads));
-        System.out.println("===After shifting in the server \n"+ Arrays.deepToString(clientInfo));
+        System.out.println("===After shifting in the server \n" + Arrays.deepToString(clientInfo));
     }
 
     public void setClientInfo(String line) {
@@ -160,14 +160,14 @@ public class Server implements Runnable {
     public String[][] getClientInfo() {
         int j = 0;
         for (int i = 0; i < clientInfo.length; i++) {
-            if(clientInfo[i][0]!=null && clientInfo[i][0].equals(ClientFacade.getInstance().getUsername()) && i!=0){
-                System.out.println("\nIteration " +i + "\n CLient Info == " + Arrays.deepToString(clientInfo));
+            if (clientInfo[i][0] != null && clientInfo[i][0].equals(ClientFacade.getInstance().getUsername()) && i != 0) {
+                System.out.println("\nIteration " + i + "\n CLient Info == " + Arrays.deepToString(clientInfo));
                 String[] ithArray = clientInfo[i].clone();
                 clientInfo[i] = clientInfo[0].clone();
                 clientInfo[0] = ithArray.clone();
             }
         }
-        System.out.println("In get client info"+Arrays.deepToString(clientInfo));
+        System.out.println("In get client info" + Arrays.deepToString(clientInfo));
         return clientInfo;
     }
 

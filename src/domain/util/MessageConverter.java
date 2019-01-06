@@ -56,7 +56,7 @@ public class MessageConverter {
     }
 
     public static String[][] convertStringTo2DStringArray(String str) {
-        String[] arr = str.substring(2, str.length()-2).split("],\\s\\[");
+        String[] arr = str.substring(2, str.length() - 2).split("],\\s\\[");
         String[][] arr2D = new String[arr.length][2];
         for (int i = 0; i < arr.length; i++) {
             arr2D[i][0] = arr[i].split(", ")[0];
@@ -81,26 +81,28 @@ public class MessageConverter {
     }
 
     private static ArrayList<Integer> integerArrayListConverter(String str, char delimiter) {
-        ArrayList<Integer> lst = new ArrayList<>();
-        for (int i = 0; i < str.length(); i++) {
-            if (str.charAt(i) == delimiter) { // when ',' found
-                char chr1 = str.charAt(i - 2);
-                char chr2 = str.charAt(i - 1);
-                int a;
-                if (isNumeric(chr1)) // if 2 index prev chr is numeric
-                    a = (10 * (chr1 - 48)) + (chr2 - 48); // ab = 10*a + b
-                else
-                    a = (chr2 - 48); // a = 1*a
-                lst.add(a);
-            }
-        }
-        char chr1 = str.charAt(str.length() - 3); // for the last one since we can't
-        char chr2 = str.charAt(str.length() - 2); // detect it with ',' we add it manually
-        int a;
-        if (isNumeric(chr1)) a = (10 * (chr1 - 48)) + (chr2 - 48);
-        else a = chr2 - 48;
-        lst.add(a);
-        return lst;
+        if (str.charAt(0) == '[') str = str.substring(1, str.length() - 1);
+        return (ArrayList<Integer>) Arrays.stream(str.split(delimiter + "\\s*")).filter(x -> !x.equals("")).map(Integer::parseInt).collect(Collectors.toList());
+
+//        for (int i = 0; i < str.length(); i++) {
+//            if (str.charAt(i) == delimiter) { // when ',' found
+//                char chr1 = str.charAt(i - 2);
+//                char chr2 = str.charAt(i - 1);
+//                int a;
+//                if (isNumeric(chr1)) // if 2 index prev chr is numeric
+//                    a = (10 * (chr1 - 48)) + (chr2 - 48); // ab = 10*a + b
+//                else
+//                    a = (chr2 - 48); // a = 1*a
+//                lst.add(a);
+//            }
+//        }
+//        char chr1 = str.charAt(str.length() - 3); // for the last one since we can't
+//        char chr2 = str.charAt(str.length() - 2); // detect it with ',' we add it manually
+//        int a;
+//        if (isNumeric(chr1)) a = (10 * (chr1 - 48)) + (chr2 - 48);
+//        else a = chr2 - 48;
+//        lst.add(a);
+//        return lst;
     }
 
     private static boolean isNumeric(char chr) {
@@ -122,15 +124,12 @@ public class MessageConverter {
             return convertStringToUtilityList(arr);
         } else if (index == 7) {
             return convertStringToRailroadList(arr);
-        } else if (index == 8) {
-            return convertStringToMortgagedSquares(arr);
         }
         return null;
     }
 
-    private static ArrayList<? extends Savable> convertStringToMortgagedSquares(String[] arr) {
-        //TODO
-        return null;
+//    private static ArrayList<? extends Savable> convertStringToMortgagedSquares(String[] arr) {
+//        //TODO
 //        ArrayList<DeedSquare> mortgagedSquares = new ArrayList<>();
 //        String[] squareInfo;
 //        String name, owner, color;
@@ -147,6 +146,7 @@ public class MessageConverter {
 //            rent = convertStringToIntArray(squareInfo[4], '@');
 //            owner = squareInfo[5];
 //            mortgaged = Boolean.parseBoolean(squareInfo[6]);
+//
 //            color = squareInfo[7];
 //            buildings = convertStringToBuildingList(squareInfo[8].split("[:]"));
 //            hasUpgrade = Boolean.parseBoolean(squareInfo[9]);
@@ -160,7 +160,7 @@ public class MessageConverter {
 //        }
 //
 //        return mortgagedSquares;
-    }
+//    }
 
     private static ArrayList<Property> convertStringToPropertyList(String[] arr) {
         ArrayList<Property> properties = new ArrayList<>();
@@ -196,6 +196,7 @@ public class MessageConverter {
 
     private static ArrayList<Building> convertStringToBuildingList(String[] buildingInfo) {
         ArrayList<Building> buildings = new ArrayList<>();
+        if (buildingInfo[0].equals("null")) return buildings;
         String[] buildingArr;
         String name;
         int cost;

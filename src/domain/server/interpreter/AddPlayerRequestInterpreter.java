@@ -34,7 +34,7 @@ public class AddPlayerRequestInterpreter implements RequestInterpretable {
             return;
         }
 
-        if(GameInfo.getInstance().isStarted()){
+        if (GameInfo.getInstance().isStarted()) {
             ServerCommunicationHandler.getInstance()
                     .sendResponse(Flags.getFlag("Kick"), index, name);
 

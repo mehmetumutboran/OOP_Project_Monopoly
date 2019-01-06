@@ -1,6 +1,5 @@
 package domain.server.board.specialSquares;
 
-import domain.server.board.Board;
 import domain.server.board.SpecialSquareStrategy;
 import domain.server.board.Square;
 
@@ -14,7 +13,7 @@ public class Chance extends Square implements SpecialSquareStrategy {
     public boolean doAction() {
 
 
-        Board.getInstance().getChanceDeckList()[0].doAction();
+        //       Board.getInstance().getChanceDeckList()[0].doAction();
         return true;
     }
 

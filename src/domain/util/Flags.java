@@ -52,9 +52,9 @@ public class Flags {
     private static final char dontMortgageFlag = 's';
     private static final char dontUnmortgageFlag = 't';
     private static final char colorDowngradeFlag = 'u';
-    private static final char finishTurnFlag = 'u';
     private static final char ipFlag = 'v';
-    private static final char reconnectFlag = 'y';
+    private static final char reconnectFlag = 'w';
+    private static final char changeOneButtonFlag = 'x';
 
 
     private static final char receivedFlag = 'z';
@@ -114,6 +114,7 @@ public class Flags {
         flagMap.put("ColorDowngrade", colorDowngradeFlag);
         flagMap.put("IP", ipFlag);
         flagMap.put("Reconnect", reconnectFlag);
+        flagMap.put("ChangeOneButton", changeOneButtonFlag);
     }
 
     /**

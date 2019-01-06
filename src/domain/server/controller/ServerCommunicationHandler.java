@@ -33,6 +33,11 @@ public class ServerCommunicationHandler {
                 .send(GameState.getInstance().generateCurrentAction(flag, message));
     }
 
+    //  public synchronized void sendResponse(char flag, String drawnCard , String name) {
+    //      ServerFacade.getInstance()
+    //              .send(GameState.getInstance().generateCurrentAction(flag, message));
+    //  }
+
     public synchronized void sendResponse(char flag, int index, String message) {
         ServerFacade.getInstance()
                 .send(index, GameState.getInstance().generateCurrentAction(flag, message));
@@ -75,4 +80,8 @@ public class ServerCommunicationHandler {
                 .send(index, GameState.getInstance().generateCurrentAction(flag, message, args));
     }
 
+    public void sendResponse(char flag, String name, String locat, int args) {
+        ServerFacade.getInstance()
+                .send(GameState.getInstance().generateCurrentAction(flag, name, locat, args));
+    }
 }

@@ -116,8 +116,8 @@ public class ConnectGameHandler {
 //        ClientFacade.getInstance().send(e + player.getName());
 //    }
 
-    public void connectBot(String name, String color) {
-        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("AddBot"), name + "," + color);
+    public void connectBot(String name, String color, String difficulty) {
+        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("AddBot"), name + "," + color + "," + difficulty);
     }
 
     public void kickPlayer(String username) {

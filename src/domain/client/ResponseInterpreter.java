@@ -1,7 +1,6 @@
 package domain.client;
 
 import domain.client.interpreter.*;
-import domain.server.interpreter.ReconnectRequestInterpreter;
 import domain.util.Flags;
 
 import java.util.HashMap;
@@ -61,6 +60,8 @@ public class ResponseInterpreter {
         ResponseInterpretable labelLighterResponseInterpreter = new LabelLighterResponseInterpreter();
         ResponseInterpretable ipResponseInterpreter = new IPResponseInterpreter();
         ResponseInterpretable reconnectResponseInterpreter = new ReconnectResponseInterpreter();
+        ResponseInterpretable drawCardResponseInterpreter = new DrawCardResponseInterpreter();
+        ResponseInterpretable changeOneButtonResponseInterpreter = new ChangeOneButtonResponseInterpreter();
 
 
         interpreterMap = new HashMap<>();
@@ -105,6 +106,8 @@ public class ResponseInterpreter {
         interpreterMap.put(Flags.getFlag("LabelLighter"), labelLighterResponseInterpreter);
         interpreterMap.put(Flags.getFlag("IP"), ipResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Reconnect"), reconnectResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("Draw"), drawCardResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("ChangeOneButton"), changeOneButtonResponseInterpreter);
     }
 
     public void interpret(String message) {

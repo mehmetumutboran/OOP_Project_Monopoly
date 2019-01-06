@@ -6,7 +6,6 @@ import network.server.ClientHandler;
 import network.server.Server;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 /**
  * Class that provides network logic to server Host
@@ -86,7 +85,7 @@ public class ServerFacade {
         return server.getTotalNumPlayers();
     }
 
-    public String[][] getClientInfo(){
+    public String[][] getClientInfo() {
         return server.getClientInfo();
     }
 

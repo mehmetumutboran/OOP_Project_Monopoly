@@ -13,7 +13,7 @@ public class MessagePanel extends JPanel implements MessageChangedListener {
     private int height;
 
     private static final int OFFSET = 22;
-    private static final int MAX_LINES = 20;
+    private static final int MAX_LINES = 50;
 
     private static StringBuilder message;
     private JLabel messageLabel;

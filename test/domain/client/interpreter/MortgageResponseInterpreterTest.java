@@ -26,7 +26,7 @@ class MortgageResponseInterpreterTest {
             continue;
         }
         test = GameInfo.getInstance().getPlayer("Test");
-        GameInfo.getInstance().addPlayer(test);
+//        GameInfo.getInstance().addPlayer(test);
         squareName = "Wacker Drive";
         buyValue = ((DeedSquare) Board.getInstance().getNameGivenSquare(squareName)).getBuyValue();
         test.setBalance(test.getBalance() - buyValue);

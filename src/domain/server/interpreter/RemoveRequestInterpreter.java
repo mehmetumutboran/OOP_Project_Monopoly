@@ -30,7 +30,6 @@ public class RemoveRequestInterpreter implements RequestInterpretable {
         }
 
 
-
         if (GameInfo.getInstance().isCurrentPlayer(username)) {
             System.out.println("In isCurrentPlayer");
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Finish"), username);
@@ -49,7 +48,7 @@ public class RemoveRequestInterpreter implements RequestInterpretable {
         }
         ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Remove"), username);
 
-        System.out.println("Player remove for "+username+" is sent");
+        System.out.println("Player remove for " + username + " is sent");
 
         ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("IP"), username, MessageConverter.convertArrayToString(ServerFacade.getInstance().getClientInfo()));
 

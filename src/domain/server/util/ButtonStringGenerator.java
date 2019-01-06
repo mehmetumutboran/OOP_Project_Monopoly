@@ -18,51 +18,58 @@ public class ButtonStringGenerator {
         return instance;
     }
 
-    public String getButtonString(String name) { //buy psyR mort unm finish roll upg downg card
+    public String getButtonStringForNextSquare(String name) { //buy psyR mort unm finish roll upg downg card
         Player curP = GameInfo.getInstance().getPlayer(name);
         Square curSq = Board.getInstance().getSquare(curP.getToken().getLocation()[0], curP.getToken().getLocation()[1]);
-        System.out.println("\n\nSq name" + curSq.getName());
         String buttonString = null;
+        boolean mustPayRent = false;
         if (curSq instanceof DeedSquare) {
             if (curSq instanceof Property) {
                 if (!((Property) curSq).isOwned()) {
                     buttonString = "100010000110";
                 } else if (((Property) curSq).getOwner().equals(name)) {
-                    buttonString = "100010000110"; // Buy is open due to error message
+                    buttonString = "000010000110"; // Buy is open due to error message
                 } else {
+                    mustPayRent = true;
                     buttonString = "010000000110"; // Force pay rent
-
                 }
             } else if (curSq instanceof Railroad) {
                 if (!((Railroad) curSq).isOwned()) {
                     buttonString = "100010000110";
                 } else if (((Railroad) curSq).getOwner().equals(name)) {
-                    buttonString = "100010000110";
+                    buttonString = "000010000110";
                 } else {
+                    mustPayRent = true;
                     buttonString = "010000000110"; // Force pay rent
                 }
             } else if (curSq instanceof Utility) {
                 if (!((Utility) curSq).isOwned()) {
                     buttonString = "100010000110";
                 } else if (((Utility) curSq).getOwner().equals(name)) {
-                    buttonString = "100010000110";
+                    buttonString = "000010000110";
                 } else {
+                    mustPayRent = true;
                     buttonString = "010000000110"; // Force pay rent
                 }
             }
         } else if (curSq instanceof SpecialSquareStrategy) {
             if (curSq instanceof Chance) {
+                mustPayRent = true;
                 buttonString = "000000001110";
             } else if (curSq instanceof CommunityChest) {
+                mustPayRent = true;
                 buttonString = "000000001110";
             } else {
                 buttonString = "000010000110";
             }
+        } else {
+            buttonString = "111111111111";
         }
 
         if (GameInfo.getInstance().getPlayer(name).getFaceValues()[2] == 7) {
             char[] buttonString2 = buttonString.toCharArray();
-            buttonString2[11] = '1';
+            if (!mustPayRent)
+                buttonString2[11] = '1';
             buttonString2[4] = '0';
             buttonString = String.valueOf(buttonString2);
         }

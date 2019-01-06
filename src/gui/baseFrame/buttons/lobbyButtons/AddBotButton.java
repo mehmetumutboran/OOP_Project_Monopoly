@@ -9,8 +9,9 @@ import java.awt.event.ActionEvent;
 import java.util.Random;
 
 public class AddBotButton extends BaseButton {
-    private String[] names = {"Bot Annie", "Bot Buddy", "Bot John", "Bot Amelia", "Bot Tom",
-            "Bot Sophia", "Bot Jessie", "Bot Amy", "Bot Luna", "Bot Eric", "Bot Ross"};
+    private String[] names = {"Annie", "Buddy", "John", "Amelia", "Tom", "Sophia", "Jessie", "Amy", "Luna", "Eric", "Ross"};
+    private static int count = 0;
+    private static String difficulty = "Medium";
 
     public AddBotButton(String text) {
         super(text);
@@ -30,6 +31,10 @@ public class AddBotButton extends BaseButton {
             name = names[random.nextInt(names.length)];
         }
 
-        ConnectGameHandler.getInstance().connectBot(name, color);
+        ConnectGameHandler.getInstance().connectBot(difficulty.charAt(0) + "Bot " + name, color, difficulty);
+    }
+
+    public static void setDifficulty(String diff) {
+        difficulty = diff;
     }
 }

@@ -38,18 +38,23 @@ public class RollRequestInterpreter implements RequestInterpretable {
 
             String loc = newLoc + "@" + locName;
 
-            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Move"), name, loc);
-        }
+            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Move"), name, loc, 0);
 
-        if (GameInfo.getInstance().getPlayer(GameInfo.getInstance().getCurrentPlayerName()).getReadiness().equals("Bot")) {
-            MoveControl.getInstance().checkMrMonopoly(name);
+            while (true) {
+                if (ReceivedChecker.getInstance().checkReceived()) {
+                    ReceivedChecker.getInstance().setReceived();
+                    break;
+                }
+            }
         }
+//       if(GameInfo.getInstance().getPlayer(GameInfo.getInstance().getCurrentPlayerName()).getReadiness().equals("Bot"))
+//       { MoveControl.getInstance().checkMrMonopoly(name);}
 
         if (MoveControl.getInstance().checkSecondTurn(name)) {
             //ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), name, "");
         }
 
-        System.out.println(ButtonStringGenerator.getInstance().getButtonString(name));
+        System.out.println(ButtonStringGenerator.getInstance().getButtonStringForNextSquare(name));
 
 //        while (true) {
 //            try {
@@ -60,8 +65,11 @@ public class RollRequestInterpreter implements RequestInterpretable {
 //            }
 //        }
 
-        if (!GameInfo.getInstance().isBot(name))
-            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), index, ButtonStringGenerator.getInstance().getButtonString(name), name);
+        if (!GameInfo.getInstance().isBot(name)) {
+            String layout = ButtonStringGenerator.getInstance().getButtonStringForNextSquare(name);
+            System.out.println(layout);
+            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), index, layout, name);
+        }
     }
 
     /**

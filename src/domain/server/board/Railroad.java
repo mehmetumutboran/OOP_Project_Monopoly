@@ -102,7 +102,7 @@ public class Railroad extends DeedSquare implements Upgradable {
 
     @Override
     public String generateSaveInfo() {
-        return super.toString() + ";" +
+        return super.generateSaveInfo() + ";" +
                 hasDepot + "+";
     }
 

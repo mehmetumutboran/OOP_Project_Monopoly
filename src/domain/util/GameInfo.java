@@ -1,7 +1,6 @@
 package domain.util;
 
 import domain.server.Savable;
-import domain.server.board.DeedSquare;
 import domain.server.board.Property;
 import domain.server.board.Railroad;
 import domain.server.board.Utility;
@@ -75,7 +74,7 @@ public class GameInfo implements Savable {
     }
 
     public Player getMyself() {
-        System.out.println("In game info getmyself"+ClientFacade.getInstance().getUsername());
+        System.out.println("In game info getmyself" + ClientFacade.getInstance().getUsername());
         System.out.println(playerList);
         return getPlayer(ClientFacade.getInstance().getUsername());
     }
@@ -86,7 +85,7 @@ public class GameInfo implements Savable {
 
     public boolean isMyselfHost() {
         Player p = getPlayer(ClientFacade.getInstance().getUsername());
-        if(p==null){
+        if (p == null) {
             System.out.println("Player not found in the method isMyselfHost!!");
             return false;
         }
@@ -113,13 +112,14 @@ public class GameInfo implements Savable {
     }
 
     public void addPlayer(String name, String color, String readiness) {
-        if (readiness.equals("Bot"))
-            playerList.add(new RandomPlayer(name, color, readiness));
-        else
-            playerList.add(new Player(name, color, readiness));
-        //publishPlayerListEvent();
+        playerList.add(new Player(name, color, readiness));
         selectedColors.add(color);
         System.out.println(playerList);
+    }
+
+
+    public void addPlayer(String name, String color, String readiness, String difficulty) {
+        playerList.add(new RandomPlayer(name, color, readiness, difficulty));
     }
 
     public void addPlayer(Player player) {
@@ -210,9 +210,9 @@ public class GameInfo implements Savable {
 
     public void loadPlayer(String name, int layer, int location, String color, int balance,
                            ArrayList<? extends Savable> propertyList, ArrayList<? extends Savable> utilityList, ArrayList<? extends Savable> railroadList,
-                           ArrayList<? extends Savable> mortgagedSquares, String readiness, boolean isStarted, int doubleCounter, boolean isInJail) {
+                           String readiness, int doubleCounter, boolean isInJail) {
         Player player = new Player(name, new Token(new int[]{layer, location}, color), balance, (ArrayList<Property>) propertyList, (ArrayList<Utility>) utilityList, (ArrayList<Railroad>) railroadList,
-                (ArrayList<DeedSquare>) mortgagedSquares, readiness, doubleCounter, isInJail);
+                readiness, doubleCounter, isInJail);
         this.playerList.add(player);
     }
 
@@ -267,8 +267,8 @@ public class GameInfo implements Savable {
                 if (!playerQueue.isEmpty()) {
                     ListIterator<String> iterator = (ListIterator<String>) playerQueue.iterator();
 
-                    while(iterator.hasNext()){
-                        if(iterator.next().equals(username)){
+                    while (iterator.hasNext()) {
+                        if (iterator.next().equals(username)) {
                             iterator.set(randomPlayer.getName());
                         }
                     }
@@ -322,7 +322,9 @@ public class GameInfo implements Savable {
         // @requires playerQueue not null
         // @effects throws NoSuchElementException if the deque is empty
         //          updates the playerQueue for incoming turn
-        playerQueue.addLast(playerQueue.removeFirst());
+        Player player = getPlayer(playerQueue.removeFirst());
+        player.setSecondMove(false);
+        playerQueue.addLast(player.getName());
     }
 
     public boolean isPeekBot() {
@@ -363,12 +365,12 @@ public class GameInfo implements Savable {
     }
 
     public void setWasHostPeekBefore() {
-        if(isStarted)
+        if (isStarted)
             this.wasHostPeekBefore = !getPeek().getReadiness().equals("Ready");
     }
 
     public boolean WasHostPeekBefore() {
-        if(!isStarted) return false;
+        if (!isStarted) return false;
         return this.wasHostPeekBefore;
     }
 }

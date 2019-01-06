@@ -11,7 +11,7 @@ public class AddBotResponseInterpreter implements ResponseInterpretable {
     @Override
     public void interpret(String[] message) {
         String[] arr = message[1].split("[,]");
-        RandomPlayer randomPlayer = new RandomPlayer(arr[0]);
+        RandomPlayer randomPlayer = new RandomPlayer(arr[0], arr[2]);
         randomPlayer.getToken().setColor(arr[1]);
 
         GameInfo.getInstance().addPlayer(randomPlayer);

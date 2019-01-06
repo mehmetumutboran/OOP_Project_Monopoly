@@ -1,5 +1,6 @@
 package gui.baseFrame.panels;
 
+import gui.baseFrame.BotDifficultyBox;
 import gui.baseFrame.ColorBox;
 import gui.baseFrame.LoadBox;
 import gui.baseFrame.buttons.lobbyButtons.AddBotButton;
@@ -20,6 +21,7 @@ public class LobbyPanel extends JPanel {
     private StartButton startButton;
     private AddBotButton addBotButton;
     private ColorBox colorBox;
+    private BotDifficultyBox botDifficultyBox;
     private LoadBox loadBox;
 
     private int width;
@@ -84,18 +86,22 @@ public class LobbyPanel extends JPanel {
     private void initButtons() {
         backButton = new BackButton("Back");
         colorBox = new ColorBox();
+        botDifficultyBox = new BotDifficultyBox();
 
 
         backButton.setBounds((this.width - (-1) * BUTTON_WIDTH) / 2,
                 (this.height - (-10) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
         colorBox.setBounds((this.width - (-1) * BUTTON_WIDTH) / 2,
                 (this.height - 3 * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
+        botDifficultyBox.setBounds((this.width - (-1) * BUTTON_WIDTH) / 2,
+                (this.height - 8 * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
 
         backButton.setBackground(Color.gray);
         backButton.setBorderPainted(false);
 
         this.add(backButton);
         this.add(colorBox);
+        this.add(botDifficultyBox);
 
     }
 
@@ -163,8 +169,12 @@ public class LobbyPanel extends JPanel {
     public synchronized void setHost(boolean b) {
         if (b) {
             cardLayout.show(buttonPanel, "Host");
+            botDifficultyBox.setEnabled(true);
+            botDifficultyBox.setVisible(true);
         } else {
             cardLayout.show(buttonPanel, "Client");
+            botDifficultyBox.setEnabled(false);
+            botDifficultyBox.setVisible(false);
         }
         validate();
         repaint();

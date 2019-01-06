@@ -23,9 +23,8 @@ public class PlayerActionController {
         ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Roll"), ClientFacade.getInstance().getUsername());
     }
 
-    public void checkMrMonopoly() {
-        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("MrMonopoly"), ClientFacade.getInstance().getUsername());
-
+    public void checkMrMonopoly(String username) {
+        ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("MrMonopoly"), username);
     }
 
     public void finishTurn() {

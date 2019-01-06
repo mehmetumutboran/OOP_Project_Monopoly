@@ -11,7 +11,6 @@ import gui.util.ColorConverter;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 public class PlayerLabelsPanel extends JLabel implements GameStartedListener, PlayerQuitEventListener, TurnUpdateListener {
     private final int SQUARE_EDGE = 90;

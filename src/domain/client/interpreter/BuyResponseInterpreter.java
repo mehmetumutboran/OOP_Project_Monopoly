@@ -23,12 +23,15 @@ public class BuyResponseInterpreter implements ResponseInterpretable {
         String squareName = message[3];
 
 
-        Square boughtSquare = ((DeedSquare) Board.getInstance().getNameGivenSquare(squareName));
+        Square boughtSquare = Board.getInstance().getNameGivenSquare(squareName);
         GameInfo.getInstance().getPlayer(name).addDeed(boughtSquare);
         GameInfo.getInstance().getPlayer(name).setBalance(finalMoney);
-        ((DeedSquare) boughtSquare).setOwner(name);
-
-        UIUpdater.getInstance().setMessage(name + " bought " + squareName);
+        if (boughtSquare instanceof DeedSquare) {
+            ((DeedSquare) boughtSquare).setOwner(name);
+            UIUpdater.getInstance().setMessage(name + " bought " + squareName);
+        } else {
+            UIUpdater.getInstance().setMessage(name + " tried to buy " + squareName);
+        }
 
 //        String name = message[1];
 //        String sqName = message[2];

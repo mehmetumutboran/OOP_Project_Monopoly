@@ -4,6 +4,7 @@ import domain.client.PlayerActionController;
 import domain.client.UIUpdater;
 import domain.server.listeners.ButtonChangeListener;
 import domain.server.listeners.TurnChangedListener;
+import network.client.clientFacade.ClientFacade;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -22,8 +23,7 @@ public class MrMonopolyButton extends JButton implements ActionListener, TurnCha
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-
-        PlayerActionController.getInstance().checkMrMonopoly();
+        PlayerActionController.getInstance().checkMrMonopoly(ClientFacade.getInstance().getUsername());
     }
 
     @Override

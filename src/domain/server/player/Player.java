@@ -16,10 +16,11 @@ public class Player implements Comparable, Savable {
     private ArrayList<Property> ownedProperties;
     private ArrayList<Utility> ownedUtilities;
     private ArrayList<Railroad> ownedRailroads;
-    private ArrayList<DeedSquare> mortgagedSquares;
+    //    private ArrayList<DeedSquare> mortgagedSquares;
     private String readiness;
-    private int doubleCounter; // Constructor
+    private int doubleCounter; // Constructor (double die)
     private boolean inJail;
+    private boolean secondMove; // Mr monopoly
     private int[] faceValues;
 
     public Player() {
@@ -37,12 +38,12 @@ public class Player implements Comparable, Savable {
 
     public Player(String name, Token token, int balance, ArrayList<Property> ownedProperties, ArrayList<Utility> ownedUtilities,
                   ArrayList<Railroad> ownedRailroads, String readiness) {
-        this(name, token, balance, ownedProperties, ownedUtilities, ownedRailroads, new ArrayList<>(), readiness, 0, false);
+        this(name, token, balance, ownedProperties, ownedUtilities, ownedRailroads, readiness, 0, false);
     }
 
     public Player(String name, Token token, int balance,
                   ArrayList<Property> propertyList, ArrayList<Utility> utilityList,
-                  ArrayList<Railroad> railroadList, ArrayList<DeedSquare> mortgagedSquares,
+                  ArrayList<Railroad> railroadList,
                   String readiness, int doubleCounter, boolean isInJail) {
 
         this.name = name;
@@ -51,11 +52,12 @@ public class Player implements Comparable, Savable {
         this.ownedProperties = propertyList;
         this.ownedUtilities = utilityList;
         this.ownedRailroads = railroadList;
-        this.mortgagedSquares = mortgagedSquares;
+//        this.mortgagedSquares = mortgagedSquares;
         this.readiness = readiness;
         this.faceValues = new int[3];
         this.doubleCounter = doubleCounter;
         this.inJail = isInJail;
+        this.secondMove = false;
 
         //TODO test purposes
 
@@ -166,19 +168,23 @@ public class Player implements Comparable, Savable {
     }
 
     public ArrayList<DeedSquare> getMortgagedSquares() {
-        return mortgagedSquares;
+        ArrayList<DeedSquare> mortgaged = new ArrayList<>();
+        ownedProperties.stream().filter(DeedSquare::isMortgaged).forEach(mortgaged::add);
+        ownedUtilities.stream().filter(DeedSquare::isMortgaged).forEach(mortgaged::add);
+        ownedRailroads.stream().filter(DeedSquare::isMortgaged).forEach(mortgaged::add);
+        return mortgaged;
     }
 
-    public void addMortgagedSquare(DeedSquare square) {
-        if (square instanceof Property) {
-            this.ownedProperties.removeIf(x -> x.equals(square));
-        } else if (square instanceof Utility) {
-            this.ownedUtilities.removeIf(x -> x.equals(square));
-        } else {
-            this.ownedRailroads.removeIf(x -> x.equals(square));
-        }
-        this.mortgagedSquares.add(square);
-    }
+//    public void addMortgagedSquare(DeedSquare square) {
+//        if (square instanceof Property) {
+//            this.ownedProperties.removeIf(x -> x.equals(square));
+//        } else if (square instanceof Utility) {
+//            this.ownedUtilities.removeIf(x -> x.equals(square));
+//        } else {
+//            this.ownedRailroads.removeIf(x -> x.equals(square));
+//        }
+//        this.mortgagedSquares.add(square);
+//    }
 
     public int resetDoubleCounter() {
         return this.doubleCounter = 0;
@@ -228,7 +234,7 @@ public class Player implements Comparable, Savable {
                 balance + "," +
                 MessageConverter.convertListToString(ownedProperties) + "," +
                 MessageConverter.convertListToString(ownedUtilities) + "," +
-                MessageConverter.convertListToString(ownedRailroads) + "," + //TODO add Mortgage
+                MessageConverter.convertListToString(ownedRailroads) + "," +
                 readiness + "," + //TODO Started
                 doubleCounter + "," +
                 inJail + "*\n";
@@ -284,9 +290,9 @@ public class Player implements Comparable, Savable {
         if (this.ownedProperties.size() > 64) return false;
         if (this.ownedUtilities.size() > 12) return false;
         if (this.ownedRailroads.size() > 8) return false;
-        if (this.mortgagedSquares.size() > 84) return false;
+        if (this.getMortgagedSquares().size() > 84) return false;
         if (hasDuplicate(ownedRailroads) || hasDuplicate(ownedProperties)
-                || hasDuplicate(ownedUtilities) || hasDuplicate(mortgagedSquares)) return false;
+                || hasDuplicate(ownedUtilities) || hasDuplicate(this.getMortgagedSquares())) return false;
         if (!this.readiness.equals("Host") && !this.readiness.equals("Not Ready") &&
                 !this.readiness.equals("Ready") && !this.readiness.equals("Bot"))
             return false;
@@ -303,5 +309,14 @@ public class Player implements Comparable, Savable {
         for (T each : all) if (!set.add(each)) return true;
         return false;
     }
+
+    public boolean isSecondMove() {
+        return secondMove;
+    }
+
+    public void setSecondMove(boolean secondMove) {
+        this.secondMove = secondMove;
+    }
+
 
 }

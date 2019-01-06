@@ -4,7 +4,6 @@ import domain.server.ReceivedChecker;
 import domain.server.controller.ServerCommunicationHandler;
 import domain.util.Flags;
 import domain.util.GameInfo;
-import domain.util.MessageConverter;
 import network.client.clientFacade.ClientFacade;
 import network.server.serverFacade.ServerFacade;
 

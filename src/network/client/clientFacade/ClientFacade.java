@@ -4,15 +4,12 @@ package network.client.clientFacade;
 import domain.client.PlayerActionController;
 import domain.client.ResponseInterpreter;
 import domain.client.interpreter.KickResponseInterpreter;
-import domain.server.controller.ConnectGameHandler;
 import domain.util.Flags;
 import domain.util.GameInfo;
-import domain.util.MessageConverter;
 import network.client.Client;
 import network.listeners.ConnectionFailedListener;
 import network.listeners.ReceivedChangedListener;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -89,7 +86,6 @@ public class ClientFacade {
      */
     public synchronized void sendReceivedMessage(String m) {
         this.message = m;
-//        System.out.println(m);
         ResponseInterpreter.getInstance().interpret(m);
     }
 
@@ -155,23 +151,23 @@ public class ClientFacade {
     }
 
     public void reconnect() {
-        if(!GameInfo.getInstance().isStarted()){
+        if (!GameInfo.getInstance().isStarted()) {
             new KickResponseInterpreter().interpret(new String[]{String.valueOf(Flags.getFlag("Kick"))});
             return;
         }
         System.out.println("\nThe client's username is " + getUsername());
-        System.out.println("Ip index is "+ (ipIndex+1));
+        System.out.println("Ip index is " + (ipIndex + 1));
         System.out.println(Arrays.deepToString(ips));
         //System.out.println("Trying to reconnect to "+ips[ipIndex][0]+"\n");
         ipIndex += 1;
         PlayerActionController.getInstance().reconnect(ips[ipIndex][0].equals(getUsername()));
     }
 
-    public void resetIndex(){
+    public void resetIndex() {
         this.ipIndex = 0;
     }
 
-    public String getNextIP(){
+    public String getNextIP() {
         return ips[ipIndex][1];
     }
 
@@ -180,6 +176,6 @@ public class ClientFacade {
     }
 
     public String getOldHostName() {
-        return ips[ipIndex-1][0];
+        return ips[ipIndex - 1][0];
     }
 }

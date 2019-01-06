@@ -172,6 +172,10 @@ public class GameState {
     public String generateCurrentAction(char flag, String player, String square, String buildingToUporDown) {
         return flag + "|" + player + "|" + square + "|" + buildingToUporDown;
     }
+
+    public String generateCurrentAction(char flag, String name, String locat, int args) {
+        return flag + "|" + name + "|" + locat + "|" + args;
+    }
 //
 //    private String generateJailAction(char flag, String name) {
 //        return flag + "|" + name;

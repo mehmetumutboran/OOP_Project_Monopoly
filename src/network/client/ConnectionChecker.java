@@ -44,7 +44,7 @@ public class ConnectionChecker extends Thread {
         connected = true;
     }
 
-    public void setDos(DataOutputStream dos){
+    public void setDos(DataOutputStream dos) {
         this.dos = dos;
     }
 

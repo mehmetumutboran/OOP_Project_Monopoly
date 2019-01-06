@@ -140,7 +140,7 @@ public class MoveControl {
             tryToGoOutOfJail(name);
             return false;
         } else if (checkTriple(name)) {
-            return false;
+            return true;
         } else return !checkBus(name);
 
     }
@@ -155,7 +155,7 @@ public class MoveControl {
 
     private void sendToJail(String name) {
         ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("GoToJail"), name);
-        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Move"), name, MessageConverter.convertArrayToString(Board.getInstance().getNameGivenSquare("Jail").getLocation()) + "@" + "Jail");
+        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Move"), name, MessageConverter.convertArrayToString(Board.getInstance().getNameGivenSquare("Jail").getLocation()) + "@" + "Jail", 1);
     }
 
 
@@ -180,7 +180,7 @@ public class MoveControl {
 
             String locName = Board.getInstance().getSquare(loc[0], loc[1]).getName();
             String locat = MessageConverter.convertArrayToString(loc) + "@" + locName;
-            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Move"), name, locat);
+            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Move"), name, locat, 1);
             return true;
 
         }

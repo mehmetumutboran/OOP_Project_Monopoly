@@ -22,7 +22,7 @@ public class LobbyPlayerLabel extends JLabel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if(GameInfo.getInstance().isMyselfHost() && !name.equals(ClientFacade.getInstance().getUsername())) {
+        if (GameInfo.getInstance().isMyselfHost() && !name.equals(ClientFacade.getInstance().getUsername())) {
             int choice = JOptionPane.showOptionDialog(null, //Component parentComponent
                     "Do you really want to kick " + name + " ?", //Object message,
                     "Are you sure?", //String title
@@ -35,7 +35,7 @@ public class LobbyPlayerLabel extends JLabel implements MouseListener {
                 System.out.println("Player " + name + " is kicked!!!!");
                 ConnectGameHandler.getInstance().kickPlayer(name);
             }
-        }else{
+        } else {
             System.out.println("A client clicked on label");
         }
 

@@ -38,9 +38,7 @@ public class ClientHandler implements Runnable {
 //                    System.out.println(Arrays.toString(ReceivedChecker.getInstance().received));
 
                     continue;
-                }
-
-                else if(line.equals("isConnected")){
+                } else if (line.equals("isConnected")) {
                     synchronized (this) {
                         send("Connected");
                     }

@@ -26,7 +26,7 @@ public class ClientReceiver extends Thread {
             try {
                 received = receive();
 
-                if(received.equals("Connected")){
+                if (received.equals("Connected")) {
                     connectionChecker.setConnected();
                     continue;
                 }

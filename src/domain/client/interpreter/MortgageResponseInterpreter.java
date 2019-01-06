@@ -25,7 +25,7 @@ public class MortgageResponseInterpreter implements ResponseInterpretable {
         String sqName = message[2];
 
         ((DeedSquare) Board.getInstance().getNameGivenSquare(sqName)).setMortgaged(true);
-        GameInfo.getInstance().getPlayer(name).addMortgagedSquare((DeedSquare) Board.getInstance().getNameGivenSquare(sqName));
+//        GameInfo.getInstance().getPlayer(name).addMortgagedSquare((DeedSquare) Board.getInstance().getNameGivenSquare(sqName));
         GameInfo.getInstance().getPlayer(name).increaseMoney(((DeedSquare) Board.getInstance().getNameGivenSquare(sqName)).getMortgageValue());
 
         UIUpdater.getInstance().setMessage(name + " mortgaged " + sqName);

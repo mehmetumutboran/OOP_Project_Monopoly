@@ -98,7 +98,7 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener, 
         changed = true;
     }
 
-    public void setHost(){
+    public void setHost() {
         lobbyPanel.setHost(true);
         controlDisplay.setHost(true);
         this.status = "Lobby";
