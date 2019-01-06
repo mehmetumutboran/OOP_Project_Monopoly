@@ -206,8 +206,8 @@ public class UIUpdater {
     }
 
     public void setButtons(String enable) {
-        this.buttonLayout = enable;
-        publishTurnChangedEvent(enable);
+        this.buttonLayout = enable.equals("reconnect") ? buttonLayout : enable;
+        publishTurnChangedEvent(buttonLayout);
     }
 
     public void resumeUpdate() {

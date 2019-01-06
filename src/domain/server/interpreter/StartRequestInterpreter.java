@@ -66,15 +66,6 @@ public class StartRequestInterpreter implements RequestInterpretable {
                     }
                 }
 
-//                while (true){
-//                    try {
-//                        line = dis.readUTF();
-//                        if(line.charAt(0)=='z') break;
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-
                 System.out.println("\n\nCurrPlayer:" + GameInfo.getInstance().getCurrentPlayerName() + "\n");
 
 

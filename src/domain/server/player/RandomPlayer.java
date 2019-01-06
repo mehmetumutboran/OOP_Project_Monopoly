@@ -29,6 +29,10 @@ public class RandomPlayer extends Player {
                 "Bot",
                 player.getDoubleCounter(),
                 player.isInJail());
+
+        player.getOwnedProperties().forEach(x -> x.setOwner(this.getName()));
+        player.getOwnedUtilities().forEach(x -> x.setOwner(this.getName()));
+        player.getOwnedRailroads().forEach(x -> x.setOwner(this.getName()));
     }
 
 
