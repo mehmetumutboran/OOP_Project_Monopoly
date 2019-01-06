@@ -3,6 +3,7 @@ package domain.client.interpreter;
 import domain.client.ClientCommunicationHandler;
 import domain.client.RandomPlayerHandler;
 import domain.client.UIUpdater;
+import domain.server.player.RandomPlayer;
 import domain.util.GameInfo;
 import domain.util.MessageConverter;
 
