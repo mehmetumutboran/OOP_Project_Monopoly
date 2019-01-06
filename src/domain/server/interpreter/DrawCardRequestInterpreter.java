@@ -25,7 +25,7 @@ public class DrawCardRequestInterpreter implements RequestInterpretable {
         String cardName = "theInsidersEdge";
 
         if (drawnCard != null) cardName = drawnCard.getName();
-        if(cardName.equals("theInsidersEdge")) System.out.println("Wrong card here at!!!! "+sq.getName());
+        if (cardName.equals("theInsidersEdge")) System.out.println("Wrong card here at!!!! " + sq.getName());
         ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Draw"), name, cardName);
 
         //ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Money") , name , );
@@ -43,10 +43,11 @@ public class DrawCardRequestInterpreter implements RequestInterpretable {
 
 
         if (!GameInfo.getInstance().isBot(name))
-            if (GameInfo.getInstance().getPlayer(name).getFaceValues()[2] != 7)
-                ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), index, "000010000110", name);
+            if (GameInfo.getInstance().getPlayer(name).getFaceValues()[2] == 7 && !GameInfo.getInstance().getPlayer(name).isSecondMove())
+                ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), index, "000000000111", name);
             else
-                ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), index, "000010000111", name);
+                ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), index, "000010000110", name);
+
 
     }
 }
