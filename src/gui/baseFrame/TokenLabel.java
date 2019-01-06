@@ -26,20 +26,23 @@ public class TokenLabel extends JLabel implements Drawable {
     private int [] oldLoc = {1,0};
     private int [] newLoc = {1,0};
     private BufferedImage img = null;
-    private static int indexCount;
+    private static int indexCount=0;
     private boolean firstSet = true;
+
+    //private String tokenLabel;
 
     public TokenLabel(String owner) {
         super();
         this.owner = owner;
         point = new Point();
-
+        //tokenLabel = Integer.toString(indexCount);
+        tokIndex = indexCount;
         try {
-            img = ImageIO.read(new File("res/pika.png"));
+            img = ImageIO.read(new File("res/" + Integer.toString(tokIndex) +".png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        tokIndex = indexCount;
+
         indexCount++;
     }
 
