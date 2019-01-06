@@ -12,6 +12,7 @@ public class LoadResponseInterpreter implements ResponseInterpretable {
     public void interpret(String[] message) {
         String load = message[1];
         LoadGameHandler.getInstance().loadGame(load);
+        GameInfo.getInstance().startGame();
         UIUpdater.getInstance().changePanel("Game");
         UIUpdater.getInstance().startGame();
         UIUpdater.getInstance().startTokens(new ArrayList<>(GameInfo.getInstance().getPlayerQueue()));
