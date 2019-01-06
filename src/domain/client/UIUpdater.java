@@ -20,6 +20,7 @@ public class UIUpdater {
     private ArrayList<LabelChangeListener> labelChangeListeners;
     private ArrayList<DiceRolledListener> diceRolledListeners;
     private ArrayList<TokenStarterListener> tokenStarterListeners;
+    private ArrayList<AnimationPauseListener> animationPauseListeners;
 
     private String message;
     private String buttonLayout = "000000000000";
@@ -43,6 +44,7 @@ public class UIUpdater {
         labelChangeListeners = new ArrayList<>();
         diceRolledListeners = new ArrayList<>();
         tokenStarterListeners = new ArrayList<>();
+        animationPauseListeners = new ArrayList<>();
     }
 
     public void addMessageChangedListener(MessageChangedListener mcl) {
@@ -96,6 +98,13 @@ public class UIUpdater {
         gameStartedListeners.add(gsl);
     }
 
+    public void addAnimationPauseListener(AnimationPauseListener apl){animationPauseListeners.add(apl);}
+
+    public void publishAnimationPauseEvent(boolean b){
+        for (AnimationPauseListener apl:animationPauseListeners) {
+            apl.onAnimationPausedEvent(b);
+        }
+    }
 
     private void publishTokenMovementEvent(String name, int x, int y) {
         for (TokenMovementListener tml : tokenMovementListeners) {
@@ -243,5 +252,9 @@ public class UIUpdater {
     public void changeButton(int index, String val) {
         this.buttonLayout = buttonLayout.substring(0,index) + val + buttonLayout.substring(index+1);
         publishTurnChangedEvent(buttonLayout);
+    }
+
+    public void setAnimationPause(boolean b) {
+        publishAnimationPauseEvent(b);
     }
 }
