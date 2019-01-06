@@ -19,7 +19,7 @@ public class Animator implements Runnable {
         while (true) {
             try {
                 Thread.sleep(100);
-                synchronized(this) {
+                synchronized (this) {
                     if (animatorStopped) {
                         break;
                     }

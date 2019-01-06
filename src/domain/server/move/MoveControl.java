@@ -1,6 +1,5 @@
 package domain.server.move;
 
-import domain.server.ReceivedChecker;
 import domain.server.board.Board;
 import domain.server.board.DeedSquare;
 import domain.server.board.Square;
@@ -8,8 +7,6 @@ import domain.server.controller.ServerCommunicationHandler;
 import domain.util.Flags;
 import domain.util.GameInfo;
 import domain.util.MessageConverter;
-
-import java.util.Arrays;
 
 public class MoveControl {
 
@@ -180,8 +177,7 @@ public class MoveControl {
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Token"), name, MessageConverter.convertArrayToString(loc));
             return true;
 
-        }
-        else return false;
+        } else return false;
     }
 
     public int[] findNextUnOwnedSquare(int[] loc) {

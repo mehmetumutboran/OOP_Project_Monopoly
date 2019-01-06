@@ -65,7 +65,7 @@ public class UIFacade implements Runnable {
         BaseFrame.getInstance().setHost();
     }
 
-    public void setSaveButton(boolean b){
+    public void setSaveButton(boolean b) {
         BaseFrame.getInstance().setSaveButton(b);
     }
 

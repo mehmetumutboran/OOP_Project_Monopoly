@@ -1,7 +1,10 @@
 package gui.baseFrame.panels;
 
 import domain.client.UIUpdater;
-import domain.server.listeners.*;
+import domain.server.listeners.AnimationPauseListener;
+import domain.server.listeners.DiceRolledListener;
+import domain.server.listeners.TokenMovementListener;
+import domain.server.listeners.TokenStarterListener;
 import gui.Animator.Animator;
 import gui.baseFrame.DiceLabel;
 import gui.baseFrame.SquareLabel;
@@ -45,7 +48,7 @@ public class GamePanel extends JPanel implements TokenMovementListener, DiceRoll
         UIUpdater.getInstance().addAnimationPauseListener(this);
         tokenlist = new ArrayList<>();
         diceList = new ArrayList<>(3);
-        animator = new Animator(this,"");
+        animator = new Animator(this, "");
 
         try {
             if (System.getProperty("os.name").startsWith("Windows")) {
@@ -146,25 +149,25 @@ public class GamePanel extends JPanel implements TokenMovementListener, DiceRoll
             tokenlist.get(i).setCoordinates(this.getWidth(), this.getHeight());
             tokenlist.get(i).draw(G);
         }
-        for (int i = 0; i < diceList.size(); i++){
-            diceList.get(i).draw(G,i,this.getWidth(),this.getHeight());
+        for (int i = 0; i < diceList.size(); i++) {
+            diceList.get(i).draw(G, i, this.getWidth(), this.getHeight());
         }
         for (int i = 0; i < squareLabels.size(); i++) {
             squareLabels.get(i).draw(this.getWidth(), this.getHeight());
         }
     }
 
-   @Override
+    @Override
     public void onTokenMovement(String pName, int x, int y) {
         for (TokenLabel t : tokenlist) {
-            if (t.getOwner().equals(pName)) t.setNewLoc(new int []{x,y});
+            if (t.getOwner().equals(pName)) t.setNewLoc(new int[]{x, y});
         }
-        animator = new Animator(this,pName);
+        animator = new Animator(this, pName);
         new Thread(animator, "Animator").start();
-   }
+    }
 
     @Override
-    public void onDiceRolledEvent(int [] faces) {
+    public void onDiceRolledEvent(int[] faces) {
         for (int i = 0; i < diceList.size(); i++) {
             diceList.get(i).setImage(faces[i]);
             this.revalidate();
@@ -180,28 +183,28 @@ public class GamePanel extends JPanel implements TokenMovementListener, DiceRoll
             tl.setOpaque(false);
             this.add(tl);
             tokenlist.add(tl);
-            tl.setCoordinates(width,height);
+            tl.setCoordinates(width, height);
             this.revalidate();
             this.repaint();
         }
     }
 
-    public void tokenDraw(Graphics G, String tokName){
+    public void tokenDraw(Graphics G, String tokName) {
         for (TokenLabel aTokenlist : tokenlist) {
-            if(aTokenlist.getOwner().equals(tokName)) {
+            if (aTokenlist.getOwner().equals(tokName)) {
                 aTokenlist.setCoordinates(this.getWidth(), this.getHeight());
                 aTokenlist.draw(G);
             }
         }
-   }
+    }
 
-   public void setPath(String tokName){
-       for (TokenLabel aTokenlist : tokenlist) {
-           if (aTokenlist.getOwner().equals(tokName)) {
+    public void setPath(String tokName) {
+        for (TokenLabel aTokenlist : tokenlist) {
+            if (aTokenlist.getOwner().equals(tokName)) {
                 aTokenlist.setPath();
-           }
-       }
-   }
+            }
+        }
+    }
 
     @Override
     public void onAnimationPausedEvent(boolean b) {

@@ -1,6 +1,7 @@
 package domain.server;
 
 import network.server.serverFacade.ServerFacade;
+
 import static java.lang.System.currentTimeMillis;
 
 public class ReceivedChecker {
@@ -30,27 +31,27 @@ public class ReceivedChecker {
         return true;
     }
 
-    public void check(){
+    public void check() {
         double timeout = currentTimeMillis() + 5000;
         while (true) {
             if (checkReceived()) {
                 setReceived();
                 break;
             }
-            if(timeout < currentTimeMillis()){
+            if (timeout < currentTimeMillis()) {
                 break;
             }
         }
     }
 
-    public void check(int index){
+    public void check(int index) {
         double timeout = currentTimeMillis() + 5000;
         while (true) {
             if (checkReceived(index)) {
                 setReceived(index);
                 break;
             }
-            if(timeout < currentTimeMillis()){
+            if (timeout < currentTimeMillis()) {
                 break;
             }
         }

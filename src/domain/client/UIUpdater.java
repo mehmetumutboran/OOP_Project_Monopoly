@@ -107,10 +107,12 @@ public class UIUpdater {
         gameStartedListeners.add(gsl);
     }
 
-    public void addAnimationPauseListener(AnimationPauseListener apl){animationPauseListeners.add(apl);}
+    public void addAnimationPauseListener(AnimationPauseListener apl) {
+        animationPauseListeners.add(apl);
+    }
 
-    public void publishAnimationPauseEvent(boolean b){
-        for (AnimationPauseListener apl:animationPauseListeners) {
+    public void publishAnimationPauseEvent(boolean b) {
+        for (AnimationPauseListener apl : animationPauseListeners) {
             apl.onAnimationPausedEvent(b);
         }
     }
@@ -284,7 +286,7 @@ public class UIUpdater {
     }
 
     public void changeButton(int index, String val) {
-        this.buttonLayout = buttonLayout.substring(0,index) + val + buttonLayout.substring(index+1);
+        this.buttonLayout = buttonLayout.substring(0, index) + val + buttonLayout.substring(index + 1);
         publishTurnChangedEvent(buttonLayout);
     }
 

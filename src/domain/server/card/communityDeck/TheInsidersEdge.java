@@ -19,14 +19,13 @@ public class TheInsidersEdge extends Community {
         int loc[] = GameInfo.getInstance().getPlayer(name).getToken().getLocation().clone();
         if (loc[0] == 0) {
             GameInfo.getInstance().getPlayer(name).increaseMoney(250);
-           UIUpdater.getInstance().setMessage(name + " is in Inner Track. So " + name +  " collects $250 from bank " );
-       } else if (loc[0] == 2) {
-           GameInfo.getInstance().getPlayer(name).increaseMoney(-50);
-           UIUpdater.getInstance().setMessage(name + " is in Outer Track. So " + name +  " pays $50 to the bank " );
-       }
-     else if(loc[0] == 1){
-           UIUpdater.getInstance().setMessage(name + " is in Center Track. So " + name +  " does nothing " );
-       }
+            UIUpdater.getInstance().setMessage(name + " is in Inner Track. So " + name + " collects $250 from bank ");
+        } else if (loc[0] == 2) {
+            GameInfo.getInstance().getPlayer(name).increaseMoney(-50);
+            UIUpdater.getInstance().setMessage(name + " is in Outer Track. So " + name + " pays $50 to the bank ");
+        } else if (loc[0] == 1) {
+            UIUpdater.getInstance().setMessage(name + " is in Center Track. So " + name + " does nothing ");
+        }
 
 
         return true;

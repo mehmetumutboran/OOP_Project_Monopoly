@@ -7,8 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 public class PlayerInfoPanel extends JPanel implements MouseListener {
 
@@ -73,7 +71,7 @@ public class PlayerInfoPanel extends JPanel implements MouseListener {
         StringBuilder ownedProperties = new StringBuilder();
         for (int j = 0; j < GameInfo.getInstance().getPropertyFromIndex(i).size(); j++) {
             ownedProperties.append(GameInfo.getInstance().getPropertyFromIndex(i).get(j));
-            switch(GameInfo.getInstance().getPropertyFromIndex(i).get(j).getUpgradeLevel()){
+            switch (GameInfo.getInstance().getPropertyFromIndex(i).get(j).getUpgradeLevel()) {
                 case 5:
                     ownedProperties.append("(Hotel)");
                     break;
@@ -90,7 +88,7 @@ public class PlayerInfoPanel extends JPanel implements MouseListener {
 
         sb.append(ownedProperties);
 
-                sb.append("<span style=\"color:red\">Owned Utilities: </span>")
+        sb.append("<span style=\"color:red\">Owned Utilities: </span>")
                 .append(GameInfo.getInstance().getUtilityFromIndex(i)
                         .replaceAll("\\[", "")
                         .replaceAll("]", ""))

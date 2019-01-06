@@ -1,11 +1,8 @@
 package domain.client.interpreter;
 
 import domain.client.ClientCommunicationHandler;
-import domain.client.UIUpdater;
 import domain.util.GameInfo;
 import domain.util.MessageConverter;
-
-import java.util.ArrayList;
 
 public class QueueResponseInterpreter implements ResponseInterpretable {
     @Override

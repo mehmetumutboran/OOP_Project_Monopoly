@@ -457,11 +457,11 @@ public class Board {
         squareList[1][35] = sq92;
         Chance sq93 = new Chance("Chance", 1, 36);
         squareList[1][36] = sq93;
-        Property sq94 = new Property("Park Place", 1, 37, 1, ParkPlace, "BLUE");
+        Property sq94 = new Property("Park Place", 1, 37, 350, ParkPlace, "BLUE");
         squareList[1][37] = sq94;
         LuxuryTax sq95 = new LuxuryTax("Luxury Tax", 1, 38);
         squareList[1][38] = sq95;
-        Property sq96 = new Property("Board Walk", 1, 39, 1, Boardwalk, "BLUE");
+        Property sq96 = new Property("Board Walk", 1, 39, 400, Boardwalk, "BLUE");
         squareList[1][39] = sq96;
         squareMap.put("BLUE", new Property[]{sq94, sq96});
 

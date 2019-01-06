@@ -19,7 +19,7 @@ public class SocialMediaFail extends ChanceCard {
         }
         int money = 50 * GameInfo.getInstance().getPlayerList().size();
         GameInfo.getInstance().getPlayer(name).increaseMoney(-money);
-        UIUpdater.getInstance().setMessage(name + " paid each player $50 to restore his/her PR" );
+        UIUpdater.getInstance().setMessage(name + " paid each player $50 to restore his/her PR");
 
         return true;
     }

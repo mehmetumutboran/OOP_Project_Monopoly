@@ -152,7 +152,7 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener, 
                 "Connection terminated", JOptionPane.WARNING_MESSAGE);
     }
 
-    public void setSaveButton(boolean b){
+    public void setSaveButton(boolean b) {
         controlDisplay.setHost(b);
     }
 }
