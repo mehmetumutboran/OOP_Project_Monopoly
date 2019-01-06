@@ -178,7 +178,7 @@ public class MoveControl {
             loc = findNextUnOwnedSquare(loc);
             String locName = Board.getInstance().getSquare(loc[0], loc[1]).getName();
             String locat = MessageConverter.convertArrayToString(loc) + "@" + locName;
-            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Move"), name, locat);
+            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Move"), name, locat, 1);
             while (true){
                 if(ReceivedChecker.getInstance().checkReceived()) {
                     ReceivedChecker.getInstance().setReceived();
