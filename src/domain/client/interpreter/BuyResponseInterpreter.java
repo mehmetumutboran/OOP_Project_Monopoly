@@ -28,7 +28,7 @@ public class BuyResponseInterpreter implements ResponseInterpretable {
         GameInfo.getInstance().getPlayer(name).setBalance(finalMoney);
         if (boughtSquare instanceof DeedSquare) {
             ((DeedSquare) boughtSquare).setOwner(name);
-            UIUpdater.getInstance().setMessage(name + " bought " + squareName);
+            UIUpdater.getInstance().setMessage(name + " bought " + squareName + " for $" + ((DeedSquare) boughtSquare).getBuyValue());
         } else {
             UIUpdater.getInstance().setMessage(name + " tried to buy " + squareName);
         }

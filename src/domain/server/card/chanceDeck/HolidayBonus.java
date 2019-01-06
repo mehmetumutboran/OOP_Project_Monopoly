@@ -15,7 +15,7 @@ public class HolidayBonus extends ChanceCard {
 //        GameLogic.getInstance().getCurrentPlayerName().increaseMoney(100);
 //        UIUpdater.getInstance().setMessage(name + " draw " + drawnCard);
         GameInfo.getInstance().getCurrentPlayer().increaseMoney(100);
-        UIUpdater.getInstance().setMessage(name + " collected 100 dollars from the bank" );
+        UIUpdater.getInstance().setMessage(name + " collected $100 from the bank" );
         return true;
     }
 }

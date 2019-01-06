@@ -30,7 +30,7 @@ public class PayRentResponseInterpreter implements ResponseInterpretable {
 //        Board.getInstance().getNameGivenSquare(ownerName);
 
 
-        UIUpdater.getInstance().setMessage(name + " paid rent " + boughtSquare.getCurrentRent() + " for " + squareName + " to "
+        UIUpdater.getInstance().setMessage(name + " paid rent $" + boughtSquare.getCurrentRent() + " for " + squareName + " to "
                 + boughtSquare.getOwner());
 //        String name = message[1];
 //        String sqName = message[2];
