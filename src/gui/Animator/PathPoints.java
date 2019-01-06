@@ -39,10 +39,10 @@ public class PathPoints {
                 locToPoint.put(new Point(0,i), new Point(width - 17*width/17 + width/100,16*height/17 + height/100));
             }
             else if(i>=29 && i<= 41) {
-                locToPoint.put(new Point(0, i), new Point(width - 17 * width / 17 + width / 100, height - (i - 27) * height / 17 - height / 100));
+                locToPoint.put(new Point(0,i), new Point(width - 17 * width / 17 + width / 100, height - (i - 27) * height / 17 - height / 100));
             }
             else if(i == 42){
-                locToPoint.put(new Point(0, i), new Point(width - 17 * width / 17 + width / 100, height - 15* height / 17 - height / 100));
+                locToPoint.put(new Point(0,i), new Point(width - 17 * width / 17 + width / 100, height - 15* height / 17 - height / 100));
             }
             else{
                 locToPoint.put(new Point(0,i), new Point((i - 41)*width/17 - width/100,height-15*height/17 - height/100));
@@ -95,20 +95,6 @@ public class PathPoints {
             }
 
         }
-
-//        locToPoint.put(new Point(0,0), new Point(width - 2*width/17 - width/100,2*height/14 + width/100));
-//        locToPoint.put(new Point(0,1), new Point(width - 2*width/17 - width/100,3*height/14 + width/100));
-//        locToPoint.put(new Point(0,2), new Point(width - 2*width/17 - width/100,4*height/14 + width/100));
-//        locToPoint.put(new Point(0,3), new Point(width - 2*width/17 - width/100,5*height/14 + width/100));
-//        locToPoint.put(new Point(0,4), new Point(width - 2*width/17 - width/100,6*height/14 + width/100));
-//        locToPoint.put(new Point(0,5), new Point(width - 2*width/17 - width/100,7*height/14 + width/100));
-//        locToPoint.put(new Point(0,6), new Point(width - 2*width/17 - width/100,8*height/14 + width/100));
-//        locToPoint.put(new Point(0,7), new Point(width - 2*width/17 - width/100,9*height/14 + width/100));
-//        locToPoint.put(new Point(0,8), new Point(width - 2*width/17 - width/100,10*height/14 + width/100));
-//        locToPoint.put(new Point(0,9), new Point(width - 2*width/17 - width/100,11*height/14 + width/100));
-//        locToPoint.put(new Point(0,10), new Point(width - 2*width/17 - width/100,12*height/14 + width/100));
-//        locToPoint.put(new Point(0,11), new Point(width - 2*width/17 - width/100,13*height/14 + width/100));
-//        locToPoint.put(new Point(0,0), new Point(width - 2*width/17 - width/100,2*height/14 + width/100));
     }
 
     public Point pointFind(int [] loc){

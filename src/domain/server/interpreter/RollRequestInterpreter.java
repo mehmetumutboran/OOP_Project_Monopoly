@@ -11,6 +11,9 @@ import domain.util.GameInfo;
 import domain.util.MessageConverter;
 
 public class RollRequestInterpreter implements RequestInterpretable {
+
+    boolean botMrMonopoly = false;
+
     @Override
     public void interpret(String[] message, int index) {
         System.out.println("\n\nRollResponseInterpreter: interpret\n\n");
@@ -44,26 +47,20 @@ public class RollRequestInterpreter implements RequestInterpretable {
         }
 
        if(GameInfo.getInstance().getPlayer(GameInfo.getInstance().getCurrentPlayerName()).getReadiness().equals("Bot"))
-       { MoveControl.getInstance().checkMrMonopoly(name);}
-
-        if (MoveControl.getInstance().checkSecondTurn(name)) {
-            //ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), name, "");
-        }
+       {
+           if(MoveControl.getInstance().checkMrMonopoly(name)){
+               botMrMonopoly = true;
+           }
+       }
 
         System.out.println(ButtonStringGenerator.getInstance().getButtonString(name));
 
-//        while (true) {
-//            try {
-//                String line = dis.readUTF();
-//                if (line.charAt(0) == 'z') break;
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-
-        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Token"), name, newLoc);
+        if(!botMrMonopoly){
+            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Token"), name, newLoc);
+        }
         if (!GameInfo.getInstance().isBot(name))
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), index, ButtonStringGenerator.getInstance().getButtonString(name), name);
+        botMrMonopoly = false;
     }
 
     /**

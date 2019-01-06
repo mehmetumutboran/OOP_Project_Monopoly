@@ -18,7 +18,7 @@ public class MoveResponseInterpreter implements ResponseInterpretable {
 
         GameInfo.getInstance().getPlayer(name).getToken().setLocation(location);
 
-        UIUpdater.getInstance().setMessage(name + " moved to " + locName); //TODO Mrmonopoly
+        UIUpdater.getInstance().setMessage(name + " moved to " + locName);
 
         ClientCommunicationHandler.getInstance().sendReceived();
     }
