@@ -2,6 +2,7 @@ package domain.client;
 
 import domain.server.listeners.*;
 import domain.util.Flags;
+import domain.util.GameInfo;
 import gui.UIFacade.UIFacade;
 
 import java.util.ArrayList;
@@ -149,11 +150,17 @@ public class UIUpdater {
 
     public void turnUpdate() {
         publishTurnUpdateEvent();
+        this.buttonLayout = defaultLayout;
         publishTurnChangedEvent(defaultLayout);
     }
 
     public void pauseUpdate(boolean b, String name) {
-        publishTurnChangedEvent(defaultLayout);
+        if(!GameInfo.getInstance().isMyselfHost())
+            publishTurnChangedEvent(defaultLayout);
+        else{
+            publishTurnChangedEvent("000000000100");
+            UIFacade.getInstance().setSaveButton(true);
+        }
         UIFacade.getInstance().generatePrompt(Flags.getFlag("Pause"), b, name);
     }
 
@@ -211,6 +218,7 @@ public class UIUpdater {
     }
 
     public void resumeUpdate() {
+        UIFacade.getInstance().setSaveButton(false);
         UIFacade.getInstance().closePrompt();
         publishTurnChangedEvent(buttonLayout);
     }

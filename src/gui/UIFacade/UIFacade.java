@@ -65,6 +65,10 @@ public class UIFacade implements Runnable {
         BaseFrame.getInstance().setHost();
     }
 
+    public void setSaveButton(boolean b){
+        BaseFrame.getInstance().setSaveButton(b);
+    }
+
 //    public void generateList(ArrayList<String> playerListName,ArrayList<String> playerListColor) {
 //        PlayerLabelsPanel.setPlayerLabel(playerListName,playerListColor);
 //    }

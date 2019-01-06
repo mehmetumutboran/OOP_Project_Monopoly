@@ -100,7 +100,6 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener, 
 
     public void setHost() {
         lobbyPanel.setHost(true);
-        controlDisplay.setHost(true);
         this.status = "Lobby";
         lobbyPanel.validate();
         lobbyPanel.repaint();
@@ -120,7 +119,6 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener, 
                     lobbyPanel.repaint();
                 } else if (getStatus().equals("Host")) {
                     lobbyPanel.setHost(true);
-                    controlDisplay.setHost(true);
                 }
                 //else if (getStatus().equals("Init")) lobbyPanel.setHost(false);
                 else if (getStatus().equals("Game")) {
@@ -152,5 +150,9 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener, 
         repaint();
         JOptionPane.showMessageDialog(null, "You are kicked!!",
                 "Connection terminated", JOptionPane.WARNING_MESSAGE);
+    }
+
+    public void setSaveButton(boolean b){
+        controlDisplay.setHost(b);
     }
 }
