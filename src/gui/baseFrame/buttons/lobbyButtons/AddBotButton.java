@@ -27,7 +27,7 @@ public class AddBotButton extends BaseButton {
         }
 
         String name = names[random.nextInt(names.length)];
-        while (GameInfo.getInstance().hasPlayer(name)) {
+        while (GameInfo.getInstance().hasPlayer(difficulty.charAt(0) + "Bot " + name)) {
             name = names[random.nextInt(names.length)];
         }
 

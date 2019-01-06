@@ -78,8 +78,8 @@ public class TokenLabel extends JLabel implements Drawable {
 
     private Path pathChooser() {
         if(tokIndex < 6) {
-            return new TokenPath((int)PathPoints.getInstance(width,height).pointFind(oldLoc).getX() + tokIndex*tokenWidth, (int)PathPoints.getInstance(width,height).pointFind(oldLoc).getY() - tokenHeight, (int)PathPoints.getInstance(width,height).pointFind(newLoc).getX() + tokIndex * tokenWidth, (int)PathPoints.getInstance(width,height).pointFind(newLoc).getY()-tokenHeight,width / 56);
-        }else return new TokenPath((int)PathPoints.getInstance(width,height).pointFind(oldLoc).getX() + (tokIndex-6) * tokenWidth, (int)PathPoints.getInstance(width,height).pointFind(oldLoc).getY() - 2*tokenHeight, (int)PathPoints.getInstance(width,height).pointFind(newLoc).getX() + (tokIndex-6) * tokenWidth, (int)PathPoints.getInstance(width,height).pointFind(newLoc).getY()- 2*tokenHeight, width / 56);
+            return new TokenPath((int)PathPoints.getInstance(width,height).pointFind(oldLoc).getX() + tokIndex*tokenWidth, (int)PathPoints.getInstance(width,height).pointFind(oldLoc).getY() - tokenHeight, (int)PathPoints.getInstance(width,height).pointFind(newLoc).getX() + tokIndex * tokenWidth, (int)PathPoints.getInstance(width,height).pointFind(newLoc).getY()-tokenHeight,width / 28);
+        }else return new TokenPath((int)PathPoints.getInstance(width,height).pointFind(oldLoc).getX() + (tokIndex-6) * tokenWidth, (int)PathPoints.getInstance(width,height).pointFind(oldLoc).getY() - 2*tokenHeight, (int)PathPoints.getInstance(width,height).pointFind(newLoc).getX() + (tokIndex-6) * tokenWidth, (int)PathPoints.getInstance(width,height).pointFind(newLoc).getY()- 2*tokenHeight, width / 28);
     }
 
     public void setCoordinates(int width, int height) {
