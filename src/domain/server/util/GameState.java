@@ -105,7 +105,7 @@ public class GameState {
 //    public String generateCurrentAction(char flag, String name, int changedMoney) {
 //        switch (flag) {
 //            case moneyFlag:
-//                return generateMoneyAction(flag, name, changedMoney);
+//                return generateMoneyAction(flag, name, changRcedMoney);
 //            case poolFlag:
 //                return generatePoolAction(flag, changedMoney);
 //        }

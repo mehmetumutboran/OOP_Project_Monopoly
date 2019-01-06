@@ -21,6 +21,8 @@ public class UIUpdater {
     private ArrayList<LabelChangeListener> labelChangeListeners;
     private ArrayList<DiceRolledListener> diceRolledListeners;
     private ArrayList<ReadinessChangedListener> readinessChangedListeners;
+    private ArrayList<TokenStarterListener> tokenStarterListeners;
+
     private String message;
     private String buttonLayout = "000000000000";
     private String defaultLayout = "000000000000";
@@ -43,6 +45,7 @@ public class UIUpdater {
         labelChangeListeners = new ArrayList<>();
         diceRolledListeners = new ArrayList<>();
         readinessChangedListeners = new ArrayList<>();
+        tokenStarterListeners = new ArrayList<>();
     }
 
     public void addMessageChangedListener(MessageChangedListener mcl) {
@@ -80,6 +83,10 @@ public class UIUpdater {
 
     public void addDiceRolledListener(DiceRolledListener drl) {
         diceRolledListeners.add(drl);
+    }
+
+    public void addTokenStarterListener(TokenStarterListener tsl) {
+        tokenStarterListeners.add(tsl);
     }
 
     public void addGameStartedListener(GameStartedListener gsl) {
@@ -155,9 +162,9 @@ public class UIUpdater {
     }
 
     public void pauseUpdate(boolean b, String name) {
-        if(!GameInfo.getInstance().isMyselfHost())
+        if (!GameInfo.getInstance().isMyselfHost())
             publishTurnChangedEvent(defaultLayout);
-        else{
+        else {
             publishTurnChangedEvent("000000000100");
             UIFacade.getInstance().setSaveButton(true);
         }
@@ -245,6 +252,7 @@ public class UIUpdater {
         publishDiceRolledEvent(faceValues);
     }
 
+
     public void setNewHost() {
         UIFacade.getInstance().setNewHost();
         publishReadinessChangedEvent(false);
@@ -258,5 +266,15 @@ public class UIUpdater {
     public void changeButton(int index, String val) {
         this.buttonLayout = buttonLayout.substring(0, index) + val + buttonLayout.substring(index + 1);
         publishTurnChangedEvent(buttonLayout);
+    }
+
+    public void startTokens(ArrayList<String> pList) {
+        publishTokenStarterEvent(pList);
+    }
+
+    private void publishTokenStarterEvent(ArrayList<String> pList) {
+        for (TokenStarterListener tsl : tokenStarterListeners) {
+            tsl.onTokenStarterEvent(pList);
+        }
     }
 }
