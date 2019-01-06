@@ -232,8 +232,8 @@ public class GameInfo implements Savable {
         return playerList.get(i).getBalance();
     }
 
-    public String getPropertyFromIndex(int i) {
-        return playerList.get(i).getOwnedProperties().toString();
+    public ArrayList<Property> getPropertyFromIndex(int i) {
+        return playerList.get(i).getOwnedProperties();
     }
 
     public String getUtilityFromIndex(int i) {
