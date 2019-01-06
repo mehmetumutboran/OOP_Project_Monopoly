@@ -308,7 +308,9 @@ public class GameInfo implements Savable {
         // @requires playerQueue not null
         // @effects throws NoSuchElementException if the deque is empty
         //          updates the playerQueue for incoming turn
-        playerQueue.addLast(playerQueue.removeFirst());
+        Player player = getPlayer(playerQueue.removeFirst());
+        player.setSecondMove(false);
+        playerQueue.addLast(player.getName());
     }
 
     public boolean isPeekBot() {

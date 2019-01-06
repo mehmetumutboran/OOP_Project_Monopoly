@@ -55,7 +55,7 @@ public class RollRequestInterpreter implements RequestInterpretable {
             //ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), name, "");
         }
 
-        System.out.println(ButtonStringGenerator.getInstance().getButtonString(name));
+        System.out.println(ButtonStringGenerator.getInstance().getButtonStringForNextSquare(name));
 
 //        while (true) {
 //            try {
@@ -66,8 +66,11 @@ public class RollRequestInterpreter implements RequestInterpretable {
 //            }
 //        }
 
-        if (!GameInfo.getInstance().isBot(name))
-            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), index, ButtonStringGenerator.getInstance().getButtonString(name), name);
+        if (!GameInfo.getInstance().isBot(name)) {
+            String layout = ButtonStringGenerator.getInstance().getButtonStringForNextSquare(name);
+            System.out.println(layout);
+            ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), index, layout, name);
+        }
     }
 
     /**

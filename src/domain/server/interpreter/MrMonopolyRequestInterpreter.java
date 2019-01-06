@@ -1,5 +1,6 @@
 package domain.server.interpreter;
 
+import domain.server.ReceivedChecker;
 import domain.server.controller.ServerCommunicationHandler;
 import domain.server.move.MoveControl;
 import domain.server.util.ButtonStringGenerator;
@@ -19,7 +20,15 @@ public class MrMonopolyRequestInterpreter implements RequestInterpretable {
     public void interpret(String[] message, int index) {
         String name = message[1];
         MoveControl.getInstance().checkMrMonopoly(name);
-        String msg = ButtonStringGenerator.getInstance().getButtonString(name);
+
+        while (true) {
+            if (ReceivedChecker.getInstance().checkReceived()) {
+                ReceivedChecker.getInstance().setReceived();
+                break;
+            }
+        }
+
+        String msg = ButtonStringGenerator.getInstance().getButtonStringForNextSquare(name);
         char[] msg2 = msg.toCharArray();
         msg2[11] = '0';
         msg2[4] = '1';

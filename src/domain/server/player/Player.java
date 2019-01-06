@@ -18,8 +18,9 @@ public class Player implements Comparable, Savable {
     private ArrayList<Railroad> ownedRailroads;
     //    private ArrayList<DeedSquare> mortgagedSquares;
     private String readiness;
-    private int doubleCounter; // Constructor
+    private int doubleCounter; // Constructor (double die)
     private boolean inJail;
+    private boolean secondMove; // Mr monopoly
     private int[] faceValues;
 
     public Player() {
@@ -56,6 +57,7 @@ public class Player implements Comparable, Savable {
         this.faceValues = new int[3];
         this.doubleCounter = doubleCounter;
         this.inJail = isInJail;
+        this.secondMove = false;
 
         //TODO test purposes
 
@@ -307,5 +309,14 @@ public class Player implements Comparable, Savable {
         for (T each : all) if (!set.add(each)) return true;
         return false;
     }
+
+    public boolean isSecondMove() {
+        return secondMove;
+    }
+
+    public void setSecondMove(boolean secondMove) {
+        this.secondMove = secondMove;
+    }
+
 
 }

@@ -52,7 +52,7 @@ public class Flags {
     private static final char dontMortgageFlag = 's';
     private static final char dontUnmortgageFlag = 't';
     private static final char colorDowngradeFlag = 'u';
-    private static final char finishTurnFlag = 'u';
+    private static final char changeOneButtonFlag = 'v';
 
 
     private static final char receivedFlag = 'z';
@@ -110,6 +110,7 @@ public class Flags {
         flagMap.put("DontDowngrade", dontDowngradeFlag);
         flagMap.put("LabelLighter", labellighterFlag);
         flagMap.put("ColorDowngrade", colorDowngradeFlag);
+        flagMap.put("ChangeOneButton", changeOneButtonFlag);
     }
 
     /**

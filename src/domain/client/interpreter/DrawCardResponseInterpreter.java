@@ -14,7 +14,7 @@ public class DrawCardResponseInterpreter implements ResponseInterpretable {
         String name = message[1];
         String drawnCard = message[2];
 
-        UIUpdater.getInstance().setMessage(name + " draw " + drawnCard);
+        UIUpdater.getInstance().setMessage(name + " drew " + drawnCard);
 
         int[] loc = GameInfo.getInstance().getCurrentPlayer().getToken().getLocation().clone();
         if(Board.getInstance().getSquare(loc[0] , loc[1]) instanceof Chance){

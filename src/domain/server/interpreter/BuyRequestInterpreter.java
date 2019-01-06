@@ -1,5 +1,6 @@
 package domain.server.interpreter;
 
+import domain.server.ReceivedChecker;
 import domain.server.board.Board;
 import domain.server.board.DeedSquare;
 import domain.server.board.Square;
@@ -30,6 +31,17 @@ public class BuyRequestInterpreter implements RequestInterpretable {
                     .sendResponse(Flags.getFlag("Buy"), name, finalMoney, square.getName());
 
             // if( all squares for one color bought or trainstations -> change rent )
+
+            while (true) {
+                if (ReceivedChecker.getInstance().checkReceived()) {
+                    ReceivedChecker.getInstance().setReceived();
+                    break;
+                }
+            }
+
+            if (!GameInfo.getInstance().isBot(name))
+                ServerCommunicationHandler.getInstance()
+                        .sendResponse(Flags.getFlag("ChangeOneButton"), index, "0", "0");
 
         } else {
             ServerCommunicationHandler.getInstance()

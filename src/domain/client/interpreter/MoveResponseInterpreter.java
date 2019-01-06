@@ -22,6 +22,8 @@ public class MoveResponseInterpreter implements ResponseInterpretable {
 //        System.out.println(Arrays.toString(location));
 
         GameInfo.getInstance().getPlayer(name).getToken().setLocation(location);
+        if (!isFirstMove)
+            GameInfo.getInstance().getPlayer(name).setSecondMove(true);
 
         if (GameInfo.getInstance().isMyselfHost() && GameInfo.getInstance().isBot(name) ) {
             if(GameInfo.getInstance().getPlayer(name).getFaceValues()[2]==7 && isFirstMove)
