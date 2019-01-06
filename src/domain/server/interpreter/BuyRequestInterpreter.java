@@ -13,14 +13,13 @@ public class BuyRequestInterpreter implements RequestInterpretable {
 
     @Override
     public void interpret(String[] message, int index) {
-
         String name = message[1];
 
         Player player = GameInfo.getInstance().getPlayer(name);
         int[] loc = player.getToken().getLocation().clone();
         Square square = Board.getInstance().getSquare(loc[0], loc[1]);
 
-        Boolean sold = (square instanceof DeedSquare) && player.getBalance() >= ((DeedSquare) square).getBuyValue()
+        boolean sold = (square instanceof DeedSquare) && player.getBalance() >= ((DeedSquare) square).getBuyValue()
                 && (((DeedSquare) square).getOwner() == null);
         if (sold) {
 
@@ -32,12 +31,7 @@ public class BuyRequestInterpreter implements RequestInterpretable {
 
             // if( all squares for one color bought or trainstations -> change rent )
 
-            while (true) {
-                if (ReceivedChecker.getInstance().checkReceived()) {
-                    ReceivedChecker.getInstance().setReceived();
-                    break;
-                }
-            }
+            ReceivedChecker.getInstance().check();
 
             if (!GameInfo.getInstance().isBot(name))
                 ServerCommunicationHandler.getInstance()

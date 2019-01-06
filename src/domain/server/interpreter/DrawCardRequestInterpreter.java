@@ -48,6 +48,5 @@ public class DrawCardRequestInterpreter implements RequestInterpretable {
             else
                 ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), index, "000010000110", name);
 
-
     }
 }

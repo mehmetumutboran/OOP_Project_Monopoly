@@ -6,7 +6,6 @@ import domain.server.listeners.GameStartedListener;
 import domain.server.listeners.TokenMovementListener;
 import gui.baseFrame.DiceLabel;
 import gui.baseFrame.SquareLabel;
-import gui.baseFrame.TokenFactory;
 import gui.baseFrame.TokenLabel;
 
 import javax.imageio.ImageIO;
@@ -104,17 +103,17 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
 
         for (int i = 0; i < 56; i++) {
             //squares in the 0th layer right side
-            SquareLabel squareLabel = new SquareLabel((i==0 || i==14 || i == 28||  i == 42) ? 'B' : 'S', new int[]{0, i});
+            SquareLabel squareLabel = new SquareLabel((i == 0 || i == 14 || i == 28 || i == 42) ? 'B' : 'S', new int[]{0, i});
             squareLabels.add(squareLabel);
             this.add(squareLabel);
         }
-        for (int i=0; i <40 ; i++){
-            SquareLabel squareLabel = new SquareLabel((i==0 || i==10 || i==20||i==30) ? 'B' : 'S', new int[]{1, i});
+        for (int i = 0; i < 40; i++) {
+            SquareLabel squareLabel = new SquareLabel((i == 0 || i == 10 || i == 20 || i == 30) ? 'B' : 'S', new int[]{1, i});
             squareLabels.add(squareLabel);
             this.add(squareLabel);
         }
-        for (int i=0 ; i< 24; i++){
-            SquareLabel squareLabel = new SquareLabel((i==0 || i==6 || i==12 || i==18) ? 'B' : 'S', new int[]{2, i});
+        for (int i = 0; i < 24; i++) {
+            SquareLabel squareLabel = new SquareLabel((i == 0 || i == 6 || i == 12 || i == 18) ? 'B' : 'S', new int[]{2, i});
             squareLabels.add(squareLabel);
             this.add(squareLabel);
         }
@@ -143,8 +142,8 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
 //        for (int i = 0; i < tokenlist.size(); i++) {
 //            tokenlist.get(i).draw(G, i);
 //        }
-        for (int i = 0; i < diceList.size(); i++){
-            diceList.get(i).draw(G,i,this.getWidth(),this.getHeight());
+        for (int i = 0; i < diceList.size(); i++) {
+            diceList.get(i).draw(G, i, this.getWidth(), this.getHeight());
         }
 
 
@@ -313,7 +312,7 @@ public class GamePanel extends JPanel implements GameStartedListener, TokenMovem
     }
 
     @Override
-    public void onDiceRolledEvent(int [] faces) {
+    public void onDiceRolledEvent(int[] faces) {
         for (int i = 0; i < diceList.size(); i++) {
             diceList.get(i).setImage(faces[i]);
             this.revalidate();

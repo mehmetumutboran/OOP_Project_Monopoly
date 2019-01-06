@@ -1,17 +1,8 @@
 package domain.server.interpreter;
 
-import domain.server.board.Board;
-import domain.server.board.Property;
-import domain.server.building.Hotel;
-import domain.server.building.House;
-import domain.server.building.Skyscraper;
 import domain.server.controller.ServerCommunicationHandler;
 import domain.util.Flags;
-import domain.util.GameInfo;
 import domain.util.SaveGameHandler;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class SaveRequestInterpreter implements RequestInterpretable {
     @Override

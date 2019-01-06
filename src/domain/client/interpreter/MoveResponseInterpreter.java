@@ -1,10 +1,8 @@
 package domain.client.interpreter;
 
 import domain.client.ClientCommunicationHandler;
-import domain.client.RandomPlayerActionFactory;
 import domain.client.RandomPlayerHandler;
 import domain.client.UIUpdater;
-import domain.server.player.RandomPlayer;
 import domain.util.GameInfo;
 import domain.util.MessageConverter;
 
@@ -25,10 +23,10 @@ public class MoveResponseInterpreter implements ResponseInterpretable {
         if (!isFirstMove)
             GameInfo.getInstance().getPlayer(name).setSecondMove(true);
 
-        if (GameInfo.getInstance().isMyselfHost() && GameInfo.getInstance().isBot(name) ) {
-            if(GameInfo.getInstance().getPlayer(name).getFaceValues()[2]==7 && isFirstMove)
+        if (GameInfo.getInstance().isMyselfHost() && GameInfo.getInstance().isBot(name)) {
+            if (GameInfo.getInstance().getPlayer(name).getFaceValues()[2] == 7 && isFirstMove)
                 RandomPlayerHandler.getInstance().playMrMonopolyBotTurn();
-            else if(isFirstMove) // todo jail is wrong here
+            else if (isFirstMove) // todo jail is wrong here
                 RandomPlayerHandler.getInstance().playNormalBotTurn();
         }
 

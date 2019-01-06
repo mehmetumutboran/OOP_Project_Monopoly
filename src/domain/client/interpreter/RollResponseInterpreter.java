@@ -10,6 +10,7 @@ import java.util.Arrays;
 public class RollResponseInterpreter implements ResponseInterpretable {
     /**
      * Interprets roll message by setting faceValues of the player
+     *
      * @param message String array of the form [Flag, args...] Generated in {@link domain.server.util.GameState}
      */
     @Override

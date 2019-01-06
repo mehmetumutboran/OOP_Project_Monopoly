@@ -4,8 +4,6 @@ import domain.client.ClientCommunicationHandler;
 import domain.client.UIUpdater;
 import domain.util.GameInfo;
 
-import java.util.ArrayList;
-
 public class StartResponseInterpreter implements ResponseInterpretable {
 
     @Override

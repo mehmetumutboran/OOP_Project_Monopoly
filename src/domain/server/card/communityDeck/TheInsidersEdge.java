@@ -17,7 +17,7 @@ public class TheInsidersEdge extends Community {
     public boolean doAction(String name) {
 
         int loc[] = GameInfo.getInstance().getPlayer(name).getToken().getLocation().clone();
-       if (loc[0] == 0) {
+        if (loc[0] == 0) {
             GameInfo.getInstance().getPlayer(name).increaseMoney(250);
            UIUpdater.getInstance().setMessage(name + " is in Inner Track. So " + name +  " collects $250 from bank " );
        } else if (loc[0] == 2) {
@@ -28,6 +28,7 @@ public class TheInsidersEdge extends Community {
            UIUpdater.getInstance().setMessage(name + " is in Center Track. So " + name +  " does nothing " );
        }
 
+
         return true;
-   }
+    }
 }

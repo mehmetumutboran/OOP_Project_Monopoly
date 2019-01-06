@@ -13,8 +13,8 @@ public class AddPlayerListResponseInterpreter implements ResponseInterpretable {
         String[] arr;
         for (int i = 1; i < message.length; i++) {
             arr = message[i].split("[,]");
-            if(arr[2].equals("Bot"))
-                GameInfo.getInstance().addPlayer(arr[0], arr[1], arr[2],arr[3]);
+            if (arr[2].equals("Bot"))
+                GameInfo.getInstance().addPlayer(arr[0], arr[1], arr[2], arr[3]);
             else
                 GameInfo.getInstance().addPlayer(arr[0], arr[1], arr[2]);
         }

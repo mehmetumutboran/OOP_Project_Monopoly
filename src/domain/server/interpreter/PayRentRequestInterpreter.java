@@ -18,7 +18,7 @@ public class PayRentRequestInterpreter implements RequestInterpretable {
         int[] loc = player.getToken().getLocation().clone();
         Square square = Board.getInstance().getSquare(loc[0], loc[1]);
 
-        System.out.println("Square in pay rent request from "+ name+" is "+square.getName());
+        System.out.println("Square in pay rent request from " + name + " is " + square.getName());
         boolean paidRent = (square instanceof DeedSquare)
                 && (player.getBalance() >= ((DeedSquare) square).getCurrentRent())
                 && (((DeedSquare) square).getOwner() != null)
@@ -27,8 +27,8 @@ public class PayRentRequestInterpreter implements RequestInterpretable {
         if (paidRent) {
             int customerCurrentMoney = GameInfo.getInstance().getPlayer(player.getName()).getBalance();
             int ownerCurrentMoney = GameInfo.getInstance().getPlayer(((DeedSquare) square).getOwner()).getBalance();
-            int customerFinalMoney = customerCurrentMoney - ((DeedSquare)square).getCurrentRent();
-            int ownerFinalMoney = ownerCurrentMoney + ((DeedSquare)square).getCurrentRent();
+            int customerFinalMoney = customerCurrentMoney - ((DeedSquare) square).getCurrentRent();
+            int ownerFinalMoney = ownerCurrentMoney + ((DeedSquare) square).getCurrentRent();
 
             ServerCommunicationHandler.getInstance()
                     .sendResponse(Flags.getFlag("PayRent"), name, customerFinalMoney, ownerFinalMoney, square.getName());
@@ -42,15 +42,10 @@ public class PayRentRequestInterpreter implements RequestInterpretable {
 //                }
 //            }
 
-            while (true) {
-                if (ReceivedChecker.getInstance().checkReceived()) {
-                    ReceivedChecker.getInstance().setReceived();
-                    break;
-                }
-            }
+            ReceivedChecker.getInstance().check();
 
             if (!GameInfo.getInstance().isBot(name))
-                if(GameInfo.getInstance().getPlayer(name).getFaceValues()[2]==7 && !GameInfo.getInstance().getPlayer(name).isSecondMove()) // if player had mr monopoly before
+                if (GameInfo.getInstance().getPlayer(name).getFaceValues()[2] == 7 && !GameInfo.getInstance().getPlayer(name).isSecondMove()) // if player had mr monopoly before
                     ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), index, "000000000111", name);
                 else
                     ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"), index, "000010000110", name);

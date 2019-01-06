@@ -1,4 +1,3 @@
-
 package domain.server.card.communityDeck;
 
 import domain.client.UIUpdater;

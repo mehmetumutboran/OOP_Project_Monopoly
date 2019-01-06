@@ -1,12 +1,9 @@
 package domain.util;
 
 import domain.server.Savable;
-import domain.server.board.DeedSquare;
 import domain.server.board.Property;
 import domain.server.board.Railroad;
 import domain.server.board.Utility;
-import domain.server.card.ChanceCard;
-import domain.server.card.Community;
 import domain.server.listeners.PlayerListChangedListener;
 import domain.server.player.Player;
 import domain.server.player.RandomPlayer;
@@ -16,7 +13,7 @@ import network.client.clientFacade.ClientFacade;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
-import java.util.TreeMap;
+import java.util.ListIterator;
 import java.util.stream.Collectors;
 
 public class GameInfo implements Savable {
@@ -25,6 +22,7 @@ public class GameInfo implements Savable {
     private ArrayList<PlayerListChangedListener> playerListChangedListeners;
     private ArrayList<String> selectedColors;
     private boolean isStarted;
+    private boolean wasHostPeekBefore;
 
     public static GameInfo getInstance() {
         if (ourInstance == null)
@@ -34,7 +32,6 @@ public class GameInfo implements Savable {
 
     private volatile Deque<String> playerQueue;
     private volatile ArrayList<Player> playerList;
-
 
 
     private GameInfo() {
@@ -77,6 +74,8 @@ public class GameInfo implements Savable {
     }
 
     public Player getMyself() {
+        System.out.println("In game info getmyself" + ClientFacade.getInstance().getUsername());
+        System.out.println(playerList);
         return getPlayer(ClientFacade.getInstance().getUsername());
     }
 
@@ -85,7 +84,12 @@ public class GameInfo implements Savable {
     }
 
     public boolean isMyselfHost() {
-        return getPlayer(ClientFacade.getInstance().getUsername()).getReadiness().equals("Host");
+        Player p = getPlayer(ClientFacade.getInstance().getUsername());
+        if (p == null) {
+            System.out.println("Player not found in the method isMyselfHost!!");
+            return false;
+        }
+        return p.getReadiness().equals("Host");
     }
 
     public boolean hasPlayer(String name) {
@@ -167,7 +171,7 @@ public class GameInfo implements Savable {
     public ArrayList<ArrayList<String>> getPlayerConnectAttributes() {
         ArrayList<ArrayList<String>> playerConnectAttributes = new ArrayList<>();
         for (Player player : playerList) {
-            System.out.println("\n\n Get Player Connect Attr. " + player + "\n\n\n");
+            //System.out.println("\n\n Get Player Connect Attr. " + player + "\n\n\n");
             ArrayList<String> temp = new ArrayList<>();
             temp.add(player.getName());
             temp.add(player.getToken().getColor());
@@ -179,6 +183,7 @@ public class GameInfo implements Savable {
 
     public void setReadiness(String username) {
         getPlayer(username).setReadiness();
+        System.out.println(playerList);
         publishPlayerListEvent();
     }
 
@@ -227,8 +232,8 @@ public class GameInfo implements Savable {
         return playerList.get(i).getBalance();
     }
 
-    public String getPropertyFromIndex(int i) {
-        return playerList.get(i).getOwnedProperties().toString();
+    public ArrayList<Property> getPropertyFromIndex(int i) {
+        return playerList.get(i).getOwnedProperties();
     }
 
     public String getUtilityFromIndex(int i) {
@@ -250,6 +255,7 @@ public class GameInfo implements Savable {
         //@effects empties layerList and playerQueue
         playerList = new ArrayList<>();
         playerQueue = new LinkedList<>();
+        selectedColors = new ArrayList<>();
     }
 
     public void removePlayer(String username) {
@@ -259,8 +265,16 @@ public class GameInfo implements Savable {
                 RandomPlayer randomPlayer = new RandomPlayer(getPlayer(username));
                 addPlayer(randomPlayer);
                 if (!playerQueue.isEmpty()) {
-                    playerQueue.removeLast();
-                    playerQueue.addLast(randomPlayer.getName());
+                    ListIterator<String> iterator = (ListIterator<String>) playerQueue.iterator();
+
+                    while (iterator.hasNext()) {
+                        if (iterator.next().equals(username)) {
+                            iterator.set(randomPlayer.getName());
+                        }
+                    }
+
+//                    playerQueue.removeLast();
+//                    playerQueue.addLast(randomPlayer.getName());
                 }
             }
             playerList.removeIf(x -> x.getName().equals(username));
@@ -339,5 +353,24 @@ public class GameInfo implements Savable {
 
     public boolean isStarted() {
         return isStarted;
+    }
+
+    public void setNewHost(String newHost) {
+        getPlayer(newHost).setReadiness("Host");
+        publishPlayerListEvent();
+    }
+
+    public boolean isReady(String username) {
+        return getPlayer(username).getReadiness().equals("Ready");
+    }
+
+    public void setWasHostPeekBefore() {
+        if (isStarted)
+            this.wasHostPeekBefore = !getPeek().getReadiness().equals("Ready");
+    }
+
+    public boolean WasHostPeekBefore() {
+        if (!isStarted) return false;
+        return this.wasHostPeekBefore;
     }
 }

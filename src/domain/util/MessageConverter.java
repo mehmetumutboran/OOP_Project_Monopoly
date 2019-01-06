@@ -1,7 +1,10 @@
 package domain.util;
 
 import domain.server.Savable;
-import domain.server.board.*;
+import domain.server.board.Board;
+import domain.server.board.Property;
+import domain.server.board.Railroad;
+import domain.server.board.Utility;
 import domain.server.building.Building;
 import domain.server.building.Hotel;
 import domain.server.building.House;
@@ -31,6 +34,10 @@ public class MessageConverter {
         return Arrays.toString(array);
     }
 
+    public static <T> String convertArrayToString(T[][] array) {
+        return Arrays.deepToString(array);
+    }
+
     public static String convertArrayToString(int[] array) {
         return Arrays.toString(array);
     }
@@ -46,6 +53,16 @@ public class MessageConverter {
             intArray[i] = lst.get(i);
         }
         return intArray;
+    }
+
+    public static String[][] convertStringTo2DStringArray(String str) {
+        String[] arr = str.substring(2, str.length() - 2).split("],\\s\\[");
+        String[][] arr2D = new String[arr.length][2];
+        for (int i = 0; i < arr.length; i++) {
+            arr2D[i][0] = arr[i].split(", ")[0];
+            arr2D[i][1] = arr[i].split(", ")[1];
+        }
+        return arr2D;
     }
 
     public static Deque<String> convertStringToDeque(String str) {
@@ -64,7 +81,7 @@ public class MessageConverter {
     }
 
     private static ArrayList<Integer> integerArrayListConverter(String str, char delimiter) {
-        if(str.charAt(0) == '[') str = str.substring(1, str.length()-1);
+        if (str.charAt(0) == '[') str = str.substring(1, str.length() - 1);
         return (ArrayList<Integer>) Arrays.stream(str.split(delimiter + "\\s*")).filter(x -> !x.equals("")).map(Integer::parseInt).collect(Collectors.toList());
 
 //        for (int i = 0; i < str.length(); i++) {
@@ -179,7 +196,7 @@ public class MessageConverter {
 
     private static ArrayList<Building> convertStringToBuildingList(String[] buildingInfo) {
         ArrayList<Building> buildings = new ArrayList<>();
-        if(buildingInfo[0].equals("null")) return buildings;
+        if (buildingInfo[0].equals("null")) return buildings;
         String[] buildingArr;
         String name;
         int cost;

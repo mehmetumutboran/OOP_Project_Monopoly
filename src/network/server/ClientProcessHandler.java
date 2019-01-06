@@ -22,7 +22,7 @@ public class ClientProcessHandler implements Runnable {
 //            }
 
 
-            ServerFacade.getInstance().interpretRequest(line, index);
+        ServerFacade.getInstance().interpretRequest(line, index);
 
 //            synchronized (clientHandler) {
 //                clientHandler.notify();
@@ -39,5 +39,9 @@ public class ClientProcessHandler implements Runnable {
         this.line = line;
 //        this.notify();
 
+    }
+
+    public void setIndex(int i) {
+        this.index = i;
     }
 }

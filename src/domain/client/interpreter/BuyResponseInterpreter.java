@@ -33,8 +33,6 @@ public class BuyResponseInterpreter implements ResponseInterpretable {
             UIUpdater.getInstance().setMessage(name + " tried to buy " + squareName);
         }
 
-
-
 //        String name = message[1];
 //        String sqName = message[2];
 //

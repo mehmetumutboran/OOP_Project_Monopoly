@@ -68,7 +68,7 @@ public class ButtonStringGenerator {
 
         if (GameInfo.getInstance().getPlayer(name).getFaceValues()[2] == 7) {
             char[] buttonString2 = buttonString.toCharArray();
-            if(!mustPayRent)
+            if (!mustPayRent)
                 buttonString2[11] = '1';
             buttonString2[4] = '0';
             buttonString = String.valueOf(buttonString2);

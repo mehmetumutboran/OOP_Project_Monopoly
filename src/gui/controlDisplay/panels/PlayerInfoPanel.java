@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class PlayerInfoPanel extends JPanel implements MouseListener {
 
@@ -56,7 +58,7 @@ public class PlayerInfoPanel extends JPanel implements MouseListener {
         StringBuilder sb = new StringBuilder();
         sb.append("<html>")
                 .append("<body>")
-                .append("<div style=\"text-align:left; font-size:12px;\">")
+                .append("<div style=\"text-align:left; font-size:9px;\">")
 
                 .append("<br/><span style=\"color:red\">Name: </span>")
                 .append(GameInfo.getInstance().getNameFromIndex(i))
@@ -67,12 +69,28 @@ public class PlayerInfoPanel extends JPanel implements MouseListener {
                 .append("<br/><span style=\"color:red\">Money: </span>")
                 .append(GameInfo.getInstance().getBalanceFromIndex(i))
 
-                .append("<br/><span style=\"color:red\">Owned Properties: </span>")
-                .append(GameInfo.getInstance().getPropertyFromIndex(i)
-                        .replaceAll("\\[", "")
-                        .replaceAll("]", ""))
+                .append("<br/><span style=\"color:red\">Owned Properties: </span><br/>");
+        StringBuilder ownedProperties = new StringBuilder();
+        for (int j = 0; j < GameInfo.getInstance().getPropertyFromIndex(i).size(); j++) {
+            ownedProperties.append(GameInfo.getInstance().getPropertyFromIndex(i).get(j));
+            switch(GameInfo.getInstance().getPropertyFromIndex(i).get(j).getUpgradeLevel()){
+                case 5:
+                    ownedProperties.append("(Hotel)");
+                    break;
+                case 6:
+                    ownedProperties.append("(SkyScraper)");
+                    break;
+                case 0:
+                    break;
+                default:
+                    ownedProperties.append("(").append(GameInfo.getInstance().getPropertyFromIndex(i).get(j).getUpgradeLevel()).append(" Houses)");
+            }
+            ownedProperties.append("<br/>");
+        }
 
-                .append("<br/><span style=\"color:red\">Owned Utilities: </span>")
+        sb.append(ownedProperties);
+
+                sb.append("<span style=\"color:red\">Owned Utilities: </span>")
                 .append(GameInfo.getInstance().getUtilityFromIndex(i)
                         .replaceAll("\\[", "")
                         .replaceAll("]", ""))

@@ -74,7 +74,7 @@ public class LoadGameHandler {
     private void loadPlayer(String loadElement) {
         String[] player = loadElement.split("[,]");
         String name = null, color = null, readiness = null;
-        int layer = 0 , location = 0, balance = 0, doubleCounter = 0;
+        int layer = 0, location = 0, balance = 0, doubleCounter = 0;
         boolean isInJail = false, isStarted = true;
         ArrayList<? extends Savable> propertyList = new ArrayList<>();
         ArrayList<? extends Savable> utilityList = new ArrayList<>();

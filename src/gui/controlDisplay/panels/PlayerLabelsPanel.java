@@ -3,7 +3,6 @@ package gui.controlDisplay.panels;
 import domain.client.UIUpdater;
 import domain.server.listeners.GameStartedListener;
 import domain.server.listeners.PlayerQuitEventListener;
-import domain.server.listeners.TurnChangedListener;
 import domain.server.listeners.TurnUpdateListener;
 import domain.util.GameInfo;
 import gui.controlDisplay.PlayerLabel;
@@ -65,7 +64,7 @@ public class PlayerLabelsPanel extends JLabel implements GameStartedListener, Pl
         for (int i = 0; i < size; i++) {
             String name = GameInfo.getInstance().getNameFromIndex(i);
 
-            if(playerLabels.stream().anyMatch(x -> x.getName().equals(name))) continue;
+            if (playerLabels.stream().anyMatch(x -> x.getName().equals(name))) continue;
 
             PlayerLabel temp = new PlayerLabel(name, this);
             temp.setBackground(ColorConverter.getInstance().getColor(
@@ -76,7 +75,7 @@ public class PlayerLabelsPanel extends JLabel implements GameStartedListener, Pl
 
     @Override
     public void onPlayerQuitEvent(String name) {
-        playerLabels.removeIf(p -> p.getText().equals(name));
+        playerLabels.removeIf(p -> p.getName().equals(name));
 //        System.out.println("\n\n ----------------==========-----------======\n" + playerLabels + "\n\n");
 
 //        playerLabels.forEach(this::remove);
@@ -90,7 +89,7 @@ public class PlayerLabelsPanel extends JLabel implements GameStartedListener, Pl
     public void onTurnUpdateEvent() {
         for (int i = 0; i < playerLabels.size(); i++) {
             playerLabels.get(i).setText(playerLabels.get(i).getName());
-            if(GameInfo.getInstance().isCurrentPlayerFromIndex(i)) {
+            if (GameInfo.getInstance().isCurrentPlayerFromIndex(i)) {
                 playerLabels.get(i).setText(playerLabels.get(i).getName() + "   Current Turn!!");
             }
         }

@@ -1,7 +1,6 @@
 package domain.server.interpreter;
 
 import domain.server.board.Board;
-import domain.server.board.Property;
 import domain.server.board.Upgradable;
 import domain.server.controller.ServerCommunicationHandler;
 import domain.util.Flags;

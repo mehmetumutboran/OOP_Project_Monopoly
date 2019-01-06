@@ -58,7 +58,6 @@ public class MessagePanel extends JPanel implements MessageChangedListener {
     }
 
 
-
     public static void main(String[] args) {
         MessagePanel messagePanel = new MessagePanel(10, 10);
 

@@ -17,17 +17,16 @@ public class DrawCardResponseInterpreter implements ResponseInterpretable {
         UIUpdater.getInstance().setMessage(name + " drew " + drawnCard);
 
         int[] loc = GameInfo.getInstance().getCurrentPlayer().getToken().getLocation().clone();
-        if(Board.getInstance().getSquare(loc[0] , loc[1]) instanceof Chance){
+        if (Board.getInstance().getSquare(loc[0], loc[1]) instanceof Chance) {
             Board.getInstance().getChanceList()[0].doAction(name);
             ChanceCard tmp = Board.getInstance().getChanceList()[0];
-            Board.getInstance().setChanceList(0 , Board.getInstance().getChanceList()[1]);
-            Board.getInstance().setChanceList(1 , tmp);
-        }
-        else if(Board.getInstance().getSquare(loc[0] , loc[1]) instanceof CommunityChest){
+            Board.getInstance().setChanceList(0, Board.getInstance().getChanceList()[1]);
+            Board.getInstance().setChanceList(1, tmp);
+        } else if (Board.getInstance().getSquare(loc[0], loc[1]) instanceof CommunityChest) {
             Board.getInstance().getCommunityList()[0].doAction(name);
             Community tmp = Board.getInstance().getCommunityList()[0];
-            Board.getInstance().setCommunityList(0 , Board.getInstance().getCommunityList()[1]);
-            Board.getInstance().setCommunityList(1 , tmp);
+            Board.getInstance().setCommunityList(0, Board.getInstance().getCommunityList()[1]);
+            Board.getInstance().setCommunityList(1, tmp);
         }
 
     }

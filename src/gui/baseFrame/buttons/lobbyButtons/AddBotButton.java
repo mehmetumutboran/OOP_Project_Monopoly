@@ -19,14 +19,19 @@ public class AddBotButton extends BaseButton {
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        count++;
         Random random = new Random();
+
         String color = ColorBox.colorList.get(random.nextInt(ColorBox.colorList.size()));
         while (GameInfo.getInstance().hasColor(color)) {
             color = ColorBox.colorList.get(random.nextInt(ColorBox.colorList.size()));
         }
-        ConnectGameHandler.getInstance().connectBot(difficulty.charAt(0)+"Bot " + names[count % 11],
-                color, difficulty);
+
+        String name = names[random.nextInt(names.length)];
+        while (GameInfo.getInstance().hasPlayer(name)) {
+            name = names[random.nextInt(names.length)];
+        }
+
+        ConnectGameHandler.getInstance().connectBot(difficulty.charAt(0) + "Bot " + name, color, difficulty);
     }
 
     public static void setDifficulty(String diff) {

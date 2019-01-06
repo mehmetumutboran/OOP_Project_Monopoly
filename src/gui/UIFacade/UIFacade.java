@@ -1,12 +1,11 @@
 package gui.UIFacade;
 
 import gui.baseFrame.BaseFrame;
-import gui.prompt.FullPromptStrategy;
 import gui.prompt.PromptFactory;
 import gui.prompt.promptStrategy.PauseStrategy;
 import gui.prompt.promptStrategy.PromptStrategy;
 
-public class UIFacade implements Runnable{
+public class UIFacade implements Runnable {
     private static UIFacade ourInstance;
 
     private PauseStrategy pauseStrategy;
@@ -43,23 +42,31 @@ public class UIFacade implements Runnable{
         pauseStrategy.show();
     }
 
-    public void closePrompt(){
+    public void closePrompt() {
         pauseStrategy.close();
     }
 
 
     public void changePanel(String panel) {
-        if (!BaseFrame.getStatus().equals(panel))
-            BaseFrame.setStatus(panel);
+        if (!BaseFrame.getInstance().getStatus().equals(panel))
+            BaseFrame.getInstance().setStatus(panel);
     }
 
     public void setTitle(String username) {
-        BaseFrame.setFrameTitle(username);
+        BaseFrame.getInstance().setFrameTitle(username);
     }
 
     @Override
     public void run() {
         promptStrategy.show();
+    }
+
+    public void setNewHost() {
+        BaseFrame.getInstance().setHost();
+    }
+
+    public void setSaveButton(boolean b){
+        BaseFrame.getInstance().setSaveButton(b);
     }
 
 //    public void generateList(ArrayList<String> playerListName,ArrayList<String> playerListColor) {

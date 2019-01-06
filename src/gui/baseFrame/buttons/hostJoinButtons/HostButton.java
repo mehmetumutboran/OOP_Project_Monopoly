@@ -8,7 +8,6 @@ import network.listeners.ConnectionFailedListener;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class HostButton extends BaseButton implements ConnectionFailedListener {
     private JTextField IDField;

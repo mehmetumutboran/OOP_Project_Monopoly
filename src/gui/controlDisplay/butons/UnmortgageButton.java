@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class UnmortgageButton extends JButton implements ActionListener, TurnChangedListener, ButtonChangeListener{
+public class UnmortgageButton extends JButton implements ActionListener, TurnChangedListener, ButtonChangeListener {
 
     private final int INDEX = 3;
 
@@ -27,7 +27,7 @@ public class UnmortgageButton extends JButton implements ActionListener, TurnCha
 
     @Override
     public void onTurnChangedEvent(String enable) {
-        this.setEnabled(enable.charAt(INDEX)=='1');
+        this.setEnabled(enable.charAt(INDEX) == '1');
     }
 
     @Override

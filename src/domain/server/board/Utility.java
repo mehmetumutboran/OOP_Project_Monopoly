@@ -5,12 +5,12 @@ public class Utility extends DeedSquare {
     private int currentRent;
 
     public Utility() {
-        this("", 0, 0, 0,  new int[]{0,0,0,0,0,0,0,0,0,0 });
+        this("", 0, 0, 0, new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
 
     }
 
-    public Utility(String name, int layer, int index, int buyValue, int [] rents) {
-        super(name, layer, index, buyValue,  null,rents);
+    public Utility(String name, int layer, int index, int buyValue, int[] rents) {
+        super(name, layer, index, buyValue, null, rents);
         this.rents = rents.clone();
         this.currentRent = rents[0];
     }

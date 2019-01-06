@@ -5,7 +5,7 @@ public class RandomPlayer extends Player {
     private String difficulty = "Medium";
 
     public RandomPlayer() {
-        this("","Medium");
+        this("", "Medium");
     }
 
     public RandomPlayer(String name, String difficulty) {
@@ -14,7 +14,7 @@ public class RandomPlayer extends Player {
         this.difficulty = difficulty;
     }
 
-    public RandomPlayer(String name, String color, String readiness,String difficulty) {
+    public RandomPlayer(String name, String color, String readiness, String difficulty) {
         super(name, color, readiness);
         this.difficulty = difficulty;
     }
@@ -29,12 +29,16 @@ public class RandomPlayer extends Player {
                 "Bot",
                 player.getDoubleCounter(),
                 player.isInJail());
+
+        player.getOwnedProperties().forEach(x -> x.setOwner(this.getName()));
+        player.getOwnedUtilities().forEach(x -> x.setOwner(this.getName()));
+        player.getOwnedRailroads().forEach(x -> x.setOwner(this.getName()));
     }
 
 
     @Override
     public String toString() {
-        return super.toString() + ","+ difficulty;
+        return super.toString() + "," + difficulty;
     }
 
     public String getDifficulty() {

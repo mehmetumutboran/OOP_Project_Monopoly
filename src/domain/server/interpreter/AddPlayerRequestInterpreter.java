@@ -3,7 +3,7 @@ package domain.server.interpreter;
 import domain.server.controller.ServerCommunicationHandler;
 import domain.util.Flags;
 import domain.util.GameInfo;
-import network.server.Server;
+import domain.util.MessageConverter;
 import network.server.serverFacade.ServerFacade;
 
 public class AddPlayerRequestInterpreter implements RequestInterpretable {
@@ -14,13 +14,13 @@ public class AddPlayerRequestInterpreter implements RequestInterpretable {
 
         ServerFacade.getInstance().setClientInfo(name);
 
-        if(!ServerFacade.getInstance().isMulti() && index != 0){
+        if (!ServerFacade.getInstance().isMulti() && index != 0) {
             ServerCommunicationHandler.getInstance()
                     .sendResponse(Flags.getFlag("Kick"), index, name);
             return;
         }
 
-        if(GameInfo.getInstance().isFull()){
+        if (GameInfo.getInstance().isFull()) {
             ServerCommunicationHandler.getInstance()
                     .sendResponse(Flags.getFlag("Full"), index, name);
             return;
@@ -29,6 +29,16 @@ public class AddPlayerRequestInterpreter implements RequestInterpretable {
         if (GameInfo.getInstance().hasPlayer(name)) {
             ServerCommunicationHandler.getInstance()
                     .sendResponse(Flags.getFlag("Close"), index, name);
+
+            ServerFacade.getInstance().kick(index);
+            return;
+        }
+
+        if (GameInfo.getInstance().isStarted()) {
+            ServerCommunicationHandler.getInstance()
+                    .sendResponse(Flags.getFlag("Kick"), index, name);
+
+            ServerFacade.getInstance().kick(index);
             return;
         }
 
@@ -39,7 +49,8 @@ public class AddPlayerRequestInterpreter implements RequestInterpretable {
         ServerCommunicationHandler.getInstance()
                 .sendResponse(Flags.getFlag("AddPlayer"), name);
 
+//        System.out.println("-------------------\n" +  MessageConverter.convertArrayToString(ServerFacade.getInstance().getClientInfo()));
 
-
+        ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("IP"), name, MessageConverter.convertArrayToString(ServerFacade.getInstance().getClientInfo()));
     }
 }

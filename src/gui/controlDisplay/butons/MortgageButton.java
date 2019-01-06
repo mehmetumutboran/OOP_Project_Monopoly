@@ -28,7 +28,7 @@ public class MortgageButton extends JButton implements ActionListener, TurnChang
 
     @Override
     public void onTurnChangedEvent(String enable) {
-        this.setEnabled(enable.charAt(INDEX)=='1');
+        this.setEnabled(enable.charAt(INDEX) == '1');
     }
 
     @Override

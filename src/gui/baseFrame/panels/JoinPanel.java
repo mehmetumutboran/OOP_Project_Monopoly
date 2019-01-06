@@ -137,7 +137,7 @@ public class JoinPanel extends JPanel {
         portLabel.setBounds((this.width - 2 * BUTTON_WIDTH) / 2,
                 (this.height - (-2) * BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
 
-        ipField.setText("localhost");
+        ipField.setText("172.20.52.48"); //TODO !!!!!!
         portField.setText("2222");
         userNameField.setText(randomUserNames.get((new Random()).nextInt(randomUserNames.size())));
 

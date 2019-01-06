@@ -42,9 +42,10 @@ public class ServerFacade {
         return server;
     }
 
-    public synchronized void kick(String username) {
-        server.getClientHandler(username).terminate();
-        server.removeClient(server.getClientHandler(username));
+    public synchronized void kick(int i) {
+        server.kick(i);
+//        server.getClientHandler(username).terminate();
+//        server.removeClient(server.getClientHandler(username));
     }
 
     public void shutDown() {
@@ -73,7 +74,7 @@ public class ServerFacade {
     }
 
     public void setClientInfo(String username) {
-        Server.setClientInfo(username);
+        server.setClientInfo(username);
     }
 
     public void removeClient(ClientHandler clientHandler) {
@@ -84,8 +85,12 @@ public class ServerFacade {
         return server.getTotalNumPlayers();
     }
 
+    public String[][] getClientInfo() {
+        return server.getClientInfo();
+    }
 
-    public boolean isMulti(){
+
+    public boolean isMulti() {
         return isMulti;
     }
 }

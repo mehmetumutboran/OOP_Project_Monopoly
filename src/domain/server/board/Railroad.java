@@ -1,16 +1,16 @@
 package domain.server.board;
 
-public class Railroad extends DeedSquare implements Upgradable{
+public class Railroad extends DeedSquare implements Upgradable {
     private boolean hasDepot;
     private int[] rents;
     private int currentRent;
 
     public Railroad() {
-        this("", 0, 0, 0, new int[]{0, 0, 0, 0,0,0,0,0,0,0 });
+        this("", 0, 0, 0, new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
     }
 
     public Railroad(String name, int layer, int index, int buyValue, int[] rents) {
-        super(name, layer, index, buyValue,  null,rents);
+        super(name, layer, index, buyValue, null, rents);
         this.rents = rents.clone();
         this.currentRent = rents[0];
         hasDepot = false;
@@ -51,8 +51,8 @@ public class Railroad extends DeedSquare implements Upgradable{
 
     @Override
     public void updateRent() {
-        if(hasDepot) setCurrentRent(this.currentRent*2);
-        else setCurrentRent(this.currentRent/2);
+        if (hasDepot) setCurrentRent(this.currentRent * 2);
+        else setCurrentRent(this.currentRent / 2);
     }
 
     @Override
@@ -67,21 +67,21 @@ public class Railroad extends DeedSquare implements Upgradable{
 
     @Override
     public int getUpgradeLevel() {
-        if(hasDepot) return 7;
+        if (hasDepot) return 7;
         else return 0;
 
     }
 
     @Override
     public void upgrade() {
-        hasDepot=true;
+        hasDepot = true;
         updateRent();
 
     }
 
     @Override
     public void downgrade() {
-        hasDepot=false;
+        hasDepot = false;
         updateRent();
     }
 

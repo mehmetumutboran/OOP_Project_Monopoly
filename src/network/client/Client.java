@@ -8,6 +8,7 @@ import java.net.Socket;
 public class Client {
     private Socket socket;
     private ClientReceiver clientReceiver;
+    private ConnectionChecker connectionChecker;
     private String username;
 
     private DataOutputStream dos;
@@ -18,9 +19,10 @@ public class Client {
         socket = new Socket(ip, port);
         dis = new DataInputStream(socket.getInputStream());
         dos = new DataOutputStream(socket.getOutputStream());
-        clientReceiver = new ClientReceiver(dis, socket);
+        connectionChecker = new ConnectionChecker(dos);
+        connectionChecker.start();
+        clientReceiver = new ClientReceiver(dis, socket, connectionChecker);
         clientReceiver.start();
-
     }
 
     public Socket getSocket() {
@@ -41,7 +43,6 @@ public class Client {
 
     public synchronized void send(String message) {
         try {
-
             System.out.println("In the Client class sending message:\n" + message + "\n\n");
             dos.writeUTF(message);
             dos.flush();

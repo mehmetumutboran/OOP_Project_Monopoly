@@ -27,7 +27,7 @@ public class FinishTurnButton extends JButton implements ActionListener, TurnCha
 
     @Override
     public void onTurnChangedEvent(String enable) {
-        this.setEnabled(enable.charAt(INDEX)=='1');
+        this.setEnabled(enable.charAt(INDEX) == '1');
     }
 
     @Override

@@ -30,7 +30,7 @@ public class BuyButton extends JButton implements ActionListener, TurnChangedLis
 
     @Override
     public void onTurnChangedEvent(String enable) {
-        this.setEnabled(enable.charAt(INDEX)=='1');
+        this.setEnabled(enable.charAt(INDEX) == '1');
     }
 
     @Override

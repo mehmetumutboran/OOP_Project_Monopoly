@@ -2,6 +2,7 @@ package domain.client;
 
 import domain.server.controller.ConnectGameHandler;
 import domain.util.Flags;
+import domain.util.GameInfo;
 import network.client.clientFacade.ClientFacade;
 
 public class PlayerActionController {
@@ -67,6 +68,20 @@ public class PlayerActionController {
     public void host(String username, int port, boolean isMulti) {
         if (ConnectGameHandler.getInstance().connectHost(port, isMulti))
             join(username, "localhost", port);
+    }
+
+    public void reconnect(boolean isNextHost) {
+        int port = ClientFacade.getInstance().getPort();
+        String username = ClientFacade.getInstance().getUsername();
+        if (isNextHost) {
+            if (ConnectGameHandler.getInstance().connectHost(port, true))
+                if (ConnectGameHandler.getInstance().connectClient(username, "localhost", port)) {
+                    GameInfo.getInstance().setWasHostPeekBefore();
+                    ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Reconnect"), username);
+                }
+        } else if (ConnectGameHandler.getInstance().connectClient(username, ClientFacade.getInstance().getNextIP(), port)) {
+            ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Reconnect"), username);
+        }
     }
 
     public void changePlayerColor(String color) {

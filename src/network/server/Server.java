@@ -1,8 +1,10 @@
 package network.server;
 
 import domain.util.GameInfo;
+import network.client.clientFacade.ClientFacade;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Arrays;
@@ -15,8 +17,9 @@ public class Server implements Runnable {
 
     private static final int maxClientsCount = 12;
 
-    private volatile static ClientHandler[] clientThreads = new ClientHandler[maxClientsCount];
-    private volatile static String[] clientNames = new String[maxClientsCount]; //TODO
+    private volatile ClientHandler[] clientThreads = new ClientHandler[maxClientsCount];
+    private volatile String[] clientNames = new String[maxClientsCount]; //TODO
+    private volatile String[][] clientInfo = new String[maxClientsCount][2];
 
 
     public Server(int port) {
@@ -30,31 +33,41 @@ public class Server implements Runnable {
     }
 
     public synchronized void removeClient(ClientHandler clientHandler) {
+        System.out.println("=====Before shifting in the server \n" + Arrays.deepToString(clientInfo));
+
         int i;
         for (i = 0; i < maxClientsCount; i++) {
             if (clientThreads[i] == clientHandler) {
                 clientThreads[i] = null;
                 clientNames[i] = null;
+                clientInfo[i] = new String[]{null, null};
                 break;
             }
         }
 
         for (int j = i; j < maxClientsCount - 1; j++) {
-            if(clientThreads[j] == null) continue;
+            if (clientThreads[j + 1] == null) continue;
             clientThreads[j] = clientThreads[j + 1];
+            clientThreads[j + 1] = null;
             clientThreads[j].setIndex(j);
+
             clientNames[j] = clientNames[j + 1];
+            clientNames[j + 1] = null;
+
+            clientInfo[j] = clientInfo[j + 1];
+            clientInfo[j + 1] = new String[]{null, null};
         }
+
+
         System.out.println("=============" + Arrays.toString(clientThreads));
+        System.out.println("===After shifting in the server \n" + Arrays.deepToString(clientInfo));
     }
 
-    public static void setClientInfo(String line) {
+    public void setClientInfo(String line) {
         for (int i = 0; i < maxClientsCount; i++) {
-            if (line.equals(clientNames[i])) {
-                clientThreads[i].terminate();
-                break;
-            } else if (clientNames[i] == null) {
+            if (clientNames[i] == null) {
                 clientNames[i] = line;
+                clientInfo[i][0] = line;
                 break;
             }
         }
@@ -86,17 +99,20 @@ public class Server implements Runnable {
                 for (; i < maxClientsCount; i++) {
                     if (clientThreads[i] == null) {
                         clientThreads[i] = new ClientHandler(clientSocket, i);
-//                        if (!isMulti && !clientSocket.getInetAddress().getHostAddress().equals("127.0.0.1")) {
-//                            clientThreads[i].terminate();
-//                            clientThreads[i] = null;
-//                        } else {
-                            (new Thread(clientThreads[i], "ClientThread " + i)).start();
-//                        }
+                        if (clientSocket.getInetAddress().getHostAddress().equals("127.0.0.1"))
+                            clientInfo[i][1] = InetAddress.getLocalHost().getHostAddress();
+                        else clientInfo[i][1] = clientSocket.getInetAddress().getHostAddress();
+                        (new Thread(clientThreads[i], "ClientThread " + i)).start();
                         break;
                     }
                 }
                 System.out.println("\n\n ClientThreads: " + Arrays.toString(clientThreads) + "\n\n");
             } catch (IOException e) {
+                System.out.println("ServerSocket is now closed!!");
+                for (int i = 0; i < clientThreads.length - 1; i++) {
+                    if (clientThreads[i] != null)
+                        clientThreads[i].terminate();
+                }
                 break;
             }
 
@@ -141,4 +157,23 @@ public class Server implements Runnable {
         return clientNames[i];
     }
 
+    public String[][] getClientInfo() {
+        int j = 0;
+        for (int i = 0; i < clientInfo.length; i++) {
+            if (clientInfo[i][0] != null && clientInfo[i][0].equals(ClientFacade.getInstance().getUsername()) && i != 0) {
+                System.out.println("\nIteration " + i + "\n CLient Info == " + Arrays.deepToString(clientInfo));
+                String[] ithArray = clientInfo[i].clone();
+                clientInfo[i] = clientInfo[0].clone();
+                clientInfo[0] = ithArray.clone();
+            }
+        }
+        System.out.println("In get client info" + Arrays.deepToString(clientInfo));
+        return clientInfo;
+    }
+
+    public synchronized void kick(int i) {
+        clientThreads[i].terminate();
+        removeClient(clientThreads[i]);
+
+    }
 }

@@ -13,12 +13,7 @@ public class FinishRequestInterpreter implements RequestInterpretable {
 
         ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Finish"), name);
 
-        while (true){
-            if(ReceivedChecker.getInstance().checkReceived()) {
-                ReceivedChecker.getInstance().setReceived();
-                break;
-            }
-        }
+        ReceivedChecker.getInstance().check();
 
         String nextPlayer = GameInfo.getInstance().getCurrentPlayerName();
         if (!GameInfo.getInstance().isBot(nextPlayer))

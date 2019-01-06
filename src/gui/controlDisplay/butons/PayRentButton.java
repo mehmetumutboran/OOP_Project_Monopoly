@@ -28,7 +28,7 @@ public class PayRentButton extends JButton implements ActionListener, TurnChange
 
     @Override
     public void onTurnChangedEvent(String enable) {
-        this.setEnabled(enable.charAt(INDEX)=='1');
+        this.setEnabled(enable.charAt(INDEX) == '1');
     }
 
     @Override

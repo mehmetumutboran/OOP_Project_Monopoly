@@ -38,6 +38,11 @@ public class ClientHandler implements Runnable {
 //                    System.out.println(Arrays.toString(ReceivedChecker.getInstance().received));
 
                     continue;
+                } else if (line.equals("isConnected")) {
+                    synchronized (this) {
+                        send("Connected");
+                    }
+                    continue;
                 }
 
 
@@ -66,6 +71,7 @@ public class ClientHandler implements Runnable {
 
     public void setIndex(int i) {
         this.index = i;
+        clientProcessHandler.setIndex(i);
     }
 
     public synchronized void send(String m) {

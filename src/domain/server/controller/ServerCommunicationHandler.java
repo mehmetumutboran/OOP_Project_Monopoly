@@ -1,6 +1,5 @@
 package domain.server.controller;
 
-import domain.server.card.Card;
 import domain.server.util.GameState;
 import domain.util.Flags;
 import network.server.serverFacade.ServerFacade;
@@ -34,10 +33,10 @@ public class ServerCommunicationHandler {
                 .send(GameState.getInstance().generateCurrentAction(flag, message));
     }
 
-  //  public synchronized void sendResponse(char flag, String drawnCard , String name) {
-  //      ServerFacade.getInstance()
-  //              .send(GameState.getInstance().generateCurrentAction(flag, message));
-  //  }
+    //  public synchronized void sendResponse(char flag, String drawnCard , String name) {
+    //      ServerFacade.getInstance()
+    //              .send(GameState.getInstance().generateCurrentAction(flag, message));
+    //  }
 
     public synchronized void sendResponse(char flag, int index, String message) {
         ServerFacade.getInstance()

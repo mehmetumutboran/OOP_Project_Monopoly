@@ -1,6 +1,5 @@
 package gui.baseFrame.panels;
 
-import gui.baseFrame.BaseFrame;
 import gui.baseFrame.BotDifficultyBox;
 import gui.baseFrame.ColorBox;
 import gui.baseFrame.LoadBox;
@@ -15,7 +14,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class LobbyPanel extends JPanel {
     private ReadyButton readyButton;
@@ -140,7 +138,7 @@ public class LobbyPanel extends JPanel {
         clientButtonPanel.setLayout(null);
         clientButtonPanel.setOpaque(false);
 
-        readyButton = new ReadyButton(backButton, colorBox);
+        readyButton = new ReadyButton();
         readyButton.setVisible(true);
         readyButton.setBorderPainted(false);
         readyButton.setBounds(0, 2 * BUTTON_HEIGHT, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -180,6 +178,11 @@ public class LobbyPanel extends JPanel {
         }
         validate();
         repaint();
+    }
+
+    public void refresh() {
+        lobbyPlayerListPanel.revalidate();
+        lobbyPlayerListPanel.repaint();
     }
 }
 

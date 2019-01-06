@@ -2,6 +2,7 @@ package domain.client;
 
 import domain.server.listeners.*;
 import domain.util.Flags;
+import domain.util.GameInfo;
 import gui.UIFacade.UIFacade;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class UIUpdater {
     private ArrayList<ButtonChangeListener> buttonChangeListeners;
     private ArrayList<LabelChangeListener> labelChangeListeners;
     private ArrayList<DiceRolledListener> diceRolledListeners;
+    private ArrayList<ReadinessChangedListener> readinessChangedListeners;
     private String message;
     private String buttonLayout = "000000000000";
     private String defaultLayout = "000000000000";
@@ -40,6 +42,7 @@ public class UIUpdater {
         turnUpdateListeners = new ArrayList<>();
         labelChangeListeners = new ArrayList<>();
         diceRolledListeners = new ArrayList<>();
+        readinessChangedListeners = new ArrayList<>();
     }
 
     public void addMessageChangedListener(MessageChangedListener mcl) {
@@ -67,16 +70,24 @@ public class UIUpdater {
         buttonChangeListeners.add(bcl);
     }
 
-    public void addTurnUpdateListener(TurnUpdateListener tul){
+    public void addTurnUpdateListener(TurnUpdateListener tul) {
         turnUpdateListeners.add(tul);
     }
 
-    public void addLabelChangeListener (LabelChangeListener lcl){
+    public void addLabelChangeListener(LabelChangeListener lcl) {
         labelChangeListeners.add(lcl);
     }
 
-    public void addDiceRolledListener (DiceRolledListener drl){
+    public void addDiceRolledListener(DiceRolledListener drl) {
         diceRolledListeners.add(drl);
+    }
+
+    public void addGameStartedListener(GameStartedListener gsl) {
+        gameStartedListeners.add(gsl);
+    }
+
+    public void addReadinessChangedListener(ReadinessChangedListener rcl) {
+        readinessChangedListeners.add(rcl);
     }
 
     public void publishGameStartedEvent() {
@@ -85,11 +96,6 @@ public class UIUpdater {
             gls.onGameStartedEvent();
         }
     }
-
-    public void addGameStartedListener(GameStartedListener gsl) {
-        gameStartedListeners.add(gsl);
-    }
-
 
     private void publishTokenMovementEvent(String name, int x, int y) {
         for (TokenMovementListener tml : tokenMovementListeners) {
@@ -103,8 +109,8 @@ public class UIUpdater {
         }
     }
 
-    public void publishTurnUpdateEvent(){
-        for (TurnUpdateListener tul : turnUpdateListeners){
+    public void publishTurnUpdateEvent() {
+        for (TurnUpdateListener tul : turnUpdateListeners) {
             tul.onTurnUpdateEvent();
         }
     }
@@ -120,8 +126,15 @@ public class UIUpdater {
             cbl.onCloseClickedEvent();
         }
     }
-    private void publishLabelChangeEvent(ArrayList<int []> location, String actionType, int i){
-        for (LabelChangeListener lcl: labelChangeListeners){
+
+    public void publishReadinessChangedEvent(boolean readiness) {
+        for (ReadinessChangedListener rcl : readinessChangedListeners) {
+            rcl.onReadinessChangedEvent(readiness);
+        }
+    }
+
+    private void publishLabelChangeEvent(ArrayList<int[]> location, String actionType, int i) {
+        for (LabelChangeListener lcl : labelChangeListeners) {
             lcl.onLabelChangeEvent(location, actionType, i);
         }
     }
@@ -137,11 +150,17 @@ public class UIUpdater {
 
     public void turnUpdate() {
         publishTurnUpdateEvent();
+        this.buttonLayout = defaultLayout;
         publishTurnChangedEvent(defaultLayout);
     }
 
-    public void pauseUpdate(boolean b, String name){
-        publishTurnChangedEvent(defaultLayout);
+    public void pauseUpdate(boolean b, String name) {
+        if(!GameInfo.getInstance().isMyselfHost())
+            publishTurnChangedEvent(defaultLayout);
+        else{
+            publishTurnChangedEvent("000000000100");
+            UIFacade.getInstance().setSaveButton(true);
+        }
         UIFacade.getInstance().generatePrompt(Flags.getFlag("Pause"), b, name);
     }
 
@@ -150,6 +169,7 @@ public class UIUpdater {
     }
 
     public void removeUpdate(String name) {
+        System.out.println("In remove update!!!");
         publishPlayerQuitEvent(name);
     }
 
@@ -193,11 +213,12 @@ public class UIUpdater {
     }
 
     public void setButtons(String enable) {
-        this.buttonLayout = enable;
-        publishTurnChangedEvent(enable);
+        this.buttonLayout = enable.equals("reconnect") ? (buttonLayout.equals("000000000000") ? "000001000100" : buttonLayout) : enable;
+        publishTurnChangedEvent(buttonLayout);
     }
 
     public void resumeUpdate() {
+        UIFacade.getInstance().setSaveButton(false);
         UIFacade.getInstance().closePrompt();
         publishTurnChangedEvent(buttonLayout);
     }
@@ -207,15 +228,15 @@ public class UIUpdater {
 //    }
 
 
-//    public void showList() {
+    //    public void showList() {
 //        UIFacade.getInstance().generateList(GameInfo.getInstance().getPlayerListName(),GameInfo.getInstance().getPlayerListColor());
 //    }
-    public void updateLabels(ArrayList<int[]> locationlst, String actionType, int i){
+    public void updateLabels(ArrayList<int[]> locationlst, String actionType, int i) {
         publishLabelChangeEvent(locationlst, actionType, i);
     }
 
-    public void publishDiceRolledEvent(int [] faces){
-        for (DiceRolledListener drl:diceRolledListeners) {
+    public void publishDiceRolledEvent(int[] faces) {
+        for (DiceRolledListener drl : diceRolledListeners) {
             drl.onDiceRolledEvent(faces);
         }
     }
@@ -224,8 +245,18 @@ public class UIUpdater {
         publishDiceRolledEvent(faceValues);
     }
 
+    public void setNewHost() {
+        UIFacade.getInstance().setNewHost();
+        publishReadinessChangedEvent(false);
+    }
+
+    public void changeReadiness(boolean readiness) {
+        publishReadinessChangedEvent(readiness);
+
+    }
+
     public void changeButton(int index, String val) {
-        this.buttonLayout = buttonLayout.substring(0,index) + val + buttonLayout.substring(index+1);
+        this.buttonLayout = buttonLayout.substring(0, index) + val + buttonLayout.substring(index + 1);
         publishTurnChangedEvent(buttonLayout);
     }
 }

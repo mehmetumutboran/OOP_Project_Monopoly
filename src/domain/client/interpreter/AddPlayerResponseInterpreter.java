@@ -14,7 +14,7 @@ public class AddPlayerResponseInterpreter implements ResponseInterpretable {
     public void interpret(String[] message) {
         String username = message[1];
         UIUpdater.getInstance().changePanel("Lobby");
-        if(ClientFacade.getInstance().getUsername().equals(username))
+        if (ClientFacade.getInstance().getUsername().equals(username))
             UIUpdater.getInstance().setTitle(username);
         GameInfo.getInstance().addPlayer(username);
 

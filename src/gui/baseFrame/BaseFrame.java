@@ -16,9 +16,11 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener, 
     private final String CURRENT_VERSION = "v2.2.0";
 
     private HashMap<String, JPanel> panelMap;
-    private static boolean changed = false;
+    private boolean changed = false;
 
-    private static String status = "Init";
+    private static BaseFrame baseFrame;
+
+    private String status = "Init";
 
     private InitialScreenPanel initialScreenPanel;
     private MultiPlayerPanel multiPlayerPanel;
@@ -29,10 +31,10 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener, 
     private GamePanel gamePanel;
     private CreditsPanel creditsPanel;
     private ControlFrame controlDisplay;
-    private static String title = null;
+    private String title = null;
 
 
-    public BaseFrame() throws HeadlessException {
+    private BaseFrame() throws HeadlessException {
         this.setSize(FRAME_WIDTH, FRAME_HEIGHT);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.panelMap = new HashMap<>();
@@ -43,7 +45,14 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener, 
         this.setVisible(true);
     }
 
-    public static void setFrameTitle(String newTitle) {
+    public static BaseFrame getInstance() {
+        if (baseFrame == null) {
+            baseFrame = new BaseFrame();
+        }
+        return baseFrame;
+    }
+
+    public void setFrameTitle(String newTitle) {
         setChanged(true);
         title = newTitle;
     }
@@ -70,24 +79,32 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener, 
     }
 
 
-    public synchronized static String getStatus() {
+    public synchronized String getStatus() {
         return status;
     }
 
-    public synchronized static boolean isChanged() {
+    public synchronized boolean isChanged() {
         return changed;
     }
 
-    public synchronized static void setChanged(boolean changed) {
-        BaseFrame.changed = changed;
+    public synchronized void setChanged(boolean changed) {
+        this.changed = changed;
     }
 
-    public static void setStatus(String status) {
-        if (BaseFrame.status.equals(status)) return;
-        BaseFrame.status = status;
+    public void setStatus(String status) {
+        if (this.status.equals(status)) return;
+        this.status = status;
         System.out.println(status);
         changed = true;
+    }
 
+    public void setHost() {
+        lobbyPanel.setHost(true);
+        this.status = "Lobby";
+        lobbyPanel.validate();
+        lobbyPanel.repaint();
+        lobbyPanel.refresh();
+        this.changed = true;
     }
 
     @Override
@@ -102,7 +119,6 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener, 
                     lobbyPanel.repaint();
                 } else if (getStatus().equals("Host")) {
                     lobbyPanel.setHost(true);
-                    controlDisplay.setHost(true);
                 }
                 //else if (getStatus().equals("Init")) lobbyPanel.setHost(false);
                 else if (getStatus().equals("Game")) {
@@ -134,5 +150,9 @@ public class BaseFrame extends JFrame implements Runnable, CloseButtonListener, 
         repaint();
         JOptionPane.showMessageDialog(null, "You are kicked!!",
                 "Connection terminated", JOptionPane.WARNING_MESSAGE);
+    }
+
+    public void setSaveButton(boolean b){
+        controlDisplay.setHost(b);
     }
 }

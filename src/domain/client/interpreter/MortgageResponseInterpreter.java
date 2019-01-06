@@ -13,8 +13,9 @@ import java.util.ArrayList;
 public class MortgageResponseInterpreter implements ResponseInterpretable {
     /**
      * This method sets the given player's given square mortgage.
+     *
      * @param message String array of the form [Flag, args...] Generated in {@link domain.server.util.GameState}
-     * args includes player's name and the square that will be mortgaged.
+     *                args includes player's name and the square that will be mortgaged.
      */
     @Override
     public void interpret(String[] message) {
@@ -30,15 +31,15 @@ public class MortgageResponseInterpreter implements ResponseInterpretable {
         UIUpdater.getInstance().setMessage(name + " mortgaged " + sqName);
 
         ArrayList<int[]> locationList = new ArrayList<>();
-        for(Square s : GameInfo.getInstance().getPlayer(name).getOwnedProperties()){
+        for (Square s : GameInfo.getInstance().getPlayer(name).getOwnedProperties()) {
             locationList.add(s.getLocation());
         }
 
-        for(Square s : GameInfo.getInstance().getPlayer(name).getOwnedRailroads()){
+        for (Square s : GameInfo.getInstance().getPlayer(name).getOwnedRailroads()) {
             locationList.add(s.getLocation());
         }
 
-        for(Square s : GameInfo.getInstance().getPlayer(name).getOwnedUtilities()){
+        for (Square s : GameInfo.getInstance().getPlayer(name).getOwnedUtilities()) {
             locationList.add(s.getLocation());
         }
 

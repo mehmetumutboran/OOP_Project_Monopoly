@@ -144,7 +144,6 @@ public class RandomPlayerHandler {
         timer.schedule(timerTaskDrawCard1, 9 * delay);
 
 
-
         TimerTask timerTaskFinishTurn = new TimerTask() {
             @Override
             public void run() {

@@ -1,8 +1,6 @@
 package gui.baseFrame;
 
 import domain.client.PlayerActionController;
-import domain.server.listeners.PlayerListChangedListener;
-import domain.util.GameInfo;
 import gui.util.ColorBoxRenderer;
 
 import javax.swing.*;
@@ -12,7 +10,7 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class ColorBox extends JComboBox implements ActionListener{
+public class ColorBox extends JComboBox implements ActionListener {
 
     public static final ArrayList<String> colorList = (ArrayList<String>) (Stream.of("White", "LightGray", "Gray", "Blue", "Cyan", "Pink", "Green",
             "Orange", "Magenta", "Yellow", "Red", "Turquoise").collect(Collectors.toList()));
