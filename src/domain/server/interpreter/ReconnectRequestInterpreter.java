@@ -39,7 +39,7 @@ public class ReconnectRequestInterpreter implements RequestInterpretable {
         String nextPlayer = GameInfo.getInstance().getCurrentPlayerName();
         if (GameInfo.getInstance().isStarted() && nextPlayer.equals(name) && !GameInfo.getInstance().isBot(nextPlayer))
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Button"),
-                    index, "001001110110", nextPlayer);
+                    index, "reconnect", nextPlayer);
 
         //ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("IP"), index, oldHostName, MessageConverter.convertArrayToString(ServerFacade.getInstance().getClientInfo()));
 
