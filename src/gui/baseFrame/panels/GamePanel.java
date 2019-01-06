@@ -193,7 +193,6 @@ public class GamePanel extends JPanel implements TokenMovementListener, DiceRoll
             if(aTokenlist.getOwner().equals(tokName)) {
                 aTokenlist.setCoordinates(this.getWidth(), this.getHeight());
                 aTokenlist.draw(G);
-                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             }
         }
    }
