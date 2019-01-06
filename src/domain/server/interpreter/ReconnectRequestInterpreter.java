@@ -23,24 +23,14 @@ public class ReconnectRequestInterpreter implements RequestInterpretable {
 
         System.out.println("Reconnect Request Interpreter!!!");
 
-        while (true) {
-            if (ReceivedChecker.getInstance().checkReceived(index)) {
-                ReceivedChecker.getInstance().setReceived(index);
-                break;
-            }
-        }
+        ReceivedChecker.getInstance().check(index);
 
         System.out.println(oldHostName + " was the old host!");
 
         if (GameInfo.getInstance().WasHostPeekBefore()) {
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Finish"), index, name);
 
-            while (true) {
-                if (ReceivedChecker.getInstance().checkReceived(index)) {
-                    ReceivedChecker.getInstance().setReceived(index);
-                    break;
-                }
-            }
+            ReceivedChecker.getInstance().check(index);
 
             System.out.println("After having received in finish in reconnect!!!");
 

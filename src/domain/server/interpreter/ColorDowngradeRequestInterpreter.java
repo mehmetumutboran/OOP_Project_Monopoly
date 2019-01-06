@@ -34,12 +34,7 @@ public class ColorDowngradeRequestInterpreter implements RequestInterpretable {
 
                 if (buildingtoDowngradeFrom != null) {
                     ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Downgrade"), name, p.getName(), buildingtoDowngradeFrom);
-                    while (true) {
-                        if (ReceivedChecker.getInstance().checkReceived()) {
-                            ReceivedChecker.getInstance().setReceived();
-                            break;
-                        }
-                    }
+                    ReceivedChecker.getInstance().check();
                 }
             }
         }

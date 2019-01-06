@@ -21,12 +21,7 @@ public class RollRequestInterpreter implements RequestInterpretable {
 
         ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Roll"), name, MessageConverter.convertArrayToString(rolled));
 
-        while (true) {
-            if (ReceivedChecker.getInstance().checkReceived()) {
-                ReceivedChecker.getInstance().setReceived();
-                break;
-            }
-        }
+        ReceivedChecker.getInstance().check();
 
         MoveControl.getInstance().updateDoubleCounter(name);
 
@@ -40,12 +35,7 @@ public class RollRequestInterpreter implements RequestInterpretable {
 
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Move"), name, loc, 0);
 
-            while (true) {
-                if (ReceivedChecker.getInstance().checkReceived()) {
-                    ReceivedChecker.getInstance().setReceived();
-                    break;
-                }
-            }
+            ReceivedChecker.getInstance().check();
         }
 //       if(GameInfo.getInstance().getPlayer(GameInfo.getInstance().getCurrentPlayerName()).getReadiness().equals("Bot"))
 //       { MoveControl.getInstance().checkMrMonopoly(name);}

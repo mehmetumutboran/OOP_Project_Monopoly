@@ -79,8 +79,9 @@ public class PlayerActionController {
                     GameInfo.getInstance().setWasHostPeekBefore();
                     ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Reconnect"), username);
                 }
-        } else if (ConnectGameHandler.getInstance().connectClient(username, ClientFacade.getInstance().getNextIP(), port))
+        } else if (ConnectGameHandler.getInstance().connectClient(username, ClientFacade.getInstance().getNextIP(), port)) {
             ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Reconnect"), username);
+        }
     }
 
     public void changePlayerColor(String color) {

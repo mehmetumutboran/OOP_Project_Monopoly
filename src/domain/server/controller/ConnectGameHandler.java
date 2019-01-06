@@ -45,6 +45,13 @@ public class ConnectGameHandler {
      * @param port     for server Connection
      */
     public boolean connectClient(String username, String ip, int port) {
+        if(!ip.equals("localhost")){
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
         return ClientFacade.getInstance().createClient(username, ip, port);
     }
 

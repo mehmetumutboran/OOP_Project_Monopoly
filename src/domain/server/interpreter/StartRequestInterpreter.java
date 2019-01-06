@@ -28,24 +28,12 @@ public class StartRequestInterpreter implements RequestInterpretable {
             synchronized (this) {
                 ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Start"), name);
 
-                String line;
-
-                while (true) {
-                    if (ReceivedChecker.getInstance().checkReceived()) {
-                        ReceivedChecker.getInstance().setReceived();
-                        break;
-                    }
-                }
+                ReceivedChecker.getInstance().check();
 
                 ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("InitQueue"), name, MessageConverter.convertQueueToString(playerOrder()));
 
 
-                while (true) {
-                    if (ReceivedChecker.getInstance().checkReceived()) {
-                        ReceivedChecker.getInstance().setReceived();
-                        break;
-                    }
-                }
+                ReceivedChecker.getInstance().check();
 
 //                while (true){
 //                    try {
@@ -58,13 +46,7 @@ public class StartRequestInterpreter implements RequestInterpretable {
 
                 ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Finish"), name);
 
-
-                while (true) {
-                    if (ReceivedChecker.getInstance().checkReceived()) {
-                        ReceivedChecker.getInstance().setReceived();
-                        break;
-                    }
-                }
+                ReceivedChecker.getInstance().check();
 
                 System.out.println("\n\nCurrPlayer:" + GameInfo.getInstance().getCurrentPlayerName() + "\n");
 

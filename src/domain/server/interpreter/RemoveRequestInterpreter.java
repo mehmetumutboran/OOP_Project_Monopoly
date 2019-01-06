@@ -34,12 +34,7 @@ public class RemoveRequestInterpreter implements RequestInterpretable {
             System.out.println("In isCurrentPlayer");
             ServerCommunicationHandler.getInstance().sendResponse(Flags.getFlag("Finish"), username);
 
-            while (true) {
-                if (ReceivedChecker.getInstance().checkReceived()) {
-                    ReceivedChecker.getInstance().setReceived();
-                    break;
-                }
-            }
+            ReceivedChecker.getInstance().check();
 
             String nextPlayer = GameInfo.getInstance().getCurrentPlayerName();
             if (!GameInfo.getInstance().isBot(nextPlayer))

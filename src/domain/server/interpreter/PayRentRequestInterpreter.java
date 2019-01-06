@@ -42,12 +42,7 @@ public class PayRentRequestInterpreter implements RequestInterpretable {
 //                }
 //            }
 
-            while (true) {
-                if (ReceivedChecker.getInstance().checkReceived()) {
-                    ReceivedChecker.getInstance().setReceived();
-                    break;
-                }
-            }
+            ReceivedChecker.getInstance().check();
 
             if (!GameInfo.getInstance().isBot(name))
                 if (GameInfo.getInstance().getPlayer(name).getFaceValues()[2] == 7 && !GameInfo.getInstance().getPlayer(name).isSecondMove()) // if player had mr monopoly before

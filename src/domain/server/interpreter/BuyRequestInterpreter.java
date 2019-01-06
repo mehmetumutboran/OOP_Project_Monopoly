@@ -31,12 +31,7 @@ public class BuyRequestInterpreter implements RequestInterpretable {
 
             // if( all squares for one color bought or trainstations -> change rent )
 
-            while (true) {
-                if (ReceivedChecker.getInstance().checkReceived()) {
-                    ReceivedChecker.getInstance().setReceived();
-                    break;
-                }
-            }
+            ReceivedChecker.getInstance().check();
 
             if (!GameInfo.getInstance().isBot(name))
                 ServerCommunicationHandler.getInstance()

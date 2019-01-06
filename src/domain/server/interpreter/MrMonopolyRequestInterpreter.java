@@ -21,12 +21,7 @@ public class MrMonopolyRequestInterpreter implements RequestInterpretable {
         String name = message[1];
         MoveControl.getInstance().checkMrMonopoly(name);
 
-        while (true) {
-            if (ReceivedChecker.getInstance().checkReceived()) {
-                ReceivedChecker.getInstance().setReceived();
-                break;
-            }
-        }
+        ReceivedChecker.getInstance().check();
 
         String msg = ButtonStringGenerator.getInstance().getButtonStringForNextSquare(name);
         char[] msg2 = msg.toCharArray();
