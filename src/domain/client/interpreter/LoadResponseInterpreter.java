@@ -18,9 +18,6 @@ public class LoadResponseInterpreter implements ResponseInterpretable {
         LoadGameHandler.getInstance().loadGame(load);
         GameInfo.getInstance().startGame();
         GameInfo.getInstance().loadQueueFix();
-        if((GameInfo.getInstance().isMyselfHost() && GameInfo.getInstance().isPeekBot()) || ClientFacade.getInstance().getUsername().equals(GameInfo.getInstance().getCurrentPlayerName())){
-            ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Finish"), GameInfo.getInstance().getCurrentPlayer().getName());
-        }
         UIUpdater.getInstance().changePanel("Game");
         UIUpdater.getInstance().startGame();
         UIUpdater.getInstance().startTokens(new ArrayList<>(GameInfo.getInstance().getPlayerQueue()));
@@ -30,6 +27,10 @@ public class LoadResponseInterpreter implements ResponseInterpretable {
                     GameInfo.getInstance().getPlayer(name).getToken().getLocation()[1]);
         }
         ClientCommunicationHandler.getInstance().sendReceived();
+        if((GameInfo.getInstance().isMyselfHost() && GameInfo.getInstance().isPeekBot()) || ClientFacade.getInstance().getUsername().equals(GameInfo.getInstance().getCurrentPlayerName())){
+            ClientCommunicationHandler.getInstance().sendRequest(Flags.getFlag("Finish"), GameInfo.getInstance().getCurrentPlayer().getName());
+        }
+
 
     }
 }
