@@ -57,9 +57,9 @@ public class TokenLabel extends JLabel implements Drawable {
         if (firstSet) {
             setCoordinates(width, height);
             if (tokIndex >= 6) {
-                point.setLocation(width - (width / 17) * 4 + (tokIndex - 6) * this.getWidth() - width / 100, height - (height / 17) * 13 - this.getHeight() * 2);
+                point.setLocation(width - (width / 17) * 4 + (tokIndex - 6) * this.getWidth()/2 - width / 100, height - (height / 17) * 13 - this.getHeight() * 2);
             } else {
-                point.setLocation(width - ((width / 17) * 4) + (tokIndex * this.getWidth()) - width / 100, height - ((height / 17) * 13) - this.getHeight());
+                point.setLocation(width - ((width / 17) * 4) + (tokIndex * this.getWidth())/2 - width / 100, height - ((height / 17) * 13) - this.getHeight());
             }
             firstSet = false;
         } else {
@@ -76,9 +76,9 @@ public class TokenLabel extends JLabel implements Drawable {
 
     private Path pathChooser() {
         if (tokIndex < 6) {
-            return new TokenPath((int) PathPoints.getInstance(width, height).pointFind(oldLoc).getX() + tokIndex * tokenWidth / 2, (int) PathPoints.getInstance(width, height).pointFind(oldLoc).getY() - tokenHeight, (int) PathPoints.getInstance(width, height).pointFind(newLoc).getX() + tokIndex * tokenWidth, (int) PathPoints.getInstance(width, height).pointFind(newLoc).getY() - tokenHeight, width / 28);
+            return new TokenPath((int) PathPoints.getInstance(width, height).pointFind(oldLoc).getX() + tokIndex * tokenWidth / 2, (int) PathPoints.getInstance(width, height).pointFind(oldLoc).getY() - tokenHeight, (int) PathPoints.getInstance(width, height).pointFind(newLoc).getX() + tokIndex * tokenWidth/2, (int) PathPoints.getInstance(width, height).pointFind(newLoc).getY() - tokenHeight, width / 56);
         } else
-            return new TokenPath((int) PathPoints.getInstance(width, height).pointFind(oldLoc).getX() + (tokIndex - 6) * tokenWidth / 2, (int) PathPoints.getInstance(width, height).pointFind(oldLoc).getY() - 2 * tokenHeight, (int) PathPoints.getInstance(width, height).pointFind(newLoc).getX() + (tokIndex - 6) * tokenWidth, (int) PathPoints.getInstance(width, height).pointFind(newLoc).getY() - 2 * tokenHeight, width / 28);
+            return new TokenPath((int) PathPoints.getInstance(width, height).pointFind(oldLoc).getX() + (tokIndex - 6) * tokenWidth / 2, (int) PathPoints.getInstance(width, height).pointFind(oldLoc).getY() - 2 * tokenHeight, (int) PathPoints.getInstance(width, height).pointFind(newLoc).getX() + (tokIndex - 6) * tokenWidth/2, (int) PathPoints.getInstance(width, height).pointFind(newLoc).getY() - 2 * tokenHeight, width / 56);
     }
 
     public void setCoordinates(int width, int height) {
