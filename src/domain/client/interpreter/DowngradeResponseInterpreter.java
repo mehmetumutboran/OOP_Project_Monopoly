@@ -3,6 +3,7 @@ package domain.client.interpreter;
 import domain.client.ClientCommunicationHandler;
 import domain.client.UIUpdater;
 import domain.server.board.Board;
+import domain.server.board.DeedSquare;
 import domain.server.board.Square;
 import domain.server.board.Upgradable;
 import domain.server.player.Player;
@@ -63,7 +64,9 @@ public class DowngradeResponseInterpreter implements ResponseInterpretable {
 //                + " from " + message[3]);
 //
 //         ClientCommunicationHandler.getInstance().sendReceived();
-        currentPlayer.increaseMoney(selectedSquareForDowngrade.getBuildingCost() / 2);
+        if(((DeedSquare) selectedSquareForDowngrade).getOwner().equals(currentPlayer.getName()))
+            currentPlayer.increaseMoney(selectedSquareForDowngrade.getBuildingCost() / 2);
+
         ArrayList<int[]> locationList = new ArrayList<>();
         for (Square s : currentPlayer.getOwnedProperties()) {
             locationList.add(s.getLocation());
