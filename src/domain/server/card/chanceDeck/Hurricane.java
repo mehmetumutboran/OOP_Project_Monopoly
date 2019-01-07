@@ -1,8 +1,9 @@
-package domain.server.card;
+package domain.server.card.chanceDeck;
 
 import domain.client.ClientCommunicationHandler;
 import domain.server.board.Board;
 import domain.server.board.Property;
+import domain.server.card.ChanceCard;
 import domain.server.player.Player;
 import domain.util.Flags;
 import domain.util.GameInfo;
