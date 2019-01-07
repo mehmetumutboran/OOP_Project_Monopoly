@@ -15,7 +15,10 @@ public class LoadResponseInterpreter implements ResponseInterpretable {
         GameInfo.getInstance().startGame();
         UIUpdater.getInstance().changePanel("Game");
         UIUpdater.getInstance().startGame();
-        UIUpdater.getInstance().startTokens(new ArrayList<>(GameInfo.getInstance().getPlayerQueue()));
+        for (String name:GameInfo.getInstance().getPlayerQueue()) {
+            UIUpdater.getInstance().setTokenLocation(name,GameInfo.getInstance().getPlayer(name).getToken().getLocation()[0],
+                    GameInfo.getInstance().getPlayer(name).getToken().getLocation()[1]);
+        }
         ClientCommunicationHandler.getInstance().sendReceived();
 
     }
