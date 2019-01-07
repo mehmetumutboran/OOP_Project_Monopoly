@@ -34,7 +34,7 @@ public class GamePanel extends JPanel implements TokenMovementListener, DiceRoll
     JPanel jPanel;
     private ArrayList<SquareLabel> squareLabels = new ArrayList<>();
     private JLabel j;
-    public static Animator animator;
+    public static volatile Animator animator;
 
 
     public GamePanel(int width, int height) {
@@ -207,15 +207,19 @@ public class GamePanel extends JPanel implements TokenMovementListener, DiceRoll
     }
 
     @Override
-    public void onAnimationPausedEvent(boolean b) {
+    public synchronized void onAnimationPausedEvent(boolean b) {
 //            if (b) {
 //                try {
-//                    animator.wait();
+//                    synchronized (this) {
+//                        animator.wait();
+//                    }
 //                } catch (InterruptedException e) {
 //                    e.printStackTrace();
 //                }
 //            } else {
-//                animator.notify();
+//                synchronized (this){
+//                    animator.notify();
+//                }
 //            }
     }
 }
