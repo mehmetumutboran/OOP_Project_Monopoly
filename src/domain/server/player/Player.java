@@ -61,7 +61,7 @@ public class Player implements Comparable, Savable {
 
         //TODO test purposes
 
-        if (this.name.contains("MBot Ross")) {
+       /* if (this.name.contains("MBot Ross")) {
             this.ownedProperties.add((Property) Board.getInstance().getNameGivenSquare("Esplanade Avenue"));
             this.ownedProperties.add((Property) Board.getInstance().getNameGivenSquare("Canal Street"));
             this.ownedProperties.add((Property) Board.getInstance().getNameGivenSquare("Magazine Street"));
@@ -84,7 +84,7 @@ public class Player implements Comparable, Savable {
 //            this.getOwnedProperties().get(2).getBuildingList().add(new Hotel(((Property) Board.getInstance().getNameGivenSquare("Esplanade Avenue")).getHouseBuildingCost()));
 //            this.getOwnedProperties().get(2).setUpgraded(true);
             // ((Property) Board.getInstance().getNameGivenSquare("Bourbon Street")).setOwner(name);
-        }
+        }*/
     }
 
 
