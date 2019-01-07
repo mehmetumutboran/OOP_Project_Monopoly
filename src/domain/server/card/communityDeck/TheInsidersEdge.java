@@ -16,7 +16,7 @@ public class TheInsidersEdge extends Community {
     @Override
     public boolean doAction(String name) {
 
-        int loc[] = GameInfo.getInstance().getPlayer(name).getToken().getLocation().clone();
+        int[] loc = GameInfo.getInstance().getPlayer(name).getToken().getLocation().clone();
         if (loc[0] == 0) {
             GameInfo.getInstance().getPlayer(name).increaseMoney(250);
             UIUpdater.getInstance().setMessage(name + " is in Inner Track. So " + name + " collects $250 from bank ");

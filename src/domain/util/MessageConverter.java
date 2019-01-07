@@ -114,6 +114,11 @@ public class MessageConverter {
         return list.stream().map(Savable::generateSaveInfo).collect(Collectors.joining());
     }
 
+    public static String[] convertStringToArray(String message){
+        if (message.equals("null")) return new String[]{""};
+        return message.substring(1,message.length()-1).split(", ");
+    }
+
     public static ArrayList<? extends Savable> convertStringToList(String message, int index) {
         if (message.equals("null")) return new ArrayList<>(); // TODO check cast
         String[] arr = message.split("[+]");
