@@ -29,13 +29,11 @@ public class TokenLabel extends JLabel implements Drawable {
     private static int indexCount = 0;
     private boolean firstSet = true;
 
-    //private String tokenLabel;
 
     public TokenLabel(String owner) {
         super();
         this.owner = owner;
         point = new Point();
-        //tokenLabel = Integer.toString(indexCount);
         tokIndex = indexCount;
         try {
             img = ImageIO.read(new File("res/" + tokIndex + ".png"));
