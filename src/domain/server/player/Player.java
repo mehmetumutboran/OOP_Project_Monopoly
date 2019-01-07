@@ -65,6 +65,7 @@ public class Player implements Comparable, Savable {
             this.ownedProperties.add((Property) Board.getInstance().getNameGivenSquare("Esplanade Avenue"));
             this.ownedProperties.add((Property) Board.getInstance().getNameGivenSquare("Canal Street"));
             this.ownedProperties.add((Property) Board.getInstance().getNameGivenSquare("Magazine Street"));
+            this.ownedProperties.add((Property) Board.getInstance().getNameGivenSquare("Bourbon Street"));
 
 
             //this.ownedProperties.add((Property) Board.getInstance().getNameGivenSquare("Bourbon Street"));
@@ -72,6 +73,7 @@ public class Player implements Comparable, Savable {
             ((Property) Board.getInstance().getNameGivenSquare("Esplanade Avenue")).setOwner(name);
             ((Property) Board.getInstance().getNameGivenSquare("Canal Street")).setOwner(name);
             ((Property) Board.getInstance().getNameGivenSquare("Magazine Street")).setOwner(name);
+            ((Property) Board.getInstance().getNameGivenSquare("Bourbon Street")).setOwner(name);
 
 //            this.getOwnedProperties().get(0).getBuildingList().add(new Hotel(((Property) Board.getInstance().getNameGivenSquare("Esplanade Avenue")).getHouseBuildingCost()));
 //            this.getOwnedProperties().get(0).setUpgraded(true);
