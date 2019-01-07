@@ -8,6 +8,7 @@ import java.util.TimerTask;
 
 public class RandomPlayerHandler {
     private static RandomPlayerHandler ourInstance;
+    private long moveOffset = 3000L;
 
     public static RandomPlayerHandler getInstance() {
         if (ourInstance == null) {
@@ -38,7 +39,7 @@ public class RandomPlayerHandler {
                 RandomPlayerActionFactory.getInstance().generateStrategy("Buy", botDiff).doRandomPlayerAction();
             }
         };
-        timer.schedule(timerTaskBuy, delay);
+        timer.schedule(timerTaskBuy, delay + moveOffset);
 
 
         TimerTask timerTaskPayRent = new TimerTask() {
@@ -47,7 +48,7 @@ public class RandomPlayerHandler {
                 RandomPlayerActionFactory.getInstance().generateStrategy("PayRent").doRandomPlayerAction();
             }
         };
-        timer.schedule(timerTaskPayRent, 2 * delay);
+        timer.schedule(timerTaskPayRent, 2 * delay + moveOffset);
 
 
         TimerTask timerTaskDrawCard = new TimerTask() {
@@ -56,7 +57,7 @@ public class RandomPlayerHandler {
                 RandomPlayerActionFactory.getInstance().generateStrategy("DrawCard").doRandomPlayerAction();
             }
         };
-        timer.schedule(timerTaskDrawCard, 3 * delay);
+        timer.schedule(timerTaskDrawCard, 3 * delay + moveOffset);
 
 
         TimerTask timerTaskFinishTurn = new TimerTask() {
@@ -65,7 +66,7 @@ public class RandomPlayerHandler {
                 RandomPlayerActionFactory.getInstance().generateStrategy("FinishTurn").doRandomPlayerAction();
             }
         };
-        timer.schedule(timerTaskFinishTurn, 4 * delay);
+        timer.schedule(timerTaskFinishTurn, 4 * delay + moveOffset);
 
     }
 
@@ -88,7 +89,7 @@ public class RandomPlayerHandler {
                 RandomPlayerActionFactory.getInstance().generateStrategy("Buy", botDiff).doRandomPlayerAction();
             }
         };
-        timer.schedule(timerTaskBuy, delay);
+        timer.schedule(timerTaskBuy, delay + moveOffset);
 
 
         TimerTask timerTaskPayRent = new TimerTask() {
@@ -97,7 +98,7 @@ public class RandomPlayerHandler {
                 RandomPlayerActionFactory.getInstance().generateStrategy("PayRent").doRandomPlayerAction();
             }
         };
-        timer.schedule(timerTaskPayRent, 2 * delay);
+        timer.schedule(timerTaskPayRent, 2 * delay + moveOffset);
 
 
         TimerTask timerTaskDrawCard = new TimerTask() {
@@ -106,7 +107,7 @@ public class RandomPlayerHandler {
                 RandomPlayerActionFactory.getInstance().generateStrategy("DrawCard").doRandomPlayerAction();
             }
         };
-        timer.schedule(timerTaskDrawCard, 3 * delay);
+        timer.schedule(timerTaskDrawCard, 3 * delay + moveOffset);
 
 
         TimerTask timerTaskMrMonopoly = new TimerTask() {
@@ -115,7 +116,7 @@ public class RandomPlayerHandler {
                 RandomPlayerActionFactory.getInstance().generateStrategy("MrMonopoly").doRandomPlayerAction();
             }
         };
-        timer.schedule(timerTaskMrMonopoly, 4 * delay);
+        timer.schedule(timerTaskMrMonopoly, delay + 2 * moveOffset);
 
         TimerTask timerTaskBuy1 = new TimerTask() {
             @Override
@@ -123,7 +124,7 @@ public class RandomPlayerHandler {
                 RandomPlayerActionFactory.getInstance().generateStrategy("Buy", botDiff).doRandomPlayerAction();
             }
         };
-        timer.schedule(timerTaskBuy1, 7 * delay);
+        timer.schedule(timerTaskBuy1, 2 * delay + 2 * moveOffset);
 
 
         TimerTask timerTaskPayRent1 = new TimerTask() {
@@ -132,7 +133,7 @@ public class RandomPlayerHandler {
                 RandomPlayerActionFactory.getInstance().generateStrategy("PayRent").doRandomPlayerAction();
             }
         };
-        timer.schedule(timerTaskPayRent1, 8 * delay);
+        timer.schedule(timerTaskPayRent1, 3 * delay + 2 * moveOffset);
 
 
         TimerTask timerTaskDrawCard1 = new TimerTask() {
@@ -141,7 +142,7 @@ public class RandomPlayerHandler {
                 RandomPlayerActionFactory.getInstance().generateStrategy("DrawCard").doRandomPlayerAction();
             }
         };
-        timer.schedule(timerTaskDrawCard1, 9 * delay);
+        timer.schedule(timerTaskDrawCard1, 4 * delay + 2 * moveOffset);
 
 
         TimerTask timerTaskFinishTurn = new TimerTask() {
@@ -150,7 +151,7 @@ public class RandomPlayerHandler {
                 RandomPlayerActionFactory.getInstance().generateStrategy("FinishTurn").doRandomPlayerAction();
             }
         };
-        timer.schedule(timerTaskFinishTurn, 10 * delay);
+        timer.schedule(timerTaskFinishTurn, 5 * delay + 2 * moveOffset);
     }
 
 }
