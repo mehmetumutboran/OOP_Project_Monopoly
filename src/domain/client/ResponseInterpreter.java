@@ -62,6 +62,7 @@ public class ResponseInterpreter {
         ResponseInterpretable reconnectResponseInterpreter = new ReconnectResponseInterpreter();
         ResponseInterpretable drawCardResponseInterpreter = new DrawCardResponseInterpreter();
         ResponseInterpretable changeOneButtonResponseInterpreter = new ChangeOneButtonResponseInterpreter();
+        ResponseInterpretable hurricaneResponseInterpreter = new HurricaneResponseInterpreter();
 
 
         interpreterMap = new HashMap<>();
@@ -108,6 +109,7 @@ public class ResponseInterpreter {
         interpreterMap.put(Flags.getFlag("Reconnect"), reconnectResponseInterpreter);
         interpreterMap.put(Flags.getFlag("Draw"), drawCardResponseInterpreter);
         interpreterMap.put(Flags.getFlag("ChangeOneButton"), changeOneButtonResponseInterpreter);
+        interpreterMap.put(Flags.getFlag("Hurricane"), hurricaneResponseInterpreter);
     }
 
     public void interpret(String message) {

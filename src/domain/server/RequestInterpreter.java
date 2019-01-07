@@ -41,6 +41,7 @@ public class RequestInterpreter {
         RequestInterpretable mortgageRequestInterpreter = new MortgageRequestInterpreter();
         RequestInterpretable colorDowngradeRequestInterpreter = new ColorDowngradeRequestInterpreter();
         RequestInterpretable reconnectRequestInterpreter = new ReconnectRequestInterpreter();
+        RequestInterpretable hurricaneRequestInterpreter = new HurricaneRequestInterpreter();
 
 
         interpreterMap = new HashMap<>();
@@ -71,6 +72,7 @@ public class RequestInterpreter {
         interpreterMap.put(Flags.getFlag("Mortgage"), mortgageRequestInterpreter);
         interpreterMap.put(Flags.getFlag("ColorDowngrade"), colorDowngradeRequestInterpreter);
         interpreterMap.put(Flags.getFlag("Reconnect"), reconnectRequestInterpreter);
+        interpreterMap.put(Flags.getFlag("Hurricane"), hurricaneRequestInterpreter);
 
     }
 

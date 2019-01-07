@@ -66,6 +66,7 @@ public class Player implements Comparable, Savable {
             this.ownedProperties.add((Property) Board.getInstance().getNameGivenSquare("Canal Street"));
             this.ownedProperties.add((Property) Board.getInstance().getNameGivenSquare("Magazine Street"));
             ((Property) Board.getInstance().getNameGivenSquare("Magazine Street")).upgrade();
+            ((Property) Board.getInstance().getNameGivenSquare("Canal Street")).upgrade();
 
             //this.ownedProperties.add((Property) Board.getInstance().getNameGivenSquare("Bourbon Street"));
 
