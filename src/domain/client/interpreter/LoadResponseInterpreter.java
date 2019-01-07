@@ -4,6 +4,7 @@ import domain.client.ClientCommunicationHandler;
 import domain.client.UIUpdater;
 import domain.util.GameInfo;
 import domain.util.LoadGameHandler;
+import domain.util.MessageConverter;
 
 import java.util.ArrayList;
 
@@ -16,6 +17,7 @@ public class LoadResponseInterpreter implements ResponseInterpretable {
         UIUpdater.getInstance().changePanel("Game");
         UIUpdater.getInstance().startGame();
         UIUpdater.getInstance().startTokens(new ArrayList<>(GameInfo.getInstance().getPlayerQueue()));
+        System.out.println("LOADED QUEUE!!!!!!" + MessageConverter.convertQueueToString(GameInfo.getInstance().getPlayerQueue()));
         for (String name:GameInfo.getInstance().getPlayerQueue()) {
             UIUpdater.getInstance().setTokenLocation(name,GameInfo.getInstance().getPlayer(name).getToken().getLocation()[0],
                     GameInfo.getInstance().getPlayer(name).getToken().getLocation()[1]);
