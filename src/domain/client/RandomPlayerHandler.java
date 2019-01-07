@@ -151,7 +151,7 @@ public class RandomPlayerHandler {
                 RandomPlayerActionFactory.getInstance().generateStrategy("FinishTurn").doRandomPlayerAction();
             }
         };
-        timer.schedule(timerTaskFinishTurn, 5 * delay + 2 * moveOffset);
+        timer.schedule(timerTaskFinishTurn, 3 * moveOffset);
     }
 
 }
