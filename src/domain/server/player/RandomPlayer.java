@@ -1,5 +1,11 @@
 package domain.server.player;
 
+import domain.server.board.Property;
+import domain.server.board.Railroad;
+import domain.server.board.Utility;
+
+import java.util.ArrayList;
+
 public class RandomPlayer extends Player {
 
     private String difficulty = "Medium";
@@ -35,6 +41,22 @@ public class RandomPlayer extends Player {
         player.getOwnedRailroads().forEach(x -> x.setOwner(this.getName()));
     }
 
+
+    public RandomPlayer(String name, Token token, int balance,
+                        ArrayList<Property> propertyList, ArrayList<Utility> utilityList,
+                        ArrayList<Railroad> railroadList,
+                        String readiness, int doubleCounter, boolean isInJail) {
+        super(name,
+                token,
+                balance,
+                propertyList,
+                utilityList,
+                railroadList,
+                readiness,
+                doubleCounter,
+                isInJail);
+        if (!readiness.equals("Bot")) throw new ClassCastException();
+    }
 
     @Override
     public String toString() {

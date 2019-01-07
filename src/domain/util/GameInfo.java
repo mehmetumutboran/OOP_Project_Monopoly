@@ -211,8 +211,15 @@ public class GameInfo implements Savable {
     public void loadPlayer(String name, int layer, int location, String color, int balance,
                            ArrayList<? extends Savable> propertyList, ArrayList<? extends Savable> utilityList, ArrayList<? extends Savable> railroadList,
                            String readiness, int doubleCounter, boolean isInJail) {
-        Player player = new Player(name, new Token(new int[]{layer, location}, color), balance, (ArrayList<Property>) propertyList, (ArrayList<Utility>) utilityList, (ArrayList<Railroad>) railroadList,
-                readiness, doubleCounter, isInJail);
+
+        Player player;
+        if (readiness.equals("Bot"))
+            player = new RandomPlayer(name, new Token(new int[]{layer, location}, color), balance, (ArrayList<Property>) propertyList, (ArrayList<Utility>) utilityList, (ArrayList<Railroad>) railroadList,
+                    readiness, doubleCounter, isInJail);
+        else
+            player = new Player(name, new Token(new int[]{layer, location}, color), balance, (ArrayList<Property>) propertyList, (ArrayList<Utility>) utilityList, (ArrayList<Railroad>) railroadList,
+                    readiness, doubleCounter, isInJail);
+
         this.playerList.add(player);
     }
 

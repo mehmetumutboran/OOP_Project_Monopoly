@@ -23,6 +23,7 @@ public class RandomPlayerHandler {
     public void playNormalBotTurn() {
         Timer timer = new Timer();
         long delay = 250L;
+        System.out.println("\n===Plya nirmal Bot === " + GameInfo.getInstance().getCurrentPlayer().getName());
         String difficulty = ((RandomPlayer) GameInfo.getInstance().getCurrentPlayer()).getDifficulty();
         int botDiff;
         if (difficulty.equals("Hard"))
