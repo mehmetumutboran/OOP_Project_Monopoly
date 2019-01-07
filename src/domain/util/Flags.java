@@ -55,8 +55,7 @@ public class Flags {
     private static final char ipFlag = 'v';
     private static final char reconnectFlag = 'w';
     private static final char changeOneButtonFlag = 'x';
-
-
+    private static final char hurricaneFlag = 'y';
     private static final char receivedFlag = 'z';
 
     private static HashMap<String, Character> flagMap;
@@ -115,6 +114,7 @@ public class Flags {
         flagMap.put("IP", ipFlag);
         flagMap.put("Reconnect", reconnectFlag);
         flagMap.put("ChangeOneButton", changeOneButtonFlag);
+        flagMap.put("Hurricane", hurricaneFlag);
     }
 
     /**

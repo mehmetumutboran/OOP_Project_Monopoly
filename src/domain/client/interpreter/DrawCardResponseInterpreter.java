@@ -7,6 +7,7 @@ import domain.server.board.specialSquares.CommunityChest;
 import domain.server.card.ChanceCard;
 import domain.server.card.Community;
 import domain.util.GameInfo;
+import network.client.clientFacade.ClientFacade;
 
 public class DrawCardResponseInterpreter implements ResponseInterpretable {
     @Override
@@ -18,7 +19,13 @@ public class DrawCardResponseInterpreter implements ResponseInterpretable {
 
         int[] loc = GameInfo.getInstance().getCurrentPlayer().getToken().getLocation().clone();
         if (Board.getInstance().getSquare(loc[0], loc[1]) instanceof Chance) {
-            Board.getInstance().getChanceList()[0].doAction(name);
+            ChanceCard sq = Board.getInstance().getChanceList()[0];
+            if(sq.getName().equals("Hurricane") &&
+                    (name.equals(ClientFacade.getInstance().getUsername()) ||
+                            GameInfo.getInstance().isMyselfHost() && GameInfo.getInstance().isBot(name)))
+                sq.doAction(name);
+            else if(!sq.getName().equals("Hurricane"))
+                sq.doAction(name);
             ChanceCard tmp = Board.getInstance().getChanceList()[0];
             Board.getInstance().setChanceList(0, Board.getInstance().getChanceList()[1]);
             Board.getInstance().setChanceList(1, tmp);
