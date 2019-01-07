@@ -3,6 +3,7 @@ package domain.server.board;
 import domain.server.board.specialSquares.*;
 import domain.server.card.ChanceCard;
 import domain.server.card.Community;
+import domain.server.card.Hurricane;
 import domain.server.card.chanceDeck.HolidayBonus;
 import domain.server.card.chanceDeck.SocialMediaFail;
 import domain.server.card.communityDeck.PayHospitalBills;
@@ -132,17 +133,19 @@ public class Board {
 //        communityCardsDeck.add(new TheInsidersEdge("TheInsidersEdge"));
 //        communityCardsDeck.add(new PayHospitalBills("PayHospitalBills"));
 
-        chanceList = new ChanceCard[2];
+        chanceList = new ChanceCard[3];
         communityList = new Community[2];
 
         TheInsidersEdge theInsidersEdge = new TheInsidersEdge("The Insiders Edge");
         communityList[0] = theInsidersEdge;
         PayHospitalBills payHospitalBills = new PayHospitalBills("Pay Hospital Bills");
         communityList[1] = payHospitalBills;
+        Hurricane hurricane = new Hurricane("Hurricane");
+        chanceList[0] = hurricane;
         HolidayBonus holidayBonus = new HolidayBonus("Holiday Bonus");
-        chanceList[0] = holidayBonus;
+        chanceList[1] = holidayBonus;
         SocialMediaFail socialMediaFail = new SocialMediaFail("Social Media Fail");
-        chanceList[1] = socialMediaFail;
+        chanceList[2] = socialMediaFail;
 
 
     }

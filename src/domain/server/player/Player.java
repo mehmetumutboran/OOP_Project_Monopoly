@@ -61,12 +61,13 @@ public class Player implements Comparable, Savable {
 
         //TODO test purposes
 
-        if (this.name.equals("Brian")) {
+        if (this.name.contains("MBot Ross")) {
             this.ownedProperties.add((Property) Board.getInstance().getNameGivenSquare("Esplanade Avenue"));
             this.ownedProperties.add((Property) Board.getInstance().getNameGivenSquare("Canal Street"));
             this.ownedProperties.add((Property) Board.getInstance().getNameGivenSquare("Magazine Street"));
             this.ownedProperties.add((Property) Board.getInstance().getNameGivenSquare("Bourbon Street"));
-
+            ((Property) Board.getInstance().getNameGivenSquare("Magazine Street")).upgrade();
+            ((Property) Board.getInstance().getNameGivenSquare("Canal Street")).upgrade();
 
             //this.ownedProperties.add((Property) Board.getInstance().getNameGivenSquare("Bourbon Street"));
 
