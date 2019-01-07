@@ -380,4 +380,8 @@ public class GameInfo implements Savable {
         if (!isStarted) return false;
         return this.wasHostPeekBefore;
     }
+
+    public void loadQueueFix() {
+        playerQueue.addFirst(playerQueue.removeLast());
+    }
 }
